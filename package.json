@@ -1,4 +1,10 @@
 {
   "name": "BEE Tracking Software",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "scripts": {
+    "client": "npm start --prefix client/",
+    "server": "nodemon server/index.js",
+    "dev": "npm run client & npm run server",
+    "install-beets": "npm i --prefix client/ & npm i --prefix server/"
+  }
 }
