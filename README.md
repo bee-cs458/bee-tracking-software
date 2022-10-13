@@ -26,8 +26,23 @@ VS Code is the recommended code editor for this project, but you are free to use
 ### 6. Create a New Branch
 In order to make sure that all code is reviewed before being adding to our main branch, everyone will work in branches and then submit a pull request once done. To create a new branch, you can do so in GitHub by clicking "fork" or by clicking on the branch name in the bottom left corner of VS Code. If you just downloaded the project, it should be called "main". 
 
+You should call your branch something like "beets-##-description-of-work". Replace the ## with the number from your Jira ticket. 
+
 You are now ready to start development! 
+
+### Troubleshooting
+Remember, if you run into any issues along the way, please post it in the "Technical Help" channel of the MS Teams.
 
 ## App Overview
 BEETS is divided into three main parts: Frontend (React), Backend/API (Express), and the Database (MySQL).
+
+## Team
+- Gentz, Cody (Technical Lead)
+- Hess, Damian
+- Husein, Rahmi
+- Leverty, Keenan (Scrum Master)
+- Prew, Ella
+- Thatcher, Khameron
+- Tiefenthaler, Colby (Product Owner)
+- Wehrman, Joshua
 
