@@ -1,6 +1,7 @@
 {
-  "name": "BEE Tracking Software",
+  "name": "beets",
   "version": "0.1.0",
+  "description": "BEE Tracking Software",
   "scripts": {
     "client": "npm start --prefix client/",
     "server": "npm start --prefix server/",
