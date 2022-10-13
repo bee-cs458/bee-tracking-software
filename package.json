@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "client": "npm start --prefix client/",
-    "server": "nodemon server/index.js",
+    "server": "npm start --prefix server/",
     "dev": "npm run client & npm run server",
     "install-beets": "npm i --prefix client/ & npm i --prefix server/"
   }
