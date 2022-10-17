@@ -23,3 +23,9 @@ export const updateCount = async (req, res) => {
         res.status(409).json({ message: error });
     }
 }
+
+export const deleteCount = async(req, res) => {
+    const { id: _id } = req.params;
+    console.log(id);
+    // Insert code to search DB by id and delete
+}
