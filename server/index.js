@@ -19,7 +19,7 @@ app.use("/api/count", counterRoutes);
 
 app.get('/api', (req, res) => {
   res.send('Hello World!');
-})
+});
 
 app.listen(PORT, () => {
   console.log(`beets-api listening on port ${PORT}`);
