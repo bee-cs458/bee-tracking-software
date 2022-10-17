@@ -45,8 +45,10 @@ BEETS is divided into three main parts: Frontend (React), Backend/API (Express),
 - tests -> a place for unit tests
 
 ### Backend
-- controllers -> contain "Controller" files that have methods to interact with the database
+- controllers -> contains "Controller" files that have methods to interact with the database
 - routes -> determines which methods from the Controller gets called based on the URL
+- utilities -> contains files with miscellaneous methods that help accomplish a task
+    - DatabaseUtilities -> contains methods that help setup the database connection. Use the "query" method to run SQL scripts
 
 ## Team
 - Gentz, Cody (Technical Lead)
