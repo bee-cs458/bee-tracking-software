@@ -22,10 +22,6 @@ app.get('/api', (req, res) => {
   res.send('Hello World!');
 })
 
-app.get("*", (req, res) => {
-  res.redirect("/api");
-})
-
 app.listen(PORT, () => {
   console.log(`beets-api listening on port ${PORT}`);
 })
