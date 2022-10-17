@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 
+import counterRoutes from './routes/CounterRoutes.js';
+
 dotenv.config();
 
 const app = express();
@@ -14,10 +16,16 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 const CONNECTION_URL = process.env.CONNECTION_URL;
 const PORT = process.env.PORT || 5000;
 
-app.get('/', (req, res) => {
+app.use("/api/count", counterRoutes);
+
+app.get('/api', (req, res) => {
   res.send('Hello World!');
 })
 
+app.get("*", (req, res) => {
+  res.redirect("/api");
+})
+
 app.listen(PORT, () => {
-  console.log(`BEETS-API listening on port ${PORT}`);
+  console.log(`beets-api listening on port ${PORT}`);
 })
