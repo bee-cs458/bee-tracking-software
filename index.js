@@ -3,8 +3,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import fs from 'fs';
+import path from 'path';
 
-import counterRoutes from './routes/CounterRoutes.js';
+import apiRoutes from './routes/index.js';
 
 dotenv.config();
 
@@ -19,22 +20,25 @@ const devModeEnabled = (process.argv.includes('development'));
 // set to 3000 for prod, 5000 for dev
 const PORT = (devModeEnabled ? 5000 : process.env.PORT || 3000);
 
+// back-end
+app.use('/api', apiRoutes);
+
 // front-end
 if (!devModeEnabled) {
-  if (fs.existsSync('client/build')) {
-    app.use('/', express.static('client/build'));
+  const buildPath = path.resolve('client/build');
+  // make sure client build exists
+  if (fs.existsSync(buildPath)) {
+    app.use('/', express.static(buildPath));
   }
   else {
-    app.get('/', (req, res) => res.send('The folder client/build was not found at runtime.'));
+    app.use('/', (req, res) => res.status(500).send('The folder client/build was not found at runtime.'));
   }
 }
 
-app.use("/api/count", counterRoutes);
+// fix for react router
+app.get('*', (req, res) => res.sendFile(path.resolve('client/build/index.html')));
 
-app.get('/api', (req, res) => {
-  res.send('Hello World!');
-})
-
+// start server
 app.listen(PORT, () => {
   console.log(`BEETS listening on port ${PORT}`);
-})
+});
