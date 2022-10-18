@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - beets-prod
 on:
   push:
     branches:
-      - main
+      - testing
   workflow_dispatch:
 
 jobs:
