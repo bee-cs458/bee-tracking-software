@@ -11,6 +11,7 @@ function NavBar() {
     return (
         <nav className="App-nav">
             <ul>
+                {/* All links waiting to be linked to something, can be edited based on user type */}
                 <li>
                     <Link to="/">
                     <img src={list} alt="list" width="20" height="18"/>Assets
