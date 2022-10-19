@@ -1,13 +1,15 @@
 import express from 'express';
-import { query } from '../utilities/DatabaseUtilities.js'
+import { query } from '../utilities/DatabaseUtilities.js';
 const router = express.Router();
 
 // import all api routes here
-import counterRoutes from './CounterRoutes.js'
+import counterRoutes from './CounterRoutes.js';
+import assetRoutes from './AssetRoutes.js';
 
 // our api routes
 router.get("/", (req, res) => res.send("Hello World!"));
 router.use("/count", counterRoutes);
+router.use("/asset", assetRoutes)
 
 // Test Database Endpoint - demonstration purposes only
 router.get("/dbTest", async (req, res) => {
