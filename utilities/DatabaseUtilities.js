@@ -1,8 +1,13 @@
 import mysql from 'mysql2/promise';
 import fs from 'fs';
 
-export async function query(sql, params) {
-    const connection = await mysql.createConnection({
+let pool = null;
+
+async function getPool() {
+    if (pool) {
+        return pool;
+    }
+    const config = {
         host: process.env.DB_CONNECTION_URL,
         user: process.env.DB_USER,
         port: process.env.DB_PORT,
@@ -11,10 +16,17 @@ export async function query(sql, params) {
         ssl: {
             ca: fs.readFileSync(process.env.CERT_PATH)
         }
-    });
+    };
+    pool = mysql.createPool(config);
+    return pool;
+}
 
+const connection = null
+
+export async function query(sql, params) {
     try {
-        const [results,] = await connection.execute(sql, params);
+        const pool = await getPool();
+        const [results,] = await pool.execute(sql, params);
 
         if (!results) {
             return [];
