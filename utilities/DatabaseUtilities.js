@@ -1,7 +1,32 @@
 import mysql from 'mysql2/promise';
 import fs from 'fs';
+import path from 'path';
 
 let pool = null;
+
+export async function createSchema() {
+    const schemaPath = path.resolve('schema.sql');
+    if (fs.existsSync(schemaPath)) {
+        try {
+            const queryStatements = fs.readFileSync(schemaPath, "utf8").split(';');
+            const queryPromises = [];
+            const pool = await getPool();
+            for (const statement of queryStatements) {
+                // ensure not just whitespace
+                if (statement.trim()) {
+                    queryPromises.push(pool.query(statement))
+                }
+            }
+            await Promise.all(queryPromises);
+            return true;
+        }
+        catch (err) {
+            console.log(`Could not create schema\n${err.message}`)
+            return false;
+        }
+    }
+    return false;
+}
 
 async function getPool() {
     if (pool) {
