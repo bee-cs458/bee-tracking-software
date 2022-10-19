@@ -11,7 +11,7 @@ To get started working on BEETS, clone this repository using your favorite git t
 Navigate to the [Node.js website](https://nodejs.org/en/download/) and download the Long Term Support (LTS) version (16.18.0)
 
 ### 3. Install Dependencies
-Open the root folder of your git project. This should include a "client" folder, a "controllerd" folder, a "utilities" folder, a "routes" folder, a package.json file, and potentially a few other miscellaneous files. 
+Open the root folder of your git project. This should include a "client" folder, a "controllers" folder, a "utilities" folder, a "routes" folder, a package.json file, and potentially a few other miscellaneous files. 
 
 In this folder, open a command prompt or terminal window. Then, run the following command: `npm i`.
 
