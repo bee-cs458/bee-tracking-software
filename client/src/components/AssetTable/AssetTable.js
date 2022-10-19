@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getAllAssets } from '../../api/AssetService';
+import Table from 'react-bootstrap/Table';
 import AssetRow from './AssetRow/AssetRow';
 
 function AssetTable() {
@@ -19,28 +20,33 @@ function AssetTable() {
 
             <button onClick={() => assetButtonClick()}>Get Assets</button>
 
-            <div>
+            {assets != null &&
 
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Tag</td>
-                            <td>Name</td>
-                            <td>Description</td>
-                            <td>Date Added</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {assets != null &&
-                            assets.map(asset => (
-                                <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
+                <div>
 
-                            ))
-                        }
-                    </tbody>
-                </table>
+                    <Table striped bordered>
+                        <thead>
+                            <tr>
+                                <td>Tag</td>
+                                <td>Name</td>
+                                <td>Description</td>
+                                <td>Date Added</td>
+                                <td>Category</td>
+                                <td>Checked Out</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {assets != null &&
+                                assets.map(asset => (
+                                    <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
 
-            </div>
+                                ))
+                            }
+                        </tbody>
+                    </Table>
+
+                </div>
+            }
         </div>
     );
 }

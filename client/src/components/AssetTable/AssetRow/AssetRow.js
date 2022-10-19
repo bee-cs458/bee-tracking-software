@@ -12,6 +12,8 @@ function AssetRow(props) {
             <td>{asset.name}</td>
             <td>{asset.description}</td>
             <td>{asset.date_added}</td>
+            <td>{asset.category}</td>
+            <td>{asset.checked_out ? "yes" : "no"}</td>
         </tr>
     );
 
