@@ -7,12 +7,30 @@ CREATE TABLE IF NOT EXISTS `asset` (
   `description` mediumtext NOT NULL,
   `date_added` date NOT NULL,
   `damage_notes` mediumtext,
-  `catagory` int NOT NULL,
+  `category` int NOT NULL,
   `operational` tinyint NOT NULL,
   `checked_out` tinyint NOT NULL,
   `advanced` tinyint NOT NULL,
   PRIMARY KEY (`asset_tag`),
   UNIQUE KEY `asset_tag_UNIQUE` (`asset_tag`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Table structure for table `user`
+-- 
+-- THIS SHOULD COME BEFORE checkoutrecord OR ITS CONSTRAINT WILL FAIL
+-- 
+CREATE TABLE IF NOT EXISTS `user` (
+  `user_id` int NOT NULL,
+  `first_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) NOT NULL,
+  `strikes` tinyint DEFAULT NULL,
+  `username` varchar(90) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  `permissions` tinyint NOT NULL,
+  `advanced` tinyint NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_id_UNIQUE` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -35,20 +53,4 @@ CREATE TABLE IF NOT EXISTS `checkoutrecord` (
   CONSTRAINT `asset_tag` FOREIGN KEY (`asset_tag`) REFERENCES `asset` (`asset_tag`),
   CONSTRAINT `operator-id` FOREIGN KEY (`operator_id`) REFERENCES `user` (`user_id`),
   CONSTRAINT `student_id` FOREIGN KEY (`student_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Table structure for table `user`
---
-CREATE TABLE IF NOT EXISTS `user` (
-  `user_id` int NOT NULL,
-  `first_name` varchar(45) NOT NULL,
-  `last_name` varchar(45) NOT NULL,
-  `strikes` tinyint DEFAULT NULL,
-  `username` varchar(90) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
-  `permissions` tinyint NOT NULL,
-  `advanced` tinyint NOT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_id_UNIQUE` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
