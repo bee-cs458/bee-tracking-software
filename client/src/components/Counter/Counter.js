@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getCounterValue, updateCounterValue } from '../../api/CounterService';
+import AssetTable from '../AssetTable/AssetTable';
 
 function Counter() {
 
@@ -43,6 +44,10 @@ function Counter() {
             <button onClick={() => incrementCounter(3)}>Increment 3</button>
             <button onClick={() => incrementCounter(4)}>Increment 4</button>
             <p>{getCount()}</p>
+
+            <div>
+                <AssetTable></AssetTable>
+            </div>
         </div>
     );
 }
