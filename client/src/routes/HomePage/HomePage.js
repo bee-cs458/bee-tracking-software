@@ -28,7 +28,7 @@ function HomePage() {
             </div>
             <div className="container-fluid main-content">
                 {/* Container for the main section of the page, can be edited to include more functions */}
-                <p>hello hello hello filler text hello hello hello hello</p>
+                
 
             </div>
         </div>
