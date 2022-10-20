@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getAllAssetsWithDueDates } from '../../api/AssetService';
 import Table from 'react-bootstrap/Table';
+import Alert from 'react-bootstrap/Alert';
 import AssetRow from './AssetRow/AssetRow';
 
 function AssetTable() {
@@ -20,7 +21,7 @@ function AssetTable() {
 
             <button onClick={() => assetButtonClick()}>Get Assets</button>
 
-            {assets != null &&
+            {assets != null ?
 
                 <div>
 
@@ -47,6 +48,9 @@ function AssetTable() {
                     </Table>
 
                 </div>
+
+                : <Alert variant='warning'>No assets found!</Alert>
+
             }
         </div>
     );
