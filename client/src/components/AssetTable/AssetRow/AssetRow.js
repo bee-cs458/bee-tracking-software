@@ -6,7 +6,7 @@ function AssetRow(props) {
 
     useEffect(() => { }, [asset])
 
-    return(
+    return (
         <tr>
             <td>{asset.asset_tag}</td>
             <td>{asset.name}</td>
@@ -14,6 +14,7 @@ function AssetRow(props) {
             <td>{asset.date_added}</td>
             <td>{asset.category}</td>
             <td>{asset.checked_out ? "yes" : "no"}</td>
+            <td>{asset.due_date}</td>
         </tr>
     );
 

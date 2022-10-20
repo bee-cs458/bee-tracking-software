@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllAssets } from '../../api/AssetService';
+import { getAllAssetsWithDueDates } from '../../api/AssetService';
 import Table from 'react-bootstrap/Table';
 import AssetRow from './AssetRow/AssetRow';
 
@@ -11,7 +11,7 @@ function AssetTable() {
     useEffect(() => { }, [assets])
 
     async function assetButtonClick() {
-        const assetResults = await getAllAssets();
+        const assetResults = await getAllAssetsWithDueDates();
         setAssets(assetResults);
     }
 
@@ -33,6 +33,7 @@ function AssetTable() {
                                 <td>Date Added</td>
                                 <td>Category</td>
                                 <td>Checked Out</td>
+                                <td>Due Date</td>
                             </tr>
                         </thead>
                         <tbody>
