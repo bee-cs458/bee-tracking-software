@@ -15,15 +15,18 @@ Open the root folder of your git project. This should include a "client" folder,
 
 In this folder, open a command prompt or terminal window. Then, run the following command: `npm i`.
 
-### 4. Start the App
+### 4. Setup Environment Variables
+Download the .env file from the Microsoft Teams "Useful Links" channel. Place this in the root folder.
+
+### 5. Start the App
 Now, it is time to run the application. To do this, in the same terminal/command prompt window as before, run the following command: `npm run dev`
 
 If it worked, you should see a message in terminal which says "Webpack compiled successfully".
 
-### 5. Open in VS Code
+### 6. Open in VS Code
 VS Code is the recommended code editor for this project, but you are free to use whatever you are comfortable with. Now that the project is downloaded and setup, you can open VS Code and click File > Open Folder. Navigate to the projects root folder (remember, the one that contains server, client and package.json)
 
-### 6. Create a New Branch
+### 7. Create a New Branch
 In order to make sure that all code is reviewed before being adding to our main branch, everyone will work in branches and then submit a pull request once done. To create a new branch, you can do so in GitHub by clicking "branches">"New branch" or by clicking on the branch name in the bottom left corner of VS Code. If you just downloaded the project, it should be called "main". For now, your source branch should always be "main". 
 
 You should call your branch something like "beets-##-description-of-your-work". Replace the ## with the number from your Jira ticket. 

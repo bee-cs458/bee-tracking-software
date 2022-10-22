@@ -9,7 +9,7 @@ import assetRoutes from './AssetRoutes.js';
 // our api routes
 router.get("/", (req, res) => res.send("Hello World!"));
 router.use("/count", counterRoutes);
-router.use("/asset", assetRoutes)
+router.use("/asset", assetRoutes);
 
 // Test Database Endpoint - demonstration purposes only
 router.get("/dbTest", async (req, res) => {
