@@ -28,20 +28,26 @@ export const requireBody = (...paramList) => {
             status: 400,
             message: 'Body cannot be empty.'
         })
-        next();
+        else {
+            next();
+        }
     };
     // if validators are specified
     return (req, res, next) => {
+        let good = true;
         for (const param of paramList) {
             // check exists
             if (!(param in req.body)) {
+                good = false;
                 next({
                     status: 400,
                     message: `Parameter '${param}' is required.`
                 });
             }
         }
-        next();
+        if (good) {
+            next();
+        }
     }
 }
 
@@ -61,11 +67,12 @@ export const filterQuery = (...paramList) => (req, res, next) => {
 
 export const restrictTo = (level) => async (req, res, next) => {
     // TODO implement authentication
-    if (permissionLevels?.[req?.headers?.backdoor] >= permissionLevels[level]) {
+    const role = req?.headers?.backdoor ?? 'student';
+    if (permissionLevels?.[role] >= permissionLevels[level]) {
         next();
     }
     else next({
         status: 401,
-        message: 'Access Denied'
+        message: `Access Denied: Role '${role}' is not allowed ${req.method} on ${req.originalUrl}`
     });
 }
