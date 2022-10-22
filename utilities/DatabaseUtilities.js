@@ -50,11 +50,9 @@ async function getConnection(extraConfig) {
     if (extraConfig) {
         return await mysql.createConnection(Object.assign(config, extraConfig));
     }
-    pool = await mysql.createPool(config);
+    pool = mysql.createPool(config);
     return pool;
 }
-
-const connection = null
 
 export async function query(sql, params) {
     try {
@@ -63,12 +61,18 @@ export async function query(sql, params) {
 
         if (!results) {
             return [];
-        } else {
-            return results;
         }
+        return results;
 
     } catch (error) {
-        console.log("Error Querying Database");
-        console.log(error.message);
+        error.message = `Error Querying Database: ${error.message}`;
+        throw error; // rethrow
     }
 }
+
+// utilities for constructing
+export const insert_params = (fields) => fields.map(key => `\`${key}\``).join(',');
+export const insert_values = (fields) => fields.map(() => "?").join(',');
+const equalsMapper = (fields, tableName) => fields.map(key => `${tableName ? `\`${tableName}\`` : ""}.\`${key}\`=?`);
+export const update_params = (a, b) => equalsMapper(a, b).join(", ");
+export const where_params = (a, b) => equalsMapper(a, b).join(" AND ");

@@ -46,6 +46,15 @@ if (!devModeEnabled) {
 // fix for react router
 app.get('*', (req, res) => res.sendFile(path.resolve('client/build/index.html')));
 
+// error handler
+app.use((err, req, res, next) => {
+  console.log(err.stack ?? err.message ?? err);
+  res.status(err.status ?? 500).send({
+    result: [],
+    message: err.message ?? "Unknown error!"
+  });
+})
+
 // start server
 app.listen(PORT, () => {
   console.log(`BEETS listening on port ${PORT}`);
