@@ -65,6 +65,7 @@ export async function query(sql, params) {
         return results;
 
     } catch (error) {
+        error.status = 400; // use code 400 instead of 500
         error.message = `Error Querying Database: ${error.message}`;
         throw error; // rethrow
     }

@@ -15,12 +15,14 @@ import { requireBody, restrictTo } from '../controllers/Authenticator.js'
 const router = express.Router();
 
 router.get("/due_dates/", getAllAssetsWithDueDates);
-router.get("/due_dates/:id(\\d+)", getDueDateOfAsset);
+router.get("/due_dates/:id", getDueDateOfAsset);
+router.get("/get_all_due_dates", getAllAssetsWithDueDates);
+router.get("/get_all", getAllAssets);
 router.get("/", getAllAssets);
-router.get("/:id(\\d+)", getSpecificAsset);
+router.get("/:id", getSpecificAsset);
 router.post("/", restrictTo('owner'), requireBody('asset_tag', 'name'), createAsset);
-router.post("/:id(\\d+)", restrictTo('owner'), requireBody(), updateAsset);
-router.delete("/:id(\\d+)", restrictTo('owner'), deleteAsset);
+router.post("/:id", restrictTo('owner'), requireBody(), updateAsset);
+router.delete("/:id", restrictTo('owner'), deleteAsset);
 // router.post("/:id(\\d+)/checkout", restrictTo('operator'), checkOutAsset);
 // router.post("/:id(\\d+)/checkin", restrictTo('operator'), checkInAsset);
 
