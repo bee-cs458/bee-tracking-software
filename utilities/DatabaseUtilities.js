@@ -74,6 +74,6 @@ export async function query(sql, params) {
 // utilities for constructing
 export const insert_params = (fields) => fields.map(key => `\`${key}\``).join(',');
 export const insert_values = (fields) => fields.map(() => "?").join(',');
-const equalsMapper = (fields, tableName) => fields.map(key => `${tableName ? `\`${tableName}\`` : ""}.\`${key}\`=?`);
+const equalsMapper = (fields, tableName) => fields.map(key => `${tableName ? `\`${tableName}\`.` : ""}\`${key}\`=?`);
 export const update_params = (a, b) => equalsMapper(a, b).join(", ");
 export const where_params = (a, b) => equalsMapper(a, b).join(" AND ");
