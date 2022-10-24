@@ -64,9 +64,10 @@
 
 .main-content {
   overflow: auto;
-  margin-left: 260px;
+  margin-left: 250px;
   text-align: left;
-  padding-top:45px;
+  padding-top:60px;
+  padding-left:10px;
   height: 100vh;
 }
 
