@@ -19,9 +19,9 @@ function HomePage() {
                 <div className="search-header">
                     {/* form waiting to be linked */}
                     <form action="/" />
-                        <input type="text" class="form-control" id="search" placeholder="Search" name="search"/>
-                        <button type="submit" class="btn btn-default">
-                        <img src={search} alt="search" width="22" height="22"/>
+                    <input type="text" class="form-control" id="search" placeholder="Search" name="search" />
+                    <button type="submit" class="btn btn-default">
+                        <img src={search} alt="search" width="22" height="22" />
                     </button>
                 </div>
                 {/* Extra space next to search bar to fill header, also includes sign in button */}
