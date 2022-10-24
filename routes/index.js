@@ -1,5 +1,4 @@
 import express from 'express';
-import { query } from '../utilities/DatabaseUtilities.js';
 const router = express.Router();
 
 // import all api routes here
@@ -12,14 +11,20 @@ router.use("/count", counterRoutes);
 router.use("/asset", assetRoutes);
 
 // Test Database Endpoint - demonstration purposes only
+/*
+import { query } from '../utilities/DatabaseUtilities.js';
 router.get("/dbTest", async (req, res) => {
 
     const result = await query("SELECT * FROM beets_staging.asset");
     res.send(result);
 
 });
+*/
 
 // catch-all for /api/something-not-valid
-router.use("/", (req, res) => res.status(404).send(`API route ${req.url} is not defined`));
+router.use("/", (req, res, next) => next({
+    status: 404,
+    message: `API route '${req.method} ${req.url}' is not defined`
+}));
 
 export default router;
