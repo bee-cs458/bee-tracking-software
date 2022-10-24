@@ -3,6 +3,7 @@ import './HomePage.css';
 import list from '../../assets/list.png';
 import search from '../../assets/search.png';
 import signIn from '../../assets/signIn.png';
+import AssetTable from '../../components/AssetTable/AssetTable'
 
 function HomePage() {
     return (
@@ -33,6 +34,10 @@ function HomePage() {
             </div>
             <div className="main-content">
                 {/* Container for the main section of the page, can be edited to include more content/functions */}
+                
+                <AssetTable>
+
+                </AssetTable>
 
             </div>
         </div>
