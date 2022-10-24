@@ -34,7 +34,7 @@ function NavBar() {
                 </li>
                 <li>
                     <Link to="/">
-                    <img src={logOut} alt="log out" width="20" height="18"/>Log Out
+                    <img src={logOut} alt="log in" width="20" height="18"/>Log In
                     </Link>
                 </li>
 
