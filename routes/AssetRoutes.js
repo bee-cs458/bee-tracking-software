@@ -7,10 +7,11 @@ import {
     createAsset,
     updateAsset,
     deleteAsset,
+    searchForAsset,
     // checkOutAsset,
     // checkInAsset
 } from '../controllers/AssetController.js';
-import { requireBody, restrictTo } from '../controllers/Authenticator.js'
+import { requireBody, restrictTo, requireQuery, filterQuery } from '../controllers/Authenticator.js'
 
 const router = express.Router();
 
@@ -19,6 +20,12 @@ router.get("/due_dates/:id", getDueDateOfAsset);
 router.get("/get_all_due_dates", getAllAssetsWithDueDates);
 router.get("/get_all", getAllAssets);
 router.get("/", getAllAssets);
+router.get(
+    "/search",
+    requireQuery('limit', 'description'),
+    filterQuery('limit', 'offset', 'description', 'damage_notes'),
+    searchForAsset
+);
 router.get("/:id", getSpecificAsset);
 router.post("/", restrictTo('owner'), requireBody('asset_tag', 'name'), createAsset);
 router.post("/:id", restrictTo('owner'), requireBody(), updateAsset);
