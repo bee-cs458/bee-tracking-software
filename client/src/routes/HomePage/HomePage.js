@@ -23,7 +23,7 @@ function HomePage() {
                         <img src={search} alt="search" width="22" height="22"/>
                     </button>
                 </div>
-                {/* Extra space next to search bar to fill header, intended to stay empty */}
+                {/* Extra space next to search bar to fill header, also includes sign in button */}
                 <div className="right-header">
                     <form action="/" />
                         <button type="signIn" class="btn btn-default">Sign In
@@ -32,7 +32,7 @@ function HomePage() {
                 </div>    
             </div>
             <div className="main-content">
-                {/* Container for the main section of the page, can be edited to include more functions */}
+                {/* Container for the main section of the page, can be edited to include more content/functions */}
 
             </div>
         </div>
