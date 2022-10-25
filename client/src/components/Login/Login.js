@@ -1,18 +1,15 @@
-import Popup from 'react-popup';
 
-
-
-function login() {
-
-return(
-    <div>
-        <input type="text"></input>
-
-        <input type="text"></input>
-
-    </div>
-);
-
+function Login(){
+    return(
+        <>
+            Username:<br></br>
+            <input type="text"></input>
+            <br></br>
+            Password:<br></br>
+            <input type="text"></input>
+        </>
+    
+    );
 }
 
-export default login;
+export default Login;
