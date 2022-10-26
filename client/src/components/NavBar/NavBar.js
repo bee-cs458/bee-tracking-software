@@ -10,17 +10,14 @@ import Modal from 'react-bootstrap/Modal';
 import Login from "../Login/Login";
 import './NavBar.css';
 
-
 function NavBar() {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    
     return (
         
-      
         <nav className="App-nav">
             <ul>
                 {/* All links waiting to be linked to something, can be edited based on user type */}
@@ -44,24 +41,24 @@ function NavBar() {
                     <img src={operators} alt="operators" width="20" height="18"/>Operators
                     </Link>
                 </li>
-                <li onClick={handleShow}>
+                {true //if
+                ?<li onClick={handleShow}> 
                     <Link to="/">
+                        
                     <img src={logOut} alt="log in" width="20" height="18"/>Log In
                     </Link>
                 </li>
+                :<li onClick={null}>
+                    <Link to="/">
+                        <img src={logOut} alt="log out" width="20" height="18"/>Log Out
+                    </Link>
+                </li>
+                }
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Login</Modal.Title>
                     </Modal.Header>
                     <Modal.Body><Login /></Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Cancel
-                        </Button>
-                        <Button variant="primary" onClick={handleClose}>
-                            Login
-                        </Button>
-                    </Modal.Footer>
                 </Modal>
             </ul>
         </nav>
