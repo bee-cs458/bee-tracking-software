@@ -11,7 +11,7 @@ export async function verifyLogin(user, pass) {
         }
     });
 
-        return response.data.result;
+        return response.data.result[0];
     } catch (error) {
         console.log('help');
         return "Error Getting Login Info";
