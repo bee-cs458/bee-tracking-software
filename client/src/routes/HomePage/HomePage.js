@@ -4,6 +4,7 @@ import './HomePage.css';
 import list from '../../assets/list.png';
 import search from '../../assets/search.png'
 import AssetTable from '../../components/AssetTable/AssetTable'
+import CatDropdown from '../../components/CatDropdown/CatDropdown.js'
 
 function HomePage() {
     return (
@@ -23,6 +24,9 @@ function HomePage() {
                     <button type="submit" class="btn btn-default">
                         <img src={search} alt="search" width="22" height="22" />
                     </button>
+
+                    <CatDropdown></CatDropdown>
+
                 </div>
                 {/* Extra space next to search bar to fill header, intended to stay empty */}
                 <div className="right-header"></div>
@@ -33,7 +37,6 @@ function HomePage() {
                 <AssetTable>
 
                 </AssetTable>
-
 
             </div>
         </div>
