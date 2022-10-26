@@ -1,25 +1,35 @@
 import { useEffect, useState } from 'react';
-import { getAllAssetsWithDueDates } from '../../api/AssetService';
+import { getAllAssetsWithDueDates, getAssestsByDescription } from '../../api/AssetService';
 import Table from 'react-bootstrap/Table';
 import Alert from 'react-bootstrap/Alert';
 import AssetRow from './AssetRow/AssetRow';
 
-function AssetTable() {
 
+
+function AssetTable(props) {
+    
     const [assets, setAssets] = useState(null);
 
     // Tells the component to re-render when the assets variable changes
     useEffect(() => { }, [assets])
 
     async function assetButtonClick() {
-        const assetResults = await getAllAssetsWithDueDates();
+       const assetResults = await getAllAssetsWithDueDates();      
         setAssets(assetResults);
     }
 
+    async function assetSearch(input) {
+         console.log("Inside assetSearch Function");
+         const searchResults = await getAssestsByDescription(input);
+        setAssets(searchResults);
+     }
+
+
     return (
         <div>
-
             <button onClick={() => assetButtonClick()}>Get Assets</button>
+            <button onClick={() => assetSearch("bus")}>Get Specific Assets</button>
+            
 
             {assets != null ?
 
@@ -55,5 +65,13 @@ function AssetTable() {
         </div>
     );
 }
+
+ export async function assetSearch(input) {
+    console.log("Inside export assetSearch Function");
+    const searchResults = await getAssestsByDescription(input);
+    
+    console.log("Attempting to setAssests Table");
+    //setAssets(searchResults);
+ }
 
 export default AssetTable;

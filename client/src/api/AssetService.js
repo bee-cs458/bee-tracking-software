@@ -33,3 +33,31 @@ export async function getAllAssetsWithDueDates() {
         return "Error Getting Assets with Due Dates from API";
     }
 }
+
+/*
+Calls API endpoint for getting assests based on description searched by user
+*/
+export async function getAssestsByDescription(input){
+    try{
+        console.log("Getting Assests by Description: " + "'" + input + "'");
+
+        const response = await axios.get('/api/asset/search', {
+            params:{
+                limit:10,
+                description: input,
+            }
+        });
+        return response.data.result;
+    }catch(error){
+        return "Error Getting Assests by Description from API";
+    }
+}
+
+
+
+
+
+
+
+
+

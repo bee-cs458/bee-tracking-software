@@ -4,8 +4,12 @@ import './HomePage.css';
 import list from '../../assets/list.png';
 import search from '../../assets/search.png'
 import AssetTable from '../../components/AssetTable/AssetTable'
+import {assetSearch} from '../../components/AssetTable/AssetTable'
 
-function HomePage() {
+
+
+
+function HomePage() { 
     return (
         <div className="App">
             <div className="header-container container-fluid">
@@ -19,8 +23,8 @@ function HomePage() {
                 <div className="search-header">
                     {/* form waiting to be linked */}
                     <form action="/" />
-                    <input type="text" class="form-control" id="search" placeholder="Search" name="search" />
-                    <button type="submit" class="btn btn-default">
+                    <input type="text" class="form-control" id="search" placeholder="Search" name="search"/>
+                    <button type="submit" class="btn btn-default" onClick={getInputValue}>
                         <img src={search} alt="search" width="22" height="22" />
                     </button>
                 </div>
@@ -31,13 +35,20 @@ function HomePage() {
                 {/* Container for the main section of the page, can be edited to include more functions */}
 
                 <AssetTable>
-
+                    
                 </AssetTable>
 
 
             </div>
         </div>
     );
+}
+
+function getInputValue(){
+    // Selecting the input element and get its value 
+    var inputVal = document.getElementById("search").value;
+    console.log("Input Value: " + inputVal);
+    assetSearch(inputVal);
 }
 
 export default HomePage;
