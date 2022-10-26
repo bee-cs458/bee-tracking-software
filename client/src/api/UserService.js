@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { response } from 'express';
 
 export async function verifyLogin(user, pass) {
     try {
