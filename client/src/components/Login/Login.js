@@ -24,7 +24,7 @@ function Login(){
             <input id ="password" type="password"></input>
             {false ? <>Username or Passowrd is not correct <br></br></>:<></>}
             <div>
-            <Button variant="primary" onClick= {async () =>  {update( await verifyLogin('seynon5' , '2tn4mdI0GA8')); toggleUpdate(true)}} style={{float: 'right'}}>
+            <Button variant="primary" onClick= {async () =>  {update( await verifyLogin(document.getElementById('username').value , document.getElementById('password').value)); toggleUpdate(true)}} style={{float: 'right'}}>
                 Login
             </Button>
             </div>
