@@ -1,5 +1,6 @@
 import Button from "react-bootstrap/esm/Button";
 import { verifyLogin } from "../../api/UserService";
+import { useEffect , useState} from 'react';
 import {setUserId, setUserPerm } from "../../App.js";
 import './Login.css'; 
 
@@ -9,12 +10,13 @@ function update(perams){
 }
 
 function Login(){
-    console.log(window.userPermission);
-    return(
-        
-        <>
-        {(window.userPermission == 0) ?
-        <>
+    const [updated, toggleUpdate] = useState(null);
+    useEffect(() => { }, [updated]);
+    return( 
+    <>
+
+        {(localStorage.getItem("userPerms") == 0) ?
+            <>
             Username:<br></br>
             <input id="username" type="text"></input>
             <br></br>
@@ -22,21 +24,16 @@ function Login(){
             <input id ="password" type="password"></input>
             {false ? <>Username or Passowrd is not correct <br></br></>:<></>}
             <div>
-            <Button variant="primary" onClick= {async () =>  update( await verifyLogin('seynon5' , '2tn4mdI0GA8'))} style={{float: 'right'}}>
+            <Button variant="primary" onClick= {async () =>  {update( await verifyLogin('seynon5' , '2tn4mdI0GA8')); toggleUpdate(true)}} style={{float: 'right'}}>
                 Login
             </Button>
             </div>
-            </>
-            :
-            <>
-            Are you sure you want to Logout?
-            <div >
-            <Button variant="primary" onClick= {update({user_id: -1, permissions: 0})} style={{float: 'right'}}>
-                Logout
-            </Button>
-            </div>
-            </>
-            }
+        </>
+        : 
+        <>
+        Login Successful! Click the X to get back to the asset list.
+        </>
+        }
         </>
     );
 }

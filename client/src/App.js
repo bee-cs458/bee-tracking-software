@@ -1,14 +1,18 @@
 import { Outlet } from "react-router";
 import NavBar from "./components/NavBar/NavBar";
 
-window.userPermission = 0;
-window.userId = -1;
+var userPermission = 0;
+var userId = -1;
+if(localStorage.getItem("userPerms") == null){
+localStorage.setItem("userPerms", userPermission);
+localStorage.setItem("userId", userId);
+}
 
 function setUserId(newId){
-  window.userId = newId;
+  localStorage.setItem("userId", newId);
 }
 function setUserPerm(newPerm){
-  window.userPermission = newPerm;
+  localStorage.setItem("userPerms", newPerm);
 }
 
 const App = () => {

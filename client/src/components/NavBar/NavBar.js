@@ -7,6 +7,7 @@ import logOut from '../../assets/logOut.png';
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Login from "../Login/Login";
+import Logout from "../Login/Logout";
 import './NavBar.css';
 
 function NavBar() {
@@ -20,7 +21,7 @@ function NavBar() {
             <ul>
                 {/* All links waiting to be linked to something, can be edited based on user type */}
                 
-                {(window.userPermission == 0) //if
+                {(localStorage.getItem("userPerms") == 0) //if
                 ?<li onClick={handleShow}> 
                     <Link to="/">
                         
@@ -56,9 +57,9 @@ function NavBar() {
                 }
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>{(window.userPermission == 0) ? <>Login</> : <>Logout</>}</Modal.Title>
+                        <Modal.Title>{(localStorage.getItem("userPerms") == 0) ? <>Login</> : <>Logout</>}</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body><Login /></Modal.Body>
+                    <Modal.Body>{(localStorage.getItem("userPerms") == 0) ? <Login/> : <Logout/>}</Modal.Body>
                 </Modal>
             </ul>
         </nav>
