@@ -6,44 +6,31 @@ import fs from 'fs';
 import path from 'path';
 
 import { createSchema } from './utilities/DatabaseUtilities.js';
-import apiRoutes from './routes/index.js';
+import apiRoutes from './routes/ApiRoutesRoot.js';
 
-// copy from .env to environment
 dotenv.config();
+const devModeEnabled = (process.argv.includes('development'));
+const PORT = (devModeEnabled ? 5000 : process.env.PORT || 3000);
 
-// create schema if not exists
 await createSchema();
 
 const app = express();
 
-// boilerplate -- what exactly is this doing?
+// setup middleware
 app.use(cors());
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
-// run "index.js development" to trigger this flag
-const devModeEnabled = (process.argv.includes('development'));
-
-// set to 3000 for prod, 5000 for dev
-const PORT = (devModeEnabled ? 5000 : process.env.PORT || 3000);
-
-// back-end
+// api
 app.use('/api', apiRoutes);
 
-// front-end
+// host the frontend
 if (!devModeEnabled) {
   const buildPath = path.resolve('client/build');
-
-  // make sure client build exists before hosting it
-  if (fs.existsSync(buildPath)) {
-    app.use('/', express.static(buildPath));
-  }
-  else {
-    app.use('/', (req, res) => res.status(500).send('The folder client/build was not found at runtime.'));
-  }
+  app.use('/', express.static(buildPath));
 }
 
-// fix for react router
+// redirect to client
 app.get('*', (req, res) => res.sendFile(path.resolve('client/build/index.html')));
 
 // error handler
@@ -59,3 +46,6 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`BEETS listening on port ${PORT}`);
 });
+
+
+export default app;

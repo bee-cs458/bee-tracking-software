@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"nodemon --ignore client/ index.js development\" \"npm start --prefix client/\"",
-    "start": "node index.js",
+    "dev": "concurrently \"nodemon --ignore client/ app.js development\" \"npm start --prefix client/\"",
+    "start": "node app.js",
+    "test": "ava",
     "build": "npm run build --prefix client/",
     "postinstall": "cd client/ && npm install"
   },
@@ -21,5 +22,13 @@
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.20",
     "postinstall": "^0.8.0"
+  },
+  "devDependencies": {
+    "ava": "^5.0.1",
+    "sinon": "^14.0.1",
+    "supertest-as-promised": "^4.0.2"
+  },
+  "ava": {
+    "files": ["tests/*"]
   }
 }
