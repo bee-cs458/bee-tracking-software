@@ -5,8 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"nodemon --ignore client/ app.js development\" \"npm start --prefix client/\"",
-    "start": "node app.js",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "dev:client": "npm start --prefix client/",
+    "dev:server": "cross-env NODE_ENV=development nodemon --ignore client/ index.js development",
+    "start": "node index.js",
     "test": "ava",
     "build": "npm run build --prefix client/",
     "postinstall": "cd client/ && npm install"
@@ -19,16 +21,21 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "loglevel": "^1.8.0",
+    "loglevel-plugin-prefix": "^0.8.4",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.20",
     "postinstall": "^0.8.0"
   },
   "devDependencies": {
     "ava": "^5.0.1",
+    "cross-env": "^7.0.3",
     "sinon": "^14.0.1",
-    "supertest-as-promised": "^4.0.2"
+    "supertest": "^6.3.1"
   },
   "ava": {
-    "files": ["tests/*"]
+    "files": [
+      "tests/*"
+    ]
   }
 }
