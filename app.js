@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import path from 'path';
+import log from 'loglevel';
 
 import apiRoutes from './routes/ApiRoutesRoot.js';
 
@@ -23,7 +24,7 @@ app.get('*', (req, res) => res.sendFile(path.resolve('client/build/index.html'))
 
 // error handler
 app.use((err, req, res, next) => {
-  console.log(err.stack ?? err.message ?? err);
+  log.error(err.stack ?? err.message ?? err);
   res.status(err.status ?? 500).send({
     result: [],
     message: err.message ?? "Unknown error!"

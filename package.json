@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:client": "npm start --prefix client/",
-    "dev:server": "cross-env NODE_ENV=development nodemon --ignore client/ index.js development",
+    "dev:server": "cross-env NODE_ENV=development nodemon --ignore client/ index.js",
     "start": "node index.js",
     "test": "ava",
     "build": "npm run build --prefix client/",
@@ -30,12 +30,12 @@
   "devDependencies": {
     "ava": "^5.0.1",
     "cross-env": "^7.0.3",
-    "sinon": "^14.0.1",
     "supertest": "^6.3.1"
   },
   "ava": {
     "files": [
-      "tests/*"
+      "tests/*",
+      "!**/mock_data/**"
     ]
   }
 }
