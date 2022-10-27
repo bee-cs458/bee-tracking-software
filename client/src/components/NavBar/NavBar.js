@@ -20,7 +20,11 @@ function NavBar() {
         <nav className="App-nav">
             <ul>
                 {/* All links waiting to be linked to something, can be edited based on user type */}
-                
+                <li>
+                    <Link to="/">
+                        <img src={list} alt="list" width="20" height="18"/>Assets
+                    </Link>
+                </li>
                 {(localStorage.getItem("userPerms") == 0) //if
                 ?<li onClick={handleShow}> 
                     <Link to="/">
@@ -28,11 +32,8 @@ function NavBar() {
                     <img src={logOut} alt="log in" width="20" height="18"/>Log In
                     </Link>
                 </li>
-                :<><li>
-                    <Link to="/">
-                        <img src={list} alt="list" width="20" height="18"/>Assets
-                    </Link>
-                </li>
+                :
+                <>
                  <li>
                     <Link to="/">
                         <img src={checkOut} alt="check out" width="20" height="18"/>Check Out
