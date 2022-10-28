@@ -5,13 +5,12 @@ const router = express.Router();
 // import all api routes here
 import counterRoutes from './CounterRoutes.js';
 import assetRoutes from './AssetRoutes.js';
-import UserRoutes from './UserRoutes.js';
 
 // our api routes
 router.get("/", (req, res) => res.send("Hello World!"));
 router.use("/count", counterRoutes);
 router.use("/asset", assetRoutes);
-router.use("/user", UserRoutes);
+// router.use("/user", UserRoutes);
 
 // Test Database Endpoint - demonstration purposes only
 /*
