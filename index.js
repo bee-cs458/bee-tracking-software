@@ -1,4 +1,5 @@
 import express from 'express';
+import session from 'express-session';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
@@ -7,6 +8,7 @@ import path from 'path';
 
 import { createSchema } from './utilities/DatabaseUtilities.js';
 import apiRoutes from './routes/index.js';
+import passport from './utilities/passport-local-auth.js';
 
 // copy from .env to environment
 dotenv.config();
@@ -26,6 +28,20 @@ const devModeEnabled = (process.argv.includes('development'));
 
 // set to 3000 for prod, 5000 for dev
 const PORT = (devModeEnabled ? 5000 : process.env.PORT || 3000);
+
+// auth session setup
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 86400,
+    secure: !devModeEnabled
+  }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // back-end
 app.use('/api', apiRoutes);
