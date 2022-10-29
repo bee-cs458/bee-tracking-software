@@ -59,6 +59,25 @@ export const getSpecificAsset = async (req, res, next) => {
     )
 }
 
+export const getAssetFromCat = async (req, res, next) => {
+    const assetCat = req.params.id;
+    await query(`SELECT * FROM asset WHERE \`asset\`.\`category\`=?;`, [assetCat]).then(
+        (result) => {
+            if (result?.length <= 0) next({
+                status: 404,
+                message: `Asset with category of ${assetCat} was not found`
+            });
+            else {
+                res.send({ result });
+            }
+        },
+        (reason) => {
+            reason.message = `Error Getting Asset: ${reason.message}`;
+            next(reason);
+        }
+    )
+}
+
 export const createAsset = async (req, res, next) => {
     const fields = Object.keys(req.body);
     const values = Object.values(req.body);

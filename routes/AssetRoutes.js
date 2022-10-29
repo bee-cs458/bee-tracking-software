@@ -7,6 +7,7 @@ import {
     createAsset,
     updateAsset,
     deleteAsset,
+    getAssetFromCat,
     // checkOutAsset,
     // checkInAsset
 } from '../controllers/AssetController.js';
@@ -20,6 +21,7 @@ router.get("/get_all_due_dates", getAllAssetsWithDueDates);
 router.get("/get_all", getAllAssets);
 router.get("/", getAllAssets);
 router.get("/:id", getSpecificAsset);
+router.get("/get_asset_via_cat/:id", getAssetFromCat)
 router.post("/", restrictTo('owner'), requireBody('asset_tag', 'name'), createAsset);
 router.post("/:id", restrictTo('owner'), requireBody(), updateAsset);
 router.delete("/:id", restrictTo('owner'), deleteAsset);
