@@ -6,7 +6,7 @@ import search from "../../assets/search.png";
 import AssetTable from "../../components/AssetTable/AssetTable";
 import CatDropdown from "../../components/CatDropdown/CatDropdown.js";
 
-var selectedVal = 2
+var selectedVal = 2 // TODO need to make this value gotten from the dropdown
 
 export default function HomePage() {
   return (
