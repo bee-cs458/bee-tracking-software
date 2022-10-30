@@ -1,45 +1,43 @@
-import { useEffect, useState } from 'react';
-import Dropdown from 'react-bootstrap/Dropdown'
-import getAllCategories from '../../api/CategoryService';
+import { useEffect, useState } from "react";
+import Dropdown from "react-bootstrap/Dropdown";
+import getAllCategories from "../../api/CategoryService";
 
-// TODO initial hard coded information, need to query the databse somehow :thinking-face:
-const cat1 = 'Lights'
-const cat2 = 'Camera'
-const cat3 = 'Action'
-const cat4 = 'Corn'
-const cat5 = 'Cry'
-
-function DDownItem(props){
-  return (
-    <Dropdown.Item href="#/action-3">{props}</Dropdown.Item>
-  );
+function DDownItem(props) {
+  return <Dropdown.Item href="#/action-3">{props}</Dropdown.Item>;
 }
 
-function CatDropdown() {   // TODO Still need to connect database and update table
+export function useChange() {
+  const [selectedValue, setValue] = useState(0);
+  function change(value) {
+    setValue(value);
+  }
+  return { change, selectedValue };
+}
 
-  const [categories, setCategories] = useState(null);
+export default function CatDropdown() {
+  const { change, selectedValue } = useChange();
+  let categories;
 
-  useEffect(() => { }, [categories])
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   async function getCategories() {
     const catResults = await getAllCategories();
-    setCategories(catResults);
+    categories = catResults;
+    console.log(categories);
   }
 
-  getCategories();
-  console.log(categories);
-
   return (
-    <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Category
-      </Dropdown.Toggle>
+    <Dropdown title="CategoryDropdown" onSelect={change}>
+      <Dropdown.Toggle id="dropdown-basic">Filter Category</Dropdown.Toggle>
 
       <Dropdown.Menu>
-        for
+        <Dropdown.Item eventKey={0}>zero</Dropdown.Item>
+        <Dropdown.Item eventKey={1}>one</Dropdown.Item>
+        <Dropdown.Item eventKey={2}>two</Dropdown.Item>
+        <Dropdown.Item eventKey={3}>three</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
 }
-
-export default CatDropdown
