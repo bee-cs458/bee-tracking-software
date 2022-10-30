@@ -43,6 +43,10 @@ export async function getAssetFromCat(category) {
 
         return response.data.result;
     } catch (error) {
+        // DON'T FAIL ON 404
+        if (error.response.status === 404) {
+            return error.response.data.result;
+        }
         return "Error Getting Assets with Due Dates from API";
     }
 }

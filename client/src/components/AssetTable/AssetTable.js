@@ -6,23 +6,21 @@ import AssetRow from './AssetRow/AssetRow';
 
 function AssetTable(props) {
 
-    const [assets, setAssets] = useState(null);
+    const [assets, setAssets] = useState([]);
 
-    // Tells the component to re-render when the assets variable changes
-    useEffect(() => { }, [assets])
-
-    async function assetTableInit() {
-        let assetResults = 0;
-        console.log(props.cat)
-        if( props.cat >= 0 ) {  // Check if category is selected
-            assetResults = await getAssetFromCat(props.cat);    // Then only query for that category
-        } else {
-            assetResults = await getAllAssets();    // If no filters are applied, just get all assets
+    useEffect(() => {
+        async function assetTableInit() {
+            let assetResults = 0;
+            console.log(props.cat)
+            if( props.cat >= 0 ) {  // Check if category is selected
+                assetResults = await getAssetFromCat(props.cat);    // Then only query for that category
+            } else {
+                assetResults = await getAllAssets();    // If no filters are applied, just get all assets
+            }
+            setAssets(assetResults);    // Set the assets data table to be the queried result
         }
-        setAssets(assetResults);    // Set the assets data table to be the queried result
-    }
-
-    assetTableInit();   // Render that son of a gun
+        assetTableInit();   // Render that son of a gun
+    }, [props.cat]);
 
     return (
         <div>
@@ -44,7 +42,7 @@ function AssetTable(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {assets != null &&
+                            {
                                 assets.map(asset => (
                                     <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
 
