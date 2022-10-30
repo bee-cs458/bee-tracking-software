@@ -15,6 +15,7 @@ export default function CatDropdown(props) {
     update(categories[eventKey]);
   }
 
+  // Executes getCategory once when it first runs, because the array is empty
   useEffect(() => {
 
     async function generateList(categoryList) {
