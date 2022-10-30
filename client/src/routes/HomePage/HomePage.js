@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 import "./HomePage.css";
 
@@ -6,9 +7,12 @@ import search from "../../assets/search.png";
 import AssetTable from "../../components/AssetTable/AssetTable";
 import CatDropdown from "../../components/CatDropdown/CatDropdown.js";
 
-var selectedVal = 2 // TODO need to make this value gotten from the dropdown
-
 export default function HomePage() {
+  const [currentCategory, updateCategory] = useState({
+    catName: undefined,
+    category_id: -1
+  });
+
   return (
     <div className="App">
       <div className="header-container container-fluid">
@@ -33,7 +37,7 @@ export default function HomePage() {
             <img src={search} alt="search" width="22" height="22" />
           </button>
 
-          <CatDropdown></CatDropdown>
+          <CatDropdown state={currentCategory} update={updateCategory} ></CatDropdown>
         </div>
         {/* Extra space next to search bar to fill header, intended to stay empty */}
         <div className="right-header"></div>
@@ -41,7 +45,7 @@ export default function HomePage() {
       <div className="container-fluid main-content">
         {/* Container for the main section of the page, can be edited to include more functions */}
 
-        <AssetTable cat={ selectedVal }></AssetTable>
+        <AssetTable cat={ currentCategory?.category_id }></AssetTable>
       </div>
     </div>
   );

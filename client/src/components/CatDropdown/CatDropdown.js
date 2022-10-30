@@ -2,41 +2,44 @@ import { useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import getAllCategories from "../../api/CategoryService";
 
-function DDownItem(props) {
-  return <Dropdown.Item href="#/action-3">{props}</Dropdown.Item>;
-}
+export default function CatDropdown(props) {
+  
+  // we lifted the state up
+  const { state, update } = props;
 
-export function useChange() {
-  const [selectedValue, setValue] = useState(0);
-  function change(value) {
-    setValue(value);
+  const [categories, updateCategories] = useState([]);
+  const [dom, updateDom] = useState('Loading...');
+
+  const handleChange = (eventKey) => {
+    // eventKey is the index
+    update(categories[eventKey]);
   }
-  return { change, selectedValue };
-}
-
-export default function CatDropdown() {
-  const { change, selectedValue } = useChange();
-  let categories;
 
   useEffect(() => {
-    getCategories();
+
+    async function generateList(categoryList) {
+      return categoryList.map((category, index) => {
+        return <Dropdown.Item key={category.category_id} eventKey={index}>{category.catName}</Dropdown.Item>;
+      });
+    }
+
+    getAllCategories()
+      .then((value) => {
+        updateCategories(value);
+        return value;
+      })
+      .then(generateList)
+      .then(updateDom)
+      .catch(
+        (err) => console.log(err)
+      );
   }, []);
 
-  async function getCategories() {
-    const catResults = await getAllCategories();
-    categories = catResults;
-    console.log(categories);
-  }
-
   return (
-    <Dropdown title="CategoryDropdown" onSelect={change}>
-      <Dropdown.Toggle id="dropdown-basic">Filter Category</Dropdown.Toggle>
-
+    <Dropdown title="CategoryDropdown" onSelect={handleChange}>
+      <Dropdown.Toggle id="dropdown-basic">{state?.catName || "Filter Category"}</Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item eventKey={0}>zero</Dropdown.Item>
-        <Dropdown.Item eventKey={1}>one</Dropdown.Item>
-        <Dropdown.Item eventKey={2}>two</Dropdown.Item>
-        <Dropdown.Item eventKey={3}>three</Dropdown.Item>
+        {dom}
       </Dropdown.Menu>
     </Dropdown>
   );

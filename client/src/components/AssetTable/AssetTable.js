@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllAssetsWithDueDates, getAssetFromCat, getAllAssets } from '../../api/AssetService';
+import { getAssetFromCat, getAllAssets } from '../../api/AssetService';
 import Table from 'react-bootstrap/Table';
 import Alert from 'react-bootstrap/Alert';
 import AssetRow from './AssetRow/AssetRow';
