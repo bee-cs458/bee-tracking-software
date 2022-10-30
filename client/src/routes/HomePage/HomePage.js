@@ -32,7 +32,8 @@ export default function HomePage() {
           <button type="submit" class="btn btn-default">
             <img src={search} alt="search" width="22" height="22" />
           </button>
-
+          
+          {/* Just the category drop down */}
           <CatDropdown></CatDropdown>
         </div>
         {/* Extra space next to search bar to fill header, intended to stay empty */}
@@ -41,6 +42,7 @@ export default function HomePage() {
       <div className="container-fluid main-content">
         {/* Container for the main section of the page, can be edited to include more functions */}
 
+        {/* Added a selected value prop to tell the asset table which query to use */}
         <AssetTable cat={ selectedVal }></AssetTable>
       </div>
     </div>
