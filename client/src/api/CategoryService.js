@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default async () => {
+export const getCategories = async () => {
     try {
         console.log("Getting Categories");
 
@@ -11,3 +11,5 @@ export default async () => {
         return "Error big bad oof lol uwu\n" + e.message + "\n";
     }
 }
+
+export default getCategories;

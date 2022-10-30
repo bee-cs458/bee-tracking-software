@@ -25,7 +25,7 @@ function NavBar() {
                         <img src={list} alt="list" width="20" height="18"/>Assets
                     </Link>
                 </li>
-                {(localStorage.getItem("userPerms") == 0) //if
+                {(localStorage.getItem("userPerms") === 0) //if
                 ?<li onClick={handleShow}> 
                     <Link to="/">
                         
@@ -58,9 +58,9 @@ function NavBar() {
                 }
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>{(localStorage.getItem("userPerms") == 0) ? <>Login</> : <>Logout</>}</Modal.Title>
+                        <Modal.Title>{(localStorage.getItem("userPerms") === 0) ? <>Login</> : <>Logout</>}</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>{(localStorage.getItem("userPerms") == 0) ? <Login/> : <Logout/>}</Modal.Body>
+                    <Modal.Body>{(localStorage.getItem("userPerms") === 0) ? <Login/> : <Logout/>}</Modal.Body>
                 </Modal>
             </ul>
         </nav>
