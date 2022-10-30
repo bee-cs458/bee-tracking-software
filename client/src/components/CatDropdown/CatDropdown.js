@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import getAllCategories from "../../api/CategoryService";
 
-function DDownItem(props) {
-  return <Dropdown.Item href="#/action-3">{props}</Dropdown.Item>;
+// Easy formatting of drop down item
+function DDownItem(name, id) {
+  return <Dropdown.Item eventKey={id}>{name}</Dropdown.Item>;
 }
 
+// custom hook for when the selected value changes
 export function useChange() {
   const [selectedValue, setValue] = useState(0);
   function change(value) {
@@ -14,6 +16,7 @@ export function useChange() {
   return { change, selectedValue };
 }
 
+// export of the dropdown
 export default function CatDropdown() {
   const { change, selectedValue } = useChange();
   let categories;
@@ -32,6 +35,7 @@ export default function CatDropdown() {
     <Dropdown title="CategoryDropdown" onSelect={change}>
       <Dropdown.Toggle id="dropdown-basic">Filter Category</Dropdown.Toggle>
 
+      {/* Filler content for example */}
       <Dropdown.Menu>
         <Dropdown.Item eventKey={0}>zero</Dropdown.Item>
         <Dropdown.Item eventKey={1}>one</Dropdown.Item>
