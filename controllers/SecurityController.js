@@ -1,8 +1,12 @@
 export const permissionLevels = Object.freeze({
+    'guest': -1,
     'student': 0,
     'operator': 1,
     'owner': 2,
 });
+
+// this will flip the keys and values (-1: guest, 0: student, etc)
+export const permissionEnumConversion = Object.freeze(Object.fromEntries(Object.entries(permissionLevels).map(entry => entry.reverse())));
 
 const extract = (obj, paramList) => {
     const extracted = {};
@@ -78,7 +82,7 @@ export const requireQuery = (...paramList) => {
 
 export const restrictTo = (level) => async (req, res, next) => {
     // TODO implement authentication
-    const role = req?.headers?.backdoor ?? 'student';
+    const role = permissionEnumConversion?.[req?.user?.permissions] ?? 'guest';
     if (permissionLevels?.[role] >= permissionLevels[level]) {
         next();
     }

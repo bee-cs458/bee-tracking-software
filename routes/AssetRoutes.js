@@ -12,7 +12,7 @@ import {
     // checkOutAsset,
     // checkInAsset
 } from '../controllers/AssetController.js';
-import { requireBody, restrictTo, requireQuery, filterQuery } from '../controllers/Authenticator.js'
+import { requireBody, restrictTo, requireQuery, filterQuery } from '../controllers/SecurityController.js'
 
 const router = express.Router();
 
