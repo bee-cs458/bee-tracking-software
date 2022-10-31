@@ -60,7 +60,7 @@ function NavBar() {
                     <Modal.Header closeButton>
                         <Modal.Title>{(localStorage.getItem("userPerms") <= 0) ? <>Login</> : <>Logout</>}</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>{(localStorage.getItem("userPerms") <= 0) ? <Login/> : <Logout/>}</Modal.Body>
+                    <Modal.Body>{(localStorage.getItem("userPerms") <= 0) ? <Login callback={handleClose}/> : <Logout callback={handleClose}/>}</Modal.Body>
                 </Modal>
             </ul>
         </nav>
