@@ -1,35 +1,32 @@
 import { useEffect, useState } from 'react';
-import { getAllAssetsWithDueDates, getAssestsByDescription } from '../../api/AssetService';
+import { getAssetFromCat, getAllAssets, getAssestsByDescription } from '../../api/AssetService';
 import Table from 'react-bootstrap/Table';
 import Alert from 'react-bootstrap/Alert';
 import AssetRow from './AssetRow/AssetRow';
 
-
-
 function AssetTable(props) {
-    
-    const [assets, setAssets] = useState(null);
 
-    // Tells the component to re-render when the assets variable changes
-    useEffect(() => { }, [assets])
+    const [assets, setAssets] = useState([]);
 
-    async function assetButtonClick() {
-       const assetResults = await getAllAssetsWithDueDates();      
-        setAssets(assetResults);
-    }
-
-    async function assetSearch(input) {
-         console.log("Inside assetSearch Function");
-         const searchResults = await getAssestsByDescription(input);
-        setAssets(searchResults);
-     }
+    useEffect(() => {
+        async function assetTableInit(input) {
+            let assetResults = 0;
+            //Search assets by description if user searches
+            if(input != null){
+                assetResults = await getAssestsByDescription(input);
+                setAssets(assetResults);    // Set the assets data table to be the queried result
+            }else{
+                //Queries all assets by default
+                assetResults = await getAllAssets();
+                setAssets(assetResults);
+            }
+        }
+        assetTableInit(props.input);   // Render that son of a gun
+    }, [props.input]);
 
 
     return (
         <div>
-            <button onClick={() => assetButtonClick()}>Get Assets</button>
-            <button onClick={() => assetSearch("bus")}>Get Specific Assets</button>
-            
 
             {assets != null ?
 
@@ -48,7 +45,7 @@ function AssetTable(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {assets != null &&
+                            {
                                 assets.map(asset => (
                                     <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
 
@@ -65,13 +62,5 @@ function AssetTable(props) {
         </div>
     );
 }
-
- export async function assetSearch(input) {
-    console.log("Inside export assetSearch Function");
-    const searchResults = await getAssestsByDescription(input);
-    
-    console.log("Attempting to setAssests Table");
-    //setAssets(searchResults);
- }
 
 export default AssetTable;

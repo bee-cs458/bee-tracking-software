@@ -1,15 +1,31 @@
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 import './HomePage.css';
 
 import list from '../../assets/list.png';
 import search from '../../assets/search.png'
 import AssetTable from '../../components/AssetTable/AssetTable'
-import {assetSearch} from '../../components/AssetTable/AssetTable'
-
-
 
 
 function HomePage() { 
+
+    const [inputVal, setInputVal] = useState(null);
+
+    //Handling user input when user hits 'Enter'
+    function handleKeyPress(e){
+        if(e.key === 'Enter'){
+            console.log("Key press is entered");
+            getInputValue();
+        }
+    }
+
+    function getInputValue(){
+        // Selecting the input element and get its value 
+        const newInputVal = document.getElementById("search").value;
+        console.log("Input Value: " + newInputVal);
+        setInputVal(newInputVal);
+    }
+    
     return (
         <div className="App">
             <div className="header-container container-fluid">
@@ -23,7 +39,7 @@ function HomePage() {
                 <div className="search-header">
                     {/* form waiting to be linked */}
                     <form action="/" />
-                    <input type="text" class="form-control" id="search" placeholder="Search" name="search"/>
+                    <input type="text" onKeyDown={handleKeyPress} class="form-control" id="search" placeholder="Search" name="search"/>
                     <button type="submit" class="btn btn-default" onClick={getInputValue}>
                         <img src={search} alt="search" width="22" height="22" />
                     </button>
@@ -34,9 +50,7 @@ function HomePage() {
             <div className="container-fluid main-content">
                 {/* Container for the main section of the page, can be edited to include more functions */}
 
-                <AssetTable>
-                    
-                </AssetTable>
+                <AssetTable input={inputVal}></AssetTable>
 
 
             </div>
@@ -44,11 +58,6 @@ function HomePage() {
     );
 }
 
-function getInputValue(){
-    // Selecting the input element and get its value 
-    var inputVal = document.getElementById("search").value;
-    console.log("Input Value: " + inputVal);
-    assetSearch(inputVal);
-}
+
 
 export default HomePage;
