@@ -1,4 +1,4 @@
-import { query, insert_params, insert_values, update_params } from "../utilities/DatabaseUtilities.js";
+import { query, insert_params, insert_values, update_params, where_params_like } from "../utilities/DatabaseUtilities.js";
 
 export const getAllAssetsWithDueDates = async (req, res, next) => {
     await query(`
@@ -40,6 +40,37 @@ export const getAllAssets = async (req, res, next) => {
     )
 }
 
+export const searchForAsset = async (req, res, next) => {
+    // grab limit and offset from query
+    const limit = req.query.limit;
+    const offset = req.query.offset ?? "0";
+    delete req.query.limit;
+    delete req.query.offset;
+
+    // get search parameter names/values
+    const criteria = Object.keys(req.query);
+    const searchTerms = Object.values(req.query);
+
+    // build statement
+    let statement =  `SELECT * FROM \`asset\`
+        WHERE ${where_params_like(criteria, "asset")}
+        LIMIT ? OFFSET ?;`;
+
+    // add limit and offset
+    searchTerms.push(limit, offset);
+
+    // ready to run the query
+    await query(
+        statement, searchTerms
+    ).then(
+        (result) => res.send({ result }),
+        (reason) => {
+            reason.message = `Error Searching for Asset: ${reason.message}`;
+            next(reason);
+        }
+    )
+}
+
 export const getSpecificAsset = async (req, res, next) => {
     const assetTag = req.params.id;
     await query(`SELECT * FROM asset WHERE \`asset\`.\`asset_tag\`=?;`, [assetTag]).then(
@@ -47,6 +78,25 @@ export const getSpecificAsset = async (req, res, next) => {
             if (result?.length <= 0) next({
                 status: 404,
                 message: `Asset with asset_tag of ${assetTag} was not found`
+            });
+            else {
+                res.send({ result });
+            }
+        },
+        (reason) => {
+            reason.message = `Error Getting Asset: ${reason.message}`;
+            next(reason);
+        }
+    )
+}
+
+export const getAssetFromCat = async (req, res, next) => {
+    const assetCat = req.params.id;
+    await query(`SELECT * FROM asset WHERE \`asset\`.\`category\`=?;`, [assetCat]).then(
+        (result) => {
+            if (result?.length <= 0) next({
+                status: 404,
+                message: `Asset with category of ${assetCat} was not found`
             });
             else {
                 res.send({ result });
@@ -104,9 +154,17 @@ export const deleteAsset = async (req, res, next) => {
         `DELETE FROM \`asset\` WHERE \`asset\`.\`asset_tag\`=?`,
         [assetTag]
     ).then(
-        (result) => res.send({ result }),
+        (result) => {
+            if (result?.length <= 0) next({
+                status: 404,
+                message: `Asset with asset_tag of ${assetTag} was not found`
+            });
+            else {
+                res.send({ result });
+            }
+        },
         (reason) => {
-            reason.message = `Error Updating Asset: ${reason.message}`;
+            reason.message = `Error Deleting Asset: ${reason.message}`;
             next(reason);
         }
     )
