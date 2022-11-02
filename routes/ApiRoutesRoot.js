@@ -1,14 +1,18 @@
 import express from 'express';
+import passport from 'passport';
 const router = express.Router();
 
 // import all api routes here
 import counterRoutes from './CounterRoutes.js';
 import assetRoutes from './AssetRoutes.js';
+import categoryRoutes from './CategoryRoutes.js';
 
 // our api routes
 router.get("/", (req, res) => res.send("Hello World!"));
 router.use("/count", counterRoutes);
 router.use("/asset", assetRoutes);
+router.use("/categories", categoryRoutes);
+// router.use("/user", UserRoutes);
 
 // Test Database Endpoint - demonstration purposes only
 /*
@@ -20,6 +24,19 @@ router.get("/dbTest", async (req, res) => {
 
 });
 */
+
+// login
+router.post('/login', passport.authenticate('local', {
+    successRedirect: "/api/login/success",
+    failureRedirect: "/api/login/failure"
+}));
+
+
+router.get('/login/success', (req, res) => {
+    delete req.user?.password;
+    res.send(req.user);
+});
+router.get('/login/failure', (req, res) => res.status(401).send('authentication failure'));
 
 // catch-all for /api/something-not-valid
 router.use("/", (req, res, next) => next({

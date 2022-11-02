@@ -4,8 +4,10 @@
 
 .header-container {
   display: flex;
+  position: fixed; 
   flex-direction: row;
   height: 45px;
+  width:100vw;
   align-items: center;
   margin-left: 250px;
   background-color: #6486A9;
@@ -23,28 +25,49 @@
 
 .search-header button {
   display: inline-flex;
+  margin-left:10px;
+}
+
+.search-header button:hover {
+  background-color: #538cc6;
+  
 }
 
 .menu-header {
   color: black;
-  width: 70px;
+  width: 50px;
 }
 
-.menu-header img {
-  padding-left: 5px;
+.menu-header :hover {
+  background-color: #538cc6;
 }
 
 .right-header {
   height: 40px;
   width: 100%;
+  align-items: right;
+  padding-left:15%;
+}
+
+.right-header :hover {
+  background-color: #538cc6;
   color:white;
-  padding-top:10px;
+}
+
+.right-header img {
+  margin-left:8px;
+}
+
+.btn {
+  color:white;
 }
 
 .main-content {
   overflow: auto;
   margin-left: 250px;
   text-align: left;
+  padding-top:60px;
+  padding-left:10px;
   height: 100vh;
 }
 

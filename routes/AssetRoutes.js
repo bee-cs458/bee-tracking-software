@@ -8,10 +8,11 @@ import {
     updateAsset,
     deleteAsset,
     searchForAsset,
+    getAssetFromCat,
     // checkOutAsset,
     // checkInAsset
 } from '../controllers/AssetController.js';
-import { requireBody, restrictTo, requireQuery, filterQuery } from '../controllers/Authenticator.js'
+import { requireBody, restrictTo, requireQuery, filterQuery } from '../controllers/SecurityController.js'
 
 const router = express.Router();
 
@@ -27,6 +28,7 @@ router.get(
     searchForAsset
 );
 router.get("/:id", getSpecificAsset);
+router.get("/get_asset_via_cat/:id", getAssetFromCat)
 router.post("/", restrictTo('owner'), requireBody('asset_tag', 'name'), createAsset);
 router.post("/:id", restrictTo('owner'), requireBody(), updateAsset);
 router.delete("/:id", restrictTo('owner'), deleteAsset);
