@@ -6,31 +6,23 @@ let pool = null;
 
 export async function createSchema() {
     const schemaPath = path.resolve('schema.sql');
-    if (fs.existsSync(schemaPath)) {
-        try {
-            // read in our schema config
-            const statements = fs.readFileSync(schemaPath, "utf8");
+    if (!fs.existsSync(schemaPath)) throw new Error("Schema file not found!");
 
-            // make a custom connection
-            const connection = await getConnection({
-                database: undefined,
-                multipleStatements: true
-            });
+    // read in our schema config
+    const statements = fs.readFileSync(schemaPath, "utf8");
 
-            // create schema if it doesn't exist
-            await connection.query(`CREATE SCHEMA IF NOT EXISTS ${process.env.DB_NAME};\n` +
-                `USE ${process.env.DB_NAME};\n`+ statements)
+    // make a custom connection
+    const connection = await getConnection({
+        database: undefined,
+        multipleStatements: true
+    });
 
-            // this connection only to be used for creating schema
-            connection.end();
-            return true;
-        }
-        catch (err) {
-            console.log(`Could not create schema\n${err.stack}`)
-            return false;
-        }
-    }
-    return false;
+    // create schema if it doesn't exist
+    await connection.query(`CREATE SCHEMA IF NOT EXISTS ${process.env.DB_NAME};\n` +
+        `USE ${process.env.DB_NAME};\n`+ statements)
+
+    // this connection only to be used for creating schema
+    connection.end();
 }
 
 async function getConnection(extraConfig) {
@@ -77,3 +69,4 @@ export const insert_values = (fields) => fields.map(() => "?").join(',');
 const equalsMapper = (fields, tableName) => fields.map(key => `${tableName ? `\`${tableName}\`.` : ""}\`${key}\`=?`);
 export const update_params = (a, b) => equalsMapper(a, b).join(", ");
 export const where_params = (a, b) => equalsMapper(a, b).join(" AND ");
+export const where_params_like = (fields, tableName) => fields.map(key => `${tableName ? `\`${tableName}\`.` : ""}\`${key}\` LIKE CONCAT('%', ?, '%')`).join(' OR ');

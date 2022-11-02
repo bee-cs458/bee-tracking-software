@@ -1,10 +1,14 @@
 export const permissionLevels = Object.freeze({
+    'guest': -1,
     'student': 0,
     'operator': 1,
     'owner': 2,
 });
 
-const extract = (obj, ...paramList) => {
+// this will flip the keys and values (-1: guest, 0: student, etc)
+export const permissionEnumConversion = Object.freeze(Object.fromEntries(Object.entries(permissionLevels).map(entry => entry.reverse())));
+
+const extract = (obj, paramList) => {
     const extracted = {};
     for (const param of paramList) {
         if (obj[param] ?? null !== null) {
@@ -20,24 +24,31 @@ export const filterBody = (...paramList) => (req, res, next) => {
     next();
 }
 
-// validation: reject if the body does not contain required params
-export const requireBody = (...paramList) => {
-    // if no validators specified
+// security measure: eliminate query params that shouldn't be included
+export const filterQuery = (...paramList) => (req, res, next) => {
+    req.query = extract(req.query, paramList);
+    next();
+}
+
+// require that query or body be non-empty
+const requireParams = (which, paramList) => {
     if (paramList.length <= 0) return (req, res, next) => {
-        if (Object.keys(req.body).length <= 0) next({
+        const obj = req?.[which];
+        if (Object.keys(obj).length <= 0) next({
             status: 400,
-            message: 'Body cannot be empty.'
+            message: `Must specify ${which} params!`
         })
         else {
             next();
         }
     };
-    // if validators are specified
+    // if parameter list is specified
     return (req, res, next) => {
+        const obj = req?.[which];
         let good = true;
         for (const param of paramList) {
             // check exists
-            if (!(param in req.body)) {
+            if (!(param in obj)) {
                 good = false;
                 next({
                     status: 400,
@@ -51,10 +62,14 @@ export const requireBody = (...paramList) => {
     }
 }
 
-// security measure: eliminate query params that shouldn't be included
-export const filterQuery = (...paramList) => (req, res, next) => {
-    req.query = extract(req.query, paramList);
-    next();
+// validation: reject if the body does not contain required params
+export const requireBody = (...paramList) => {
+    return requireParams('body', paramList);
+}
+
+// validation: reject if the query does not contain required params
+export const requireQuery = (...paramList) => {
+    return requireParams('query', paramList);
 }
 
 // validators, might be useful someday but commented for now
@@ -67,7 +82,7 @@ export const filterQuery = (...paramList) => (req, res, next) => {
 
 export const restrictTo = (level) => async (req, res, next) => {
     // TODO implement authentication
-    const role = req?.headers?.backdoor ?? 'student';
+    const role = permissionEnumConversion?.[req?.user?.permissions] ?? 'guest';
     if (permissionLevels?.[role] >= permissionLevels[level]) {
         next();
     }

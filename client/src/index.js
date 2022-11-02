@@ -13,6 +13,7 @@ import reportWebVitals from './reportWebVitals';
 import HomePage from './routes/HomePage/HomePage';
 import CounterPage from './routes/CounterPage/CounterPage';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
