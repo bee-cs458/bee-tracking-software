@@ -18,7 +18,7 @@ function NavBar() {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/">
+                    <Link to="../../routes/CheckOutPage/CheckOutPage.js">
                     <img src={checkOut} alt="check out" width="20" height="18"/>Check Out
                     </Link>
                 </li>
@@ -38,7 +38,7 @@ function NavBar() {
                     </Link>
                 </li>
 
-            </ul>
+             </ul>
         </nav>
     );
 }
