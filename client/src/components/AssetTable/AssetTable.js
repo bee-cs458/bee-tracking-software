@@ -12,7 +12,7 @@ function AssetTable(props) {
         async function assetTableInit(input) {
             let assetResults = 0;
             //Search assets by description if user searches
-            if(input != null){
+            if(input != null && input != ""){
                 assetResults = await getAssestsByDescription(input);
                 setAssets(assetResults);    // Set the assets data table to be the queried result
             }else{
