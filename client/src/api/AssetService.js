@@ -1,19 +1,20 @@
-import axios from "axios";
+import axios from 'axios';
 
 /*
 Calls the API endpoint for getting all assets, does not include due dates
 @return collection of assets from the database, where each entry is one row. 
 */
 export async function getAllAssets() {
-  try {
-    console.log("Getting Assets");
+    try {
 
-    const response = await axios.get("/api/asset/get_all");
+        console.log("Getting Assets");
 
-    return response.data.result;
-  } catch (error) {
-    return "Error Getting Assets from API";
-  }
+        const response = await axios.get('/api/asset/get_all');
+
+        return response.data.result;
+    } catch (error) {
+        return "Error Getting Assets from API";
+    }
 }
 
 /*
@@ -21,50 +22,31 @@ Calls the API endpoint for getting all assets with their due dates
 @return collection of assets from the database, where each entry is one row. 
 */
 export async function getAllAssetsWithDueDates() {
-  try {
-    console.log("Getting Assets with Due Dates");
+    try {
 
-    const response = await axios.get("/api/asset/get_all_due_dates");
+        console.log("Getting Assets with Due Dates");
 
-    return response.data.result;
-  } catch (error) {
-    return "Error Getting Assets with Due Dates from API";
-  }
-}
+        const response = await axios.get('/api/asset/get_all_due_dates');
 
-/*
-Calls API endpoint for getting assests based on description searched by user
-*/
-export async function getAssestsByDescription(input) {
-  try {
-    console.log("Getting Assests by Description: " + "'" + input + "'");
-
-    const response = await axios.get("/api/asset/search", {
-      params: {
-        limit: 10,
-        description: input,
-      },
-    });
-    return response.data.result;
-  } catch (error) {
-    return "Error Getting Assests by Description from API";
-  }
+        return response.data.result;
+    } catch (error) {
+        return "Error Getting Assets with Due Dates from API";
+    }
 }
 
 export async function getAssetFromCat(category) {
-  try {
-    console.log("Getting Assets with matching category");
+    try {
 
-    const response = await axios.get(
-      "/api/asset/get_asset_via_cat/" + category
-    );
+        console.log("Getting Assets with matching category");
 
-    return response.data.result;
-  } catch (error) {
-    // DON'T FAIL ON 404
-    if (error.response.status === 404) {
-      return error.response.data.result;
+        const response = await axios.get('/api/asset/get_asset_via_cat/' + category);
+
+        return response.data.result;
+    } catch (error) {
+        // DON'T FAIL ON 404
+        if (error.response.status === 404) {
+            return error.response.data.result;
+        }
+        return "Error Getting Assets with Due Dates from API";
     }
-    return "Error Getting Assets with Due Dates from API";
-  }
 }
