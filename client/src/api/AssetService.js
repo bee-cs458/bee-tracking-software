@@ -6,10 +6,9 @@ Calls the API endpoint for getting all assets, does not include due dates
 */
 export async function getAllAssets() {
     try {
-
         console.log("Getting Assets");
 
-        const response = await axios.get('/api/asset/get_all');
+        const response = await axios.get("/api/asset/get_all");
 
         return response.data.result;
     } catch (error) {
@@ -23,10 +22,9 @@ Calls the API endpoint for getting all assets with their due dates
 */
 export async function getAllAssetsWithDueDates() {
     try {
-
         console.log("Getting Assets with Due Dates");
 
-        const response = await axios.get('/api/asset/get_all_due_dates');
+        const response = await axios.get("/api/asset/get_all_due_dates");
 
         return response.data.result;
     } catch (error) {
@@ -34,9 +32,27 @@ export async function getAllAssetsWithDueDates() {
     }
 }
 
+/*
+Calls API endpoint for getting assests based on description searched by user
+*/
+export async function getAssetsByDescription(input) {
+    try {
+        console.log("Getting Assests by Description: " + "'" + input + "'");
+
+        const response = await axios.get("/api/asset/search", {
+            params: {
+                limit: 10,
+                description: input,
+            },
+        });
+        return response.data.result;
+    } catch (error) {
+        return "Error Getting Assests by Description from API";
+    }
+}
+
 export async function getAssetFromCat(category) {
     try {
-
         console.log("Getting Assets with matching category");
 
         const response = await axios.get('/api/asset/get_asset_via_cat/' + category);
