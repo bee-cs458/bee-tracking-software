@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   getAssetFromCat,
   getAllAssets,
-  getAssestsByDescription,
+  getAssetsByDescription,
 } from "../../api/AssetService";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
@@ -19,7 +19,7 @@ export default function AssetTable(props) {
         // Check if category is selected
         assetResults = await getAssetFromCat(props.cat); // Then only query for that category
       } else if (props.input != null && props.input != "") {
-        assetResults = await getAssestsByDescription(props.input);
+        assetResults = await getAssetsByDescription(props.input);
         setAssets(assetResults); // Set the assets data table to be the queried result
       } else {
         assetResults = await getAllAssets(); // If no filters are applied, just get all assets

@@ -36,7 +36,7 @@ export default function HomePage() {
       <div className="header-container container-fluid">
         <div className="menu-header">
           {/* Not sure the purpose of this, it was on cheqroom, might end up 
-                            being a dropdown menu instead of a link */}
+                            being a dropdown menu instead of a button */}
           <Link to="/">
             <img src={list} alt="list" width="30" height="30" />
           </Link>
@@ -61,8 +61,13 @@ export default function HomePage() {
             update={updateCategory}
           ></CatDropdown>
         </div>
-        {/* Extra space next to search bar to fill header, intended to stay empty */}
-        <div className="right-header"></div>
+        {/* Extra space next to search bar to fill header, also includes sign in button */}
+        <div className="right-header">
+          <form action="/" />
+          <button type="signIn" class="btn btn-default">Sign In
+            <img src={signIn} alt="signIn" width="22" height="22" /></button>
+
+        </div>
       </div>
       <div className="container-fluid main-content">
         {/* Container for the main section of the page, can be edited to include more functions */}
