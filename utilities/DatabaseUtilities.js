@@ -69,3 +69,4 @@ export const insert_values = (fields) => fields.map(() => "?").join(',');
 const equalsMapper = (fields, tableName) => fields.map(key => `${tableName ? `\`${tableName}\`.` : ""}\`${key}\`=?`);
 export const update_params = (a, b) => equalsMapper(a, b).join(", ");
 export const where_params = (a, b) => equalsMapper(a, b).join(" AND ");
+export const where_params_like = (fields, tableName) => fields.map(key => `${tableName ? `\`${tableName}\`.` : ""}\`${key}\` LIKE CONCAT('%', ?, '%')`).join(' OR ');
