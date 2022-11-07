@@ -66,3 +66,43 @@ export async function getAssetFromCat(category) {
         return "Error Getting Assets with Due Dates from API";
     }
 }
+
+/*
+Calls API endpoint for getting assests based on asset Tag searched by user
+*/
+export async function getAssetByAssetTag(input) {
+    try {
+        console.log("Getting Assets by Asset Tag");
+
+        const response = await axios.get('/api/asset/' + input);
+
+        return response.data.result;
+    } catch (error) {
+        // DON'T FAIL ON 404
+        if (error.response.status === 404) {
+            return error.response.data.result;
+        }
+        return "Error Getting Assets by Asset Tag from API";
+    }
+}
+
+/*
+Calls API endpoint for getting assests based on asset_tag, name, or description searched by user
+*/
+export async function searchingForAssests(input) {
+    try {
+        console.log("Searching assets by: " + "'" + input + "'");
+
+        const response = await axios.get("/api/asset/search", {
+            params: {
+                limit: 10,
+                description: input,
+                asset_tag: input,
+                name: input,
+            },
+        });
+        return response.data.result;
+    } catch (error) {
+        return "Error Getting Assests by serach from API";
+    }
+}
