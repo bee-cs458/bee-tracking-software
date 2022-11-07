@@ -14,7 +14,7 @@ function Logout(props) {
     const { callback } = props;
     return(
         <>
-        {(localStorage.getItem("userPerms") !== 0) ?
+        {(localStorage.getItem("userPerms") !== '0') ?
         <>
             Are you sure you want to Logout?
             <div >
