@@ -1,0 +1,12 @@
+.App {
+    text-align: center;
+}
+
+.main-content {
+    overflow: auto;
+    margin-left: 250px;
+    text-align: left;
+    padding-top:60px;
+    padding-left:10px;
+    height: 100vh;
+    }

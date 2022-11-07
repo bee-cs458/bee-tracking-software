@@ -47,11 +47,11 @@
     align-items: right;
     padding-left:15%;
 }
-/* 
+
 .right-header :hover {
     background-color: #538cc6;
     color:white;
-} */
+}
 
 .right-header img {
     margin-left:8px;
@@ -74,6 +74,3 @@
     color: #61dafb;
 }
 
-.category {
-    margin-bottom:5px;
-}
