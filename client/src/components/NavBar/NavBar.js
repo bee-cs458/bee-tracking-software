@@ -9,12 +9,18 @@ import Modal from 'react-bootstrap/Modal';
 import Login from "../Login/Login";
 import Logout from "../Login/Logout";
 import './NavBar.css';
+import CheckInWindow from "../Check-In Window/CheckInWindow";
 
 function NavBar() {
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [showPerms, setPermsShow] = useState(false);
+    const handlePermsClose = () => setPermsShow(false);
+    const handlePermsShow = () => setPermsShow(true);
+
+    const [showCheckin, setCheckinShow] = useState(false);
+    const handleCheckinClose = () => setCheckinShow(false);
+    const handleCheckinOpen = () => setCheckinOpen(true);
+
     return (
         
         <nav className="App-nav">
@@ -26,7 +32,7 @@ function NavBar() {
                     </Link>
                 </li>
                 {(localStorage.getItem("userPerms") === 0) //if
-                ?<li onClick={handleShow}> 
+                ?<li onClick={handlePermsShow}> 
                     <Link to="/">
                         
                     <img src={logOut} alt="log in" width="20" height="18"/>Log In
@@ -39,24 +45,24 @@ function NavBar() {
                         <img src={checkOut} alt="check out" width="20" height="18"/>Check Out
                     </Link>
                 </li>
-                <li>
+                <li onClick={handleCheckinOpen}>
                     <Link to="/">
                     <img src={checkIn} alt="check in" width="20" height="18"/>Check In
                     </Link>
                 </li>
                 <li>
                     <Link to="/">
-                        <img src={operators} alt="operators" width="20" height="18"/>Operators
+                        <img src={operators} alt="operators" width="20" height="18"/>Users
                     </Link>
                 </li>
-                <li onClick={handleShow}>
+                <li onClick={handlePermsShow}>
                     <Link to="/">
                         <img src={logOut} alt="log out" width="20" height="18"/>Log Out
                     </Link>
                 </li>
 </>
                 }
-                <Modal show={show} onHide={handleClose}>
+                <Modal show={showPerms} onHide={handlePermsClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>{(localStorage.getItem("userPerms") === 0) ? <>Login</> : <>Logout</>}</Modal.Title>
                     </Modal.Header>
