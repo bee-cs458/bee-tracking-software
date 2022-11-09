@@ -24,7 +24,7 @@ router.get("/", getAllAssets);
 router.get(
     "/search",
     requireQuery('limit', 'description'),
-    filterQuery('limit', 'offset', 'description', 'damage_notes'),
+    filterQuery('limit', 'offset', 'description', 'damage_notes', 'asset_tag', 'name'),
     searchForAsset
 );
 router.get("/:id", getSpecificAsset);
