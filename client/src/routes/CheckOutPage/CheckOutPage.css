@@ -9,4 +9,14 @@
     padding-top:60px;
     padding-left:10px;
     height: 100vh;
-    }
+}
+
+.clearAll {
+    float: left;
+}
+
+.checkOut {
+    float: right;
+    margin-right: 15px;
+}
+
