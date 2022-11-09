@@ -14,8 +14,9 @@ export default function CheckInPage() {
     <div>
       <PageTemplate></PageTemplate>
       <div className="main-content">
+        <h1 className="m-3">Check In Equipment</h1>
         <Form>
-          <Row className="mb-3">
+          <Row className="m-3">
             <Form.Group as={Col} controlId="assetTag">
               <Form.Label>Asset Tag</Form.Label>
               <Form.Control
@@ -36,27 +37,40 @@ export default function CheckInPage() {
               <Button id="submitStudent">Submit</Button>
             </Form.Group>
           </Row>
-          {/* Adding asset table here as responsive using returned assets */}
-          <Table responsive>
-            <caption>Selected Assets</caption>
-            <thead>
-              <tr>
-                <th>Tag</th>
-                <th>Name</th>
-                <th>Due Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Figure out how to display each asset here as they are added */}
-            </tbody>
-          </Table>
+          <Row className="m-3">
+            <Table responsive>
+              <caption>Selected Assets</caption>
+              <thead>
+                <tr>
+                  <th>Remove</th>
+                  <th>Tag</th>
+                  <th>Name</th>
+                  <th>Due Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* Figure out how to display each asset here as they are added */}
+              </tbody>
+            </Table>
 
-          <Button className="clearAll" type="reset">
-            Clear All
-          </Button>
-          <Button className="checkOut" variant="primary" type="submit">
-            Check Out
-          </Button>
+            <Form.Group as={Row}>
+              <Form.Label>Check In Notes</Form.Label>
+              <Form.Control as="textarea" row={3} />
+            </Form.Group>
+          </Row>
+
+          <Row className="m-3">
+          <Form.Check type="switch" id="damageSwitch" label="Damaged?"/>
+          </Row>
+
+          <div className="m-3">
+            <Button className="clearAll" type="reset">
+              Clear All
+            </Button>
+            <Button className="checkOut" variant="primary" type="submit">
+              Check Out
+            </Button>
+          </div>
         </Form>
       </div>
     </div>
