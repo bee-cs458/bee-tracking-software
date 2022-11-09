@@ -7,4 +7,4 @@ import { requireBody, restrictTo, requireQuery, filterQuery } from '../controlle
 const router = express.Router();
 
 router.get("/all_records", getAllCheckoutRecords);
-router.post("/checkout_assets", requireBody("asset_tags"), checkoutAsset);
+router.post("/checkout_assets", requireBody("asset_tags", "user_id", "due_date"), checkoutAsset);

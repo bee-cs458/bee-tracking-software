@@ -12,5 +12,15 @@ export const getAllCheckoutRecords = async (req, res, next) => {
 }
 
 export const checkoutAsset = async (req, res, next) => {
+
+    // check that the asset(s) exist
+        // if not, 404
+    // check if the asset(s) are already checked out
+        // if so, 409
+    // check whether the student has < 3 strikes
+        // if not, 401
+    // if all above pass, create checkout record(s)
+        // 201
+
     await query(``).then()
 }
