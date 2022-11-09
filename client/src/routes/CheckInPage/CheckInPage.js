@@ -1,1 +1,64 @@
-import
+import PageTemplate from "../../components/PageTemplate/PageTemplate";
+import { useState } from "react";
+import "./CheckInPage.css";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Table from "react-bootstrap/Table";
+
+export default function CheckInPage() {
+  const [assets, setAssets] = useState([]);
+
+  return (
+    <div>
+      <PageTemplate></PageTemplate>
+      <div className="main-content">
+        <Form>
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="assetTag">
+              <Form.Label>Asset Tag</Form.Label>
+              <Form.Control
+                className="search"
+                type="search"
+                placeholder="Enter Asset Tag Number"
+              />
+              <Button id="addAsset">Add</Button>
+            </Form.Group>
+
+            <Form.Group as={Col} controlID="studentId">
+              <Form.Label>Student ID Number</Form.Label>
+              <Form.Control
+                className="search"
+                type="search"
+                placeholder="Enter Student ID Number"
+              />
+              <Button id="submitStudent">Submit</Button>
+            </Form.Group>
+          </Row>
+          {/* Adding asset table here as responsive using returned assets */}
+          <Table responsive>
+            <caption>Selected Assets</caption>
+            <thead>
+              <tr>
+                <th>Tag</th>
+                <th>Name</th>
+                <th>Due Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Figure out how to display each asset here as they are added */}
+            </tbody>
+          </Table>
+
+          <Button className="clearAll" type="reset">
+            Clear All
+          </Button>
+          <Button className="checkOut" variant="primary" type="submit">
+            Check Out
+          </Button>
+        </Form>
+      </div>
+    </div>
+  );
+}
