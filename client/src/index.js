@@ -13,6 +13,7 @@ import reportWebVitals from './reportWebVitals';
 import HomePage from './routes/HomePage/HomePage';
 import CounterPage from './routes/CounterPage/CounterPage';
 import CheckOutPage from './routes/CheckOutPage/CheckOutPage';
+import CheckInPage from './routes/CheckInPage/CheckInPage'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -23,6 +24,7 @@ root.render(
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />
           <Route path="/checkOut" element={<CheckOutPage />} />
+          <Route path="/checkIn" element={<CheckInPage />} />
           <Route path="counter" element={<CounterPage />} />
         </Route>
       </Routes>
