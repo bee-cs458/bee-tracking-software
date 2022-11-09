@@ -11,6 +11,7 @@
     align-items: center;
     margin-left: 250px;
     background-color: #6486A9;
+    z-index: 1;
 }
 
 .search-header {

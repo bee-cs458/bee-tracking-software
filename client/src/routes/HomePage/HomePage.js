@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import "./HomePage.css";
 import PageTemplate from "../../components/PageTemplate/PageTemplate";
 import AssetTable from "../../components/AssetTable/AssetTable";
 import CatDropdown from '../../components/CatDropdown/CatDropdown';
+
 export default function HomePage() {
     const [currentCategory, updateCategory] = useState({
         catName: undefined,
