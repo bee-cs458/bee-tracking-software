@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import {
   getAssetFromCat,
   getAllAssets,
-  getAssetsByDescription,
+  searchingForAssests
 } from "../../api/AssetService";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import AssetRow from "./AssetRow/AssetRow";
+
 
 export default function AssetTable(props) {
   const [assets, setAssets] = useState([]);
@@ -18,8 +19,9 @@ export default function AssetTable(props) {
       if (props.cat >= 0) {
         // Check if category is selected
         assetResults = await getAssetFromCat(props.cat); // Then only query for that category
-      } else if (props.input != null && props.input != "") {
-        assetResults = await getAssetsByDescription(props.input);
+      } else if (props.input !== null && props.input !== "") {
+        //Include search results for asset_tags/descriptions/names
+        assetResults = await searchingForAssests(props.input);
         setAssets(assetResults); // Set the assets data table to be the queried result
       } else {
         assetResults = await getAllAssets(); // If no filters are applied, just get all assets
@@ -27,7 +29,7 @@ export default function AssetTable(props) {
       setAssets(assetResults); // Set the assets data table to be the queried result
     }
     assetTableInit(); // Render that son of a gun
-  }, [props.cat, props.input]);
+  }, [props.cat, props.input, props.filterByCheckedOut]);
 
   return (
     <div>
@@ -47,9 +49,13 @@ export default function AssetTable(props) {
               </tr>
             </thead>
             <tbody>
-              {assets != null &&
-                assets.map((asset) => (
-                  <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
+                {props.filterByCheckedOut?
+                    assets.filter( asset => asset.checked_out === 1).map((asset) => (
+                        <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
+                ))
+                :
+                    assets.map((asset) => (
+                        <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
                 ))}
             </tbody>
           </Table>
