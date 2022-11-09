@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import {
   getAssetFromCat,
   getAllAssets,
-  searchingForAssests
+  searchingForAssests,
 } from "../../api/AssetService";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import AssetRow from "./AssetRow/AssetRow";
-
 
 export default function AssetTable(props) {
   const [assets, setAssets] = useState([]);
@@ -33,8 +32,7 @@ export default function AssetTable(props) {
 
   return (
     <div>
-
-      {(assets != null && assets.length > 0) ? (
+      {assets != null && assets.length > 0 ? (
         <div>
           <Table striped bordered>
             <thead>

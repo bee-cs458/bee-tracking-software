@@ -42,9 +42,7 @@ export default function CatDropdown(props) {
         {state?.catName || "Filter Category"}
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item eventKey={null}>
-          All
-        </Dropdown.Item>
+        <Dropdown.Item eventKey={null}>All</Dropdown.Item>
         {dom}
       </Dropdown.Menu>
     </Dropdown>

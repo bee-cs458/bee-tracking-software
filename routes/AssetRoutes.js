@@ -1,18 +1,23 @@
-import express from 'express';
+import express from "express";
 import {
-    getAllAssets,
-    getSpecificAsset,
-    getAllAssetsWithDueDates,
-    getDueDateOfAsset,
-    createAsset,
-    updateAsset,
-    deleteAsset,
-    searchForAsset,
-    getAssetFromCat,
-    // checkOutAsset,
-    // checkInAsset
-} from '../controllers/AssetController.js';
-import { requireBody, restrictTo, requireQuery, filterQuery } from '../controllers/SecurityController.js'
+  getAllAssets,
+  getSpecificAsset,
+  getAllAssetsWithDueDates,
+  getDueDateOfAsset,
+  createAsset,
+  updateAsset,
+  deleteAsset,
+  searchForAsset,
+  getAssetFromCat,
+  // checkOutAsset,
+  // checkInAsset
+} from "../controllers/AssetController.js";
+import {
+  requireBody,
+  restrictTo,
+  requireQuery,
+  filterQuery,
+} from "../controllers/SecurityController.js";
 
 const router = express.Router();
 
@@ -22,18 +27,29 @@ router.get("/get_all_due_dates", getAllAssetsWithDueDates);
 router.get("/get_all", getAllAssets);
 router.get("/", getAllAssets);
 router.get(
-    "/search",
-    requireQuery('limit', 'description'),
-    filterQuery('limit', 'offset', 'description', 'damage_notes', 'asset_tag', 'name'),
-    searchForAsset
+  "/search",
+  requireQuery("limit", "description"),
+  filterQuery(
+    "limit",
+    "offset",
+    "description",
+    "damage_notes",
+    "asset_tag",
+    "name"
+  ),
+  searchForAsset
 );
 router.get("/:id", getSpecificAsset);
-router.get("/get_asset_via_cat/:id", getAssetFromCat)
-router.post("/", restrictTo('owner'), requireBody('asset_tag', 'name'), createAsset);
-router.post("/:id", restrictTo('owner'), requireBody(), updateAsset);
-router.delete("/:id", restrictTo('owner'), deleteAsset);
+router.get("/get_asset_via_cat/:id", getAssetFromCat);
+router.post(
+  "/",
+  restrictTo("owner"),
+  requireBody("asset_tag", "name"),
+  createAsset
+);
+router.post("/:id", restrictTo("owner"), requireBody(), updateAsset);
+router.delete("/:id", restrictTo("owner"), deleteAsset);
 // router.post("/:id(\\d+)/checkout", restrictTo('operator'), checkOutAsset);
 // router.post("/:id(\\d+)/checkin", restrictTo('operator'), checkInAsset);
-
 
 export default router;
