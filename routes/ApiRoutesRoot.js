@@ -6,12 +6,14 @@ const router = express.Router();
 import counterRoutes from './CounterRoutes.js';
 import assetRoutes from './AssetRoutes.js';
 import categoryRoutes from './CategoryRoutes.js';
+import checkInRoutes from './CheckInRoutes.js';
 
 // our api routes
 router.get("/", (req, res) => res.send("Hello World!"));
 router.use("/count", counterRoutes);
 router.use("/asset", assetRoutes);
 router.use("/categories", categoryRoutes);
+router.use("/checkin", checkInRoutes);
 // router.use("/user", UserRoutes);
 
 // Test Database Endpoint - demonstration purposes only
