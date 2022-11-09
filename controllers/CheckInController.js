@@ -68,6 +68,9 @@ export const checkInAsset = async (req, res, next) => {
           message: "CheckoutRecord or Asset does not exist",
         });
       }
+      else {
+        res.status(200).send({ result: [] });
+      }
     },
     (reason) => {
       reason.message = `Error updating the database: ${reason.message}`;
@@ -93,6 +96,9 @@ export const checkInAssetWithNotes = async (req, res, next) => {
           message: "CheckoutRecord or Asset does not exist",
         });
       }
+      else {
+        res.status(200).send({ result: [] });
+      }
     },
     (reason) => {
       reason.message = `Error updating the database: ${reason.message}`;
@@ -104,13 +110,19 @@ export const checkInAssetWithNotes = async (req, res, next) => {
 export const getOverdueInfo = async (req, res, next) => {
   const recordId = req.params.id;
   await query(
-    `
-        SELECT in_date, due_date, student_id
+    `SELECT in_date, due_date, student_id
         FROM checkoutrecord
         WHERE record_id = ?`,
     [recordId]
   ).then(
-    (result) => res.send({ result }),
+    (result) => {
+      const record = result[0];
+      res.send({
+        student_id: record.student_id,
+        overdue: (new Date(record.in_date) > new Date(record.due_date))
+      })
+    },
+
     (reason) => {
       reason.message = `Error getting the checkout record: ${reason.message}`;
       next(reason);
@@ -133,6 +145,9 @@ export const incrementStudentStrikes = async (req, res, next) => {
           status: 404,
           message: "user does not exist",
         });
+      }
+      else {
+        res.status(200).send({ result: [] });
       }
     },
     (reason) => {
