@@ -2,16 +2,15 @@ import { useState } from "react";
 import "./HomePage.css";
 import PageTemplate from "../../components/PageTemplate/PageTemplate";
 import AssetTable from "../../components/AssetTable/AssetTable";
-import CatDropdown from '../../components/CatDropdown/CatDropdown';
+import CatDropdown from "../../components/CatDropdown/CatDropdown";
 
 export default function HomePage() {
     const [currentCategory, updateCategory] = useState({
         catName: undefined,
         category_id: -1
     });
-    const [inputValue, setInputVal] = useState({
-        inputVal: null
-    });
+    const [inputValue, setInputVal] = useState(null);
+
     return (
         <div className="App">
             <PageTemplate></PageTemplate>
@@ -19,7 +18,7 @@ export default function HomePage() {
                 <div className="category">
                     <CatDropdown state={currentCategory} update={updateCategory} ></CatDropdown>
                 </div>
-                <AssetTable cat={currentCategory?.category_id} input={inputValue.inputVal}></AssetTable> 
+                <AssetTable cat={currentCategory?.category_id} input={inputValue}></AssetTable> 
             </div> 
     
         </div>

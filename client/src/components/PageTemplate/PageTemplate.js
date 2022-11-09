@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useState } from "react";
 import "./PageTemplate.css";
-
 import list from "../../assets/list.png";
 import search from "../../assets/search.png";
-import signIn from '../../assets/signIn.png';
+import signIn from "../../assets/signIn.png";
 
 function PageTemplate() {
     const [inputVal, setInputVal] = useState(null);
@@ -21,13 +20,14 @@ function PageTemplate() {
       const newInputVal = document.getElementById("search").value;
       console.log("Input Value: " + newInputVal);
       setInputVal(newInputVal);
-    }
+    };
+
     return (
         <div className="App">
             <div className="header-container container-fluid">
 
                 <div className="menu-header">
-                    {/* Not sure the purpose of this, it was on cheqroom, might end up being a dropdown menu instead of a button */}
+                    {/* Could be used to collapse the NavBar */}
                     <button type="menu" class="btn btn-default">
                         <img src={list} alt="list" width="30" height="30" />
                     </button>
