@@ -8,12 +8,13 @@ function update(){
     setUserPerm(0);
 }
 
-function Logout() {
+function Logout(props) {
     const [updated, toggleUpdate] = useState(null);
     useEffect(() => { }, [updated]);
+    const { callback } = props;
     return(
         <>
-        {(localStorage.getItem("userPerms") !== 0) ?
+        {(localStorage.getItem("userPerms") !== '0') ?
         <>
             Are you sure you want to Logout?
             <div >
@@ -24,7 +25,8 @@ function Logout() {
             </>
             :
             <>
-            Logout Successful! Click the X to get back to the asset list.
+            Logout Successful! 
+            {callback()}
             </>
 }
             </>
