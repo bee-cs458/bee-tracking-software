@@ -27,7 +27,7 @@ export default function AssetTable(props) {
       setAssets(assetResults); // Set the assets data table to be the queried result
     }
     assetTableInit(); // Render that son of a gun
-  }, [props.cat, props.input]);
+  }, [props.cat, props.input, props.filterByCheckedOut]);
 
   return (
     <div>
@@ -47,9 +47,13 @@ export default function AssetTable(props) {
               </tr>
             </thead>
             <tbody>
-              {assets != null &&
-                assets.map((asset) => (
-                  <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
+                {props.filterByCheckedOut?
+                    assets.filter( asset => asset.checked_out === 1).map((asset) => (
+                        <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
+                ))
+                :
+                    assets.map((asset) => (
+                        <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
                 ))}
             </tbody>
           </Table>

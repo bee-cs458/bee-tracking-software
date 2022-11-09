@@ -4,9 +4,10 @@ import "./HomePage.css";
 
 import list from "../../assets/list.png";
 import search from "../../assets/search.png";
-import signIn from "../../assets/signIn.png";
+import signIn from '../../assets/signIn.png';
 import AssetTable from "../../components/AssetTable/AssetTable";
 import CatDropdown from "../../components/CatDropdown/CatDropdown.js";
+import CheckedOut from '../../components/CheckedOutTable/CheckedOutSwitch/CheckedOutSwitch';
 
 export default function HomePage() {
   const [currentCategory, updateCategory] = useState({
@@ -30,6 +31,7 @@ export default function HomePage() {
     console.log("Input Value: " + newInputVal);
     setInputVal(newInputVal);
   }
+  const [checked, setChecked] = useState(false);
 
   return (
     <div className="App">
@@ -61,6 +63,9 @@ export default function HomePage() {
             update={updateCategory}
           ></CatDropdown>
         </div>
+
+        <CheckedOut state={checked} update={setChecked}></CheckedOut>
+
         {/* Extra space next to search bar to fill header, also includes sign in button */}
         <div className="right-header">
           <form action="/" />
@@ -72,10 +77,7 @@ export default function HomePage() {
       <div className="container-fluid main-content">
         {/* Container for the main section of the page, can be edited to include more functions */}
 
-        <AssetTable
-          cat={currentCategory?.category_id}
-          input={inputVal}
-        ></AssetTable>
+        <AssetTable filterByCheckedOut={checked} cat={currentCategory?.category_id}></AssetTable>
       </div>
     </div>
   );
