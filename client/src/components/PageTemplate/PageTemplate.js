@@ -6,11 +6,22 @@ import search from "../../assets/search.png";
 import signIn from '../../assets/signIn.png';
 
 function PageTemplate() {
-    // const [currentCategory, updateCategory] = useState({
-    //     catName: undefined,
-    //     category_id: -1
-    // });
+    const [inputVal, setInputVal] = useState(null);
 
+    //Handling user input when user hits 'Enter'
+    function handleKeyPress(e) {
+      if (e.key === "Enter") {
+        console.log("Key press is entered");
+        getInputValue();
+      }
+    }
+  
+    function getInputValue() {
+      // Selecting the input element and get its value
+      const newInputVal = document.getElementById("search").value;
+      console.log("Input Value: " + newInputVal);
+      setInputVal(newInputVal);
+    }
     return (
         <div className="App">
             <div className="header-container container-fluid">
@@ -25,8 +36,15 @@ function PageTemplate() {
                 <div className="search-header">
                     {/* form waiting to be linked */}
                     <form action="/" />
-                    <input type="text" class="form-control" id="search" placeholder="Search" name="search" />
-                    <button type="submit" class="btn btn-default">
+                    <input
+                        type="text"
+                        onKeyDown={handleKeyPress}
+                        class="form-control"
+                        id="search"
+                        placeholder="Search"
+                        name="search"
+                    />
+                    <button type="submit" onClick={getInputValue} class="btn btn-default">
                         <img src={search} alt="search" width="22" height="22" />
                     </button>
                     
@@ -41,10 +59,7 @@ function PageTemplate() {
 
                 </div>
             </div>
-            {/* <div className="container-fluid main-content">
-                {/* Container for the main section of the page, can be edited to include more functions */}
-
-            {/* </div> */} 
+ 
         </div>
     );
 }
