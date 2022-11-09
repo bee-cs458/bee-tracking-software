@@ -117,7 +117,11 @@ export const getOverdueInfo = async (req, res, next) => {
   ).then(
     (result) => {
       const record = result[0];
-      res.send({
+      if (!record) next({
+        status: 404,
+        message: `CheckoutRecord not found with ID ${recordId}`
+      })
+      else res.send({
         student_id: record.student_id,
         overdue: (new Date(record.in_date) > new Date(record.due_date))
       })
