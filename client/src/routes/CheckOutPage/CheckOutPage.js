@@ -16,20 +16,17 @@ function CheckOutPage() {
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="assetTag">
                                 <Form.Label>Asset Tag</Form.Label>
-                                    {/* Not sure what Form.Control type should be */}
-                                <Form.Control type="search" placeholder="Enter Asset Tag Number" />
+                                <Form.Control className="search" type="search" placeholder="Enter Asset Tag Number" />
                                 <Button id="addAsset">Add</Button>
                             </Form.Group>
 
                             <Form.Group as={Col} controlID="studentId">
                                 <Form.Label>Student ID Number</Form.Label>
-                                    {/* Not sure what Form.Control type should be */}
-                                <Form.Control type="search" placeholder="Enter Student ID Number" />
+                                <Form.Control className="search" type="search" placeholder="Enter Student ID Number" />
                                 <Button id="submitStudent">Submit</Button>
                             </Form.Group>
                         </Row>
 
-                        {/* Figure out how to display each asset here as they are added */}
                         <Table responsive>
                             <caption>Selected Assets</caption>
                             <thead>
@@ -40,7 +37,8 @@ function CheckOutPage() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <td></td>
+                                {/* Figure out how to display each asset here as they are added */}
+
                             </tbody>
                         </Table>
 
