@@ -2,6 +2,17 @@
     text-align: center;
 }
 
+.header-container {
+    display: flex;
+    position: fixed; 
+    flex-direction: row;
+    height: 45px;
+    width:100vw;
+    align-items: center;
+    margin-left: 250px;
+    background-color: #6486A9;
+}
+
 .main-content {
     overflow: auto;
     margin-left: 250px;
