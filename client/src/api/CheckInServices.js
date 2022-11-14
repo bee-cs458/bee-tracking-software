@@ -48,15 +48,33 @@ export async function getCheckoutRecordsByUserID(userId){
 }
 
 /* 
+Calls the APT endpount that gets a list the assets of all the checkout records that with given user id with a null in_date
+@param userId student's id
+@return collection of assets, where each entry is one row
+*/
+export async function getCheckoutRecordsByUserID(userId){
+    try{
+        console.log("Getting the mot recent assets for checkout records for the user " + userId);
+
+        const response = await axios.get('/api/checkin/assets/' + userId);
+        return response.data.result;
+    } catch (error) {
+        return "Error getting the assets for ythe checkout records for the user " + userID;
+    }
+}
+
+/* 
 Calls the API endpoint that updates the checkout record by updating the in_date and the notes
 @param recordId the reocord id that will be updated
 @param notes notes to be added to the checkout record
+@param damage 1 if the asset is still opertional 0 if not
+@param damageNotes any notes of the damages
 */
-export async function checkInAssetWithNotes(recordId, notes){
+export async function checkInAssetWithNotes(recordId, notes, damage, damageNotes){
     try{
         console.log("Getting the mot recent checkout record  " + recordId);
 
-        const response = await axios.post('/api/checkin/checkin/' + recordId, {damage, notes});
+        const response = await axios.post('/api/checkin/checkin/' + recordId, {notes, damage, damageNotes});
         return response.data.result;
     } catch (error) {
         return "Error getting the checkout record " + recordID;
