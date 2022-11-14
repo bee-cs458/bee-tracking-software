@@ -1,14 +1,33 @@
 import PageTemplate from "../../components/PageTemplate/PageTemplate";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./CheckInPage.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
+import { getSpecificAsset } from "../../api/AssetService";
 
 export default function CheckInPage() {
   const [assets, setAssets] = useState([]);
+  const [currentTag, setEnteredTag] = useState(null);
+  const [studentID, setEnteredID] = useState(null);
+
+  function handleTagPress() {
+    const newInputVal = document.getElementById("assetTag").value;
+    setEnteredTag(newInputVal);
+    console.log("Input Value: " + currentTag);
+  }
+
+  useEffect(() => {
+    async function addCheckinAsset() {
+      let currentList = assets;
+      let newAsset = await getSpecificAsset(currentTag);
+      currentList.push(newAsset);
+      console.log(currentList);
+    }
+    addCheckinAsset();
+  }, [currentTag]);
 
   return (
     <div>
@@ -24,7 +43,9 @@ export default function CheckInPage() {
                 type="search"
                 placeholder="Enter Asset Tag Number"
               />
-              <Button id="addAsset">Add</Button>
+              <Button id="addAsset" onClick={handleTagPress}>
+                Add
+              </Button>
             </Form.Group>
 
             <Form.Group as={Col} controlID="studentId">
@@ -48,9 +69,7 @@ export default function CheckInPage() {
                   <th>Due Date</th>
                 </tr>
               </thead>
-              <tbody>
-                {/* Figure out how to display each asset here as they are added */}
-              </tbody>
+              <tbody><tr>{ assets }</tr></tbody>
             </Table>
 
             <Form.Group as={Row}>
@@ -60,7 +79,7 @@ export default function CheckInPage() {
           </Row>
 
           <Row className="m-3">
-          <Form.Check type="switch" id="damageSwitch" label="Damaged?"/>
+            <Form.Check type="switch" id="damageSwitch" label="Damaged?" />
           </Row>
 
           <div className="m-3">
