@@ -19,7 +19,7 @@ export default function AssetTable(props) {
       if (props.cat >= 0) {
         // Check if category is selected
         assetResults = await getAssetFromCat(props.cat); // Then only query for that category
-      } else if (props.input !== null && props.input !== "") {
+      } else if (props.input !== undefined && props.input !== "") {
         //Include search results for asset_tags/descriptions/names
         assetResults = await searchingForAssests(props.input);
         setAssets(assetResults); // Set the assets data table to be the queried result
