@@ -81,7 +81,7 @@ export const checkInAsset = async (req, res, next) => {
 
 export const checkInAssetWithNotes = async (req, res, next) => {
   const recordId = req.params.id;
-  const notes = req.params.notes;
+  const notes = req.body.notes;
   await query(
     `
         UPDATE checkoutrecord, asset
