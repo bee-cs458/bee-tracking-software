@@ -8,8 +8,10 @@ export default function HomePage() {
     const [currentCategory, updateCategory] = useState({
         catName: undefined,
         category_id: -1
+    })
+    const [inputValue, getInputValue] = useState({
+        inputVal: null
     });
-    const [inputValue, setInputVal] = useState(null);
 
     return (
         <div className="App">
@@ -18,7 +20,7 @@ export default function HomePage() {
                 <div className="category">
                     <CatDropdown state={currentCategory} update={updateCategory} ></CatDropdown>
                 </div>
-                <AssetTable cat={currentCategory?.category_id} input={inputValue}></AssetTable> 
+                <AssetTable cat={currentCategory?.category_id} input={inputValue.inputVal}></AssetTable> 
             </div> 
     
         </div>
