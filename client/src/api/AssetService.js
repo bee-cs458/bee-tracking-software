@@ -66,3 +66,19 @@ export async function getAssetFromCat(category) {
         return "Error Getting Assets with Due Dates from API";
     }
 }
+
+export async function getSpecificAsset(id) {
+    try {
+        console.log("Getting Assets with matching id");
+
+        const response = await axios.get('/api/asset/' + id);
+
+        return response.data.result;
+    } catch (error) {
+        // DON'T FAIL ON 404
+        if (error.response.status === 404) {
+            return error.response.data.result;
+        }
+        return "Error Getting Assets with ID from API";
+    }
+}
