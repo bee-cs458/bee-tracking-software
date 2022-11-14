@@ -23,32 +23,37 @@ function CheckOutPage() {
                             <Form.Label>Asset Tag</Form.Label>
                             <Form.Control className="search" type="search" placeholder="Enter Asset Tag Number" />
                             <Button id="addAsset">Add</Button>
+                            {/* Should search for the matching asset and submit it to the table (check out queue) */}
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="studentId">
                             <Form.Label>Student ID Number</Form.Label>
                             <Form.Control className="search" type="search" placeholder="Enter Student ID Number" />
                             <Button id="submitStudent">Submit</Button>
+                            {/* Should search for the student matching the entered ID number */}
                         </Form.Group>
                     </Row>
 
+                    {/* Check out queue */}
                     <Table responsive>
                         <caption>Selected Assets</caption>
                         <thead>
                             <tr>
+                                <th>Quantity</th>
                                 <th>Tag</th>
                                 <th>Name</th>
                                 <th>Due Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {/* Figure out how to display each asset here as they are added */}
+                            {/* Should display each asset here as they are added */}
 
                         </tbody>
                     </Table>
 
                     <Button className="clearAll" type="reset">Clear All</Button>
                     <Button className="checkOut" variant="primary" onClick={handleShow}>Check Out</Button>
+                    {/* Should submit the check out information to the database while also opening the confirmation modal */}
                 </Form>
                 <Modal 
                     show={show} 
@@ -60,6 +65,7 @@ function CheckOutPage() {
                         <Modal.Title>Check Out Confirmation</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>Successfully checked out items to: (Student Name) by: (Operator)
+                        {/* Should include actual student ID/name and operator ID/name  */}
                         <Table responsive>
                             <caption>Selected Assets</caption>
                             <thead>
@@ -71,7 +77,7 @@ function CheckOutPage() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* Figure out how to display each asset here as they are added */}
+                                {/* Should display each asset here as they are added */}
 
                             </tbody>
                         </Table>
@@ -79,6 +85,7 @@ function CheckOutPage() {
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>Close</Button>
                         <Button variant="primary" onClick={handleClose}>Print Check Out Record</Button>
+                        {/* Should export/print the information on the confirmation modal when clicked */}
                     </Modal.Footer>
                 </Modal>
 
