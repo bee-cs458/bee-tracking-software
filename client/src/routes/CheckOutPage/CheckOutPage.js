@@ -59,7 +59,23 @@ function CheckOutPage() {
                     <Modal.Header closeButton>
                         <Modal.Title>Check Out Confirmation</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Successfully checked out items</Modal.Body>
+                    <Modal.Body>Successfully checked out items to: (Student Name) by: (Operator)
+                        <Table responsive>
+                            <caption>Selected Assets</caption>
+                            <thead>
+                                <tr>
+                                    <th>Quantity</th>
+                                    <th>Tag</th>
+                                    <th>Name</th>
+                                    <th>Due Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {/* Figure out how to display each asset here as they are added */}
+
+                            </tbody>
+                        </Table>
+                    </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>Close</Button>
                         <Button variant="primary" onClick={handleClose}>Print Check Out Record</Button>
