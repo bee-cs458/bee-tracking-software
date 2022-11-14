@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import list from '../../assets/list.png';
-import checkOut from '../../assets/checkout.png';
-import checkIn from '../../assets/checkIn.png';
-import operators from '../../assets/operators.png';
-import logOut from '../../assets/logOut.png';
-import React, { useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
+import list from "../../assets/list.png";
+import checkOut from "../../assets/checkout.png";
+import checkIn from "../../assets/checkIn.png";
+import operators from "../../assets/operators.png";
+import logOut from "../../assets/logOut.png";
+import React, { useState } from "react";
+import Modal from "react-bootstrap/Modal";
 import Login from "../Login/Login";
 import Logout from "../Login/Logout";
-import './NavBar.css';
+import "./NavBar.css";
 
 function NavBar() {
 
@@ -21,7 +21,8 @@ function NavBar() {
             <ul>
                 {/* All links waiting to be linked to something, can be edited based on user type */}
                 <li>
-                    <Link to="/">
+                    <Link to="/"> 
+                    {/* Linked back to home page/asset view */}
                         <img src={list} alt="list" width="20" height="18"/>Assets
                     </Link>
                 </li>
@@ -35,7 +36,7 @@ function NavBar() {
                 :
                 <>
                  <li>
-                    <Link to="/">
+                    <Link to="/checkOut">
                         <img src={checkOut} alt="check out" width="20" height="18"/>Check Out
                     </Link>
                 </li>
