@@ -57,7 +57,7 @@ function NavBar() {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/">
+                    <Link to="/profile">
 
                         <img src={signIn} alt="profile" width="20" height="18"/>Profile
                     </Link>

@@ -2,14 +2,6 @@ import Button from "react-bootstrap/esm/Button";
 import signIn from '../../assets/signIn.png';
 import { useEffect, useState } from 'react';
 
-function Profile(){
-    return (
-    <>
-        <button type="signIn" class="btn btn-default">Profile
-   <img src={signIn} alt="signIn" width="22" height="22"/></button>
-    </>
-    )
-}
 
 function ChangePassword() {
     const [updated, toggleUpdate] = useState(null);
