@@ -31,6 +31,10 @@ router.post('/login', passport.authenticate('local', {
     failureRedirect: "/api/login/failure"
 }));
 
+// logout
+router.post('/logout', async (req, res, next) => {
+    await req.logout().then(res.send("Logged out")).catch(next);
+});
 
 router.get('/login/success', (req, res) => {
     delete req.user?.password;
