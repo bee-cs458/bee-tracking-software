@@ -19,6 +19,12 @@ export default function CheckInPage() {
     console.log("Input Value: " + currentTag);
   }
 
+  function clearAll() {
+    setAssets([]);
+    console.log("Pending Assets Cleared");
+    console.log(assets);
+  }
+
   useEffect(() => {
     async function addCheckinAsset() {
       let currentList = assets;
@@ -26,7 +32,10 @@ export default function CheckInPage() {
       currentList.push(newAsset);
       console.log(currentList);
     }
-    addCheckinAsset();
+
+    if (currentTag != null) {
+      addCheckinAsset();
+    }
   }, [currentTag]);
 
   return (
@@ -43,19 +52,17 @@ export default function CheckInPage() {
                 type="search"
                 placeholder="Enter Asset Tag Number"
               />
-              <Button id="addAsset" onClick={handleTagPress}>
-                Add
-              </Button>
+              <Button onClick={handleTagPress}>Add</Button>
             </Form.Group>
 
-            <Form.Group as={Col} controlID="studentId">
+            <Form.Group as={Col} controlid="studentId">
               <Form.Label>Student ID Number</Form.Label>
               <Form.Control
                 className="search"
                 type="search"
                 placeholder="Enter Student ID Number"
               />
-              <Button id="submitStudent">Submit</Button>
+              <Button>Submit</Button>
             </Form.Group>
           </Row>
           <Row className="m-3">
@@ -69,7 +76,9 @@ export default function CheckInPage() {
                   <th>Due Date</th>
                 </tr>
               </thead>
-              <tbody><tr>{ assets }</tr></tbody>
+              <tbody>
+                <tr>{}</tr>
+              </tbody>
             </Table>
 
             <Form.Group as={Row}>
@@ -83,7 +92,7 @@ export default function CheckInPage() {
           </Row>
 
           <div className="m-3">
-            <Button className="clearAll" type="reset">
+            <Button className="clearAll" type="reset" onClick={clearAll}>
               Clear All
             </Button>
             <Button className="checkOut" variant="primary" type="submit">
