@@ -1,8 +1,6 @@
 import { useState } from "react";
 import "./HomePage.css";
-import list from "../../assets/list.png";
 import search from "../../assets/search.png";
-import signIn from "../../assets/signIn.png";
 import AssetTable from "../../components/AssetTable/AssetTable";
 import CatDropdown from "../../components/CatDropdown/CatDropdown";
 

@@ -37,7 +37,7 @@ Calls API endpoint for getting assests based on description searched by user
 */
 export async function getAssetsByDescription(input) {
     try {
-        console.log("Getting Assests by Description: " + "'" + input + "'");
+        console.log(`Getting Assests by Description: ${input}`);
 
         const response = await axios.get("/api/asset/search", {
             params: {
@@ -91,7 +91,7 @@ Calls API endpoint for getting assests based on asset_tag, name, or description 
 */
 export async function searchingForAssests(input) {
     try {
-        console.log("Searching assets by: " + "'" + input + "'");
+        console.log(`Searching assets by: ${input}`);
 
         const response = await axios.get("/api/asset/search", {
             params: {
