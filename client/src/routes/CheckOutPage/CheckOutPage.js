@@ -48,24 +48,24 @@ function CheckOutPage() {
                     </Table>
 
                     <Button className="clearAll" type="reset">Clear All</Button>
-                    <Button className="checkOut" variant="primary" onClick={handleShow} type="submit">Check Out</Button>
-
-                    <Modal 
-                        show={show} 
-                        onHide={handleClose}
-                        backdrop="static"
-                        keyboard={false}
-                    >
-                        <Modal.Header closeButton>
-                            <Modal.Title>Check Out Confirmation</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>Successfully checked out items</Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>Close</Button>
-                            <Button variant="primary" onClick={handleClose}>Print Check Out Record</Button>
-                        </Modal.Footer>
-                    </Modal>
+                    <Button className="checkOut" variant="primary" onClick={handleShow}>Check Out</Button>
                 </Form>
+                <Modal 
+                    show={show} 
+                    onHide={handleClose}
+                    backdrop="static"
+                    keyboard={false}
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Check Out Confirmation</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Successfully checked out items</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>Close</Button>
+                        <Button variant="primary" onClick={handleClose}>Print Check Out Record</Button>
+                    </Modal.Footer>
+                </Modal>
+
             </div>
 
         </div>
