@@ -25,7 +25,7 @@ function CheckOutPage() {
                             <Button id="addAsset">Add</Button>
                         </Form.Group>
 
-                        <Form.Group as={Col} controlID="studentId">
+                        <Form.Group as={Col} controlId="studentId">
                             <Form.Label>Student ID Number</Form.Label>
                             <Form.Control className="search" type="search" placeholder="Enter Student ID Number" />
                             <Button id="submitStudent">Submit</Button>
