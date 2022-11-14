@@ -33,6 +33,26 @@ export const getCheckoutRecordsByTag = async (req, res, next) => {
   );
 };
 
+export const getAssetsForRecordsByUser= async (req,res,next) => {
+  const userId = req.params.id;
+  await query(
+    `
+                SELECT asset.* 
+                FROM checkoutrecord
+                JOIN user on user.user_id=checkoutrecord.student_id
+                join asset on asset.asset_tag = checkoutrecord.asset_tag
+                WHERE user.user_id = ? AND in_date IS NULL
+                ORDER BY record_id DESC;`,
+    [userId]
+  ).then(
+    (result) => res.send({ result }),
+    (reason) => {
+      reason.message = `Error getting checkout record for the user: ${reason.message}`;
+      next(reason);
+    }
+  );
+};
+
 export const getCheckoutRecordsByUser = async (req, res, next) => {
   const userId = req.params.id;
   await query(
@@ -81,13 +101,15 @@ export const checkInAsset = async (req, res, next) => {
 
 export const checkInAssetWithNotes = async (req, res, next) => {
   const recordId = req.params.id;
+  const damage = req.body.damageNotes;
   const notes = req.body.notes;
+  const damageNotes = req.body.damage;
   await query(
     `
         UPDATE checkoutrecord, asset
-        SET checkoutrecord.in_date = CURRENT_TIMESTAMP(), asset.checked_out = 0, checkoutrecord.notes = ?
+        SET checkoutrecord.in_date = CURRENT_TIMESTAMP(), asset.checked_out = 0, checkoutrecord.notes = ?, asset.operational = ?, asset.damage_notes = ( asset.damage_notes + \"\\n\"  + \"\\n\"+ CURRENT_TIMESTAMP() + \" \" +  ?)
         WHERE checkoutrecord.record_id = ? and asset.asset_tag = checkoutrecord.asset_tag`,
-    [notes, recordId]
+    [notes, damage, damageNotes, recordId]
   ).then(
     (result) => {
       if (result.affectedRows == 0) {
