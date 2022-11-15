@@ -7,15 +7,20 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import { getSpecificAsset } from "../../api/AssetService";
+import { getAssetsByUserID } from "../../api/CheckInServices";
 
 export default function CheckInPage() {
   const [assets, setAssets] = useState([]);
   const [currentTag, setEnteredTag] = useState(null);
   const [studentID, setEnteredID] = useState(null);
 
-  function handleTagPress() {
-    const newInputVal = document.getElementById("assetTag").value;
-    setEnteredTag(newInputVal);
+  function handleIDChange(newValue){
+    setEnteredID(newValue)
+    console.log("input value: " + studentID);
+  }
+
+  function handleTagChange(newValue) {
+    setEnteredTag(newValue);
     console.log("Input Value: " + currentTag);
   }
 
@@ -25,18 +30,40 @@ export default function CheckInPage() {
     console.log(assets);
   }
 
-  useEffect(() => {
-    async function addCheckinAsset() {
+  const handleTagPress = async (event) => {
+    if (currentTag != null) {
       let currentList = assets;
-      let newAsset = await getSpecificAsset(currentTag);
-      currentList.push(newAsset);
+      await getSpecificAsset(currentTag).then((result) => {
+        const newAsset = result[0];
+        if (newAsset) {
+          currentList.push(newAsset);
+        }
+        else {
+          console.log("Asset did not exist!");
+        }
+      });
       console.log(currentList);
     }
+  };
 
-    if (currentTag != null) {
-      addCheckinAsset();
+  const handleIDPress = async (event) => {
+    if (studentID != null) {
+      await getAssetsByUserID(studentID).then((result) => {
+        const newAssets = result;
+        if (newAssets) {
+          setAssets(newAssets)
+          console.log(newAssets);
+        }
+        else {
+          console.log("User did not exist!");
+        }
+      });
+      
     }
-  }, [currentTag]);
+  };
+
+  // re-render the assets table
+  useEffect(() => {}, [assets]);
 
   return (
     <div>
@@ -51,6 +78,7 @@ export default function CheckInPage() {
                 className="search"
                 type="search"
                 placeholder="Enter Asset Tag Number"
+                onChange={(event => {handleTagChange(event.target.value)})}
               />
               <Button onClick={handleTagPress}>Add</Button>
             </Form.Group>
@@ -61,8 +89,9 @@ export default function CheckInPage() {
                 className="search"
                 type="search"
                 placeholder="Enter Student ID Number"
+                onChange={(event => {handleIDChange(event.target.value)})}
               />
-              <Button>Submit</Button>
+              <Button onClick={handleIDPress}>Submit</Button>
             </Form.Group>
           </Row>
           <Row className="m-3">

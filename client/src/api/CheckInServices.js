@@ -47,7 +47,7 @@ export async function getCheckoutRecordsByUserID(userId) {
     const response = await axios.get("/api/checkin/" + userId);
     return response.data.result;
   } catch (error) {
-    return "Error getting the checkout records for the user " + userID;
+    return "Error getting the checkout records for the user " + userId;
   }
 }
 
@@ -56,14 +56,14 @@ Calls the APT endpount that gets a list the assets of all the checkout records t
 @param userId student's id
 @return collection of assets, where each entry is one row
 */
-export async function getCheckoutRecordsByUserID(userId){
+export async function getAssetsByUserID(userId){
     try{
         console.log("Getting the mot recent assets for checkout records for the user " + userId);
 
         const response = await axios.get('/api/checkin/assets/' + userId);
         return response.data.result;
     } catch (error) {
-        return "Error getting the assets for ythe checkout records for the user " + userID;
+        return "Error getting the assets for ythe checkout records for the user " + userId;
     }
 }
 
@@ -81,7 +81,7 @@ export async function checkInAssetWithNotes(recordId, notes, damage, damageNotes
         const response = await axios.post('/api/checkin/checkin/' + recordId, {notes, damage, damageNotes});
         return response.data.result;
     } catch (error) {
-        return "Error getting the checkout record " + recordID;
+        return "Error getting the checkout record " + recordId;
     }
 }
 
@@ -97,7 +97,7 @@ export async function getOverdue(recordId) {
     const response = await axios.get("/api/checkin/overdue/" + recordId);
     return response.data.result;
   } catch (error) {
-    return "Error getting the overdue info for checkout record " + recordID;
+    return "Error getting the overdue info for checkout record " + recordId;
   }
 }
 
@@ -112,6 +112,6 @@ export async function incrementUserStrikes(userId) {
     const response = await axios.post("/api/checkin/student" + userId);
     return response.data.result;
   } catch (error) {
-    return "Error getting the checkout record " + recordID;
+    return "Error incrementing the strikes for user " + userId;
   }
 }
