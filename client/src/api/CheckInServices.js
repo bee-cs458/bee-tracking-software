@@ -76,7 +76,7 @@ Calls the API endpoint that updates the checkout record by updating the in_date 
 */
 export async function checkInAssetWithNotes(recordId, notes, damage, damageNotes){
     try{
-        console.log("Getting the mot recent checkout record  " + recordId);
+        console.log("Getting the most recent checkout record  " + recordId);
 
         const response = await axios.post('/api/checkin/checkin/' + recordId, {notes, damage, damageNotes});
         return response.data.result;
@@ -88,11 +88,11 @@ export async function checkInAssetWithNotes(recordId, notes, damage, damageNotes
 /* 
 Calls the API endpoint that gets true if the record asset was turned in after the due date
 @param recordId the record id
-@return the studentid and true if late and flase if not.
+@return the studentid and true if late and false if not.
 */
 export async function getOverdue(recordId) {
   try {
-    console.log("Checkign if the asset is overdue" + recordId);
+    console.log("Checking if the asset is overdue" + recordId);
 
     const response = await axios.get("/api/checkin/overdue/" + recordId);
     return response.data.result;

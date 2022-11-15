@@ -6,7 +6,14 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { getSpecificAsset } from "../../api/AssetService";
-import { getAssetsByUserID } from "../../api/CheckInServices";
+import {
+  getAssetsByUserID,
+  incrementUserStrikes,
+  getOverdue,
+  checkInAssetWithNotes,
+  getCheckoutRecordsByUserID,
+  getCheckoutRecordsByTag,
+} from "../../api/CheckInServices";
 import CheckInTable from "../../components/CheckInTable/CheckInTable";
 
 export default function CheckInPage() {
@@ -29,7 +36,7 @@ export default function CheckInPage() {
   function clearAll() {
     setAssets([]);
     setNotes("");
-    assetList.clear() // potential replacement
+    assetList.clear(); // potential replacement
     console.log("Pending Assets Cleared");
   }
 
@@ -40,7 +47,7 @@ export default function CheckInPage() {
         const newAsset = result[0];
         if (newAsset) {
           currentList.push(newAsset);
-          assetList.set(newAsset)
+          assetList.set(newAsset);
         } else {
           console.log("Asset did not exist!");
         }
@@ -65,11 +72,18 @@ export default function CheckInPage() {
 
   const handleSubmit = async (event) => {
     // Check there are assets
-    // Check the assets exist
+    console.log("submitted");
+    if (assets.length < 1) {
+      // Show modal with error message
+      // clear all
+    }
+
     // Check assets are checked out
 
+
     // set date in on records
-    // add notes to records
+    // add note to records
+
     // add damage notes to assets
     // add damaged var to assets
     // if overdue, add strike to student
@@ -96,7 +110,7 @@ export default function CheckInPage() {
                   handleTagChange(event.target.value);
                 }}
               />
-              <Button onClick={handleTagPress}>Add</Button>
+              <Button onClick={ handleTagPress}>Add</Button>
             </Form.Group>
 
             <Form.Group as={Col} controlid="studentId">
@@ -117,7 +131,13 @@ export default function CheckInPage() {
 
             <Form.Group as={Row}>
               <Form.Label>Check In Notes</Form.Label>
-              <Form.Control as="textarea" row={3} />
+              <Form.Control
+                as="textarea"
+                row={3}
+                onChange={(event) => {
+                  setNotes(event.target.value);
+                }}
+              />
             </Form.Group>
           </Row>
 
@@ -125,7 +145,11 @@ export default function CheckInPage() {
             <Button className="clearAll" type="reset" onClick={clearAll}>
               Clear All
             </Button>
-            <Button className="checkIn" variant="primary" type="submit">
+            <Button
+              className="checkIn"
+              variant="primary"
+              onClick={handleSubmit}
+            >
               Check In
             </Button>
           </div>
@@ -134,3 +158,9 @@ export default function CheckInPage() {
     </div>
   );
 }
+
+// Checked out assets in the database:
+// 11
+// 12
+// 13
+// 14
