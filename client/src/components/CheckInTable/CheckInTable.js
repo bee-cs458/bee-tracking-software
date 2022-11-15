@@ -3,6 +3,7 @@ import Alert from "react-bootstrap/Alert";
 import CheckInRow from "../CheckInTable/CheckInRow";
 
 export default function CheckInTable(props) {
+
   return (
     <div>
       {props.assets != null && props.assets.length > 0 ? (
