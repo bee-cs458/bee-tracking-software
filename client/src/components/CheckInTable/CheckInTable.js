@@ -1,30 +1,27 @@
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
-import AssetRow from "./AssetRow/AssetRow";
+import CheckInRow from "../CheckInTable/CheckInRow";
 
-export default function AssetTable(props) {
-
+export default function CheckInTable(props) {
   return (
     <div>
-
-      {(props.assets != null && props.assets.length > 0) ? (
+      {props.assets != null && props.assets.length > 0 ? (
         <div>
           <Table striped bordered>
             <thead>
               <tr>
+                <td>Damaged</td>
                 <td>Tag</td>
                 <td>Name</td>
-                <td>Description</td>
-                <td>Date Added</td>
                 <td>Category</td>
-                <td>Checked Out</td>
                 <td>Due Date</td>
+                <td>Damage Notes</td>
               </tr>
             </thead>
             <tbody>
               {props.assets != null &&
                 props.assets.map((asset) => (
-                  <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
+                  <CheckInRow key={asset.asset_tag} item={asset}></CheckInRow>
                 ))}
             </tbody>
           </Table>
