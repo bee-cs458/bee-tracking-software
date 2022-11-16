@@ -17,7 +17,7 @@ export const getCheckoutRecordsByTag = async (req, res, next) => {
   const assetTag = req.params.tag;
   await query(
     `
-                SELECT checkoutrecord.* , asset.name
+                SELECT checkoutrecord.* , asset.name, asset.category
                 FROM checkoutrecord
                 JOIN asset on asset.asset_tag=checkoutrecord.asset_tag
                 WHERE asset.asset_tag = ?
@@ -57,7 +57,7 @@ export const getCheckoutRecordsByUser = async (req, res, next) => {
   const userId = req.params.id;
   await query(
     `
-                SELECT checkoutrecord.* , asset.name
+                SELECT checkoutrecord.* , asset.name, asset.category
                 FROM checkoutrecord
                 JOIN user on user.user_id=checkoutrecord.student_id
                 JOIN asset on asset.asset_tag = checkoutrecord.asset_tag

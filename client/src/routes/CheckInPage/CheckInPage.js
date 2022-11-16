@@ -47,7 +47,7 @@ export default function CheckInPage() {
     if (currentTag != null) {
       let currentList = [...assets];
       if (currentList.every((asset) => asset.asset_tag !== currentTag)) {
-        await getSpecificAsset(currentTag).then((result) => {
+        await getCheckoutRecordsByTag(currentTag).then((result) => {
           const newAsset = result[0];
           if (newAsset) {
             currentList.push(newAsset);
@@ -65,7 +65,7 @@ export default function CheckInPage() {
 
   const handleIDPress = async (event) => {
     if (studentID != null) {
-      await getAssetsByUserID(studentID).then((result) => {
+      await getCheckoutRecordsByUserID(studentID).then((result) => {
         const newAssets = result;
         if (newAssets) {
           setAssets(newAssets);
