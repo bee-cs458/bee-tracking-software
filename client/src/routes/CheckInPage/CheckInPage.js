@@ -53,13 +53,14 @@ export default function CheckInPage() {
             setAlertType(null);
             setAssets(currentList);
           } else {
-            console.log("Asset did not exist!");
             setAlertType(0);
-            setAlertMessage("Asset is not checked out");
+            setAlertMessage("Asset is checked in");
           }
         });
       } else {
         console.log("Asset already in the list");
+        setAlertType(0);
+        setAlertMessage("Asset is already queued for");
       }
       console.log(assets);
     }
@@ -79,8 +80,27 @@ export default function CheckInPage() {
     }
   };
 
+  let strikes = false;
+
+  const checkIn = async (asset) => {
+    await checkInAssetWithNotes(
+      asset.record_id,
+      notes,
+      asset.operational,
+      asset.damage_notes
+    );
+
+    const overDue = await getOverdue(asset.record_id);
+    console.log(overDue.overdue);
+
+    if (overDue.overdue) {
+      incrementUserStrikes(overDue.student_id);
+      strikes = true;
+      console.log("strike added");
+    }
+  };
+
   const handleSubmit = async (event) => {
-    // Check there are assets
     console.log("started submission");
     if (assets.length < 1) {
       setAlertType(0);
@@ -88,23 +108,20 @@ export default function CheckInPage() {
     } else {
       setAlertType(null);
       setAlertMessage(null);
+
+      assets.forEach((asset) => {
+        checkIn(asset);
+      });
+
+      if (strikes) {
+        console.log("strikes added to student");
+      } else {
+        setAlertType(3);
+        setAlertMessage("Assets Successfully Checked In");
+      }
+      clearAll();
     }
 
-    assets.forEach((asset) => {
-      console.log(
-        asset.asset_tag,
-        asset.record_id,
-        notes,
-        asset.operational,
-        asset.damage_notes
-      );
-      let damged = checkInAssetWithNotes(
-        asset.record_id,
-        notes,
-        asset.operational,
-        asset.damage_notes
-      );
-    });
     // set date in on records
     // add note to records
 
