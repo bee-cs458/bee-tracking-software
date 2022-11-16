@@ -102,13 +102,13 @@ export const checkInAsset = async (req, res, next) => {
 
 export const checkInAssetWithNotes = async (req, res, next) => {
   const recordId = req.params.id;
-  const damage = req.body.damageNotes;
+  const damage = req.body.damage;
   const notes = req.body.notes;
-  const damageNotes = req.body.damage;
+  const damageNotes = req.body.damageNotes;
   await query(
     `
         UPDATE checkoutrecord, asset
-        SET checkoutrecord.in_date = CURRENT_TIMESTAMP(), asset.checked_out = 0, checkoutrecord.notes = ?, asset.operational = ?, asset.damage_notes = ( asset.damage_notes + \"\\n\"  + \"\\n\"+ CURRENT_TIMESTAMP() + \" \" +  ?)
+        SET checkoutrecord.in_date = CURRENT_TIMESTAMP(), asset.checked_out = 0, checkoutrecord.notes = ?, asset.operational = ?, asset.damage_notes = ( \"\" + asset.damage_notes + \"\\n\"  + \"\\n\"+ CURRENT_TIMESTAMP() + \" \" +  ?)
         WHERE checkoutrecord.record_id = ? and asset.asset_tag = checkoutrecord.asset_tag`,
     [notes, damage, damageNotes, recordId]
   ).then(
