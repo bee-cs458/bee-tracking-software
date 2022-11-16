@@ -1,10 +1,9 @@
 import Button from "react-bootstrap/esm/Button";
-import signIn from '../../assets/signIn.png';
 import { useEffect, useState } from 'react';
+import changePassword from '../../api/UserService';
 
 
 function ChangePassword() {
-    const [updated, toggleUpdate] = useState(null);
     useEffect(() => { }, [updated]);
     return(
 <>
@@ -19,6 +18,7 @@ function ChangePassword() {
                     <div>
                         <Button variant="primary" onClick={
                             async () => {
+                                update(await changePassword('New Password2','newPass' ));
                             }
                         } style={{ float: 'right' }}>
                             Update Password
