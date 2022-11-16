@@ -56,15 +56,21 @@ Calls the APT endpount that gets a list the assets of all the checkout records t
 @param userId student's id
 @return collection of assets, where each entry is one row
 */
-export async function getAssetsByUserID(userId){
-    try{
-        console.log("Getting the mot recent assets for checkout records for the user " + userId);
+export async function getAssetsByUserID(userId) {
+  try {
+    console.log(
+      "Getting the mot recent assets for checkout records for the user " +
+        userId
+    );
 
-        const response = await axios.get('/api/checkin/assets/' + userId);
-        return response.data.result;
-    } catch (error) {
-        return "Error getting the assets for ythe checkout records for the user " + userId;
-    }
+    const response = await axios.get("/api/checkin/assets/" + userId);
+    return response.data.result;
+  } catch (error) {
+    return (
+      "Error getting the assets for ythe checkout records for the user " +
+      userId
+    );
+  }
 }
 
 /* 
@@ -74,15 +80,24 @@ Calls the API endpoint that updates the checkout record by updating the in_date 
 @param damage 1 if the asset is still opertional 0 if not
 @param damageNotes any notes of the damages
 */
-export async function checkInAssetWithNotes(recordId, notes, damage, damageNotes){
-    try{
-        console.log("Getting the most recent checkout record  " + recordId);
+export async function checkInAssetWithNotes(
+  recordId,
+  notes,
+  damage,
+  damageNotes
+) {
+  try {
+    console.log("Getting the most recent checkout record  " + recordId);
 
-        const response = await axios.post('/api/checkin/checkin/' + recordId, {notes, damage, damageNotes});
-        return response.data.result;
-    } catch (error) {
-        return "Error getting the checkout record " + recordId;
-    }
+    const response = await axios.post("/api/checkin/checkin/" + recordId, {
+      notes,
+      damage,
+      damageNotes,
+    });
+    return response.data.result;
+  } catch (error) {
+    return "Error getting the checkout record " + recordId;
+  }
 }
 
 /* 
@@ -92,10 +107,11 @@ Calls the API endpoint that gets true if the record asset was turned in after th
 */
 export async function getOverdue(recordId) {
   try {
-    console.log("Checking if the asset is overdue" + recordId);
+    console.log("Checking if the asset is overdue for record: " + recordId);
 
     const response = await axios.get("/api/checkin/overdue/" + recordId);
-    return response.data.result;
+    console.log(response.data.result);
+    return response.data;
   } catch (error) {
     return "Error getting the overdue info for checkout record " + recordId;
   }
@@ -109,7 +125,7 @@ export async function incrementUserStrikes(userId) {
   try {
     console.log("Giving the user " + userId + "one more strike");
 
-    const response = await axios.post("/api/checkin/student" + userId);
+    const response = await axios.post("/api/checkin/student/" + userId);
     return response.data.result;
   } catch (error) {
     return "Error incrementing the strikes for user " + userId;

@@ -33,7 +33,7 @@ export const getCheckoutRecordsByTag = async (req, res, next) => {
   );
 };
 
-export const getAssetsForRecordsByUser= async (req,res,next) => {
+export const getAssetsForRecordsByUser = async (req, res, next) => {
   const userId = req.params.id;
   await query(
     `
@@ -88,8 +88,7 @@ export const checkInAsset = async (req, res, next) => {
           status: 404,
           message: "CheckoutRecord or Asset does not exist",
         });
-      }
-      else {
+      } else {
         res.status(200).send({ result: [] });
       }
     },
@@ -118,8 +117,7 @@ export const checkInAssetWithNotes = async (req, res, next) => {
           status: 404,
           message: "CheckoutRecord or Asset does not exist",
         });
-      }
-      else {
+      } else {
         res.status(200).send({ result: [] });
       }
     },
@@ -140,14 +138,16 @@ export const getOverdueInfo = async (req, res, next) => {
   ).then(
     (result) => {
       const record = result[0];
-      if (!record) next({
-        status: 404,
-        message: `CheckoutRecord not found with ID ${recordId}`
-      })
-      else res.send({
-        student_id: record.student_id,
-        overdue: (new Date(record.in_date) > new Date(record.due_date))
-      })
+      if (!record)
+        next({
+          status: 404,
+          message: `CheckoutRecord not found with ID ${recordId}`,
+        });
+      else
+        res.send({
+          student_id: record.student_id,
+          overdue: new Date(record.in_date) > new Date(record.due_date),
+        });
     },
 
     (reason) => {
@@ -172,8 +172,7 @@ export const incrementStudentStrikes = async (req, res, next) => {
           status: 404,
           message: "user does not exist",
         });
-      }
-      else {
+      } else {
         res.status(200).send({ result: [] });
       }
     },
