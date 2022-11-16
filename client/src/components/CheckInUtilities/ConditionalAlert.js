@@ -5,9 +5,9 @@ export default function ConditionalAlert(props) {
     case 0:
       return <Alert variant="warning">{props.message}</Alert>;
     case 1:
-      return <Alert variant="warning">{props.message}</Alert>;
+      return <Alert variant="danger">{props.message}</Alert>;
     case 2:
-      return <Alert variant="warning">{props.message}</Alert>;
+      return <Alert variant="primary">{props.message}</Alert>;
     case 3:
       return <Alert variant="success">{props.message}</Alert>;
 
@@ -15,9 +15,3 @@ export default function ConditionalAlert(props) {
       return;
   }
 }
-
-// type codes:
-//     0 = no asset fouhnd
-//     1 = asset not checked out
-//     2 = student not found
-//     3 = assets successfully checked in

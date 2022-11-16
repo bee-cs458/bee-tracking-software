@@ -21,9 +21,9 @@ export default function CheckInPage() {
   const [assets, setAssets] = useState([]);
   const [currentTag, setEnteredTag] = useState(null);
   const [studentID, setEnteredID] = useState(null);
-  const [notes, setNotes] = useState("");
-  let alertType = 3,
-    alertMessage = "I like cheese";
+  const [notes, setNotes] = useState("No Notes");
+  const [alertType, setAlertType] = useState(null);
+  const [alertMessage, setAlertMessage] = useState(null);
 
   function handleIDChange(newValue) {
     setEnteredID(newValue);
@@ -38,6 +38,7 @@ export default function CheckInPage() {
   function clearAll() {
     setAssets([]);
     setNotes("");
+    setAlertType(null);
     console.log("Pending Assets Cleared");
   }
 
@@ -49,15 +50,18 @@ export default function CheckInPage() {
           const newAsset = result[0];
           if (newAsset) {
             currentList.push(newAsset);
+            setAlertType(null);
             setAssets(currentList);
           } else {
             console.log("Asset did not exist!");
+            setAlertType(0);
+            setAlertMessage("Asset is not checked out");
           }
         });
       } else {
         console.log("Asset already in the list");
       }
-      console.log(assets)
+      console.log(assets);
     }
   };
 
@@ -77,14 +81,30 @@ export default function CheckInPage() {
 
   const handleSubmit = async (event) => {
     // Check there are assets
-    console.log("submitted");
+    console.log("started submission");
     if (assets.length < 1) {
-      // Show error message
-      // clear all
+      setAlertType(0);
+      setAlertMessage("No Assets Selected");
+    } else {
+      setAlertType(null);
+      setAlertMessage(null);
     }
 
-    // Check assets are checked out
-
+    assets.forEach((asset) => {
+      console.log(
+        asset.asset_tag,
+        asset.record_id,
+        notes,
+        asset.operational,
+        asset.damage_notes
+      );
+      let damged = checkInAssetWithNotes(
+        asset.record_id,
+        notes,
+        asset.operational,
+        asset.damage_notes
+      );
+    });
     // set date in on records
     // add note to records
 
@@ -95,7 +115,7 @@ export default function CheckInPage() {
   };
 
   // re-render the assets table
-  useEffect(() => {}, [assets, currentTag, studentID]);
+  useEffect(() => {}, [assets, currentTag, studentID, alertMessage]);
 
   return (
     <div>
