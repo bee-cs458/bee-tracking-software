@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import ConditionalAlert from "../../components/CheckInUtilities/ConditionalAlert";
 import { getSpecificAsset } from "../../api/AssetService";
 import {
   getAssetsByUserID,
@@ -14,7 +15,7 @@ import {
   getCheckoutRecordsByUserID,
   getCheckoutRecordsByTag,
 } from "../../api/CheckInServices";
-import CheckInTable from "../../components/CheckInTable/CheckInTable";
+import CheckInTable from "../../components/CheckInUtilities/CheckInTable";
 
 export default function CheckInPage() {
   const [assets, setAssets] = useState([]);
@@ -22,6 +23,8 @@ export default function CheckInPage() {
   const [currentTag, setEnteredTag] = useState(null);
   const [studentID, setEnteredID] = useState(null);
   const [notes, setNotes] = useState("");
+  let alertType = 3,
+    alertMessage = "I like cheese";
 
   function handleIDChange(newValue) {
     setEnteredID(newValue);
@@ -42,17 +45,21 @@ export default function CheckInPage() {
 
   const handleTagPress = async (event) => {
     if (currentTag != null) {
-      let currentList = assets;
-      await getSpecificAsset(currentTag).then((result) => {
-        const newAsset = result[0];
-        if (newAsset) {
-          currentList.push(newAsset);
-          assetList.set(newAsset);
-        } else {
-          console.log("Asset did not exist!");
-        }
-      });
-      console.log(currentList);
+      let currentList = [...assets];
+      if (currentList.every((asset) => asset.asset_tag !== currentTag)) {
+        await getSpecificAsset(currentTag).then((result) => {
+          const newAsset = result[0];
+          if (newAsset) {
+            currentList.push(newAsset);
+            setAssets(currentList);
+          } else {
+            console.log("Asset did not exist!");
+          }
+        });
+      } else {
+        console.log("Asset already in the list");
+      }
+      console.log(assets)
     }
   };
 
@@ -74,12 +81,11 @@ export default function CheckInPage() {
     // Check there are assets
     console.log("submitted");
     if (assets.length < 1) {
-      // Show modal with error message
+      // Show error message
       // clear all
     }
 
     // Check assets are checked out
-
 
     // set date in on records
     // add note to records
@@ -100,6 +106,12 @@ export default function CheckInPage() {
         <h1 className="m-3">Check In Equipment</h1>
         <Form>
           <Row className="m-3">
+            <ConditionalAlert
+              type={alertType}
+              message={alertMessage}
+            ></ConditionalAlert>
+          </Row>
+          <Row className="m-3">
             <Form.Group as={Col} controlId="assetTag">
               <Form.Label>Asset Tag</Form.Label>
               <Form.Control
@@ -110,7 +122,7 @@ export default function CheckInPage() {
                   handleTagChange(event.target.value);
                 }}
               />
-              <Button onClick={ handleTagPress}>Add</Button>
+              <Button onClick={handleTagPress}>Add</Button>
             </Form.Group>
 
             <Form.Group as={Col} controlid="studentId">
