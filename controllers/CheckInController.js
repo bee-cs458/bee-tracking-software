@@ -20,7 +20,7 @@ export const getCheckoutRecordsByTag = async (req, res, next) => {
                 SELECT checkoutrecord.* , asset.name, asset.category
                 FROM checkoutrecord
                 JOIN asset on asset.asset_tag=checkoutrecord.asset_tag
-                WHERE asset.asset_tag = ?
+                WHERE asset.asset_tag = ? AND checkoutrecord.in_date IS NULL
                 ORDER BY record_id DESC
                 LIMIT 1;`,
     [assetTag]
