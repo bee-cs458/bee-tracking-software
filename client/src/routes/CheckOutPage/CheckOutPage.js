@@ -17,6 +17,7 @@ function CheckOutPage() {
         <div>
             <div className="header-container"></div>
             <div className="main-content">
+                <h1 className="mb-3">Check Out Equipment</h1>
                 <Form>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="assetTag">
