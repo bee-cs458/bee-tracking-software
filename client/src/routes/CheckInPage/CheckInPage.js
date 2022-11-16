@@ -19,7 +19,6 @@ import CheckInTable from "../../components/CheckInUtilities/CheckInTable";
 
 export default function CheckInPage() {
   const [assets, setAssets] = useState([]);
-  const assetList = new Map();
   const [currentTag, setEnteredTag] = useState(null);
   const [studentID, setEnteredID] = useState(null);
   const [notes, setNotes] = useState("");
@@ -39,7 +38,6 @@ export default function CheckInPage() {
   function clearAll() {
     setAssets([]);
     setNotes("");
-    assetList.clear(); // potential replacement
     console.log("Pending Assets Cleared");
   }
 
@@ -97,7 +95,7 @@ export default function CheckInPage() {
   };
 
   // re-render the assets table
-  useEffect(() => {}, [assets, assetList, currentTag, studentID]);
+  useEffect(() => {}, [assets, currentTag, studentID]);
 
   return (
     <div>
