@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export function ChangePassword(pass, newPass) {
+export async function updatePass(pass, newPass) {
     console.log("Sending change password request");
     // construct query
     const params = new URLSearchParams();
@@ -21,4 +21,18 @@ export function ChangePassword(pass, newPass) {
             return err.response.data;
         }
     );
+}
+
+export async function updatePassword(password, newPassword){
+    try {
+        console.log("Updating User Password");
+
+        const response = await axios.post("/api/user/update_password", {
+            password: password,
+            newPassword: newPassword,
+        });
+        return response.data.result;
+    } catch (error) {
+        return "Error Updating User Password from API";
+    }
 }
