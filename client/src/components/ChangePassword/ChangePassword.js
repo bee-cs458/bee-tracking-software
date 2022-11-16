@@ -1,10 +1,7 @@
 import Button from "react-bootstrap/esm/Button";
-import { useEffect, useState } from 'react';
-import changePassword from '../../api/UserService';
-
+import updatePass from '../../api/UserService.js';
 
 function ChangePassword() {
-    useEffect(() => { }, [updated]);
     return(
 <>
                     Current Password:<br></br>
@@ -18,7 +15,7 @@ function ChangePassword() {
                     <div>
                         <Button variant="primary" onClick={
                             async () => {
-                                update(await changePassword('New Password2','newPass' ));
+                                updatePass('New Password2','newPass');
                             }
                         } style={{ float: 'right' }}>
                             Update Password

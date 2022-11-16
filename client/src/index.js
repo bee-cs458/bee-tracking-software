@@ -12,6 +12,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import HomePage from './routes/HomePage/HomePage';
 import CounterPage from './routes/CounterPage/CounterPage';
+import ProfilePage from './routes/ProfilePage/ProfilePage';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -21,6 +22,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />
+          <Route path="/Profile" element={<ProfilePage />} />
           <Route path="counter" element={<CounterPage />} />
         </Route>
       </Routes>

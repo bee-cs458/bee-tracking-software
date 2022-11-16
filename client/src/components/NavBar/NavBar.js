@@ -62,6 +62,7 @@ function NavBar() {
                         <img src={signIn} alt="profile" width="20" height="18"/>Profile
                     </Link>
                 </li>
+
 </>
                 }
                 <Modal show={show} onHide={handleClose}>
