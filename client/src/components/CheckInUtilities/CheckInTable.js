@@ -1,6 +1,6 @@
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
-import CheckInRow from "../CheckInTable/CheckInRow";
+import CheckInRow from "../CheckInUtilities/CheckInRow";
 
 export default function CheckInTable(props) {
 
