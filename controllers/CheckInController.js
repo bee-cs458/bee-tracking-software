@@ -17,7 +17,7 @@ export const getCheckoutRecordsByTag = async (req, res, next) => {
   const assetTag = req.params.tag;
   await query(
     `
-                SELECT checkoutrecord.* , asset.name, asset.category
+                SELECT checkoutrecord.* , asset.name, asset.category, asset.damage_notes
                 FROM checkoutrecord
                 JOIN asset on asset.asset_tag=checkoutrecord.asset_tag
                 WHERE asset.asset_tag = ? AND checkoutrecord.in_date IS NULL
@@ -57,7 +57,7 @@ export const getCheckoutRecordsByUser = async (req, res, next) => {
   const userId = req.params.id;
   await query(
     `
-                SELECT checkoutrecord.* , asset.name, asset.category
+                SELECT checkoutrecord.* , asset.name, asset.category, asset.damage_notes
                 FROM checkoutrecord
                 JOIN user on user.user_id=checkoutrecord.student_id
                 JOIN asset on asset.asset_tag = checkoutrecord.asset_tag
