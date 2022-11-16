@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.get("/all_records", getAllCheckoutRecords);
 router.get("/status/:id", getCheckoutStatus)
-router.post("/checkout_assets", requireBody("asset_tags", "user_id", "due_date"), checkoutAsset);
+router.post("/checkout_assets", restrictTo("operator"), requireBody("asset_tags", "student_id"), checkoutAsset);
 
 export default router;
