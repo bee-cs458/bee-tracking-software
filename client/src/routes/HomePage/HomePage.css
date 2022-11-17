@@ -20,7 +20,6 @@
     color:white;
     text-align: left;
     padding-top:1px;
-    padding-left:15px;
 }
 
 .search-header button {
@@ -30,31 +29,6 @@
 
 .search-header button:hover {
     background-color: #538cc6;
-}
-
-.menu-header {
-    color: black;
-    width: 50px;
-}
-
-.menu-header :hover {
-    background-color: #538cc6;
-}
-
-.right-header {
-    height: 40px;
-    width: 100%;
-    align-items: right;
-    padding-left:15%;
-}
-
-.right-header :hover {
-    background-color: #538cc6;
-    color:white;
-}
-
-.right-header img {
-    margin-left:8px;
 }
 
 .btn {

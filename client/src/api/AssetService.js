@@ -37,7 +37,7 @@ Calls API endpoint for getting assests based on description searched by user
 */
 export async function getAssetsByDescription(input) {
     try {
-        console.log("Getting Assests by Description: " + "'" + input + "'");
+        console.log(`Getting Assests by Description: ${input}`);
 
         const response = await axios.get("/api/asset/search", {
             params: {
@@ -67,11 +67,14 @@ export async function getAssetFromCat(category) {
     }
 }
 
-export async function getSpecificAsset(id) {
+/*
+Calls API endpoint for getting assests based on asset Tag searched by user
+*/
+export async function getAssetByAssetTag(input) {
     try {
-        console.log("Getting Assets with matching id");
+        console.log("Getting Assets by Asset Tag");
 
-        const response = await axios.get('/api/asset/' + id);
+        const response = await axios.get('/api/asset/' + input);
 
         return response.data.result;
     } catch (error) {
@@ -79,6 +82,27 @@ export async function getSpecificAsset(id) {
         if (error.response.status === 404) {
             return error.response.data.result;
         }
-        return "Error Getting Assets with ID from API";
+        return "Error Getting Assets by Asset Tag from API";
+    }
+}
+
+/*
+Calls API endpoint for getting assests based on asset_tag, name, or description searched by user
+*/
+export async function searchingForAssests(input) {
+    try {
+        console.log(`Searching assets by: ${input}`);
+
+        const response = await axios.get("/api/asset/search", {
+            params: {
+                limit: 10,
+                description: input,
+                asset_tag: input,
+                name: input,
+            },
+        });
+        return response.data.result;
+    } catch (error) {
+        return "Error Getting Assests by serach from API";
     }
 }

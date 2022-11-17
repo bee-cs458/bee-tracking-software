@@ -9,9 +9,11 @@ function update(perams) {
     setUserPerm(perams.permissions);
 }
 
-function Login() {
-    const [updated, toggleUpdate] = useState(null);
+function Login(props) {
+    const [updated, changeUpdate] = useState(null);
     useEffect(() => { }, [updated]);
+    const toggleUpdate = () => {updated ? changeUpdate(false): changeUpdate(true)}  ;
+    const { callback } = props;
     return (
         <>
 
@@ -45,7 +47,8 @@ function Login() {
                 </>
                 :
                 <>
-                    Login Successful! Click the X to get back to the asset list.
+                    Login Successful!
+                    {callback()}
                 </>
             }
         </>

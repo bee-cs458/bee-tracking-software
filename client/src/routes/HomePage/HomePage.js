@@ -1,29 +1,60 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import "./HomePage.css";
-import PageTemplate from "../../components/PageTemplate/PageTemplate";
+import search from "../../assets/search.png";
 import AssetTable from "../../components/AssetTable/AssetTable";
-import CatDropdown from '../../components/CatDropdown/CatDropdown';
+import CatDropdown from "../../components/CatDropdown/CatDropdown";
 
 export default function HomePage() {
     const [currentCategory, updateCategory] = useState({
         catName: undefined,
         category_id: -1
-    });
+    })
+
+    const [inputVal, setInputVal] = useState(null);
+
+    //Handling user input when user hits 'Enter'
+    function handleKeyPress(e) {
+        if (e.key === "Enter") {
+          console.log("Key press is entered");
+          getInputValue();
+        }
+      }
+    
+    function getInputValue() {
+        // Selecting the input element and get its value
+        const newInputVal = document.getElementById("search").value;
+        console.log("Input Value: " + newInputVal);
+        setInputVal(newInputVal);
+    };
 
     return (
         <div className="App">
-            <PageTemplate></PageTemplate>
+            <div className="header-container container-fluid">
+                <div className="search-header">
+                    <input
+                        type="text"
+                        onKeyDown={handleKeyPress}
+                        class="form-control"
+                        id="search"
+                        placeholder="Search"
+                        name="search"
+                    />
+                    <button type="submit" onClick={getInputValue} class="btn btn-default">
+                        <img src={search} alt="search" width="22" height="22" />
+                    </button>
+                    
+                </div>
+            </div>
 
             <div className="container-fluid main-content">
                 <div className="category">
                     <CatDropdown state={currentCategory} update={updateCategory} ></CatDropdown>
                 </div>
-                <AssetTable cat={currentCategory?.category_id}></AssetTable> 
+                <AssetTable cat={currentCategory?.category_id} input={inputVal}></AssetTable>
 
             </div> 
 
-    
         </div>
+
     );
 }
