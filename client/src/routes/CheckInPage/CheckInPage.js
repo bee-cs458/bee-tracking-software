@@ -1,4 +1,4 @@
-import PageTemplate from "../../components/PageTemplate/PageTemplate";
+// import PageTemplate from "../../components/PageTemplate/PageTemplate";
 import { useEffect, useState } from "react";
 import "./CheckInPage.css";
 import Form from "react-bootstrap/Form";
@@ -153,7 +153,6 @@ export default function CheckInPage() {
 
   return (
     <div>
-      <PageTemplate></PageTemplate>
       <div className="main-content">
         <h1 className="m-3">Check In Equipment</h1>
         <Form>
