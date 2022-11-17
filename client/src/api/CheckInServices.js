@@ -123,7 +123,7 @@ Calls the API endpoint that increments the user strikes
 */
 export async function incrementUserStrikes(userId) {
   try {
-    console.log("Giving the user " + userId + "one more strike");
+    console.log("Giving the user " + userId + " one more strike");
 
     const response = await axios.post("/api/checkin/student/" + userId);
     return response.data.result;

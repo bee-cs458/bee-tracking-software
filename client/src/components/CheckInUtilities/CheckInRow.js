@@ -25,7 +25,7 @@ export default function CheckInRow(props) {
   useEffect(() => {
     asset.operational = !damaged;
   }, [damaged]);
-  
+
   useEffect(() => {
     asset.notes = notes;
   }, [notes]);

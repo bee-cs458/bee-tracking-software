@@ -24,14 +24,18 @@ export default function CheckInPage() {
   const [notes, setNotes] = useState("No Notes");
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
+  const [strikes, setStrikes] = useState(0);
+  const [selectedStudent, setStudent] = useState("TODO Enter Student Here");
 
   function handleIDChange(newValue) {
     setEnteredID(newValue);
+    setAlertType(null);
     console.log("input value: " + studentID);
   }
 
   function handleTagChange(newValue) {
     setEnteredTag(newValue);
+    setAlertType(null);
     console.log("Input Value: " + currentTag);
   }
 
@@ -60,7 +64,7 @@ export default function CheckInPage() {
       } else {
         console.log("Asset already in the list");
         setAlertType(0);
-        setAlertMessage("Asset is already queued for");
+        setAlertMessage("Asset is Already Queued for Check In");
       }
       console.log(assets);
     }
@@ -75,29 +79,35 @@ export default function CheckInPage() {
           console.log(newAssets);
         } else {
           console.log("User did not exist!");
+          setAlertType(0);
+          setAlertMessage("User does not exist");
         }
       });
     }
   };
 
-  let strikes = false;
-
   const checkIn = async (asset) => {
-    const today= new Date();
+    const today = new Date();
     await checkInAssetWithNotes(
       asset.record_id,
       notes,
       asset.operational,
-      (asset.damage_notes + '\n' + (today.getMonth()+1) + '-' + today.getDate()+ '-' + today.getFullYear() + ': ' + asset.notes)
+      asset.damage_notes +
+        "\n" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate() +
+        "-" +
+        today.getFullYear() +
+        ": " +
+        asset.notes
     );
 
     const overDue = await getOverdue(asset.record_id);
-    console.log(overDue.overdue);
 
     if (overDue.overdue) {
       incrementUserStrikes(overDue.student_id);
-      strikes = true;
-      console.log("strike added");
+      setStrikes(strikes + 1);
     }
   };
 
@@ -114,13 +124,19 @@ export default function CheckInPage() {
         checkIn(asset);
       });
 
-      if (strikes) {
-        console.log("strikes added to student");
+      clearAll();
+
+      if (strikes > 0) {
+        setAlertType(1);
+        setAlertMessage(
+          "Late Asset Checked In\n" + strikes + " strikes added to student"
+        );
       } else {
         setAlertType(3);
         setAlertMessage("Assets Successfully Checked In");
       }
-      clearAll();
+
+      setStrikes(0);
     }
 
     // set date in on records
