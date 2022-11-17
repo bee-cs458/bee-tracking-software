@@ -27,7 +27,7 @@ export default function CheckInRow(props) {
   }, [damaged]);
   
   useEffect(() => {
-    asset.damage_notes = notes;
+    asset.notes = notes;
   }, [notes]);
 
   function handleDamageChange(newVal) {

@@ -107,7 +107,11 @@ export const checkInAssetWithNotes = async (req, res, next) => {
   await query(
     `
         UPDATE checkoutrecord, asset
-        SET checkoutrecord.in_date = CURRENT_TIMESTAMP(), asset.checked_out = 0, checkoutrecord.notes = ?, asset.operational = ?, asset.damage_notes = ( \"\" + asset.damage_notes + \"\\n\"  + \"\\n\"+ CURRENT_TIMESTAMP() + \" \" +  ?)
+        SET checkoutrecord.in_date = CURRENT_TIMESTAMP(), 
+        asset.checked_out = 0, 
+        checkoutrecord.notes = ?, 
+        asset.operational = ?,
+        asset.damage_notes = ?
         WHERE checkoutrecord.record_id = ? and asset.asset_tag = checkoutrecord.asset_tag`,
     [notes, damage, damageNotes, recordId]
   ).then(

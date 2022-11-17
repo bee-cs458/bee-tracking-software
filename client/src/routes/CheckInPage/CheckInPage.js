@@ -83,11 +83,12 @@ export default function CheckInPage() {
   let strikes = false;
 
   const checkIn = async (asset) => {
+    const today= new Date();
     await checkInAssetWithNotes(
       asset.record_id,
       notes,
       asset.operational,
-      asset.damage_notes
+      (asset.damage_notes + '\n' + (today.getMonth()+1) + '-' + today.getDate()+ '-' + today.getFullYear() + ': ' + asset.notes)
     );
 
     const overDue = await getOverdue(asset.record_id);
