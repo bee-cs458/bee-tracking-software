@@ -13,10 +13,20 @@ export const getAllCheckoutRecords = async (req, res, next) => {
 
 export const getCheckoutStatus = async (req, res, next) => {
 
-    //const asset_tag = req.params.id;
-
-    //var asset = await query(`SELECT * FROM`);
-
+    const asset_tag = req.params.id;
+    await query("SELECT `asset`.`checked_out` FROM `asset` WHERE `asset`.`asset_tag`=?", [asset_tag]).then(
+        (rows) => {
+            const result = rows[0];
+            if (!result) {
+                next({
+                    status: 404,
+                    message: `Asset with tag '${asset_tag}' not found!`
+                });
+                return;
+            }
+            res.status(200).send(result);
+        }
+    )
 }
 
 export const checkoutAsset = async (req, res, next) => {
@@ -31,8 +41,17 @@ export const checkoutAsset = async (req, res, next) => {
 
     // check that the asset(s) exist
         // select the individual assets from the DB and check if they are null
-    const { asset_tags, student_id } = req.body;
+    let { asset_tags, student_id } = req.body;
     const operator_id = req.user.user_id;
+
+    asset_tags ??= [];
+    if (asset_tags.length === 0) {
+        next({
+            status: 400,
+            message: "You must specify an array of asset tags for property 'asset_tags'!"
+        });
+        return;
+    }
 
     const lotsOfOrs = asset_tags.map(() => "asset_tag=?").join(" OR ");
 
@@ -42,7 +61,7 @@ export const checkoutAsset = async (req, res, next) => {
         assetList = await query(`SELECT * FROM \`asset\` WHERE ${lotsOfOrs}`, asset_tags).catch(errHandler);
         // make sure same length as input
         // if not, 404
-        if(assetList.length !== asset_tags.length){
+        if(assetList?.length !== asset_tags.length){
             next({
                 status: 404,
                 message: "One or more assets not found in DB!",
@@ -67,7 +86,7 @@ export const checkoutAsset = async (req, res, next) => {
     }
 
     const user = (await query("SELECT * FROM `user` WHERE `user`.`user_id`=?", [student_id]).catch(errHandler))[0];
-    console.log(user);
+
     if (!user) {
         next({
             status: 404,
@@ -80,7 +99,7 @@ export const checkoutAsset = async (req, res, next) => {
     if (user.strikes >= 3){
         next({
             status: 401,
-            message: `The student '${student_id}' has too many strikes!`
+            message: `The student '${user.first_name} ${user.last_name}' has too many strikes!`
         })
         return;
     }
@@ -90,7 +109,7 @@ export const checkoutAsset = async (req, res, next) => {
         if (assetList.some((asset) => asset.advanced)) {
             next({
                status: 401,
-               message: `The student '${student_id}' is not allowed to check out advanced assets!`
+               message: `The student '${user.first_name} ${user.last_name}' is not allowed to check out advanced assets!`
             });
             return;
 
