@@ -22,7 +22,7 @@ export async function updatePass(pass, newPass) {
         }
     );
 }
-
+// current API in use for update password
 export async function updatePassword(password, newPassword){
     try {
         console.log("Updating User Password");

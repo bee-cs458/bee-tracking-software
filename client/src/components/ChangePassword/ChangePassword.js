@@ -10,6 +10,9 @@ function verifyPass(nPass1, nPass2) {
 return((nPass1 == nPass2))
 }
 
+function password(){
+
+}
 function ChangePassword() {
     return(
     <>
@@ -29,7 +32,7 @@ function ChangePassword() {
                                 <Button variant="primary" onClick={
                                     async () => {
                                     (verifyPass(document.getElementById('passwordNew').value, document.getElementById('passwordNew2').value) ? 
-                                        updatePassword(document.getElementById('passwordCur').value, document.getElementById('passwordNew').value): console.log("Passwords do not match") );
+                                       updatePassword(document.getElementById('passwordCur').value, document.getElementById('passwordNew').value): console.log("Passwords do not match") );
                                         }} >  Update Password 
                                 </Button>
                             </div>
