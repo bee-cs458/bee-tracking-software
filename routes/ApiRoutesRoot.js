@@ -7,6 +7,7 @@ import counterRoutes from "./CounterRoutes.js";
 import assetRoutes from "./AssetRoutes.js";
 import categoryRoutes from "./CategoryRoutes.js";
 import checkInRoutes from "./CheckInRoutes.js";
+import checkoutRoutes from "./CheckoutRoutes.js"
 
 // our api routes
 router.get("/", (req, res) => res.send("Hello World!"));
