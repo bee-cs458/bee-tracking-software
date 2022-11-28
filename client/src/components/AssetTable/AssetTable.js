@@ -19,7 +19,7 @@ export default function AssetTable(props) {
       if (props.cat >= 0) {
         // Check if category is selected
         assetResults = await getAssetFromCat(props.cat); // Then only query for that category
-      } else if (props.input !== null && props.input !== "") {
+      } else if (props.input !== undefined && props.input !== "") {
         //Include search results for asset_tags/descriptions/names
         assetResults = await searchingForAssests(props.input);
         setAssets(assetResults); // Set the assets data table to be the queried result
@@ -29,7 +29,7 @@ export default function AssetTable(props) {
       setAssets(assetResults); // Set the assets data table to be the queried result
     }
     assetTableInit(); // Render that son of a gun
-  }, [props.cat, props.input]);
+  }, [props.cat, props.input, props.filterByCheckedOut]);
 
   return (
     <div>
@@ -49,9 +49,13 @@ export default function AssetTable(props) {
               </tr>
             </thead>
             <tbody>
-              {assets != null &&
-                assets.map((asset) => (
-                  <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
+                {props.filterByCheckedOut?
+                    assets.filter( asset => asset.checked_out === 1).map((asset) => (
+                        <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
+                ))
+                :
+                    assets.map((asset) => (
+                        <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
                 ))}
             </tbody>
           </Table>

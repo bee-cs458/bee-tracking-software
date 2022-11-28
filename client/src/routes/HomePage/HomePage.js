@@ -3,6 +3,7 @@ import "./HomePage.css";
 import search from "../../assets/search.png";
 import AssetTable from "../../components/AssetTable/AssetTable";
 import CatDropdown from "../../components/CatDropdown/CatDropdown";
+import CheckedOut from '../../components/CheckedOutTable/CheckedOutSwitch/CheckedOutSwitch';
 
 export default function HomePage() {
     const [currentCategory, updateCategory] = useState({
@@ -27,6 +28,8 @@ export default function HomePage() {
         setInputVal(newInputVal);
     };
 
+    const [checked, setChecked] = useState(false);
+
     return (
         <div className="App">
             <div className="header-container container-fluid">
@@ -50,7 +53,8 @@ export default function HomePage() {
                 <div className="category">
                     <CatDropdown state={currentCategory} update={updateCategory} ></CatDropdown>
                 </div>
-                <AssetTable cat={currentCategory?.category_id} input={inputVal}></AssetTable>
+                <CheckedOut state={checked} update={setChecked}></CheckedOut>
+                <AssetTable filterByCheckedOut={checked} cat={currentCategory?.category_id} input={inputVal}></AssetTable>
 
             </div> 
 

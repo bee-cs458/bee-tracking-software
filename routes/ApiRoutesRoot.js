@@ -14,6 +14,7 @@ router.use("/count", counterRoutes);
 router.use("/asset", assetRoutes);
 router.use("/categories", categoryRoutes);
 router.use("/checkin", checkInRoutes);
+router.use("/checkout", checkoutRoutes);
 // router.use("/user", UserRoutes);
 
 // Test Database Endpoint - demonstration purposes only
