@@ -1,4 +1,8 @@
-import Button from "react-bootstrap/esm/Button";
+import React from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import {updatePass, updatePassword } from '../../api/UserService.js';
 import './ChangePassword.css';
 
@@ -8,29 +12,38 @@ return((nPass1 == nPass2))
 
 function ChangePassword() {
     return(
-        <div style={{ position: 'absolute',
-                        left: '300px',
-                        top: '40px' }}>
-                <p>Current Password:</p>
-                <input id="passwordCur" type="password"></input>
-                
-                <p>New Password:</p>
-                <input id="passwordNew" type="password"></input>
-                
-                <p>Verify Password:</p>
-                <input id="passwordNew2" type="password"></input>
-                <br/>
-                <div>
-                <Button variant="primary" onClick={
-                     async () => {
-                       (verifyPass(document.getElementById('passwordNew').value, document.getElementById('passwordNew2').value) ? 
-                        updatePassword(document.getElementById('passwordCur').value, document.getElementById('passwordNew').value): console.log("Passwords do not match") );
-                        }} style={{ position: 'relative',
-                                    top: '10px' }} >  Update Password </Button>
+    <>
+        
+        <div id="mainContent"style={{ }}>
+
+                <Form>
+                    <Row>
+                        <Form.Group as={Col} >
+                            <Form.Label>Current Password</Form.Label>
+                            <Form.Control id="passwordCur" className="search" type="password" placeholder="Enter Old Password" />
+                            <Form.Label>New Password</Form.Label>
+                            <Form.Control id="passwordNew" className="search" type="password" placeholder="Enter New Password" />
+                            <Form.Label>Verify Password</Form.Label>
+                            <Form.Control id="passwordNew2" className="search" type="password" placeholder="Verify New Password" />
+                            <div id="btnContainer">
+                                <Button variant="primary" onClick={
+                                    async () => {
+                                    (verifyPass(document.getElementById('passwordNew').value, document.getElementById('passwordNew2').value) ? 
+                                        updatePassword(document.getElementById('passwordCur').value, document.getElementById('passwordNew').value): console.log("Passwords do not match") );
+                                        }} >  Update Password 
+                                </Button>
+                            </div>
+                        </Form.Group>
+
+                    </Row>
+                </Form>
+
               
-                </div>
+                
             
         </div>
+
+    </>
 );
 }
 
