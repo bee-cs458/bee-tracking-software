@@ -11,6 +11,13 @@ import Logout from "../Login/Logout";
 import "./NavBar.css";
 
 function NavBar() {
+  const [showPerms, setPermsShow] = useState(false);
+  const handlePermsClose = () => setPermsShow(false);
+  const handlePermsShow = () => setPermsShow(true);
+
+  const [showCheckin, setCheckinShow] = useState(false);
+  const handleCheckinClose = () => setCheckinShow(false);
+  const handleCheckinOpen = () => setCheckinShow(true);
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -41,7 +48,7 @@ function NavBar() {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/">
+                    <Link to="/checkIn">
                     <img src={checkIn} alt="check in" width="20" height="18"/>Check In
                     </Link>
                 </li>
