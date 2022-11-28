@@ -21,7 +21,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 86400,
+    maxAge: 86400000,
     secure: process.env.NODE_ENV !== "development"
   }
 }));
@@ -42,8 +42,8 @@ app.get('*', (req, res) => res.sendFile(path.resolve('client/build/index.html'))
 app.use((err, req, res, next) => {
   log.error(err.stack ?? err.message ?? err);
   res.status(err.status ?? 500).send({
-    result: [],
-    message: err.message ?? "Unknown error!"
+    result: err.result ?? [],
+    message: err.message ?? "Unknown error!",
   });
 })
 
