@@ -51,10 +51,15 @@ export const searchForAsset = async (req, res, next) => {
     const criteria = Object.keys(req.query);
     const searchTerms = Object.values(req.query);
 
+    const whereStatement = `WHERE ${where_params_like(criteria, "asset")}`;
+
     // build statement
-    let statement =  `SELECT * FROM \`asset\`
-        WHERE ${where_params_like(criteria, "asset")}
-        LIMIT ? OFFSET ?;`;
+    let statement =  `SELECT * FROM \`asset\``;
+    // add where if criteria exist
+    if (criteria.length > 0) {
+        statement += `\n${whereStatement}`;
+    }
+    statement += `\nLIMIT ? OFFSET ?;`;
 
     // add limit and offset
     searchTerms.push(limit, offset);

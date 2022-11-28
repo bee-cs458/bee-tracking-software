@@ -46,6 +46,23 @@ async function getConnection(extraConfig) {
     return pool;
 }
 
+export const nonPreparedQuery = (sql) =>
+    getConnection().then(
+        (connection) => connection.query(sql)
+    ).then(
+        (out) => {
+            const [results, ] = out;
+            if (!results) {
+                return [];
+            }
+            return results;
+        }
+    ).catch((error) => {
+        error.status = 400; // use code 400 instead of 500
+        error.message = `Error Querying Database: ${error.message}`;
+        throw error; // rethrow
+    })
+
 export async function query(sql, params) {
     try {
         const connection = await getConnection();
