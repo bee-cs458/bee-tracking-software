@@ -36,3 +36,15 @@ export async function updatePassword(password, newPassword){
         return "Error Updating User Password from API";
     }
 }
+
+export async function getAllUsers() {
+    try {
+        console.log("Getting Users");
+
+        const response = await axios.get("/api/user/get_all");
+
+        return response.data.result;
+    } catch (error) {
+        return "Error Getting Users from API";
+    }
+}
