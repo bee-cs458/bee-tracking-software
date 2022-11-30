@@ -8,12 +8,13 @@ import assetRoutes from "./AssetRoutes.js";
 import categoryRoutes from "./CategoryRoutes.js";
 import checkInRoutes from "./CheckInRoutes.js";
 import checkoutRoutes from "./CheckoutRoutes.js"
-
+import userRoutes from './UserRoutes.js';
 // our api routes
 router.get("/", (req, res) => res.send("Hello World!"));
 router.use("/count", counterRoutes);
 router.use("/asset", assetRoutes);
 router.use("/categories", categoryRoutes);
+router.use("/user", userRoutes);
 router.use("/checkin", checkInRoutes);
 router.use("/checkout", checkoutRoutes);
 // router.use("/user", UserRoutes);
@@ -37,6 +38,12 @@ router.post(
     failureRedirect: "/api/login/failure",
   })
 );
+
+// logout
+router.post('/logout', async (req, res, next) => {
+    await req.logout().then(res.send("Logged out")).catch(next);
+});
+
 
 router.get("/login/success", (req, res) => {
   delete req.user?.password;

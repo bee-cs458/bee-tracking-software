@@ -12,6 +12,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import HomePage from './routes/HomePage/HomePage';
 import CounterPage from './routes/CounterPage/CounterPage';
+import ProfilePage from './routes/ProfilePage/ProfilePage';
 import CheckOutPage from './routes/CheckOutPage/CheckOutPage';
 import CheckInPage from './routes/CheckInPage/CheckInPage'
 
@@ -23,6 +24,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />
+          <Route path="/Profile" element={<ProfilePage />} />
           <Route path="/checkOut" element={<CheckOutPage />} />
           <Route path="/checkIn" element={<CheckInPage />} />
           <Route path="counter" element={<CounterPage />} />
