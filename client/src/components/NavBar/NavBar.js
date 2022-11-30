@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
-import list from "../../assets/list.png";
-import checkOut from "../../assets/checkout.png";
-import checkIn from "../../assets/checkIn.png";
-import operators from "../../assets/operators.png";
-import logOut from "../../assets/logOut.png";
-import React, { useState } from "react";
-import Modal from "react-bootstrap/Modal";
+import list from '../../assets/list.png';
+import checkOut from '../../assets/checkout.png';
+import checkIn from '../../assets/checkIn.png';
+import operators from '../../assets/operators.png';
+import logOut from '../../assets/logOut.png';
+import signIn from "../../assets/signIn.png";
+import React, { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
 import Login from "../Login/Login";
 import Logout from "../Login/Logout";
-import "./NavBar.css";
+
+import './NavBar.css';
 
 function NavBar() {
   const [showPerms, setPermsShow] = useState(false);
@@ -62,6 +64,13 @@ function NavBar() {
                         <img src={logOut} alt="log out" width="20" height="18"/>Log Out
                     </Link>
                 </li>
+                <li>
+                    <Link to="/profile">
+
+                        <img src={signIn} alt="profile" width="20" height="18"/>Profile
+                    </Link>
+                </li>
+
 </>
                 }
                 <Modal show={show} onHide={handleClose}>
