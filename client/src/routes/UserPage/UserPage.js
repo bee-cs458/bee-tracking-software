@@ -16,8 +16,8 @@ function UserPage() {
                 <h1 className="mb-3">Users</h1>
                 <Form>
                     <Row className="mb-3">
+                        {/* Search for user by ID */}
                         <Form.Group as={Col} controlId="userId">
-                            {/* Search for user by ID */}
                             <Form.Label>User ID</Form.Label>
                             <Form.Control className="userId" type="search" placeholder="Enter User ID Number"  />
                         </Form.Group>
@@ -27,6 +27,7 @@ function UserPage() {
                     </Row>
                     <br />
                     <Row className="mb-3">
+                        {/* Buttons for editing Operators */}
                         <Form.Group as={Col} controlId="userActions">
                             <Form.Label>Operator Actions</Form.Label>
                             <Button className="user-actions" id="demoteOperator" >Demote Operator</Button>
@@ -35,6 +36,7 @@ function UserPage() {
                         </Form.Group>
                     </Row>
                     <Row className="mb-3">
+                        {/* Buttons for editing Students */}
                         <Form.Group as={Col} controlId="userActions">
                         <Form.Label>Student Actions</Form.Label>
                             <Button className="user-actions" id="promoteStudent" >Promote Student</Button>
@@ -44,8 +46,8 @@ function UserPage() {
                         </Form.Group>
                     </Row>
                 </Form>
+                {/* Display information of users */}
                 <UserTable />
-                <Button className="save-changes" id="saveChanges" >Save Changes</Button>
 
             </div>
         </>
