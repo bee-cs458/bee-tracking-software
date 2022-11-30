@@ -6,8 +6,7 @@ name: Build and deploy (old production - now used for testing)
 on:
   push:
     branches:
-      - testing
-  workflow_dispatch:
+      - test
 
 jobs:
   build:
