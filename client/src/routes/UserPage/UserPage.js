@@ -35,10 +35,10 @@ function UserPage() {
                     <Row className="mb-3">
                         {/* Search for user by ID */}
                         <Form.Group as={Col} controlId="userId">
-                            <Form.Control className="userId" type="search" placeholder="Enter User ID Number"  />
+                            <Form.Control className="userId" onKeyDown={handleKeyPress} type="search" placeholder="Enter User ID Number" name="search"  />
                         </Form.Group>
                         <Form.Group as={Col} controlId="userSearch">
-                            <Button id="userSearch">Search</Button>
+                            <Button id="userSearch" onClick={getInputValue}>Search</Button>
                         </Form.Group>
                     </Row>
                     <br />
