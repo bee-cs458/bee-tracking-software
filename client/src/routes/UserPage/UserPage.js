@@ -15,23 +15,21 @@ function UserPage() {
             <div className="header-container"/>
             <div className="main-content">
                 <h1 className="mb-3">Users</h1>
-                <UsersTable></UsersTable>
                 <Form>
                     <Row className="mb-3">
                         {/* Search for user by ID */}
                         <Form.Group as={Col} controlId="userId">
-                            <Form.Label>User ID</Form.Label>
                             <Form.Control className="userId" type="search" placeholder="Enter User ID Number"  />
                         </Form.Group>
                         <Form.Group as={Col} controlId="userSearch">
-                            <Button className="user-search" id="userSearch">Search</Button>
+                            <Button id="userSearch">Search</Button>
                         </Form.Group>
                     </Row>
                     <br />
                     <Row className="mb-3">
                         {/* Buttons for editing Operators */}
                         <Form.Group as={Col} controlId="userActions">
-                            <Form.Label>Operator Actions</Form.Label>
+                            <Form.Label className="actions">Operator Actions</Form.Label>
                             <Button className="user-actions" id="demoteOperator" >Demote Operator</Button>
                             <Button className="user-actions" id="editOperator" >Edit Operator</Button>
                             
@@ -40,16 +38,17 @@ function UserPage() {
                     <Row className="mb-3">
                         {/* Buttons for editing Students */}
                         <Form.Group as={Col} controlId="userActions">
-                        <Form.Label>Student Actions</Form.Label>
+                            <Form.Label className="actions">Student Actions</Form.Label>
                             <Button className="user-actions" id="promoteStudent" >Promote Student</Button>
                             <Button className="user-actions" id="editStudent" >Edit Student</Button>
                             <Button className="user-actions" id="addStudent">Add Student</Button>
-                            
                         </Form.Group>
                     </Row>
+                    {/* <Button className="mb-3 clear" id="clearSelected" >Clear Selected</Button> */}
+
                 </Form>
                 {/* Display information of users */}
-                <UserTable />
+                <UsersTable />
 
             </div>
         </>
