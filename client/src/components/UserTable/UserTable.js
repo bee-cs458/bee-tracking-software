@@ -26,6 +26,7 @@ export default function UsersTable(props) {
                     <Table striped bordered>
                         <thead>
                             <tr>
+                                <td>Select</td>
                                 <td>User Id</td>
                                 <td>First Name</td>
                                 <td>Last Name</td>

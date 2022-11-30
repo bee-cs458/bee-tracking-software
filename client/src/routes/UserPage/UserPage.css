@@ -22,18 +22,14 @@
     height: 100vh;
 }
 
-.clearAll {
-    float: left;
-}
-
-.search {
-    margin-bottom:8px;
-}
-
-.user-search {
-    margin-top: 32px;
+.clear {
+    margin-bottom: 10px;
 }
 
 .user-actions {
     margin:5px;
+}
+
+.actions {
+    font-weight:bolder;
 }
