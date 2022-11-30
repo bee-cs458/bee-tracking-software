@@ -31,14 +31,24 @@ export default function ChangePassword() {
     setPasswordAgain(password);
   }
 
+  function clearFields() {
+    setNewPassword("");
+    setOldPassword("");
+    setPasswordAgain("");
+    setStrength({ id: 0, value: "Too weak", minDiversity: 0, minLength: 0 });
+  }
+
   function submit() {
     if (strength.id < 2) {
       alert("Password is too weak");
     } else {
-      newPassword == passwordAgain
-        ? updatePassword(oldPassword, newPassword)
-        : console.log("Passwords do not match");
-      alert("Password was updated");
+      if (newPassword == passwordAgain) {
+        updatePassword(oldPassword, newPassword);
+        alert("Password was updated");
+        clearFields();
+      } else {
+        alert("Passwords do not match");
+      }
     }
   }
 
