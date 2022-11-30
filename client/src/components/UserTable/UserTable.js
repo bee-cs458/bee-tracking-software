@@ -6,8 +6,6 @@ import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import UserRow from "./UserRow/UserRow";
 
-
-
 export default function UsersTable(props) {
     const [users, setUsers] = useState([]);
 
@@ -18,7 +16,7 @@ export default function UsersTable(props) {
             setUsers(userResults);
         }
         userTableInit();
-    }) 
+    }, []) 
     return (
         <div>
             {(users != null && users.length > 0) ? (
