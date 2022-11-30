@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
-import getAllCategories from "../../api/CategoryService";
 
 export default function CheckInRow(props) {
   const asset = props.item;
@@ -24,11 +23,11 @@ export default function CheckInRow(props) {
 
   useEffect(() => {
     asset.operational = !damaged;
-  }, [damaged]);
+  }, [damaged, asset]);
 
   useEffect(() => {
     asset.notes = notes;
-  }, [notes]);
+  }, [notes, asset]);
 
   function handleDamageChange(newVal) {
     setDamaged(!damaged);

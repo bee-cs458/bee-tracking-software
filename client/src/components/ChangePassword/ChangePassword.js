@@ -8,9 +8,6 @@ import "./ChangePassword.css";
 import { passwordStrength } from "check-password-strength";
 import ConditionalAlert from "../../components/CheckInUtilities/ConditionalAlert.js";
 
-function verifyPass(nPass1, nPass2) {
-  return nPass1 == nPass2;
-}
 
 export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");

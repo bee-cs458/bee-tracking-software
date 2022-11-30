@@ -13,13 +13,13 @@ import Logout from "../Login/Logout";
 import './NavBar.css';
 
 function NavBar() {
-  const [showPerms, setPermsShow] = useState(false);
-  const handlePermsClose = () => setPermsShow(false);
-  const handlePermsShow = () => setPermsShow(true);
+//   const [showPerms, setPermsShow] = useState(false);
+//   const handlePermsClose = () => setPermsShow(false);
+//   const handlePermsShow = () => setPermsShow(true);
 
-  const [showCheckin, setCheckinShow] = useState(false);
-  const handleCheckinClose = () => setCheckinShow(false);
-  const handleCheckinOpen = () => setCheckinShow(true);
+//   const [showCheckin, setCheckinShow] = useState(false);
+//   const handleCheckinClose = () => setCheckinShow(false);
+//   const handleCheckinOpen = () => setCheckinShow(true);
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
