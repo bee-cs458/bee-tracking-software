@@ -1,4 +1,4 @@
-import { query } from "../utilities/DatabaseUtilities.js";
+import { insert_params, insert_values, query } from "../utilities/DatabaseUtilities.js";
 
 export const updateUser = async (req, res, next) => {
     const { newPassword, password } = req.body;
@@ -19,6 +19,23 @@ export const updateUser = async (req, res, next) => {
         },
         (reason) => {
             reason.message = `Error Updating User: ${reason.message}`;
+            next(reason);
+        }
+    )
+}
+
+export const createUser = async (req, res, next) => {
+    const params = Object.keys(req.body);
+    const values = Object.values(req.body);
+    await query
+    (`
+    INSERT INTO \`user\`
+        (${insert_params(params)}) VALUES (${insert_values(values)})
+    `, values
+    ).then(
+        (result) => res.send({ result }),
+        (reason) => {
+            reason.message = `Error Creating User: ${reason.message}`;
             next(reason);
         }
     )
