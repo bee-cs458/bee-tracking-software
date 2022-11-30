@@ -15,7 +15,6 @@ function UserPage() {
             <div className="header-container"/>
             <div className="main-content">
                 <h1 className="mb-3">Users</h1>
-                <UsersTable></UsersTable>
                 <Form>
                     <Row className="mb-3">
                         {/* Search for user by ID */}
