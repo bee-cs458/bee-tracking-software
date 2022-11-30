@@ -1,0 +1,39 @@
+.App {
+    text-align: center;
+}
+
+.header-container {
+    display: flex;
+    position: fixed; 
+    flex-direction: row;
+    height: 45px;
+    width:100vw;
+    align-items: center;
+    margin-left: 250px;
+    background-color: #6486A9;
+}
+
+.main-content {
+    overflow: auto;
+    margin-left: 250px;
+    text-align: left;
+    padding-top:60px;
+    padding-left:10px;
+    height: 100vh;
+}
+
+.clearAll {
+    float: left;
+}
+
+.search {
+    margin-bottom:8px;
+}
+
+.user-search {
+    margin-top: 32px;
+}
+
+.user-actions {
+    margin:5px;
+}
