@@ -37,12 +37,12 @@ export default function HomePage() {
                     <input
                         type="text"
                         onKeyDown={handleKeyPress}
-                        class="form-control"
+                        className="form-control"
                         id="search"
                         placeholder="Search"
                         name="search"
                     />
-                    <button type="submit" onClick={getInputValue} class="btn btn-default">
+                    <button type="submit" onClick={getInputValue} className="btn btn-default">
                         <img src={search} alt="search" width="22" height="22" />
                     </button>
                     
