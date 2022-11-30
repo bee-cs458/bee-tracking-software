@@ -64,6 +64,7 @@ function NavBar() {
                         <img src={logOut} alt="log out" width="20" height="18"/>Log Out
                     </Link>
                 </li>
+                
                 <li>
                     <Link to="/profile">
 
@@ -71,8 +72,18 @@ function NavBar() {
                     </Link>
                 </li>
 
+                
+
 </>
                 }
+                {(localStorage.getItem("userPerms") == 0)?
+                               <></> : <li>
+                               <Link to="/records">
+
+                               <img src={list} alt="records" width="20" height="18"/>Records
+                           </Link>
+                       </li>}
+
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>{(localStorage.getItem("userPerms") <= 0) ? <>Login</> : <>Logout</>}</Modal.Title>
