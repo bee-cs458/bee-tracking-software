@@ -1,13 +1,30 @@
 import React from "react";
-import UsersTable from "../../components/UserTable/UserTable";
+import { useState } from "react";
 import "./UserPage.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import UserTable from "./../../components/UserTable/UserTable";
 
 function UserPage() {
 
+    const [inputVal, setInputVal] = useState(null);
+
+    //Handling user input when user hits 'Enter'
+    function handleKeyPress(e) {
+        if (e.key === "Enter") {
+          console.log("Key press is entered");
+          getInputValue();
+        }
+      }
+    
+    function getInputValue() {
+        // Selecting the input element and get its value
+        const newInputVal = document.getElementById("search").value;
+        console.log("Input Value: " + newInputVal);
+        setInputVal(newInputVal);
+    };
 
     return (
         <>
@@ -47,7 +64,7 @@ function UserPage() {
 
                 </Form>
                 {/* Display information of users */}
-                <UsersTable />
+                <UserTable input={inputVal}></UserTable>
 
             </div>
         </>
