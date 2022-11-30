@@ -14,7 +14,8 @@ import HomePage from './routes/HomePage/HomePage';
 import CounterPage from './routes/CounterPage/CounterPage';
 import ProfilePage from './routes/ProfilePage/ProfilePage';
 import CheckOutPage from './routes/CheckOutPage/CheckOutPage';
-import CheckInPage from './routes/CheckInPage/CheckInPage'
+import CheckInPage from './routes/CheckInPage/CheckInPage';
+import UserPage from './routes/UserPage/UserPage'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -27,6 +28,7 @@ root.render(
           <Route path="/Profile" element={<ProfilePage />} />
           <Route path="/checkOut" element={<CheckOutPage />} />
           <Route path="/checkIn" element={<CheckInPage />} />
+          <Route path="/Users" element={<UserPage />} />
           <Route path="counter" element={<CounterPage />} />
         </Route>
       </Routes>
