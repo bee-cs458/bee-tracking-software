@@ -57,13 +57,13 @@ export default function CheckInPage() {
             setAlertType(null);
             setAssets(currentList);
           } else {
-            setAlertType(0);
+            setAlertType(1);
             setAlertMessage("Asset is checked in");
           }
         });
       } else {
         console.log("Asset already in the list");
-        setAlertType(0);
+        setAlertType(1);
         setAlertMessage("Asset is Already Queued for Check In");
       }
       console.log(assets);
@@ -79,7 +79,7 @@ export default function CheckInPage() {
           console.log(newAssets);
         } else {
           console.log("User did not exist!");
-          setAlertType(0);
+          setAlertType(1);
           setAlertMessage("User does not exist");
         }
       });
@@ -114,7 +114,7 @@ export default function CheckInPage() {
   const handleSubmit = async (event) => {
     console.log("started submission");
     if (assets.length < 1) {
-      setAlertType(0);
+      setAlertType(1);
       setAlertMessage("No Assets Selected");
     } else {
       setAlertType(null);
@@ -127,7 +127,7 @@ export default function CheckInPage() {
       clearAll();
 
       if (strikes > 0) {
-        setAlertType(1);
+        setAlertType(0);
         setAlertMessage(
           "Late Asset Checked In\n" + strikes + " strikes added to student"
         );
