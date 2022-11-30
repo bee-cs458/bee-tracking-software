@@ -8,7 +8,6 @@ import "./ChangePassword.css";
 import { passwordStrength } from "check-password-strength";
 import ConditionalAlert from "../../components/CheckInUtilities/ConditionalAlert.js";
 
-
 export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -39,62 +38,70 @@ export default function ChangePassword() {
       newPassword == passwordAgain
         ? updatePassword(oldPassword, newPassword)
         : console.log("Passwords do not match");
-        alert("Password was updated")
+      alert("Password was updated");
     }
   }
 
   return (
-    
-      <div id="mainContent">
-        <Form>
-          <Row>
-            <Form.Group as={Col}>
-              <Form.Label>Current Password</Form.Label>
-              <Form.Control
-                id="passwordCur"
-                className="search"
-                type="password"
-                placeholder="Enter Old Password"
-                onChange={(event) => {
-                  handleOldPassChange(event.target.value);
+    <div id="mainContent">
+      <Form>
+        <Row>
+          <Form.Group as={Col}>
+            <Form.Label>Current Password</Form.Label>
+            <Form.Control
+              id="passwordCur"
+              className="search"
+              type="password"
+              placeholder="Enter Old Password"
+              onChange={(event) => {
+                handleOldPassChange(event.target.value);
+              }}
+            />
+
+            <Form.Label>New Password</Form.Label>
+            <Form.Text>
+              <p>Password must be at least 8 characters long, and contain:</p>
+              <ul className="pt-0">
+                <li>1 Uppercase Letter</li>
+                <li>1 Lowercase Letter</li>
+                <li>1 Number</li>
+                <li>1 Symbol</li>
+              </ul>
+            </Form.Text>
+            <Form.Control
+              id="passwordNew"
+              className="search"
+              type="password"
+              placeholder="Enter New Password"
+              onChange={(event) => {
+                handleNewPassChange(event.target.value);
+              }}
+            />
+            <ConditionalAlert type={strength.id} message={strength.value} />
+            <Form.Label>Verify Password</Form.Label>
+            <Form.Control
+              id="passwordNew2"
+              className="search"
+              type="password"
+              placeholder="Verify New Password"
+              onChange={(event) => {
+                handlePassAgainChange(event.target.value);
+              }}
+            />
+            <div id="btnContainer">
+              <Button
+                variant="primary"
+                onClick={async () => {
+                  submit();
                 }}
-              />
-              <Form.Label>New Password</Form.Label>
-              <Form.Control
-                id="passwordNew"
-                className="search"
-                type="password"
-                placeholder="Enter New Password"
-                onChange={(event) => {
-                  handleNewPassChange(event.target.value);
-                }}
-              />
-              <ConditionalAlert type={strength.id} message={strength.value} />
-              <Form.Label>Verify Password</Form.Label>
-              <Form.Control
-                id="passwordNew2"
-                className="search"
-                type="password"
-                placeholder="Verify New Password"
-                onChange={(event) => {
-                  handlePassAgainChange(event.target.value);
-                }}
-              />
-              <div id="btnContainer">
-                <Button
-                  variant="primary"
-                  onClick={async () => {
-                    submit();
-                  }}
-                >
-                  Update
-                </Button>
-              </div>
-            </Form.Group>
-          </Row>
-        </Form>
-      </div>
-    
+              >
+                Update
+              </Button>
+            </div>
+          </Form.Group>
+        </Row>
+      </Form>
+    </div>
   );
 }
 
