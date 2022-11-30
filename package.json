@@ -29,6 +29,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "postinstall": "^0.8.0",
+    "react-password-checklist": "^1.4.2",
     "reactjs-popup": "^2.0.5"
   },
   "devDependencies": {
