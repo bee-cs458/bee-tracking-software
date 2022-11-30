@@ -153,6 +153,7 @@ export default function CheckInPage() {
 
   return (
     <div>
+      <div className="header-container"></div>
       <div className="main-content">
         <h1 className="m-3">Check In Equipment</h1>
         <Form>
