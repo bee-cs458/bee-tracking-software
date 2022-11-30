@@ -23,3 +23,16 @@ export const updateUser = async (req, res, next) => {
         }
     )
 }
+
+export const getAllUsers = async (req, res, next) => {
+    await query(`
+    SELECT user_id, first_name, last_name, strikes, permissions, advanced
+    FROM user;`
+    ).then(
+        (result) => res.send({ result }),
+        (reason) => {
+            reason.message = `Error Getting All Users: ${reason.message}`;
+            next(reason);
+        }
+    )
+}
