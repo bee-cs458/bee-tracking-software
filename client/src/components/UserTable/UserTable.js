@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
-    getAllUsers
+    getAllUsers,
+    searchingForUsers
 } from "../../api/UserService";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
@@ -12,11 +13,20 @@ export default function UsersTable(props) {
     useEffect(() => {
         async function userTableInit() {
             let userResults = 0;
-            userResults = await getAllUsers();
+            if (props.input !== undefined && props.input !== ""){
+                userResults = await searchingForUsers(props.input);
+                setUsers(userResults);
+                console.log("Test 3 in if");
+            }
+            else {
+                userResults = await getAllUsers();
+                console.log("Test 4 in else");
+            }    
             setUsers(userResults);
         }
         userTableInit();
-    }, []) 
+    }, [props.input]);
+
     return (
         <div>
             {(users != null && users.length > 0) ? (
@@ -35,9 +45,7 @@ export default function UsersTable(props) {
                         </thead>
                         <tbody>
                             {users.map((user) => (
-                                <UserRow key={user.user_id} item={user}>
-
-                                </UserRow>
+                                <UserRow key={user.user_id} item={user}></UserRow>
                             ))}
                         </tbody>
                     </Table>

@@ -11,6 +11,8 @@ function UserPage() {
 
     const [inputVal, setInputVal] = useState(null);
 
+    console.log("Test 2");
+
     //Handling user input when user hits 'Enter'
     function handleKeyPress(e) {
         if (e.key === "Enter") {
@@ -35,10 +37,10 @@ function UserPage() {
                     <Row className="mb-3">
                         {/* Search for user by ID */}
                         <Form.Group as={Col} controlId="userId">
-                            <Form.Control className="userId" onKeyDown={handleKeyPress} type="search" placeholder="Enter User ID Number" name="search"  />
+                            <Form.Control className="userId"  type="search" placeholder="Enter User ID Number" name="search"  />
                         </Form.Group>
                         <Form.Group as={Col} controlId="userSearch">
-                            <Button id="userSearch" onClick={getInputValue}>Search</Button>
+                            <Button id="userSearch" >Search</Button>
                         </Form.Group>
                     </Row>
                     <br />

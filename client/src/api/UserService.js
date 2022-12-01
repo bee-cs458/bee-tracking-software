@@ -48,3 +48,21 @@ export async function getAllUsers() {
         return "Error Getting Users from API";
     }
 }
+
+export async function searchingForUsers(input) {
+    try {
+        console.log(`Searching Users by: ${input}`);
+
+        const response = await axios.get("/api/user/search", {
+            params: {
+                limit: 1000,
+                user_id: input,
+                first_name: input,
+                last_name: input,
+            },
+        });
+        return response.data.result;
+    } catch (error) {
+        return "Error Getting Users by searching from API";
+    }
+}

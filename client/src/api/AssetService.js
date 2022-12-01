@@ -95,7 +95,7 @@ export async function searchingForAssests(input) {
 
         const response = await axios.get("/api/asset/search", {
             params: {
-                limit: 10,
+                limit: 1000,
                 description: input,
                 asset_tag: input,
                 name: input,
