@@ -21,6 +21,15 @@ function UserRow(props) {
 
     }
 
+    function mapPermissionNumber(permNum) {
+        switch (permNum) {
+            case -1: return "Guest";
+            case 0: return "Student";
+            case 1: return "Operator";
+            case 2: return "Owner";
+        }
+    }
+
     return (
         <tr>
             <td><Form.Check type="checkbox" /></td>
@@ -28,7 +37,7 @@ function UserRow(props) {
             <td>{user.first_name}</td>
             <td>{user.last_name}</td>
             <td>{user.strikes}</td>
-            <td>{user.permissions}</td>
+            <td>{mapPermissionNumber(user.permissions)}</td>
             <td><Form.Check type="switch" id="advancedSwitch" checked={advancedChecked} onChange={() => { handleSwitchAdvanced(user) }} /></td>
         </tr>
     );
