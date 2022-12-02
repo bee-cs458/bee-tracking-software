@@ -1,11 +1,25 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Form from "react-bootstrap/Form";
+import { promoteOrDemoteUser } from '../../../api/UserService';
 
 function UserRow(props) {
 
     const user = props.item;
 
-    useEffect(() => { }, [user])
+    // Holds the state for the "advanced" field's checkbox/switch
+    const [advancedChecked, setAdvancedCheck] = useState(user.advanced);
+
+    useEffect(() => { }, [user, advancedChecked])
+
+    // Called when the advanced field's switch is flipped
+    async function handleSwitchAdvanced(user) {
+
+        // Inverts the switch value in the UI
+        setAdvancedCheck(!advancedChecked);
+        // Calls the API to invert the advanced value in the DB
+        await promoteOrDemoteUser(user.user_id);
+
+    }
 
     return (
         <tr>
@@ -15,8 +29,7 @@ function UserRow(props) {
             <td>{user.last_name}</td>
             <td>{user.strikes}</td>
             <td>{user.permissions}</td>
-            {/* <td>{user.advanced}</td> */}
-            <td><Form.Check type="switch" id="advancedSwitch" /></td>   
+            <td><Form.Check type="switch" id="advancedSwitch" checked={advancedChecked} onChange={() => { handleSwitchAdvanced(user) }} /></td>
         </tr>
     );
 

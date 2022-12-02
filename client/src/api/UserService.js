@@ -10,7 +10,7 @@ export async function updatePass(pass, newPass) {
     return axios({
         method: 'POST',
         url: '/api/user/update_password',
-        data : params.toString(),
+        data: params.toString(),
         withCredentials: true
     }).then(
         (response) => {
@@ -23,7 +23,7 @@ export async function updatePass(pass, newPass) {
     );
 }
 // current API in use for update password
-export async function updatePassword(password, newPassword){
+export async function updatePassword(password, newPassword) {
     try {
         console.log("Updating User Password");
 
@@ -64,5 +64,25 @@ export async function searchingForUsers(input) {
         return response.data.result;
     } catch (error) {
         return "Error Getting Users by searching from API";
+    }
+}
+
+/**
+ * Given a User ID, it inverts the user's advanced value.
+ * If the user is an advanced user, it demotes them.
+ * If the user is not an advanced user, it promotes them.
+ * @param {*} userId - ID of user to promote or demote
+ * @returns response of the API call
+ */
+export async function promoteOrDemoteUser(userId) {
+    try {
+
+        const response = await axios.patch("/api/user/invert_advanced", {
+            user_id: userId
+        });
+        return response.data.result;
+
+    } catch (error) {
+        return "Error promoting or demoting user with API";
     }
 }
