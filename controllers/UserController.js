@@ -2,7 +2,7 @@ import { query, insert_params, insert_values, update_params, where_params_like }
 
 export const updateUser = async (req, res, next) => {
     const { newPassword, password } = req.body;
-// query to update user based on a matching id and password
+    // query to update user based on a matching id and password
     await query(`UPDATE user SET \`user\`.\`password\`=?
          WHERE \`user\`.\`user_id\`=? AND \`user\`.\`password\`=?`,
         [newPassword, req.user.user_id, password]
@@ -38,22 +38,22 @@ export const getAllUsers = async (req, res, next) => {
 }
 
 export const searchForUser = async (req, res, next) => {
-     // grab limit and offset from query
-     const limit = req.query.limit;
-     const offset = req.query.offset ?? "0";
-     delete req.query.limit;
-     delete req.query.offset;
+    // grab limit and offset from query
+    const limit = req.query.limit;
+    const offset = req.query.offset ?? "0";
+    delete req.query.limit;
+    delete req.query.offset;
 
     console.log("Test 1");
 
-      // get search parameter names/values
+    // get search parameter names/values
     const criteria = Object.keys(req.query);
     const searchTerms = Object.values(req.query)
 
     const whereStatement = `WHERE ${where_params_like(criteria, "user")}`;
 
     // build statement
-    let statement =  `SELECT * FROM \`user\``;
+    let statement = `SELECT * FROM \`user\``;
     // add where if criteria exist
     if (criteria.length > 0) {
         statement += `\n${whereStatement}`;
@@ -73,4 +73,53 @@ export const searchForUser = async (req, res, next) => {
             next(reason);
         }
     )
+}
+
+/**
+ * 
+ * @param {*} req - takes a user_id
+ * @returns inverts the user's advanced property and returns HTTP 200 with the old and new values
+ */
+export const invertAdvancedStatus = async (req, res, next) => {
+
+    // grab the ID of the user we are promoting/demoting
+    const user_id = req.body.user.user_id;
+
+    // check that the user exists
+    var user = await query(`SELECT advanced FROM user WHERE user_id=?`, [user_id]);
+
+    if (user.length === 0) {
+        next({
+            status: 404,
+            message: "User not found!"
+        });
+        return;
+    }
+
+    const advanced = user[0].advanced;
+
+    // determine the new value of user.advanced by inverting the current value
+    // let newAdvanced = (advanced ? 0 : 1); <-- this didnt work for some reason
+    let newAdvanced;
+    if (advanced === 1) {
+        newAdvanced = 0;
+    } else {
+        newAdvanced = 1
+    }
+
+    // update the user's advanced property with new new value
+    await query(`UPDATE user SET advanced=? WHERE user_id=?`, [newAdvanced, user_id])
+        .then(
+            (result) => {
+                result.newAdvanced = newAdvanced;
+                result.oldAdvanced = advanced;
+                res.send({ result })
+            },
+            (reason) => {
+
+                reason.message = `Error updating advanced status of user ${user_id}`;
+                next(reason);
+
+            }
+        );
 }
