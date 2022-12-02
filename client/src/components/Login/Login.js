@@ -22,7 +22,7 @@ function Login(props) {
                     {
                         (localStorage.getItem("userPerms") < 0) ?
                             <>
-                                <div class="alert alert-danger">Check your credentials and try again</div>
+                                <div className="alert alert-danger">Check your credentials and try again</div>
                             </>
                             :
                             <>

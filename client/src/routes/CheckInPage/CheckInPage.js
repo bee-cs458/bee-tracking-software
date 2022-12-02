@@ -1,4 +1,3 @@
-// import PageTemplate from "../../components/PageTemplate/PageTemplate";
 import { useEffect, useState } from "react";
 import "./CheckInPage.css";
 import Form from "react-bootstrap/Form";
@@ -6,9 +5,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ConditionalAlert from "../../components/CheckInUtilities/ConditionalAlert";
-import { getSpecificAsset } from "../../api/AssetService";
 import {
-  getAssetsByUserID,
   incrementUserStrikes,
   getOverdue,
   checkInAssetWithNotes,
@@ -25,7 +22,7 @@ export default function CheckInPage() {
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
   const [strikes, setStrikes] = useState(0);
-  const [selectedStudent, setStudent] = useState("TODO Enter Student Here");
+  //const [selectedStudent, setStudent] = useState("TODO Enter Student Here");
 
   function handleIDChange(newValue) {
     setEnteredID(newValue);

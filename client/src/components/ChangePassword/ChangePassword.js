@@ -3,16 +3,13 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {updatePass, updatePassword } from '../../api/UserService.js';
+import { updatePassword } from '../../api/UserService.js';
 import './ChangePassword.css';
 
 function verifyPass(nPass1, nPass2) {
-return((nPass1 == nPass2))
+return((nPass1 === nPass2))
 }
 
-function password(){
-
-}
 function ChangePassword() {
     return(
     <>
