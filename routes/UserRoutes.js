@@ -1,7 +1,8 @@
 import {
     updateUser,
     searchForUser,
-    invertAdvancedStatus
+    invertAdvancedStatus,
+    changePermissions
 } from "../controllers/UserController.js";
 import { requireBody, restrictTo, requireQuery, filterQuery } from '../controllers/SecurityController.js'
 import { getAllUsers } from "../controllers/UserController.js";
@@ -20,5 +21,8 @@ router.get(
 router.patch("/invert_advanced",
     requireBody("user_id"),
     invertAdvancedStatus);
+router.patch("/change_permissions",
+    requireBody("user_id", "new_permissions"),
+    changePermissions)
 
 export default router;

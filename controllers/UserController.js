@@ -123,3 +123,44 @@ export const invertAdvancedStatus = async (req, res, next) => {
             }
         );
 }
+
+/**
+ * 
+ * @param {*} req - takes a user_id and new_permissions value
+ * @returns sets the specified user's permissions value to the new_permissions value
+ */
+export const changePermissions = async (req, res, next) => {
+
+    const user_id = req.body.user_id;
+    const new_permissions = req.body.new_permissions;
+
+    // check that the user exists
+    var user = await query(`SELECT permissions FROM user WHERE user_id=?`, [user_id]);
+
+    if (user.length === 0) {
+        next({
+            status: 404,
+            message: "User not found!"
+        });
+        return;
+    }
+
+    const old_permissions = user[0].permissions;
+
+    // query the DB and update the user
+    await query(`UPDATE user SET permissions=? WHERE user_id=?`, [new_permissions, user_id])
+        .then(
+            (result) => {
+                result.new_permissions = new_permissions;
+                result.old_permissions = old_permissions;
+                res.send({ result })
+            },
+            (reason) => {
+
+                reason.message = `Error updating permissions of user ${user_id} from ${old_permissions} to ${new_permissions}`;
+                next(reason);
+
+            }
+        );
+
+}
