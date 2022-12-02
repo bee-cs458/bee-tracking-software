@@ -74,7 +74,7 @@ export async function searchingForUsers(input) {
  * @param {*} userId - ID of user to promote or demote
  * @returns response of the API call
  */
-export async function promoteOrDemoteUser(userId) {
+export async function promoteOrDemoteAdvancedUser(userId) {
     try {
 
         const response = await axios.patch("/api/user/invert_advanced", {
@@ -84,5 +84,33 @@ export async function promoteOrDemoteUser(userId) {
 
     } catch (error) {
         return "Error promoting or demoting user with API";
+    }
+}
+
+export async function makeUserGuest(userId) {
+    await changeUserPermissions(userId, -1);
+}
+
+export async function makeUserStudent(userId) {
+    await changeUserPermissions(userId, 0);
+}
+
+export async function makeUserOperator(userId) {
+    await changeUserPermissions(userId, 1);
+}
+
+export async function makeUserOwner(userId) {
+    await changeUserPermissions(userId, 2);
+}
+
+async function changeUserPermissions(userId, newPermissions) {
+    try {
+        const response = await axios.patch("/api/user/change_permissions", {
+            user_id: userId,
+            new_permissions: newPermissions
+        });
+        return response.data.result;
+    } catch (error) {
+        return `Error changing user (${userId}) permission to ${newPermissions} with API`;
     }
 }

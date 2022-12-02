@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Form from "react-bootstrap/Form";
-import { promoteOrDemoteUser } from '../../../api/UserService';
+import { promoteOrDemoteAdvancedUser } from '../../../api/UserService';
 
 function UserRow(props) {
 
@@ -17,7 +17,7 @@ function UserRow(props) {
         // Inverts the switch value in the UI
         setAdvancedCheck(!advancedChecked);
         // Calls the API to invert the advanced value in the DB
-        await promoteOrDemoteUser(user.user_id);
+        await promoteOrDemoteAdvancedUser(user.user_id);
 
     }
 
