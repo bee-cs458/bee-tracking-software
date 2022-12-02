@@ -17,6 +17,8 @@ router.get(
     filterQuery('limit', 'offset', 'user_id', 'first_name', 'last_name'),
     searchForUser
 );
-router.patch("/invert_advanced", invertAdvancedStatus);
+router.patch("/invert_advanced",
+    requireBody("user_id"),
+    invertAdvancedStatus);
 
 export default router;

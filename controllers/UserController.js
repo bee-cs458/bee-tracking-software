@@ -83,7 +83,7 @@ export const searchForUser = async (req, res, next) => {
 export const invertAdvancedStatus = async (req, res, next) => {
 
     // grab the ID of the user we are promoting/demoting
-    const user_id = req.body.user.user_id;
+    const user_id = req.body.user_id;
 
     // check that the user exists
     var user = await query(`SELECT advanced FROM user WHERE user_id=?`, [user_id]);
