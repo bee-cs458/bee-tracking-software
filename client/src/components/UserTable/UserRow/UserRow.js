@@ -27,6 +27,7 @@ function UserRow(props) {
             case 0: return "Student";
             case 1: return "Operator";
             case 2: return "Owner";
+            default: return "Unknown";
         }
     }
 
