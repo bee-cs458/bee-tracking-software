@@ -13,7 +13,7 @@ export default function UsersTable(props) {
     useEffect(() => {
         async function userTableInit() {
             let userResults = 0;
-            if (props.input !== undefined && props.input !== ""){
+            if (props.input !== undefined && props.input !== "") {
                 userResults = await searchingForUsers(props.input);
                 setUsers(userResults);
                 console.log("Test 3 in if");
@@ -21,7 +21,7 @@ export default function UsersTable(props) {
             else {
                 userResults = await getAllUsers();
                 console.log("Test 4 in else");
-            }    
+            }
             setUsers(userResults);
         }
         userTableInit();
@@ -34,7 +34,6 @@ export default function UsersTable(props) {
                     <Table striped bordered>
                         <thead>
                             <tr>
-                                <td>Select</td>
                                 <td>User Id</td>
                                 <td>First Name</td>
                                 <td>Last Name</td>

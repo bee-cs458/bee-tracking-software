@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Form from "react-bootstrap/Form";
-import { promoteOrDemoteAdvancedUser } from '../../../api/UserService';
+import { makeUserGuest, makeUserOperator, makeUserOwner, makeUserStudent, promoteOrDemoteAdvancedUser } from '../../../api/UserService';
 
 function UserRow(props) {
 
@@ -21,24 +21,32 @@ function UserRow(props) {
 
     }
 
-    function mapPermissionNumber(permNum) {
-        switch (permNum) {
-            case -1: return "Guest";
-            case 0: return "Student";
-            case 1: return "Operator";
-            case 2: return "Owner";
-            default: return "Unknown";
+    async function handlePermissionChange(value) {
+
+        switch (value) {
+            case "-1": await makeUserGuest(user.user_id); return;
+            case "0": await makeUserStudent(user.user_id); return;
+            case "1": await makeUserOperator(user.user_id); return;
+            case "2": await makeUserOwner(user.user_id); return;
+            default: console.log("Error handling permission change"); return;
         }
+
     }
 
     return (
         <tr>
-            <td><Form.Check type="checkbox" /></td>
             <td>{user.user_id}</td>
             <td>{user.first_name}</td>
             <td>{user.last_name}</td>
             <td>{user.strikes}</td>
-            <td>{mapPermissionNumber(user.permissions)}</td>
+            <td><Form.Select defaultValue={user.permissions} onChange={(event) => {
+                handlePermissionChange(event.target.value);
+            }}>
+                <option value="-1">Guest</option>
+                <option value="0">Student</option>
+                <option value="1">Operator</option>
+                <option value="2">Owner</option>
+            </Form.Select></td>
             <td><Form.Check type="switch" id="advancedSwitch" checked={advancedChecked} onChange={() => { handleSwitchAdvanced(user) }} /></td>
         </tr>
     );
