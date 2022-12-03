@@ -2,7 +2,8 @@ import {
     updateUser,
     searchForUser,
     invertAdvancedStatus,
-    changePermissions
+    changePermissions,
+    createUser
 } from "../controllers/UserController.js";
 import { requireBody, restrictTo, requireQuery, filterQuery } from '../controllers/SecurityController.js'
 import { getAllUsers } from "../controllers/UserController.js";
@@ -23,6 +24,9 @@ router.patch("/invert_advanced",
     invertAdvancedStatus);
 router.patch("/change_permissions",
     requireBody("user_id", "new_permissions"),
-    changePermissions)
+    changePermissions);
+router.post("/create",
+    requireBody("user"),
+    createUser);
 
 export default router;

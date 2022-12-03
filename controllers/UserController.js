@@ -164,3 +164,36 @@ export const changePermissions = async (req, res, next) => {
         );
 
 }
+
+export const createUser = async (req, res, next) => {
+
+    const newUser = req.body.user;
+
+    // Check that the user ID is not in use already
+    var user = await query(`SELECT user_id FROM user WHERE user_id=?`, [user_id]).length;
+
+    if (user > 0) {
+        next({
+            status: 409,
+            message: "User ID already in use!"
+        });
+        return;
+    }
+
+    // create user in the db
+    await query(`INSERT INTO user VALUES(?, "?", "?", 0, "?", "?", ?, ?);`,
+        [newUser.user_id, newUser.first_name, newUser.last_name, newUser.username, newUser.password, newUser.permissions, newUser.advanced])
+        .then(
+            (result) => {
+                result.status = 202;
+                res.send({ result })
+            },
+            (reason) => {
+
+                reason.message = `Error creating user with user id ${newUser.user_id}`;
+                next(reason);
+
+            }
+        );
+
+}

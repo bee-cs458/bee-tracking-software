@@ -87,18 +87,38 @@ export async function promoteOrDemoteAdvancedUser(userId) {
     }
 }
 
+/**
+ * Given a User ID, it sets their permissions value to -1
+ * @param {*} userId - ID of user to make guest
+ * @returns response of the API call
+ */
 export async function makeUserGuest(userId) {
     await changeUserPermissions(userId, -1);
 }
 
+/**
+ * Given a User ID, it sets their permissions value to 0
+ * @param {*} userId - ID of user to make student
+ * @returns response of the API call
+ */
 export async function makeUserStudent(userId) {
     await changeUserPermissions(userId, 0);
 }
 
+/**
+ * Given a User ID, it sets their permissions value to 1
+ * @param {*} userId - ID of user to make operator
+ * @returns response of the API call
+ */
 export async function makeUserOperator(userId) {
     await changeUserPermissions(userId, 1);
 }
 
+/**
+ * Given a User ID, it sets their permissions value to 2
+ * @param {*} userId - ID of user to make owner
+ * @returns response of the API call
+ */
 export async function makeUserOwner(userId) {
     await changeUserPermissions(userId, 2);
 }
@@ -112,5 +132,22 @@ async function changeUserPermissions(userId, newPermissions) {
         return response.data.result;
     } catch (error) {
         return `Error changing user (${userId}) permission to ${newPermissions} with API`;
+    }
+}
+
+/**
+ * Given a user object, creates a new user in the database
+ * @param {*} user - user object. Must contain ID, First Name,
+ *                  Last Name, username, password, permissions, and advanced values
+ * @returns response of the API call
+ */
+export async function createNewUser(user) {
+    try {
+
+        const response = await axios.post("/api/user/create", user);
+        return response.data.result;
+
+    } catch (error) {
+        return `Error creating user ${user.user_id} ${user.first_name} ${user.last_name} with API`
     }
 }
