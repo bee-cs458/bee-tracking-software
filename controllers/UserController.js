@@ -170,19 +170,22 @@ export const createUser = async (req, res, next) => {
     const newUser = req.body.user;
 
     // Check that the user ID is not in use already
-    var user = await query(`SELECT user_id FROM user WHERE user_id=?`, [user_id]).length;
+    await query(`SELECT user_id FROM user WHERE user_id=?`, [newUser.user_id]).then((result) => {
 
-    if (user > 0) {
-        next({
-            status: 409,
-            message: "User ID already in use!"
-        });
-        return;
-    }
+        if (result.length > 0) {
+            next({
+                result: { status: 409 },
+                message: "User ID already in use!"
+            });
+            // TODO fix: for some reason, this does not stop the INSERT query from running
+            return;
+        }
+    });
+
+
 
     // create user in the db
-    await query(`INSERT INTO user VALUES(?, "?", "?", 0, "?", "?", ?, ?);`,
-        [newUser.user_id, newUser.first_name, newUser.last_name, newUser.username, newUser.password, newUser.permissions, newUser.advanced])
+    await query(`INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${newUser.password}', ${newUser.permissions}, ${newUser.advanced});`)
         .then(
             (result) => {
                 result.status = 202;

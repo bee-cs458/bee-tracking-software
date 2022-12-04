@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/esm/Col";
 import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
+import { createNewUser } from "../../api/UserService";
 
 function CreateUserForm() {
 
@@ -20,11 +21,23 @@ function CreateUserForm() {
 
     });
 
-    const handleSubmit = (event) => {
+    // TO DO
+    // 1. Error and success messages
+    // 2. Form validation
+    const handleSubmit = async (event) => {
 
         event.preventDefault();
 
-        console.log(userData);
+        await createNewUser(userData).then((result) => {
+            if (result.status === 202) {
+                // good
+                console.log("Good Result: ")
+            } else {
+                // bad
+                console.log("Bad Result: ")
+            }
+
+        });
 
     };
 
@@ -37,7 +50,7 @@ function CreateUserForm() {
                     <Form.Group as={Col} xs={4}>
 
                         <Form.Label>User ID</Form.Label>
-                        <Form.Control type="text" id="user_id" onChange={(event) => setUserData({ ...userData, user_id: event.target.value })} />
+                        <Form.Control type="text" id="user_id" onChange={(event) => setUserData({ ...userData, user_id: parseInt(event.target.value) })} />
 
                     </Form.Group>
                     <Form.Group as={Col} xs={4}>

@@ -143,11 +143,12 @@ async function changeUserPermissions(userId, newPermissions) {
  */
 export async function createNewUser(user) {
     try {
-
-        const response = await axios.post("/api/user/create", user);
+        const response = await axios.post("/api/user/create", { user: user });
         return response.data.result;
 
     } catch (error) {
+        console.log(error.response.data.message);
+        console.log(error.response.data.result.status);
         return `Error creating user ${user.user_id} ${user.first_name} ${user.last_name} with API`
     }
 }
