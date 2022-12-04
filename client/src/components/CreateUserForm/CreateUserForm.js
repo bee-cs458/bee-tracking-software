@@ -72,11 +72,11 @@ function CreateUserForm() {
             <h2>Creating a User</h2>
 
             <ToastContainer position="bottom-center" className="p-5 m-5">
-                <Toast bg={toastData.variant} onClose={() => setToastData({ ...toastData, show: false })} show={toastData.show} delay={6000} autohide>
+                <Toast bg={toastData.variant} onClose={() => setToastData({ ...toastData, show: false })} show={toastData.show} delay={6000}>
                     <Toast.Header>
                         <strong className="me-auto">{toastData.title}</strong>
                     </Toast.Header>
-                    <Toast.Body className={"text-bg-" && toastData.variant}>{toastData.message}</Toast.Body>
+                    <Toast.Body className={"text-bg-" + toastData.variant}>{toastData.message}</Toast.Body>
                 </Toast>
             </ToastContainer>
 
