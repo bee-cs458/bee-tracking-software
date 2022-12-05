@@ -7,11 +7,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import UserTable from "./../../components/UserTable/UserTable";
 
-function UserPage() {
+export default function UserPage() {
 
     const [inputVal, setInputVal] = useState(null);
-
-    console.log("Test 2");
 
     //Handling user input when user hits 'Enter'
     function handleKeyPress(e) {
@@ -37,10 +35,19 @@ function UserPage() {
                     <Row className="mb-3">
                         {/* Search for user by ID */}
                         <Form.Group as={Col} controlId="userId">
-                            <Form.Control className="userId"  type="search" placeholder="Enter User ID Number" name="search"  />
+                            <Form.Control 
+                            type="text" 
+                            onKeyDown={handleKeyPress}
+                            id="search"
+                            placeholder="Enter User ID Number" 
+                            name="search"/>
                         </Form.Group>
                         <Form.Group as={Col} controlId="userSearch">
-                            <Button id="userSearch" >Search</Button>
+                            <Button 
+                            id="userSearch"
+                            type = "submit" 
+                            onClick={getInputValue}
+                            >Search</Button>
                         </Form.Group>
                     </Row>
                     <br />
@@ -66,11 +73,10 @@ function UserPage() {
 
                 </Form>
                 {/* Display information of users */}
-                <UserTable input={inputVal}></UserTable>
+                <UserTable input={inputVal}>
+                </UserTable>
 
             </div>
         </>
     );
 }
-
-export default UserPage;

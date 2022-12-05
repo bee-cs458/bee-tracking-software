@@ -16,11 +16,9 @@ export default function UsersTable(props) {
             if (props.input !== undefined && props.input !== ""){
                 userResults = await searchingForUsers(props.input);
                 setUsers(userResults);
-                console.log("Test 3 in if");
             }
             else {
                 userResults = await getAllUsers();
-                console.log("Test 4 in else");
             }    
             setUsers(userResults);
         }

@@ -44,8 +44,6 @@ export const searchForUser = async (req, res, next) => {
      delete req.query.limit;
      delete req.query.offset;
 
-    console.log("Test 1");
-
       // get search parameter names/values
     const criteria = Object.keys(req.query);
     const searchTerms = Object.values(req.query)
