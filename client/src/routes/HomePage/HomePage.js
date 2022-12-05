@@ -51,7 +51,7 @@ export default function HomePage() {
 
             <div className="container-fluid main-content">
                 <div className="category">
-                    <CatDropdown state={currentCategory} update={updateCategory} ></CatDropdown>
+                        <CatDropdown state={currentCategory} update={updateCategory} ></CatDropdown>
                 </div>
                 <CheckedOut state={checked} update={setChecked}></CheckedOut>
                 <AssetTable filterByCheckedOut={checked} cat={currentCategory?.category_id} input={inputVal}></AssetTable>

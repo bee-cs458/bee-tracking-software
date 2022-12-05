@@ -1,7 +1,7 @@
 import * as React from 'react';
-/*
-import './CheckedOutSwitch.css';
 
+import './CheckedOutSwitch.css';
+/*
 <div class="checkedout">
 <div class="switch_box checkedout">
   <div class="input_wrapper">
@@ -28,7 +28,7 @@ const CheckedOut = (props) => {
     };
   
     return (
-      <div>
+      <div className="filter-check">
         <Checkbox
           label="Filter By Checked Out"
           value={checked}

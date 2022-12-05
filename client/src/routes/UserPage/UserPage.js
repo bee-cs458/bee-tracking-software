@@ -34,7 +34,7 @@ export default function UserPage() {
             <div className="main-content-user">
                 <h1 className="mb-3">Users</h1>
 
-                <Accordion className="mb-3 border add-user">
+                <Accordion className="mb-3 border">
                     <Accordion.Header>Add a User</Accordion.Header>
                     <Accordion.Body>
                         <CreateUserForm></CreateUserForm>
