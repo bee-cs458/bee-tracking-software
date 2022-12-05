@@ -31,10 +31,10 @@ export default function UserPage() {
     return (
         <>
             <div className="header-container" />
-            <div className="main-content">
+            <div className="main-content-user">
                 <h1 className="mb-3">Users</h1>
 
-                <Accordion className="mb-3 border">
+                <Accordion className="mb-3 border add-user">
                     <Accordion.Header>Add a User</Accordion.Header>
                     <Accordion.Body>
                         <CreateUserForm></CreateUserForm>
@@ -45,7 +45,8 @@ export default function UserPage() {
                 <Form>
                     <Row className="mb-3">
                         {/* Search for user by ID */}
-                        <Form.Group as={Col} controlId="userId">
+                        {/*controlId="userId"  */}
+                        <Form.Group as={Col} >
                             <Form.Control 
                             type="text" 
                             onKeyDown={handleKeyPress}
@@ -53,7 +54,8 @@ export default function UserPage() {
                             placeholder="Enter User ID Number" 
                             name="search"/>
                         </Form.Group>
-                        <Form.Group as={Col} controlId="userSearch">
+                        {/* controlId="userSearch" */}
+                        <Form.Group as={Col} >
                             <Button 
                             id="userSearch"
                             type = "submit" 
@@ -80,8 +82,6 @@ export default function UserPage() {
                             <Button className="user-actions" id="addStudent">Add Student</Button>
                         </Form.Group>
                     </Row>
-                    {/* <Button className="mb-3 clear" id="clearSelected" >Clear Selected</Button> */}
-
                 </Form>
                 {/* Display information of users */}
                 <UserTable input={inputVal}>

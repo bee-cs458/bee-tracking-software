@@ -42,6 +42,7 @@
     padding-top:60px;
     padding-left:10px;
     height: 100vh;
+    width:fit-content;
 }
 
 .App-link {
@@ -49,5 +50,7 @@
 }
 
 .category {
+    position:relative;
     margin-bottom:5px;
+    z-index: -1;
 }
