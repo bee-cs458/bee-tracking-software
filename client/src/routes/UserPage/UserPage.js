@@ -19,6 +19,7 @@ export default function UserPage() {
             console.log("Key press is entered");
             getInputValue();
         }
+        return false;
     }
 
     function getInputValue() {
@@ -32,6 +33,8 @@ export default function UserPage() {
         event.preventDefault();
         console.log('Form submitted')
     };
+
+
 
     return (
         <>
@@ -57,12 +60,12 @@ export default function UserPage() {
                             onKeyDown={handleKeyPress}
                             id="search"
                             placeholder="Enter User ID Number" 
-                            name="search"/>
+                            name="search"
+                            />
                         </Form.Group>
                         {/* console error: controlId="userId" ignored when id is specified  */}
                         <Form.Group as={Col} >
-                            <Button 
-                            id="userSearch"
+                            <Button
                             type = "submit" 
                             onClick={getInputValue}
                             >Search</Button>
@@ -70,8 +73,9 @@ export default function UserPage() {
                     </Row>
                 </Form>
                 {/* Display information of users */}
-                <UserTable input={inputVal}>
-                </UserTable>
+                <div className="container-fluid user-content">
+                    <UserTable input={inputVal}> </UserTable>
+                </div>
 
             </div>
         </>
