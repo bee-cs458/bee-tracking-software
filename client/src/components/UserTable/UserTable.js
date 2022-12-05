@@ -13,13 +13,13 @@ export default function UsersTable(props) {
     useEffect(() => {
         async function userTableInit() {
             let userResults = 0;
-            if (props.input !== undefined && props.input !== ""){
+            if (props.input !== undefined && props.input !== "") {
                 userResults = await searchingForUsers(props.input);
                 setUsers(userResults);
             }
             else {
                 userResults = await getAllUsers();
-            }    
+            }
             setUsers(userResults);
         }
         userTableInit();
@@ -32,7 +32,6 @@ export default function UsersTable(props) {
                     <Table striped bordered>
                         <thead>
                             <tr>
-                                <td>Select</td>
                                 <td>User Id</td>
                                 <td>First Name</td>
                                 <td>Last Name</td>

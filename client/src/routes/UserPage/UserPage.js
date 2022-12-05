@@ -6,6 +6,8 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import UserTable from "./../../components/UserTable/UserTable";
+import Accordion from 'react-bootstrap/Accordion'
+import CreateUserForm from "../../components/CreateUserForm/CreateUserForm";
 
 export default function UserPage() {
 
@@ -14,11 +16,11 @@ export default function UserPage() {
     //Handling user input when user hits 'Enter'
     function handleKeyPress(e) {
         if (e.key === "Enter") {
-          console.log("Key press is entered");
-          getInputValue();
+            console.log("Key press is entered");
+            getInputValue();
         }
-      }
-    
+    }
+
     function getInputValue() {
         // Selecting the input element and get its value
         const newInputVal = document.getElementById("search").value;
@@ -28,9 +30,18 @@ export default function UserPage() {
 
     return (
         <>
-            <div className="header-container"/>
+            <div className="header-container" />
             <div className="main-content">
                 <h1 className="mb-3">Users</h1>
+
+                <Accordion className="mb-3 border">
+                    <Accordion.Header>Add a User</Accordion.Header>
+                    <Accordion.Body>
+                        <CreateUserForm></CreateUserForm>
+                    </Accordion.Body>
+
+                </Accordion>
+
                 <Form>
                     <Row className="mb-3">
                         {/* Search for user by ID */}
@@ -57,7 +68,7 @@ export default function UserPage() {
                             <Form.Label className="actions">Operator Actions</Form.Label>
                             <Button className="user-actions" id="demoteOperator" >Demote Operator</Button>
                             <Button className="user-actions" id="editOperator" >Edit Operator</Button>
-                            
+
                         </Form.Group>
                     </Row>
                     <Row className="mb-3">
