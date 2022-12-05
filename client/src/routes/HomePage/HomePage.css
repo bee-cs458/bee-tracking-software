@@ -11,6 +11,7 @@
     align-items: center;
     margin-left: 250px;
     background-color: #6486A9;
+    z-index: 4;
 }
 
 .search-header {
@@ -42,7 +43,7 @@
     padding-top:60px;
     padding-left:10px;
     height: 100vh;
-    width:fit-content;
+    width:80vw;
 }
 
 .App-link {
@@ -50,7 +51,5 @@
 }
 
 .category {
-    position:relative;
     margin-bottom:5px;
-    z-index: -1;
 }
