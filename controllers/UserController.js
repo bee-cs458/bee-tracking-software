@@ -1,6 +1,6 @@
 import { query } from "../utilities/DatabaseUtilities.js";
 
-export const updateUser = async (req, res, next) => {
+export const updateUserPassword = async (req, res, next) => {
     const { newPassword, password } = req.body;
 // query to update user based on a matching id and password
     await query(`UPDATE user SET \`user\`.\`password\`=?
