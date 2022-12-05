@@ -24,16 +24,16 @@ export default function CheckInRow(props) {
   // getUser();
   getAsset();
 
-  return (
-    <tr>
-      <td>{user.first_name + " " + user.last_name}</td>
-      <td>{record.out_date}</td>
-      <td>{+asset.name}</td>
-      <td>{record.due_date}</td>
-      <td>{record.in_date}</td>
-      <td>{record.notes}</td>
-    </tr>
-  );
+  // return (
+  //   <tr>
+  //     <td>{user.first_name + " " + user.last_name}</td>
+  //     <td>{record.out_date}</td>
+  //     <td>{+asset.name}</td>
+  //     <td>{record.due_date}</td>
+  //     <td>{record.in_date}</td>
+  //     <td>{record.notes}</td>
+  //   </tr>
+  // );
 }
 
 {
