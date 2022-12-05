@@ -1,34 +1,43 @@
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import RecordRow from "./RecordRow";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAllRecords } from "../../api/RecordService";
 
 export default function RecordTable() {
   const [records, setRecords] = useState();
 
-  // const getRecords = async () => {
-  //   await 
-  // };
+  const getRecords = async () => {
+    await getAllRecords().then((result) => {
+      setRecords(result);
+    });
+  };
+
+  var today = new Date();
+
+  useEffect(() => {
+    getRecords();
+  }, []);
 
   return (
     <div>
       {records != null && records.length > 0 ? (
         <div>
-          <Table striped bordered>
+          <Table bordered>
             <thead>
               <tr>
-                <td>Student</td>
-                <td>Check Out</td>
-                <td>Asset</td>
-                <td>Due Date</td>
-                <td>Check In</td>
-                <td>Notes</td>
+                <th>Student</th>
+                <th>Check Out</th>
+                <th>Asset</th>
+                <th>Due Date</th>
+                <th>Check In</th>
+                <th>Notes</th>
               </tr>
             </thead>
             <tbody>
               {records != null &&
                 records.map((record) => (
-                  <RecordRow key={record.record_id} data={record}></RecordRow>
+                  <RecordRow key={record.record_id} data={record} date={today}></RecordRow>
                 ))}
             </tbody>
           </Table>

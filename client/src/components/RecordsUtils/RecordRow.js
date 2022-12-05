@@ -1,38 +1,37 @@
 import { useEffect, useState } from "react";
-import Form from "react-bootstrap/Form";
 import { getAssetByAssetTag } from "../../api/AssetService";
+import { getUserById } from "../../api/UserService";
+import "./RecordRow.css";
 
 export default function CheckInRow(props) {
   const record = props.data;
-  const [user, setUser] = useState();
-  const [asset, setAsset] = useState();
+  const [user, setUser] = useState({ first_name: "Loading User..." });
+  const [asset, setAsset] = useState({ name: "Loading Asset..." });
+  const [overDue, setOverDue] = useState("notOverdue");
 
-  // To Be Implemented
-  // const getUser = async () => {
-  //   await getUserByID(record.student_id).then((result) => {
-  //     setUser(result);
-  //   })
-  // };
+  const getInfo = async () => {
+    await getUserById(record.student_id).then((result) => {
+      setUser(result[0]);
+    });
+    await getAssetByAssetTag(record.asset_tag).then((result) => {
+      setAsset(result[0]);
+    });
+  };
 
-  const getAsset = async () => {
-    await getAssetByAssetTag(record.asset).then((result) => {
-      setAsset(result);
-    })
-  }
+  useEffect(() => {
+    getInfo();
+  }, []);
 
-  // getUser();
-  getAsset();
-
-  // return (
-  //   <tr>
-  //     <td>{user.first_name + " " + user.last_name}</td>
-  //     <td>{record.out_date}</td>
-  //     <td>{+asset.name}</td>
-  //     <td>{record.due_date}</td>
-  //     <td>{record.in_date}</td>
-  //     <td>{record.notes}</td>
-  //   </tr>
-  // );
+  return (
+    <tr className={overDue}>
+      <td>{user.first_name + " " + user.last_name}</td>
+      <td>{record.out_date}</td>
+      <td>{asset.name}</td>
+      <td>{record.due_date}</td>
+      <td>{record.in_date}</td>
+      <td>{record.notes}</td>
+    </tr>
+  );
 }
 
 {
