@@ -10,6 +10,10 @@ import AssetRow from "./AssetRow/AssetRow";
 
 export default function AssetTable(props) {
   const [assets, setAssets] = useState([]);
+  const [updated, setUpdated] = useState(false);
+  const setUp = () => {
+    setUpdated(!updated);
+  }
   useEffect(() => {
     async function assetTableInit() {
       let assetResults = 0;
@@ -27,7 +31,7 @@ export default function AssetTable(props) {
       setAssets(assetResults); // Set the assets data table to be the queried result
     }
     assetTableInit(); // Render that son of a gun
-  }, [props.cat, props.input, props.filterByCheckedOut]);
+  }, [props.cat, props.input, props.filterByCheckedOut, updated]);
 
   return (
     <div>
@@ -50,10 +54,10 @@ export default function AssetTable(props) {
                 ? assets
                     .filter((asset) => asset.checked_out === 1)
                     .map((asset) => (
-                      <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
+                      <AssetRow key={asset.asset_tag} item={asset} setUp={setUp}></AssetRow>
                     ))
                 : assets.map((asset) => (
-                    <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
+                    <AssetRow key={asset.asset_tag} item={asset} setUp={setUp}></AssetRow>
                   ))}
             </tbody>
           </Table>

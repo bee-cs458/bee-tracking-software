@@ -5,8 +5,8 @@ import Modal from "react-bootstrap/Modal";
 import EditAsset from "../../EditAsset/EditAsset";
 
 function AssetRow(props) {
-  const asset = props.item;
   const [cats, setCats] = useState([]);
+  const [asset, setAsset] = useState(props.item);
   const [editAsset, setEditAsset] = useState(false);
   const handleEditAssetTrue = () => setEditAsset(true);
   const handleEditAssetFalse = () => setEditAsset(false);
@@ -40,7 +40,7 @@ function AssetRow(props) {
           <Modal.Title>Edit Asset</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <EditAsset cats ={cats} asset={asset}></EditAsset>
+          <EditAsset cats ={cats} asset={asset} setUp={props.setUp} setAsset={setAsset}></EditAsset>
         </Modal.Body>
       </Modal>
     </tr>

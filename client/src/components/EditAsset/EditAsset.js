@@ -9,20 +9,22 @@ import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
 function EditAsset(props) {
   const asset = props.asset;
   const cats = props.cats;
+  const setAsset = props.setAsset;
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
-  const [tag, setTag] = useState(asset.asset_tag);
+  const [asset_tag, setTag] = useState(asset.asset_tag);
   const [name, setName] = useState(asset.name);
-  const [des, setDes] = useState(asset.description);
-  const [damage, setDamage] = useState(asset.damage_notes);
+  const [description, setDes] = useState(asset.description);
+  const [damage_notes, setDamage] = useState(asset.damage_notes);
   const [category, setCategory] = useState(asset.category);
-  const [op, setOp] = useState(asset.operational);
-  const [advan, setAdvan] = useState(asset.advanced);
+  const [operational, setOp] = useState(asset.operational);
+  const [advanced, setAdvan] = useState(asset.advanced);
 
   function handleSubmit() {
-    editAsset(asset.asset_tag, tag, name, des, damage, category, op, advan);
+    editAsset(asset.asset_tag, asset_tag, name, description, damage_notes, category, operational, advanced);
     setAlertType(3);
     setAlertMessage("Asset has been updated with these changes!");
+    setAsset(Object.assign({}, asset, {asset_tag, name, description, damage_notes, category, operational, advanced}));
   }
 
   function handleTagChange(newVal) {
@@ -51,13 +53,13 @@ function EditAsset(props) {
   }
 
   function handleOpChange(newVal) {
-    setOp(!op);
-    console.log(op);
+    setOp(!operational);
+    console.log(operational);
   }
 
   function handleAdvanChange(newVal) {
-    setAdvan(!advan);
-    console.log(advan);
+    setAdvan(!advanced);
+    console.log(advanced);
   }
 
   return (
