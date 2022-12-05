@@ -33,6 +33,33 @@ function UserRow(props) {
 
     }
 
+    /*
+    function handleUserStrikes(value) {
+
+        switch (value) {
+            case 0:
+                return <svg xmlns="http://www.w3.org/2000/svg"  width="100%" height="42px">
+                <circle cx="3" cy="3" r="3" fill="green" fillOpacity="1.0"/>
+                </svg>;
+            case 1:
+                return <svg xmlns="http://www.w3.org/2000/svg"  width="100%" height="42px">
+                <circle cx="3" cy="3" r="3" fill="red" fillOpacity="1.0"/>
+                </svg>;
+            case 2:
+                return <svg xmlns="http://www.w3.org/2000/svg"  width="100%" height="42px">
+                <circle cx="3" cy="3" r="3" fill="red" fillOpacity="1.0"/>
+                <circle cx="15" cy="3" r="3" fill="red" fillOpacity="1.0"/>
+                </svg>;
+            default: 
+                return <svg xmlns="http://www.w3.org/2000/svg"  width="100%" height="42px">
+                <circle cx="3" cy="3" r="3" fill="red" fillOpacity="1.0"/>
+                <circle cx="15" cy="3" r="3" fill="red" fillOpacity="1.0"/>
+                <circle cx="27" cy="3" r="3" fill="red" fillOpacity="1.0"/>
+                </svg>;
+        }
+    }
+    */
+
     return (
         <tr>
             <td>{user.user_id}</td>

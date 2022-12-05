@@ -17,7 +17,7 @@ export default function UsersTable(props) {
                 userResults = await searchingForUsers(props.input);
                 setUsers(userResults);
             }
-            else {
+            else{
                 userResults = await getAllUsers();
             }
             setUsers(userResults);

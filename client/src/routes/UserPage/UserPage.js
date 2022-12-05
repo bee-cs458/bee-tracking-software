@@ -19,6 +19,7 @@ export default function UserPage() {
             console.log("Key press is entered");
             getInputValue();
         }
+        return false;
     }
 
     function getInputValue() {
@@ -27,6 +28,8 @@ export default function UserPage() {
         console.log("Input Value: " + newInputVal);
         setInputVal(newInputVal);
     };
+
+
 
     return (
         <>
@@ -43,7 +46,7 @@ export default function UserPage() {
                 </Accordion>
 
                 <Form>
-                    <Row className="mb-3">
+                    <Row className="User-Search">
                         {/* Search for user by ID */}
                         {/*controlId="userId"  */}
                         <Form.Group as={Col} >
@@ -52,12 +55,12 @@ export default function UserPage() {
                             onKeyDown={handleKeyPress}
                             id="search"
                             placeholder="Enter User ID Number" 
-                            name="search"/>
+                            name="search"
+                            />
                         </Form.Group>
                         {/* controlId="userSearch" */}
                         <Form.Group as={Col} >
-                            <Button 
-                            id="userSearch"
+                            <Button
                             type = "submit" 
                             onClick={getInputValue}
                             >Search</Button>
@@ -84,8 +87,9 @@ export default function UserPage() {
                     </Row>
                 </Form>
                 {/* Display information of users */}
-                <UserTable input={inputVal}>
-                </UserTable>
+                <div className="container-fluid user-content">
+                    <UserTable input={inputVal}> </UserTable>
+                </div>
 
             </div>
         </>
