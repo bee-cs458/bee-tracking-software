@@ -1,6 +1,6 @@
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
-import RecordRow from "../CheckInUtilities/RecordRow";
+import RecordRow from "./RecordRow";
 
 export default function RecordTable(props) {
   return (
