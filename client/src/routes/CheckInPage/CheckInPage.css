@@ -7,7 +7,7 @@
     position: fixed; 
     flex-direction: row;
     height: 45px;
-    width:100vw;
+    width: 100vw;
     align-items: center;
     margin-left: 250px;
     background-color: #6486A9;
@@ -17,8 +17,8 @@
     overflow: auto;
     margin-left: 250px;
     text-align: left;
-    padding-top:60px;
-    padding-left:10px;
+    padding-top: 60px;
+    padding-left: 10px;
     height: 100vh;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .search {
-    margin-bottom:8px;
+    margin-bottom: 8px;
 }
 
 .notes {

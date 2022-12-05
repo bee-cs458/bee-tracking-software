@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import UserTable from "./../../components/UserTable/UserTable";
-import Accordion from 'react-bootstrap/Accordion'
+import Accordion from 'react-bootstrap/Accordion';
 import CreateUserForm from "../../components/CreateUserForm/CreateUserForm";
 
 export default function UserPage() {
@@ -26,6 +26,11 @@ export default function UserPage() {
         const newInputVal = document.getElementById("search").value;
         console.log("Input Value: " + newInputVal);
         setInputVal(newInputVal);
+    }
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        console.log('Form submitted')
     };
 
     return (
@@ -42,10 +47,10 @@ export default function UserPage() {
 
                 </Accordion>
 
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <Row className="mb-3">
                         {/* Search for user by ID */}
-                        {/*controlId="userId"  */}
+                        {/* console error: controlId="userId" ignored when id is specified  */}
                         <Form.Group as={Col} >
                             <Form.Control 
                             type="text" 
@@ -54,32 +59,13 @@ export default function UserPage() {
                             placeholder="Enter User ID Number" 
                             name="search"/>
                         </Form.Group>
-                        {/* controlId="userSearch" */}
+                        {/* console error: controlId="userId" ignored when id is specified  */}
                         <Form.Group as={Col} >
                             <Button 
                             id="userSearch"
                             type = "submit" 
                             onClick={getInputValue}
                             >Search</Button>
-                        </Form.Group>
-                    </Row>
-                    <br />
-                    <Row className="mb-3">
-                        {/* Buttons for editing Operators */}
-                        <Form.Group as={Col} controlId="userActions">
-                            <Form.Label className="actions">Operator Actions</Form.Label>
-                            <Button className="user-actions" id="demoteOperator" >Demote Operator</Button>
-                            <Button className="user-actions" id="editOperator" >Edit Operator</Button>
-
-                        </Form.Group>
-                    </Row>
-                    <Row className="mb-3">
-                        {/* Buttons for editing Students */}
-                        <Form.Group as={Col} controlId="userActions">
-                            <Form.Label className="actions">Student Actions</Form.Label>
-                            <Button className="user-actions" id="promoteStudent" >Promote Student</Button>
-                            <Button className="user-actions" id="editStudent" >Edit Student</Button>
-                            <Button className="user-actions" id="addStudent">Add Student</Button>
                         </Form.Group>
                     </Row>
                 </Form>

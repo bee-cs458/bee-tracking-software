@@ -7,7 +7,7 @@
     position: fixed; 
     flex-direction: row;
     height: 45px;
-    width:100vw;
+    width: 100vw;
     align-items: center;
     margin-left: 250px;
     background-color: #6486A9;
@@ -17,15 +17,15 @@
 .search-header {
     height: 40px;
     width: 545px;
-    display:inline-flex;
-    color:white;
+    display: inline-flex;
+    color: white;
     text-align: left;
-    padding-top:1px;
+    padding-top: 1px;
 }
 
 .search-header button {
     display: inline-flex;
-    margin-left:10px;
+    margin-left: 10px;
 }
 
 .search-header button:hover {
@@ -33,17 +33,17 @@
 }
 
 .btn {
-    color:white;
+    color: white;
 }
 
 .main-content {
     overflow: auto;
     margin-left: 250px;
     text-align: left;
-    padding-top:60px;
-    padding-left:10px;
+    padding-top: 60px;
+    padding-left: 10px;
     height: 100vh;
-    width:80vw;
+    width: 80vw;
 }
 
 .App-link {
@@ -51,5 +51,5 @@
 }
 
 .category {
-    margin-bottom:5px;
+    margin-bottom: 5px;
 }
