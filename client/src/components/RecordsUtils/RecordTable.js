@@ -4,20 +4,11 @@ import RecordRow from "./RecordRow";
 import { useState } from "react";
 
 export default function RecordTable() {
-  const [records, setRecords] = useState([
-    {
-      record_id: "John",
-      out_date: "Doe",
-      in_date: 44,
-      notes: "hi",
-    },
-    {
-      record_id: "jane",
-      out_date: "corn",
-      in_date: 50,
-      notes: "blue",
-    },
-  ]);
+  const [records, setRecords] = useState();
+
+  // const getRecords = async () => {
+  //   await 
+  // };
 
   return (
     <div>
@@ -37,10 +28,7 @@ export default function RecordTable() {
             <tbody>
               {records != null &&
                 records.map((record) => (
-                  <RecordRow
-                    key={record.record_id}
-                    data={record}
-                  ></RecordRow>
+                  <RecordRow key={record.record_id} data={record}></RecordRow>
                 ))}
             </tbody>
           </Table>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { getAssetByAssetTag } from "../../api/AssetService";
-// import getAllRecords from "";
 
 export default function CheckInRow(props) {
   const record = props.data;
