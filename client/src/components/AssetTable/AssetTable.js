@@ -7,10 +7,16 @@ import {
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import AssetRow from "./AssetRow/AssetRow";
+import AddAsset from "../AddAsset/AddAsset";
+import Modal from 'react-bootstrap/Modal';
 
 
 export default function AssetTable(props) {
   const [assets, setAssets] = useState([]);
+  //Displaying Add Asset
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     async function assetTableInit() {
@@ -31,8 +37,18 @@ export default function AssetTable(props) {
     assetTableInit(); // Render that son of a gun
   }, [props.cat, props.input, props.filterByCheckedOut]);
 
+
+
   return (
     <div>
+      <button onClick={handleShow}>Add Asset</button>
+
+      <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>{(localStorage.getItem("userPerms") == 2) ? <>Add Asset</> : <>Invalid Permissions</>}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>{(localStorage.getItem("userPerms") == 2) ? <AddAsset onSubmit={handleClose}/> : <>Only Owner can Add Assets</>}</Modal.Body>
+      </Modal>
 
       {(assets != null && assets.length > 0) ? (
         <div>

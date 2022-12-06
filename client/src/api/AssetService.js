@@ -106,3 +106,24 @@ export async function searchingForAssests(input) {
         return "Error Getting Assests by serach from API";
     }
 }
+
+//Calls API endpoint for creating an asset 
+export async function createNewAsset(assetTag,name,description,category,operational,advanced) {
+    try {
+        console.log(`Creating new Asset with Asset_Tag: ${assetTag}`);
+
+        const response = await axios.post("/api/asset/", {
+            asset_tag: assetTag,
+            name: name,
+            description: description,
+            date_added: "2022-12-05", //Set date to todays date
+            category: category,
+            operational: operational,
+            advanced: advanced,
+            checked_out: 0, //Automatically set to not checked out
+        });
+        return response.data.result;
+    } catch (error) {
+        throw new Error(error.response.data.message ?? "Error Creating Asset from API");
+    }
+}

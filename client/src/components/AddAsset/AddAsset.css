@@ -1,0 +1,29 @@
+.selectedOptions{
+   background-color:red;
+   overflow: hidden;
+
+}
+
+#categorySelect{
+    padding-bottom: 15px;
+}
+
+#submitButton{
+    background-color: blue;
+}
+
+#div1 {
+    float:left; 
+    width:50%;
+    height:100px;
+}
+#div2{
+    float:left; 
+    width:25%;
+    height:100px;
+}
+#div3{
+    float:right;
+    width:25%;
+    height:100px;
+}
