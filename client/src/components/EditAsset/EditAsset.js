@@ -35,8 +35,10 @@ function EditAsset(props) {
       setAlertMessage("Error 404: The asset cannot be found in the database");
       setAlertType(1);
     } else if (error === 400) {
-        setAlertMessage("Error 400: Asset could not be updated. This is likey because the asset tag already exists on another asset.");
-        setAlertType(1);
+      setAlertMessage(
+        "Error 400: Asset could not be updated. This is likey because the asset tag already exists on another asset."
+      );
+      setAlertType(1);
     } else {
       setAlertType(3);
       setAlertMessage("Asset has been updated with these changes!");

@@ -41,7 +41,7 @@ function AssetRow(props) {
         </Modal.Header>
         <Modal.Body>
           <EditAsset
-          key={asset.asset_tag}
+            key={asset.asset_tag}
             cats={cats}
             asset={asset}
             setUp={props.setUp}
