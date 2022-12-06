@@ -133,6 +133,10 @@ export async function editAsset(
     });
     return response.data.result;
   } catch (error) {
+    if (error.response.status === 404 || error.response.status === 400) {
+      return error.response.status;
+    }
+
     return "Error while updating the asset " + oldTag;
   }
 }

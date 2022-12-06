@@ -40,7 +40,13 @@ function AssetRow(props) {
           <Modal.Title>Edit Asset</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <EditAsset cats ={cats} asset={asset} setUp={props.setUp} setAsset={setAsset}></EditAsset>
+          <EditAsset
+          key={asset.asset_tag}
+            cats={cats}
+            asset={asset}
+            setUp={props.setUp}
+            setAsset={setAsset}
+          ></EditAsset>
         </Modal.Body>
       </Modal>
     </tr>

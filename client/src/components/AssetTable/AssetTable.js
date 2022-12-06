@@ -13,7 +13,7 @@ export default function AssetTable(props) {
   const [updated, setUpdated] = useState(false);
   const setUp = () => {
     setUpdated(!updated);
-  }
+  };
   useEffect(() => {
     async function assetTableInit() {
       let assetResults = 0;
@@ -54,10 +54,18 @@ export default function AssetTable(props) {
                 ? assets
                     .filter((asset) => asset.checked_out === 1)
                     .map((asset) => (
-                      <AssetRow key={asset.asset_tag} item={asset} setUp={setUp}></AssetRow>
+                      <AssetRow
+                        key={asset.asset_tag}
+                        item={asset}
+                        setUp={setUp}
+                      ></AssetRow>
                     ))
                 : assets.map((asset) => (
-                    <AssetRow key={asset.asset_tag} item={asset} setUp={setUp}></AssetRow>
+                    <AssetRow
+                      key={asset.asset_tag}
+                      item={asset}
+                      setUp={setUp}
+                    ></AssetRow>
                   ))}
             </tbody>
           </Table>

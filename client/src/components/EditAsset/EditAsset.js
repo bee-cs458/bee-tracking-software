@@ -20,45 +20,86 @@ function EditAsset(props) {
   const [operational, setOp] = useState(asset.operational);
   const [advanced, setAdvan] = useState(asset.advanced);
 
-  function handleSubmit() {
-    editAsset(asset.asset_tag, asset_tag, name, description, damage_notes, category, operational, advanced);
-    setAlertType(3);
-    setAlertMessage("Asset has been updated with these changes!");
-    setAsset(Object.assign({}, asset, {asset_tag, name, description, damage_notes, category, operational, advanced}));
+  async function handleSubmit() {
+    let error = await editAsset(
+      asset.asset_tag,
+      asset_tag,
+      name,
+      description,
+      damage_notes,
+      category,
+      operational,
+      advanced
+    );
+    if (error === 404) {
+      setAlertMessage("Error 404: The asset cannot be found in the database");
+      setAlertType(1);
+    } else if (error === 400) {
+        setAlertMessage("Error 400: Asset could not be updated. This is likey because the asset tag already exists on another asset.");
+        setAlertType(1);
+    } else {
+      setAlertType(3);
+      setAlertMessage("Asset has been updated with these changes!");
+      setAsset(
+        Object.assign({}, asset, {
+          asset_tag,
+          name,
+          description,
+          damage_notes,
+          category,
+          operational,
+          advanced,
+        })
+      );
+    }
   }
 
   function handleTagChange(newVal) {
     setTag(newVal);
+    setAlertMessage(null);
+    setAlertType(null);
     console.log(newVal);
   }
 
   function handleNameChange(newVal) {
     setName(newVal);
+    setAlertMessage(null);
+    setAlertType(null);
     console.log(newVal);
   }
 
   function handleDesChange(newVal) {
     setDes(newVal);
+    setAlertMessage(null);
+    setAlertType(null);
     console.log(newVal);
   }
 
   function handleDamageChange(newVal) {
     setDamage(newVal);
+    setAlertMessage(null);
+    setAlertType(null);
     console.log(newVal);
   }
 
   function handleCatChange(newVal) {
     setCategory(newVal);
+    setAlertMessage(null);
+    setAlertType(null);
     console.log(newVal);
   }
 
   function handleOpChange(newVal) {
     setOp(!operational);
+    setAlertMessage(null);
+    setAlertType(null);
     console.log(operational);
   }
 
   function handleAdvanChange(newVal) {
     setAdvan(!advanced);
+    setAlertMessage(null);
+    setAlertType(null);
     console.log(advanced);
   }
 
