@@ -111,12 +111,14 @@ export async function searchingForAssests(input) {
 export async function createNewAsset(assetTag,name,description,category,operational,advanced) {
     try {
         console.log(`Creating new Asset with Asset_Tag: ${assetTag}`);
-
+        let curDate = new Date();
+        let date = curDate.getFullYear() + '-' + curDate.getMonth() + '-' + curDate.getDate();
+  
         const response = await axios.post("/api/asset/", {
             asset_tag: assetTag,
             name: name,
             description: description,
-            date_added: "2022-12-05", //Set date to todays date
+            date_added: date, //Set date to todays date (FIX)
             category: category,
             operational: operational,
             advanced: advanced,
@@ -127,3 +129,4 @@ export async function createNewAsset(assetTag,name,description,category,operatio
         throw new Error(error.response.data.message ?? "Error Creating Asset from API");
     }
 }
+

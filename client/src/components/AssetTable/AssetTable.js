@@ -10,6 +10,7 @@ import AssetRow from "./AssetRow/AssetRow";
 import AddAsset from "../AddAsset/AddAsset";
 import Modal from 'react-bootstrap/Modal';
 
+import { getCategories } from "../../api/CategoryService";
 
 export default function AssetTable(props) {
   const [assets, setAssets] = useState([]);
@@ -17,6 +18,19 @@ export default function AssetTable(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  //Store Categories
+  const [cats, setCats] = useState([]);
+
+  useEffect(() => {
+    getCategories()
+      .then((value) => {
+        setCats(value);
+        return value;
+      })
+      .catch((err) => console.log(err));
+    console.log(cats);
+  }, [assets, setAssets]);
 
   useEffect(() => {
     async function assetTableInit() {
@@ -47,7 +61,9 @@ export default function AssetTable(props) {
             <Modal.Header closeButton>
               <Modal.Title>{(localStorage.getItem("userPerms") == 2) ? <>Add Asset</> : <>Invalid Permissions</>}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>{(localStorage.getItem("userPerms") == 2) ? <AddAsset onSubmit={handleClose}/> : <>Only Owner can Add Assets</>}</Modal.Body>
+            <Modal.Body>
+              {(localStorage.getItem("userPerms") == 2) ? <AddAsset cats={cats} onSubmit={handleClose}/> : <>Only Owner can Add Assets</>}
+            </Modal.Body>
       </Modal>
 
       {(assets != null && assets.length > 0) ? (
