@@ -5,6 +5,7 @@ import Form from "react-bootstrap/esm/Form";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
+import { useEffect } from "react";
 
 function EditAsset(props) {
   const asset = props.asset;
@@ -19,6 +20,8 @@ function EditAsset(props) {
   const [category, setCategory] = useState(asset.category);
   const [operational, setOp] = useState(asset.operational);
   const [advanced, setAdvan] = useState(asset.advanced);
+
+  useEffect(() => {}, [alertMessage, alertType]);
 
   async function handleSubmit() {
     let error = await editAsset(
@@ -120,6 +123,7 @@ function EditAsset(props) {
             className="text"
             type="text"
             defaultValue={asset.asset_tag}
+            maxLength="20"
             onChange={(event) => {
               handleTagChange(event.target.value);
             }}

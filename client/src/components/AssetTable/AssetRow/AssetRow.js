@@ -26,7 +26,7 @@ function AssetRow(props) {
       <td>{asset.name}</td>
       <td>{asset.description}</td>
       <td>{asset.date_added}</td>
-      <td>{asset.category}</td>
+      <td>{cats.map((cat) => ((cat.category_id === asset.category) ? cat.catName :null))}</td>
       <td>{asset.checked_out ? "Yes" : "No"}</td>
       <td>
         {localStorage.getItem("userPerms") == 2 ? (
