@@ -24,7 +24,18 @@ export async function getUserById(userId){
         });
         return response.data.result;
     } catch (error) {
-        return "Error error getting user by ID";
+        return "Error getting user by ID";
+    }
+}
+
+export async function getAllUsers(){
+    try {
+        console.log("Getting Users");
+
+        const response = await axios.post("/api/user/get_all");
+        return response.data.result;
+    } catch (error) {
+        return "Error getting users";
     }
 }
 

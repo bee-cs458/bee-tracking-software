@@ -36,3 +36,14 @@ export const getUserById = async (req, res, next) => {
         }
     )
 }
+
+
+export const getAllUsers = async (req, res, next) => {
+    await query(`SELECT * FROM \`user\` ;`).then(
+        (result) => res.send({ result }),
+        (reason) => {
+            reason.message = `Error Getting Users: ${reason.message}`;
+            next(reason);
+        }
+    )
+}
