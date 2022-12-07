@@ -3,14 +3,15 @@ import {
     searchForUser,
     invertAdvancedStatus,
     changePermissions,
-    createUser
+    createUserPassword, getUserById, getAllUsers
 } from "../controllers/UserController.js";
 import { requireBody, restrictTo, requireQuery, filterQuery } from '../controllers/SecurityController.js'
 import { getAllUsers } from "../controllers/UserController.js";
 import express from 'express';
 const router = express.Router();
 
-router.post("/update_password", restrictTo('operator'), requireBody('password', 'newPassword'), updateUser);
+router.post("/update_password", restrictTo('operator'), requireBody('password', 'newPassword'), updateUserPassword);
+router.post("/get_by_id", restrictTo('operator'), requireBody('userId'), getUserById);
 router.get("/get_all", getAllUsers);
 router.get("/", getAllUsers);
 router.get(
@@ -28,5 +29,5 @@ router.patch("/change_permissions",
 router.post("/create",
     requireBody("user"),
     createUser);
-
+router.post("/get_all", restrictTo('operator'), getAllUsers);
 export default router;

@@ -152,3 +152,51 @@ export async function createNewUser(user) {
         return `Error creating user ${user.user_id} ${user.first_name} ${user.last_name} with API`
     }
 }
+
+export async function getUserById(userId){
+    try {
+        console.log("Getting User by ID");
+
+        const response = await axios.post("/api/user/get_by_id", {
+            userId: userId
+        });
+        return response.data.result;
+    } catch (error) {
+        return "Error getting user by ID";
+    }
+}
+
+export async function getAllUsers(){
+    try {
+        console.log("Getting Users");
+
+        const response = await axios.post("/api/user/get_all");
+        return response.data.result;
+    } catch (error) {
+        return "Error getting users";
+    }
+}
+
+// old function for updatePass(does not work)
+// export async function updatePass(pass, newPass) {
+//     console.log("Sending change password request");
+//     // construct query
+//     const params = new URLSearchParams();
+//     params.append('password', pass);
+//     params.append('newPassword', newPass);
+//     // do request
+//     return axios({
+//         method: 'POST',
+//         url: '/api/user/update_password',
+//         data : params.toString(),
+//         withCredentials: true
+//     }).then(
+//         (response) => {
+//             return response.data;
+//         },
+//         (err) => {
+//             console.log("Issue updating password");
+//             return err.response.data;
+//         }
+//     );
+// }

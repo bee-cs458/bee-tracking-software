@@ -68,6 +68,18 @@ function NavBar() {
                 Profile
               </Link>
             </li>
+
+            {localStorage.getItem("userPerms") == 0 ? (
+              <></>
+            ) : (
+              <li>
+                <Link to="/records">
+                  <img src={list} alt="records" width="20" height="18" />
+                  Records
+                </Link>
+              </li>
+            )}
+
             <li onClick={handleShow}>
               <Link to="/">
                 <img src={logOut} alt="log out" width="20" height="18" />
