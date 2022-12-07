@@ -57,7 +57,7 @@ function NavBar() {
               </Link>
             </li>
             <li>
-              <Link to="/">
+              <Link to="/Users">
                 <img src={operators} alt="operators" width="20" height="18" />
                 Users
               </Link>
