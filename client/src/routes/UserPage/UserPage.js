@@ -40,9 +40,9 @@ export default function UserPage() {
         <>
             <div className="header-container" />
             <div className="main-content-user">
-                <h1 className="mb-3">Users</h1>
+                <h1 className="mb-3 users">Users</h1>
 
-                <Accordion className="mb-3 border">
+                <Accordion className="mb-3 border add-user">
                     <Accordion.Header>Add a User</Accordion.Header>
                     <Accordion.Body>
                         <CreateUserForm></CreateUserForm>
@@ -51,7 +51,7 @@ export default function UserPage() {
                 </Accordion>
 
                 <Form onSubmit={handleSubmit}>
-                    <Row className="mb-3">
+                    <Row className="mb-3 search-user">
                         {/* Search for user by ID */}
                         {/* console error: controlId="userId" ignored when id is specified  */}
                         <Form.Group as={Col} >
