@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
-import { makeUserGuest, makeUserOperator, makeUserOwner, makeUserStudent } from '../../../api/UserService'; 
+import { makeUserGuest, makeUserOperator, makeUserOwner, makeUserStudent } from "../../../api/UserService"; 
 import "./UserRow.css";
 
 function UserRow(props) {
