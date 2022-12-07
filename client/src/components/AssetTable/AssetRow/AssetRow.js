@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
-import { getCategories } from "../../../api/CategoryService";
 import Modal from "react-bootstrap/Modal";
 import EditAsset from "../../EditAsset/EditAsset";
 import Row from "react-bootstrap/esm/Row";
@@ -8,7 +7,7 @@ import ConditionalAlert from "../../CheckInUtilities/ConditionalAlert";
 import { deleteAsset } from "../../../api/AssetService";
 
 function AssetRow(props) {
-  const [cats, setCats] = useState([]);
+  const cats = props.categoryList;
   const [asset, setAsset] = useState(props.item);
   const [editAsset, setEditAsset] = useState(false);
   const [deleteAssetVar, setDeleteAsset] = useState(false);
@@ -21,12 +20,6 @@ function AssetRow(props) {
   const handleDeleteAssetTrue = () => setDeleteAsset(true);
   const handleDeleteAssetFalse = () => setDeleteAsset(false);
   useEffect(() => {
-    getCategories()
-      .then((value) => {
-        setCats(value);
-        return value;
-      })
-      .catch((err) => console.log(err));
     console.log(cats);
     setAlertMessage2("Deleting this asset cannot be undone. Are you sure you want to go through with deleting it?");
     setAlertType2(1);

@@ -58,6 +58,7 @@ export default function AssetTable(props) {
                         key={asset.asset_tag}
                         item={asset}
                         setUp={setUp}
+                        categoryList={props.categoryList}
                       ></AssetRow>
                     ))
                 : assets.map((asset) => (
@@ -65,6 +66,7 @@ export default function AssetTable(props) {
                       key={asset.asset_tag}
                       item={asset}
                       setUp={setUp}
+                      categoryList={props.categoryList}
                     ></AssetRow>
                   ))}
             </tbody>

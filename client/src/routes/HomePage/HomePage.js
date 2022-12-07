@@ -6,6 +6,7 @@ import CatDropdown from "../../components/CatDropdown/CatDropdown";
 import CheckedOut from '../../components/CheckedOutTable/CheckedOutSwitch/CheckedOutSwitch';
 
 export default function HomePage() {
+    const [categories, updateCategories] = useState([]);
     const [currentCategory, updateCategory] = useState({
         catName: undefined,
         category_id: -1
@@ -51,10 +52,10 @@ export default function HomePage() {
 
             <div className="container-fluid main-content">
                 <div className="category">
-                    <CatDropdown state={currentCategory} update={updateCategory} ></CatDropdown>
+                    <CatDropdown state={currentCategory} update={updateCategory} categories={categories} updateCategories={updateCategories} ></CatDropdown>
                 </div>
                 <CheckedOut state={checked} update={setChecked}></CheckedOut>
-                <AssetTable filterByCheckedOut={checked} cat={currentCategory?.category_id} input={inputVal}></AssetTable>
+                <AssetTable filterByCheckedOut={checked} cat={currentCategory?.category_id} categoryList={categories} input={inputVal}></AssetTable>
 
             </div> 
 
