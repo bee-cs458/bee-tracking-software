@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { updatePass, updatePassword } from "../../api/UserService.js";
+import { updatePassword } from "../../api/UserService.js";
 import "./ChangePassword.css";
 import { passwordStrength } from "check-password-strength";
 import ConditionalAlert from "../../components/CheckInUtilities/ConditionalAlert.js";
@@ -42,7 +42,7 @@ export default function ChangePassword() {
     if (strength.id < 2) {
       alert("Password is too weak");
     } else {
-      if (newPassword == passwordAgain) {
+      if (newPassword === passwordAgain) {
         updatePassword(oldPassword, newPassword);
         alert("Password was updated");
         clearFields();
