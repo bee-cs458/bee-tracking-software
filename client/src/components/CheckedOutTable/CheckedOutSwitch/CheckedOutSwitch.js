@@ -30,7 +30,7 @@ const CheckedOut = (props) => {
     return (
       <div className="filter-check">
         <Checkbox
-          label="Filter By Checked Out"
+          label="  Filter By Checked Out"
           value={checked}
           onChange={handleChange}
         />
