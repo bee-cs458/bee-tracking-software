@@ -85,7 +85,7 @@ function CreateUserForm() {
                     <Form.Group as={Col} xs={4}>
 
                         <Form.Label>User ID</Form.Label>
-                        <Form.Control required type="number" id="user_id" value={userData.user_id} onChange={(event) => setUserData({ ...userData, user_id: parseInt(event.target.value) })} />
+                        <Form.Control required type="number" id="user_id"  min="1" value={userData.user_id} onChange={(event) => setUserData({ ...userData, user_id: parseInt(event.target.value) })} />
 
                     </Form.Group>
                     <Form.Group as={Col} xs={4}>
