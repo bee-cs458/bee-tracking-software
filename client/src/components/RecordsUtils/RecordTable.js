@@ -3,20 +3,33 @@ import Alert from "react-bootstrap/Alert";
 import RecordRow from "./RecordRow";
 import { useState, useEffect } from "react";
 import { getAllRecords } from "../../api/RecordService";
+import { getAllAssets } from "../../api/AssetService";
+import { getAllUsers } from "../../api/UserService";
 
 export default function RecordTable() {
   const [records, setRecords] = useState();
+  const [users, setUsers] = useState([{}]);
+  const [assets, setAssets] = useState([{}]);
+  const [update, setUpdate] = useState(0);
 
-  const getRecords = async () => {
+  const getInfo = async () => {
     await getAllRecords().then((result) => {
       setRecords(result);
     });
+
+    await getAllUsers().then((result) => {
+      setUsers(result);
+    });
+
+    await getAllAssets().then((result) => {
+      setAssets(result);
+    });
   };
 
-  var today = new Date();
+  const today = new Date();
 
   useEffect(() => {
-    getRecords();
+    getInfo();
   }, []);
 
   return (
@@ -37,7 +50,33 @@ export default function RecordTable() {
             <tbody>
               {records != null &&
                 records.map((record) => (
-                  <RecordRow key={record.record_id} data={record} date={today}></RecordRow>
+                  <RecordRow
+                    key={record.record_id}
+                    record={record}
+                    assetName={
+                      assets.find((obj) => {
+                        return obj.asset_tag === record.asset_tag;
+                      }) !== undefined
+                        ? assets.find((obj) => {
+                            return obj.asset_tag === record.asset_tag;
+                          }).name
+                        : "Loading Asset Tag..."
+                    }
+                    userName={
+                      users.find((obj) => {
+                        return obj.user_id === record.student_id;
+                      }) !== undefined
+                        ? users.find((obj) => {
+                            return obj.user_id === record.student_id;
+                          }).first_name +
+                          " " +
+                          users.find((obj) => {
+                            return obj.user_id === record.student_id;
+                          }).last_name
+                        : "Loading Student Name..."
+                    }
+                    date={today}
+                  ></RecordRow>
                 ))}
             </tbody>
           </Table>
