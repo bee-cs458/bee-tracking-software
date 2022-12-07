@@ -30,3 +30,15 @@
 .actions {
     font-weight: bolder;
 }
+
+.users {
+    margin-left: 10px;
+}
+
+.add-user {
+    margin-left:12px;
+}
+
+.search-user {
+    margin-left: 0px;
+}
