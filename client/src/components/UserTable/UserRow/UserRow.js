@@ -1,25 +1,22 @@
 import { useEffect, useState } from 'react';
 import Form from "react-bootstrap/Form";
-import { makeUserGuest, makeUserOperator, makeUserOwner, makeUserStudent, promoteOrDemoteAdvancedUser } from '../../../api/UserService';
+import { makeUserGuest, makeUserOperator, makeUserOwner, makeUserStudent } from '../../../api/UserService'; 
 
 function UserRow(props) {
 
     const user = props.item;
+    const { popModal, lastUserPromoted, setLastUserPromoted } = props;
 
     // Holds the state for the "advanced" field's checkbox/switch
     const [advancedChecked, setAdvancedCheck] = useState(user.advanced);
 
-    useEffect(() => { }, [user, advancedChecked])
-
-    // Called when the advanced field's switch is flipped
-    async function handleSwitchAdvanced(user) {
-
-        // Inverts the switch value in the UI
-        setAdvancedCheck(!advancedChecked);
-        // Calls the API to invert the advanced value in the DB
-        await promoteOrDemoteAdvancedUser(user.user_id);
-
-    }
+    useEffect(() => {
+        if (lastUserPromoted.user_id === user.user_id) {
+            setAdvancedCheck(x => !x);
+            setLastUserPromoted({});
+            user.advanced = !user.advanced;
+        }
+    }, [lastUserPromoted, setLastUserPromoted, user])
 
     async function handlePermissionChange(value) {
 
@@ -74,7 +71,9 @@ function UserRow(props) {
                 <option value="1">Operator</option>
                 <option value="2">Owner</option>
             </Form.Select></td>
-            <td><Form.Check type="switch" id="advancedSwitch" checked={advancedChecked} onChange={() => { handleSwitchAdvanced(user) }} /></td>
+            <td><Form.Check type="switch" id="advancedSwitch" checked={advancedChecked} onChange={() => { popModal(user) }} />
+                
+            </td>
         </tr>
     );
 

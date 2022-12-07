@@ -59,7 +59,7 @@ export default function UserPage() {
                             type="text" 
                             onKeyDown={handleKeyPress}
                             id="search"
-                            placeholder="Enter User ID Number" 
+                            placeholder="Search" 
                             name="search"
                             />
                         </Form.Group>
