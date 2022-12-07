@@ -36,20 +36,20 @@ function UserRow(props) {
 
         switch (value) {
             case 0:
-                return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" className="dot">
+                return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" className="dot">
                 <circle cx="3" cy="3" r="3" fill="green" fillOpacity="1.0" />
                 </svg>;
             case 1:
-                return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" className="dot">
+                return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" className="dot">
                 <circle cx="3" cy="3" r="3" fill="red" fillOpacity="1.0"/>
                 </svg>;
             case 2:
-                return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" className="dot">
+                return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" className="dot">
                 <circle cx="3" cy="3" r="3" fill="red" fillOpacity="1.0"/>
                 <circle cx="15" cy="3" r="3" fill="red" fillOpacity="1.0"/>
                 </svg>;
             default: 
-                return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" className="dot">
+                return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" className="dot">
                 <circle cx="3" cy="3" r="3" fill="red" fillOpacity="1.0"/>
                 <circle cx="15" cy="3" r="3" fill="red" fillOpacity="1.0"/>
                 <circle cx="27" cy="3" r="3" fill="red" fillOpacity="1.0"/>
