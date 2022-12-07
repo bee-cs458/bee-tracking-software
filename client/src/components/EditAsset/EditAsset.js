@@ -1,27 +1,17 @@
 import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import { editAsset } from "../../api/AssetService";
-import Form from "react-bootstrap/esm/Form";
-import Row from "react-bootstrap/esm/Row";
-import Col from "react-bootstrap/esm/Col";
-import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
-import { useEffect } from "react";
+import { Form, Row, Col} from "react-bootstrap/esm/";
 
 function EditAsset(props) {
-  const asset = props.asset;
-  const cats = props.cats;
-  const setAsset = props.setAsset;
-  const [alertType, setAlertType] = useState(null);
-  const [alertMessage, setAlertMessage] = useState(null);
-  const [asset_tag, setTag] = useState(asset.asset_tag);
+  const {asset, cats, setAsset, setAlertType, setAlertMessage} = props;
+  const [asset_tag, setTag] = useState(props.key);
   const [name, setName] = useState(asset.name);
   const [description, setDes] = useState(asset.description);
   const [damage_notes, setDamage] = useState(asset.damage_notes);
   const [category, setCategory] = useState(asset.category);
   const [operational, setOp] = useState(asset.operational);
   const [advanced, setAdvan] = useState(asset.advanced);
-
-  useEffect(() => {}, [alertMessage, alertType]);
 
   async function handleSubmit() {
     let error = await editAsset(
@@ -33,19 +23,8 @@ function EditAsset(props) {
       category,
       operational,
       advanced
-    );
-    if (error === 404) {
-      setAlertMessage("Error 404: The asset cannot be found in the database");
-      setAlertType(1);
-    } else if (error === 400) {
-      setAlertMessage(
-        "Error 400: Asset could not be updated. This is likey because the asset tag already exists on another asset."
-      );
-      setAlertType(1);
-    } else {
-      setAlertType(3);
-      setAlertMessage("Asset has been updated with these changes!");
-      setAsset(
+    ).then((res) => {
+      if (res !== 404 && res !== 400) setAsset(
         Object.assign({}, asset, {
           asset_tag,
           name,
@@ -56,6 +35,19 @@ function EditAsset(props) {
           advanced,
         })
       );
+      return res;
+    });
+    if (error === 404) {
+      setAlertMessage("Error 404: The asset cannot be found in the database");
+      setAlertType(0);
+    } else if (error === 400) {
+      setAlertMessage(
+        "Error 400: Asset could not be updated. This is likey because the asset tag already exists on another asset."
+      );
+      setAlertType(0);
+    } else {
+      setAlertMessage("Asset has been updated with these changes!");
+      setAlertType(3);
     }
   }
 
@@ -110,12 +102,6 @@ function EditAsset(props) {
 
   return (
     <Form>
-      <Row className="m-3">
-        <ConditionalAlert
-          type={alertType}
-          message={alertMessage}
-        ></ConditionalAlert>
-      </Row>
       <Row>
         <Form.Group as={Col} controlId="assetTag">
           <Form.Label>Asset Tag</Form.Label>

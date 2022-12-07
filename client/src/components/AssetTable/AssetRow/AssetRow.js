@@ -3,11 +3,15 @@ import Button from "react-bootstrap/esm/Button";
 import { getCategories } from "../../../api/CategoryService";
 import Modal from "react-bootstrap/Modal";
 import EditAsset from "../../EditAsset/EditAsset";
+import Row from "react-bootstrap/esm/Row";
+import ConditionalAlert from "../../CheckInUtilities/ConditionalAlert";
 
 function AssetRow(props) {
   const [cats, setCats] = useState([]);
   const [asset, setAsset] = useState(props.item);
   const [editAsset, setEditAsset] = useState(false);
+  const [alertType, setAlertType] = useState(null);
+  const [alertMessage, setAlertMessage] = useState(null);
   const handleEditAssetTrue = () => setEditAsset(true);
   const handleEditAssetFalse = () => setEditAsset(false);
   useEffect(() => {
@@ -26,7 +30,11 @@ function AssetRow(props) {
       <td>{asset.name}</td>
       <td>{asset.description}</td>
       <td>{asset.date_added}</td>
-      <td>{cats.map((cat) => ((cat.category_id === asset.category) ? cat.catName :null))}</td>
+      <td>
+        {cats.map((cat) =>
+          cat.category_id === asset.category ? cat.catName : null
+        )}
+      </td>
       <td>{asset.checked_out ? "Yes" : "No"}</td>
       <td>
         {localStorage.getItem("userPerms") == 2 ? (
@@ -40,12 +48,17 @@ function AssetRow(props) {
           <Modal.Title>Edit Asset</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <Row className="m-3">
+            <ConditionalAlert type={alertType} message={alertMessage} />
+          </Row>
           <EditAsset
             key={asset.asset_tag}
             cats={cats}
             asset={asset}
             setUp={props.setUp}
             setAsset={setAsset}
+            setAlertType={setAlertType}
+            setAlertMessage={setAlertMessage}
           ></EditAsset>
         </Modal.Body>
       </Modal>
