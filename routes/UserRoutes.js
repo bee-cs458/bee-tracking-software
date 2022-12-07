@@ -1,12 +1,13 @@
 import {
-    updateUser,
     searchForUser,
     invertAdvancedStatus,
     changePermissions,
-    createUserPassword, getUserById, getAllUsers
+    getUserById, 
+    getAllUsers,
+    updateUserPassword,
+    createUser
 } from "../controllers/UserController.js";
 import { requireBody, restrictTo, requireQuery, filterQuery } from '../controllers/SecurityController.js'
-import { getAllUsers } from "../controllers/UserController.js";
 import express from 'express';
 const router = express.Router();
 

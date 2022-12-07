@@ -166,17 +166,6 @@ export async function getUserById(userId){
     }
 }
 
-export async function getAllUsers(){
-    try {
-        console.log("Getting Users");
-
-        const response = await axios.post("/api/user/get_all");
-        return response.data.result;
-    } catch (error) {
-        return "Error getting users";
-    }
-}
-
 // old function for updatePass(does not work)
 // export async function updatePass(pass, newPass) {
 //     console.log("Sending change password request");

@@ -46,21 +46,6 @@ export const getAllUsers = async (req, res, next) => {
     )
 }
 
-
-export const getUserById = async (req, res, next) => {
-    const {userId} = req.body;
-    await query(`SELECT * FROM \`user\` WHERE user_id=?;`, [userId]).then(
-        (result) => res.send({ result }),
-        (reason) => {
-            reason.message = `Error Getting User by id: ${reason.message}`;
-            next(reason);
-        }
-    )
-}
-
-
-
-
 export const searchForUser = async (req, res, next) => {
     // grab limit and offset from query
     const limit = req.query.limit;
