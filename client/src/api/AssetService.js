@@ -140,3 +140,16 @@ export async function editAsset(
     return "Error while updating the asset " + oldTag;
   }
 }
+
+export async function deleteAsset(asset_tag) {
+  try { console.log("Deleting asset " + asset_tag)
+  const response = await axios.delete("/api/asset/" + asset_tag);
+  return response.data.result;
+  } catch (error) {
+    console.log("yay Error!")
+    if (error.response.status === 404 || error.response.status === 400) {
+    return error.response.status;
+    }
+    return "Error while deleting the asset" + asset_tag;
+}
+}

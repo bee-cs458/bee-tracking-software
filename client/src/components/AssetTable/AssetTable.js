@@ -46,7 +46,7 @@ export default function AssetTable(props) {
                 <td width="200px">Date Added</td>
                 <td width="150px">Category</td>
                 <td width="150px">Checked Out</td>
-                <td>-</td>
+                <td></td>
               </tr>
             </thead>
             <tbody>
@@ -58,6 +58,7 @@ export default function AssetTable(props) {
                         key={asset.asset_tag}
                         item={asset}
                         setUp={setUp}
+                        categoryList={props.categoryList}
                       ></AssetRow>
                     ))
                 : assets.map((asset) => (
@@ -65,6 +66,7 @@ export default function AssetTable(props) {
                       key={asset.asset_tag}
                       item={asset}
                       setUp={setUp}
+                      categoryList={props.categoryList}
                     ></AssetRow>
                   ))}
             </tbody>
