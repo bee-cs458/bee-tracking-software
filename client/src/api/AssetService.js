@@ -95,18 +95,18 @@ export async function searchingForAssests(input) {
   try {
     console.log(`Searching assets by: ${input}`);
 
-    const response = await axios.get("/api/asset/search", {
-      params: {
-        limit: 10,
-        description: input,
-        asset_tag: input,
-        name: input,
-      },
-    });
-    return response.data.result;
-  } catch (error) {
-    return "Error Getting Assests by serach from API";
-  }
+        const response = await axios.get("/api/asset/search", {
+            params: {
+                limit: 1000,
+                description: input,
+                asset_tag: input,
+                name: input,
+            },
+        });
+        return response.data.result;
+    } catch (error) {
+        return "Error Getting Assests by serach from API";
+    }
 }
 
 export async function editAsset(

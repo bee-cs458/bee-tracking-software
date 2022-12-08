@@ -17,11 +17,11 @@ export default function HomePage() {
     //Handling user input when user hits 'Enter'
     function handleKeyPress(e) {
         if (e.key === "Enter") {
-          console.log("Key press is entered");
-          getInputValue();
+            console.log("Key press is entered");
+            getInputValue();
         }
-      }
-    
+    }
+
     function getInputValue() {
         // Selecting the input element and get its value
         const newInputVal = document.getElementById("search").value;
@@ -46,7 +46,7 @@ export default function HomePage() {
                     <button type="submit" onClick={getInputValue} className="btn btn-default">
                         <img src={search} alt="search" width="22" height="22" />
                     </button>
-                    
+
                 </div>
             </div>
 
@@ -57,7 +57,7 @@ export default function HomePage() {
                 <CheckedOut state={checked} update={setChecked}></CheckedOut>
                 <AssetTable filterByCheckedOut={checked} cat={currentCategory?.category_id} categoryList={categories} input={inputVal}></AssetTable>
 
-            </div> 
+            </div>
 
         </div>
 

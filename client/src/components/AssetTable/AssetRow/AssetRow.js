@@ -4,12 +4,19 @@ import Modal from "react-bootstrap/Modal";
 import EditAsset from "../../EditAsset/EditAsset";
 import Row from "react-bootstrap/esm/Row";
 import ConditionalAlert from "../../CheckInUtilities/ConditionalAlert";
+import { format } from 'date-fns';
 import { deleteAsset } from "../../../api/AssetService";
 
 function AssetRow(props) {
   const cats = props.categoryList;
   const [asset, setAsset] = useState(props.item);
   const [editAsset, setEditAsset] = useState(false);
+  const dates = asset.date_added;
+
+  const [dateValues, timeValues] = dates.split('T');
+  const [year, month, day] = dateValues.split('-');
+  const formattedDate = [month, '/', day, '/', year];
+
   const [deleteAssetVar, setDeleteAsset] = useState(false);
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
@@ -25,29 +32,29 @@ function AssetRow(props) {
     setAlertType2(1);
   }, [asset, editAsset, deleteAssetVar]);
 
-async function handleDelete(){
-  console.log("delete called");
-  const error = await deleteAsset(asset.asset_tag);
-  props.setUp();
-if(error === 400){
-  setAlertMessage2("Deleting this asset cannot be undone. Are you sure you want to go through with deleting it? \nError 400: The asset cannot be deleted. Try again later.")
-  setAlertType2(0)
-} else if(error === 404){
-  setAlertMessage2("Deleting this asset cannot be undone. Are you sure you want to go through with deleting it? \nError 404: The asset was not found.")
-  setAlertType2(0)
-} else{ 
-  handleDeleteAssetFalse();
-  setAlertMessage2("Deleting this asset cannot be undone. Are you sure you want to go through with deleting it?");
-  setAlertType2(1);
-}
-}
+  async function handleDelete() {
+    console.log("delete called");
+    const error = await deleteAsset(asset.asset_tag);
+    props.setUp();
+    if (error === 400) {
+      setAlertMessage2("Deleting this asset cannot be undone. Are you sure you want to go through with deleting it? \nError 400: The asset cannot be deleted. Try again later.")
+      setAlertType2(0)
+    } else if (error === 404) {
+      setAlertMessage2("Deleting this asset cannot be undone. Are you sure you want to go through with deleting it? \nError 404: The asset was not found.")
+      setAlertType2(0)
+    } else {
+      handleDeleteAssetFalse();
+      setAlertMessage2("Deleting this asset cannot be undone. Are you sure you want to go through with deleting it?");
+      setAlertType2(1);
+    }
+  }
 
   return (
     <tr>
       <td>{asset.asset_tag}</td>
       <td>{asset.name}</td>
       <td>{asset.description}</td>
-      <td>{asset.date_added}</td>
+      <td>{formattedDate}</td>
       <td>
         {cats.map((cat) =>
           cat.category_id === asset.category ? cat.catName : null

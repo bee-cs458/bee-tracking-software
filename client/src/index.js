@@ -16,6 +16,7 @@ import ProfilePage from "./routes/ProfilePage/ProfilePage";
 import CheckOutPage from "./routes/CheckOutPage/CheckOutPage";
 import CheckInPage from "./routes/CheckInPage/CheckInPage";
 import RecordPage from "./routes/RecordsPage/RecordsPage";
+import UserPage from './routes/UserPage/UserPage';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -28,6 +29,7 @@ root.render(
           <Route path="/checkOut" element={<CheckOutPage />} />
           <Route path="/checkIn" element={<CheckInPage />} />
           <Route path="/records" element={<RecordPage />} />
+          <Route path="/Users" element={<UserPage />} />
           <Route path="counter" element={<CounterPage />} />
         </Route>
       </Routes>
