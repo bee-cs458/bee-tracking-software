@@ -37,9 +37,7 @@ function CheckOutPage() {
             console.error("asset already checked out");
             return;
         }
-        const newAssetList = [...currentAssetList];
-        newAssetList.push(asset);
-        setCurrentAssetList(newAssetList);
+        setCurrentAssetList(prev => prev.concat(asset));
     }
 
     const handleCheckoutBtn = async () => {
