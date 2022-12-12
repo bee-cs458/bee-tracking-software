@@ -55,7 +55,7 @@ export default function AssetTable(props) {
 
   return (
     <div>
-      <button onClick={handleShow}>Add Asset</button>
+      {localStorage.getItem("userPerms") == 2 ? (<button onClick={handleShow}>Add Asset</button>) : (<></>)}
 
       <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
