@@ -1,18 +1,17 @@
 import { query, insert_params, insert_values, update_params, where_params_like } from "../utilities/DatabaseUtilities.js";
 
 export const updateUserPassword = async (req, res, next) => {
-    const { newPassword, password } = req.body;
+    const { newPassword } = req.body;
     // query to update user based on a matching id and password
     await query(`UPDATE user SET \`user\`.\`password\`=?
-         WHERE \`user\`.\`user_id\`=? AND \`user\`.\`password\`=?`,
-        [newPassword, req.user.user_id, password]
+         WHERE \`user\`.\`user_id\`=?`,
+        [newPassword, req.user.user_id]
 
     ).then(
         (result) => {
-            
             if (result?.affectedRows <= 0) next({
                 status: 404,
-                message: `User with Username of ${req.user.username} does not exist or password was wrong`
+                message: `User with Username of ${req.user.username} does not exist!`
             })
             else {
                 res.send({ result });
@@ -30,7 +29,6 @@ export const createUser = async (req, res, next) => {
     const values = Object.values(req.body);
 
     await query(`SELECT user_id FROM user WHERE user_id=?`, [req.body.user_id]).then((result) => {
-
         if (result.length > 0) {
             throw {
                 result: { status: 409 },

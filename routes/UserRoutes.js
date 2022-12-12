@@ -12,48 +12,60 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 const router = express.Router();
 
-const validateUserAndPass = (req, res, next) => {
-    const { username, password } = req.body;
-    if (!username || !password)
-      next({
-        status: 400,
-        message: "Both username and password must be specified!",
-      });
-    else if (typeof username !== "string" || typeof password !== "string")
-      next({
-        status: 400,
-        message: "Username and password must be strings!",
-      });
-    else {
-      // verified successfully
-      next();
-    }
-  };
-  
-  const genSaltAndHash = async (req, res, next) => {
-    const salt = await bcrypt.genSalt();
-    const hash = await bcrypt.hash(req.body.password, salt);
-  
-    // overwrite password with new hash
-    req.body.password = hash;
-    // done
+const checkOldPassword = (key = "password") => async (req, res, next) => {
+  if (
+    bcrypt.compare(req.body?.[key], req.user.password) || 
+    (req.user.password === req.body?.[key] && typeof req.user.password === "string"))
+  {
     next();
-  };
+  }
+  else {
+    next({
+      status: 401,
+      message: "Old password was incorrect or could not be verified!"
+    })
+  }
+}
+  
+const genSaltAndHash = (key = "password") => async (req, res, next) => {
+  const salt = await bcrypt.genSalt();
+  const hash = await bcrypt.hash(req.body?.[key], salt);
+
+  // overwrite password with new hash
+  req.body[key] = hash;
+  // done
+  next();
+};
 
 // sign up
 router.post(
-    "/newCredentials",
-    // generate salt and hash
-    validateUserAndPass,
-    genSaltAndHash,
+    "/create",
     // make sure all required params are there
     requireBody("username", "password", "first_name", "last_name", "user_id", "permissions", "advanced"),
+    // salt and hash
+    genSaltAndHash(),
     createUser
   );
 
 
-router.post("/update_password", restrictTo('operator'), requireBody('password', 'newPassword'), updateUserPassword);
-router.post("/get_by_id", restrictTo('operator'), requireBody('userId'), getUserById);
+router.post(
+  "/update_password",
+  restrictTo('operator'),
+  // generate salt and hash
+  requireBody('password', 'newPassword'),
+  // check old password
+  checkOldPassword('password'),
+  // salt and hash
+  genSaltAndHash("newPassword"),
+  updateUserPassword
+);
+
+router.post(
+  "/get_by_id",
+  restrictTo('operator'),
+  requireBody('userId'),
+  getUserById
+);
 router.get("/get_all", getAllUsers);
 router.get("/", getAllUsers);
 router.get(
@@ -71,9 +83,6 @@ router.patch("/change_permissions",
     restrictTo('owner'),
     requireBody("user_id", "new_permissions"),
     changePermissions);
-router.post("/create",
-    restrictTo('owner'),
-    requireBody("user"),
-    createUser);
+
 router.post("/get_all", restrictTo('operator'), getAllUsers);
 export default router;
