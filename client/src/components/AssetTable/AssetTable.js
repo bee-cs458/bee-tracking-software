@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   getAssetFromCat,
   getAllAssets,
-  searchingForAssests
+  searchingForAssests,
 } from "../../api/AssetService";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
@@ -14,6 +14,10 @@ import { getCategories } from "../../api/CategoryService";
 
 export default function AssetTable(props) {
   const [assets, setAssets] = useState([]);
+  const [updated, setUpdated] = useState(false);
+  const setUp = () => {
+    setUpdated(!updated);
+  };
   //Displaying Add Asset
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -49,7 +53,7 @@ export default function AssetTable(props) {
       setAssets(assetResults); // Set the assets data table to be the queried result
     }
     assetTableInit(); // Render that son of a gun
-  }, [props.cat, props.input, props.filterByCheckedOut]);
+  }, [props.cat, props.input, props.filterByCheckedOut, updated]);
 
 
 
@@ -71,24 +75,35 @@ export default function AssetTable(props) {
           <Table striped bordered>
             <thead>
               <tr>
-                <td>Tag</td>
-                <td>Name</td>
-                <td>Description</td>
-                <td>Date Added</td>
-                <td>Category</td>
-                <td>Checked Out</td>
-                <td>Due Date</td>
+                <td width="100px">Tag</td>
+                <td width="200px">Name</td>
+                <td width="400px">Description</td>
+                <td width="200px">Date Added</td>
+                <td width="150px">Category</td>
+                <td width="150px">Checked Out</td>
+                <td></td>
               </tr>
             </thead>
             <tbody>
-                {props.filterByCheckedOut?
-                    assets.filter( asset => asset.checked_out === 1).map((asset) => (
-                        <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
-                ))
-                :
-                    assets.map((asset) => (
-                        <AssetRow key={asset.asset_tag} item={asset}></AssetRow>
-                ))}
+              {props.filterByCheckedOut
+                ? assets
+                    .filter((asset) => asset.checked_out === 1)
+                    .map((asset) => (
+                      <AssetRow
+                        key={asset.asset_tag}
+                        item={asset}
+                        setUp={setUp}
+                        categoryList={props.categoryList}
+                      ></AssetRow>
+                    ))
+                : assets.map((asset) => (
+                    <AssetRow
+                      key={asset.asset_tag}
+                      item={asset}
+                      setUp={setUp}
+                      categoryList={props.categoryList}
+                    ></AssetRow>
+                  ))}
             </tbody>
           </Table>
         </div>

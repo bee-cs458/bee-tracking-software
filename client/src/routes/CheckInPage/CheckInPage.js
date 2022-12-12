@@ -1,4 +1,3 @@
-// import PageTemplate from "../../components/PageTemplate/PageTemplate";
 import { useEffect, useState } from "react";
 import "./CheckInPage.css";
 import Form from "react-bootstrap/Form";
@@ -6,9 +5,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ConditionalAlert from "../../components/CheckInUtilities/ConditionalAlert";
-import { getSpecificAsset } from "../../api/AssetService";
 import {
-  getAssetsByUserID,
   incrementUserStrikes,
   getOverdue,
   checkInAssetWithNotes,
@@ -25,7 +22,7 @@ export default function CheckInPage() {
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
   const [strikes, setStrikes] = useState(0);
-  const [selectedStudent, setStudent] = useState("TODO Enter Student Here");
+  //const [selectedStudent, setStudent] = useState("TODO Enter Student Here");
 
   function handleIDChange(newValue) {
     setEnteredID(newValue);
@@ -57,13 +54,13 @@ export default function CheckInPage() {
             setAlertType(null);
             setAssets(currentList);
           } else {
-            setAlertType(0);
+            setAlertType(1);
             setAlertMessage("Asset is checked in");
           }
         });
       } else {
         console.log("Asset already in the list");
-        setAlertType(0);
+        setAlertType(1);
         setAlertMessage("Asset is Already Queued for Check In");
       }
       console.log(assets);
@@ -79,7 +76,7 @@ export default function CheckInPage() {
           console.log(newAssets);
         } else {
           console.log("User did not exist!");
-          setAlertType(0);
+          setAlertType(1);
           setAlertMessage("User does not exist");
         }
       });
@@ -114,7 +111,7 @@ export default function CheckInPage() {
   const handleSubmit = async (event) => {
     console.log("started submission");
     if (assets.length < 1) {
-      setAlertType(0);
+      setAlertType(1);
       setAlertMessage("No Assets Selected");
     } else {
       setAlertType(null);
@@ -127,7 +124,7 @@ export default function CheckInPage() {
       clearAll();
 
       if (strikes > 0) {
-        setAlertType(1);
+        setAlertType(0);
         setAlertMessage(
           "Late Asset Checked In\n" + strikes + " strikes added to student"
         );
@@ -153,8 +150,9 @@ export default function CheckInPage() {
 
   return (
     <div>
-      <div className="main-content">
-        <h1 className="m-3">Check In Equipment</h1>
+      <div className="header-container" />
+      <div className="main-content-checkin">
+        <h1 className="mb-3">Check In Equipment</h1>
         <Form>
           <Row className="m-3">
             <ConditionalAlert
@@ -162,7 +160,7 @@ export default function CheckInPage() {
               message={alertMessage}
             ></ConditionalAlert>
           </Row>
-          <Row className="m-3">
+          <Row className="mb-3">
             <Form.Group as={Col} controlId="assetTag">
               <Form.Label>Asset Tag</Form.Label>
               <Form.Control
@@ -189,7 +187,7 @@ export default function CheckInPage() {
               <Button onClick={handleIDPress}>Submit</Button>
             </Form.Group>
           </Row>
-          <Row className="m-3">
+          <Row className="mb-3 notes">
             <CheckInTable as={Row} assets={assets}></CheckInTable>
 
             <Form.Group as={Row}>
@@ -204,7 +202,7 @@ export default function CheckInPage() {
             </Form.Group>
           </Row>
 
-          <div className="m-3">
+          <div className="mb-3">
             <Button className="clearAll" type="reset" onClick={clearAll}>
               Clear All
             </Button>
