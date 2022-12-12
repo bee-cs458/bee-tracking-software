@@ -32,7 +32,7 @@ export const getCheckoutStatus = async (req, res, next) => {
 export const checkoutAsset = async (req, res, next) => {
 
     const errHandler = (err) => {
-        nonPreparedQuery(`ROLLBACK`);
+        nonPreparedQuery(`ROLLBACK;`);
         next(err);
     }
 
@@ -40,15 +40,23 @@ export const checkoutAsset = async (req, res, next) => {
     await nonPreparedQuery("START TRANSACTION;").catch(next);
 
     // check that the asset(s) exist
-        // select the individual assets from the DB and check if they are null
+    // select the individual assets from the DB and check if they are null
     let { asset_tags, student_id } = req.body;
     const operator_id = req.user.user_id;
 
+    if (student_id === "") {
+        errHandler({
+            status: 400,
+            message: "Student ID cannot be blank!"
+        });
+        return;
+    }
+
     asset_tags ??= [];
     if (asset_tags.length === 0) {
-        next({
+        errHandler({
             status: 400,
-            message: "You must specify an array of asset tags for property 'asset_tags'!"
+            message: "Asset tag list cannot be empty!"
         });
         return;
     }
@@ -62,7 +70,7 @@ export const checkoutAsset = async (req, res, next) => {
         // make sure same length as input
         // if not, 404
         if(assetList?.length !== asset_tags.length){
-            next({
+            errHandler({
                 status: 404,
                 message: "One or more assets not found in DB!",
                 result: assetList
@@ -77,7 +85,7 @@ export const checkoutAsset = async (req, res, next) => {
             // if so, 409
     
     if (assetList.some((asset) => asset.checked_out)) {
-        next({
+        errHandler({
             status: 409,
             message: "One or more assets already checked out!",
             result: assetList
@@ -88,7 +96,7 @@ export const checkoutAsset = async (req, res, next) => {
     const user = (await query("SELECT * FROM `user` WHERE `user`.`user_id`=?", [student_id]).catch(errHandler))[0];
 
     if (!user) {
-        next({
+        errHandler({
             status: 404,
             message: `The student with ID '${student_id}' does not exist in the DB!`
         })
@@ -105,7 +113,7 @@ export const checkoutAsset = async (req, res, next) => {
 
     // check whether the student has < 3 strikes
     if (user.strikes >= 3){
-        next({
+        errHandler({
             status: 401,
             message: `The student '${user.first_name} ${user.last_name}' has too many strikes!`
         })
@@ -115,7 +123,7 @@ export const checkoutAsset = async (req, res, next) => {
     // check whether the asset and student is advanced
     if (!user.advanced){
         if (assetList.some((asset) => asset.advanced)) {
-            next({
+            errHandler({
                status: 401,
                message: `The student '${user.first_name} ${user.last_name}' is not allowed to check out advanced assets!`
             });
