@@ -150,9 +150,9 @@ export default function CheckInPage() {
 
   return (
     <div>
-      <div className="header-container"></div>
-      <div className="main-content">
-        <h1 className="m-3">Check In Equipment</h1>
+      <div className="header-container" />
+      <div className="main-content-checkin">
+        <h1 className="mb-3">Check In Equipment</h1>
         <Form>
           <Row className="m-3">
             <ConditionalAlert
@@ -160,7 +160,7 @@ export default function CheckInPage() {
               message={alertMessage}
             ></ConditionalAlert>
           </Row>
-          <Row className="m-3">
+          <Row className="mb-3">
             <Form.Group as={Col} controlId="assetTag">
               <Form.Label>Asset Tag</Form.Label>
               <Form.Control
@@ -187,7 +187,7 @@ export default function CheckInPage() {
               <Button onClick={handleIDPress}>Submit</Button>
             </Form.Group>
           </Row>
-          <Row className="m-3">
+          <Row className="mb-3 notes">
             <CheckInTable as={Row} assets={assets}></CheckInTable>
 
             <Form.Group as={Row}>
@@ -202,7 +202,7 @@ export default function CheckInPage() {
             </Form.Group>
           </Row>
 
-          <div className="m-3">
+          <div className="mb-3">
             <Button className="clearAll" type="reset" onClick={clearAll}>
               Clear All
             </Button>
