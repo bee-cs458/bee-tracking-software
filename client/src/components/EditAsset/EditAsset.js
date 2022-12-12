@@ -5,7 +5,7 @@ import { Form, Row, Col} from "react-bootstrap/esm/";
 
 function EditAsset(props) {
   const {asset, cats, setAsset, setAlertType, setAlertMessage} = props;
-  const [asset_tag, setTag] = useState(props.key);
+  const [asset_tag, setTag] = useState(asset.asset_tag);
   const [name, setName] = useState(asset.name);
   const [description, setDes] = useState(asset.description);
   const [damage_notes, setDamage] = useState(asset.damage_notes);
