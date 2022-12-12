@@ -1,7 +1,13 @@
 import {
-    updateUser, createUser
+    searchForUser,
+    invertAdvancedStatus,
+    changePermissions,
+    getUserById, 
+    getAllUsers,
+    updateUserPassword,
+    createUser,
 } from "../controllers/UserController.js";
-import { requireBody, restrictTo } from '../controllers/SecurityController.js'
+import { requireQuery, requireBody, filterQuery, restrictTo } from '../controllers/SecurityController.js'
 import express from 'express';
 import bcrypt from 'bcrypt';
 const router = express.Router();
@@ -45,6 +51,29 @@ router.post(
     createUser
   );
 
-router.post("/update_password", restrictTo('operator'), requireBody('password', 'newPassword'), updateUser);
 
+router.post("/update_password", restrictTo('operator'), requireBody('password', 'newPassword'), updateUserPassword);
+router.post("/get_by_id", restrictTo('operator'), requireBody('userId'), getUserById);
+router.get("/get_all", getAllUsers);
+router.get("/", getAllUsers);
+router.get(
+    "/search",
+    restrictTo('operator'),
+    requireQuery('limit', 'first_name', 'last_name'),
+    filterQuery('limit', 'offset', 'user_id', 'first_name', 'last_name'),
+    searchForUser
+);
+router.patch("/invert_advanced",
+    restrictTo('operator'),
+    requireBody("user_id"),
+    invertAdvancedStatus);
+router.patch("/change_permissions",
+    restrictTo('owner'),
+    requireBody("user_id", "new_permissions"),
+    changePermissions);
+router.post("/create",
+    restrictTo('owner'),
+    requireBody("user"),
+    createUser);
+router.post("/get_all", restrictTo('operator'), getAllUsers);
 export default router;

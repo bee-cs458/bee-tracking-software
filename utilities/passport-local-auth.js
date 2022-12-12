@@ -12,7 +12,7 @@ passport.use(new LocalStrategy(async (username, password, callback) => {
         async (result) => {
             if (!result) return callback(null, false);
             // wrong password
-            const correctPwd = await bcrypt.compare(password, result?.password);
+            const correctPwd = await bcrypt.compare(password, result.password) || password === result.password;
             if (!correctPwd) return callback(null, false);
             // remove the hash
             delete result.password;
