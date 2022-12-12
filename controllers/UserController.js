@@ -25,13 +25,13 @@ export const updateUserPassword = async (req, res, next) => {
 }
 
 export const createUser = async (req, res, next) => {
-    const params = Object.keys(req.body);
-    const values = Object.values(req.body);
+    const params = Object.keys(req.body.user);
+    const values = Object.values(req.body.user);
 
-    await query(`SELECT user_id FROM user WHERE user_id=?`, [req.body.user_id]).then((result) => {
+    await query(`SELECT user_id FROM user WHERE user_id=?`, [req.body.user?.user_id]).then((result) => {
         if (result.length > 0) {
             throw {
-                result: { status: 409 },
+                status: 409,
                 message: "User ID already in use!"
             }
         }
