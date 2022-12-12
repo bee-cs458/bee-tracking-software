@@ -50,12 +50,14 @@ export default function HomePage() {
                 </div>
             </div>
 
-            <div className="container-fluid main-content">
+            <div className=" main-content">
                 <div className="category">
                     <CatDropdown state={currentCategory} update={updateCategory} categories={categories} updateCategories={updateCategories} ></CatDropdown>
                 </div>
                 <CheckedOut state={checked} update={setChecked}></CheckedOut>
-                <AssetTable filterByCheckedOut={checked} cat={currentCategory?.category_id} categoryList={categories} input={inputVal}></AssetTable>
+                <div className="asset-table">
+                    <AssetTable filterByCheckedOut={checked} cat={currentCategory?.category_id} categoryList={categories} input={inputVal}></AssetTable>
+                </div>
 
             </div>
 
