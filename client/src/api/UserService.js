@@ -148,7 +148,7 @@ export async function createNewUser(user) {
 
     } catch (error) {
         console.log(error.response.data.message);
-        console.log(error.response.data.result.status);
+        console.log(error.response.data.status);
         return `Error creating user ${user.user_id} ${user.first_name} ${user.last_name} with API`
     }
 }

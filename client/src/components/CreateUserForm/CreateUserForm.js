@@ -34,7 +34,7 @@ function CreateUserForm() {
         event.preventDefault();
 
         await createNewUser(userData).then((result) => {
-            if (result.status === 202) {
+            if (result.status === 201) {
                 setToastData({
                     title: "Success",
                     message: "User created successfully!",

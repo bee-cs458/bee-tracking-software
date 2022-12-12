@@ -26,24 +26,31 @@ const checkOldPassword = (key = "password") => async (req, res, next) => {
     })
   }
 }
-  
-const genSaltAndHash = (key = "password") => async (req, res, next) => {
-  const salt = await bcrypt.genSalt();
-  const hash = await bcrypt.hash(req.body?.[key], salt);
 
-  // overwrite password with new hash
-  req.body[key] = hash;
-  // done
-  next();
-};
+const encrypt = async (pwd) => {
+    const salt = await bcrypt.genSalt();
+    const hash = await bcrypt.hash(pwd, salt);
+    return hash;
+}
 
 // sign up
 router.post(
     "/create",
-    // make sure all required params are there
-    requireBody("username", "password", "first_name", "last_name", "user_id", "permissions", "advanced"),
+    requireBody("user"),
     // salt and hash
-    genSaltAndHash(),
+    async (req, res, next) => {
+        if (!req.body.user.password && req.body.user.permissions > 0) {
+            next({
+                status: 400,
+                message: "User's password is required!"
+            });
+            return;
+        }
+        // overwrite password with new hash
+        req.body.user.password = await encrypt(req.body.user.password);
+        // done
+        next();
+    },
     createUser
   );
 
@@ -56,7 +63,12 @@ router.post(
   // check old password
   checkOldPassword('password'),
   // salt and hash
-  genSaltAndHash("newPassword"),
+  async (req, res, next) => {
+    // overwrite password with new hash
+    req.body.newPassword = await encrypt(req.body.newPassword);
+    // done
+    next();
+  },
   updateUserPassword
 );
 
