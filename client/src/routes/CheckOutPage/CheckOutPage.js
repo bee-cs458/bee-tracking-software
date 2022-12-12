@@ -95,6 +95,7 @@ function CheckOutPage() {
                         <Button variant="primary" onClick={() => setErrMsg("")}>Close</Button>
                     </Modal.Footer>
                 </Modal>
+
                 <Modal 
                     show={show} 
                     onHide={handleClose}
@@ -105,14 +106,15 @@ function CheckOutPage() {
                         <Modal.Title>Check Out Confirmation</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>Successfully checked out items
+                        {/* print checkout info */}
                         <CheckOutTable assets={currentAssetList}></CheckOutTable>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>Close</Button>
-                        <Button variant="primary" onClick={handleClose}>Print Check Out Record</Button>
-                        {/* Should export/print the information on the confirmation modal when clicked */}
+                        <Button variant="primary" onClick={window.print}>Print Check Out Record</Button>
                     </Modal.Footer>
                 </Modal>
+
 
             </div>
 
