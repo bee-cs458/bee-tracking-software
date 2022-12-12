@@ -109,6 +109,30 @@ export async function searchingForAssests(input) {
     }
 }
 
+//Calls API endpoint for creating an asset 
+export async function createNewAsset(assetTag,name,description,category,operational,advanced) {
+    try {
+        console.log(`Creating new Asset with Asset_Tag: ${assetTag}`);
+        let curDate = new Date();
+        let date = curDate.getFullYear() + '-' + curDate.getMonth() + '-' + curDate.getDate();
+  
+        const response = await axios.post("/api/asset/", {
+            asset_tag: assetTag,
+            name: name,
+            description: description,
+            date_added: date, //Set date to todays date (FIX)
+            category: category,
+            operational: operational,
+            advanced: advanced,
+            checked_out: 0, //Automatically set to not checked out
+        });
+        return response.data.result;
+    } catch (error) {
+        throw new Error(error.response.data.message ?? "Error Creating Asset from API");
+    }
+}
+
+
 export async function editAsset(
   oldTag,
   asset_tag,
