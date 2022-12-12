@@ -166,6 +166,37 @@ export async function getUserById(userId){
     }
 }
 
+export async function deleteUser(userId){
+    try { console.log("Deleting user " + userId)
+        const response = await axios.delete("/api/user/" + userId);
+        return response.data.result;
+    } catch (error) {
+        error.message = "Error while deleting the User" + error.message;
+        throw error;
+    }
+}
+
+export async function editUser(
+    oldId,
+    user_id,
+    first_name,
+    last_name
+  ) {
+    try {
+      console.log("Editing the user " + oldId);
+  
+      const response = await axios.post("/api/user/editUser/" + oldId, {
+        user_id,
+        first_name,
+        last_name
+      });
+      return response.data.result;
+    } catch (error) {
+      error.message = "Error while updating the user: " + error.message;
+      throw error;
+    }
+  }
+
 // old function for updatePass(does not work)
 // export async function updatePass(pass, newPass) {
 //     console.log("Sending change password request");

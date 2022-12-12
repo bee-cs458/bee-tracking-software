@@ -1,15 +1,45 @@
 import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
-import { makeUserGuest, makeUserOperator, makeUserOwner, makeUserStudent } from "../../../api/UserService"; 
+import Button from "react-bootstrap/esm/Button";
+import Modal from "react-bootstrap/Modal";
+import Row from "react-bootstrap/esm/Row";
+import ConditionalAlert from "../../CheckInUtilities/ConditionalAlert";
+import { makeUserGuest, makeUserOperator, makeUserOwner, makeUserStudent, deleteUser } from "../../../api/UserService"; 
+import EditUser from "../../EditUser/EditUser";
 import "./UserRow.css";
 
 function UserRow(props) {
 
-    const user = props.item;
+    const [user, setUser] = useState(props.item);
     const { popModal, lastUserPromoted, setLastUserPromoted } = props;
 
     // Holds the state for the "advanced" field's checkbox/switch
     const [advancedChecked, setAdvancedCheck] = useState(user.advanced);
+
+    const [editUser, setEditUser] = useState(false);
+    const [deleteUserVar, setDeleteUser] = useState(false);
+
+    const warningStr = "Deleting this user cannot be undone. Are you sure you want to go through with deleting it?";
+
+    const [alertType, setAlertType] = useState(null);
+    const [alertMessage, setAlertMessage] = useState(null);
+    const [alertType2, setAlertType2] = useState(1);
+    const [alertMessage2, setAlertMessage2] = useState(warningStr);
+
+    const handleEditUserTrue = () => setEditUser(true);
+    const handleEditUserFalse = () => setEditUser(false);
+    const handleDeleteUserTrue = () => setDeleteUser(true);
+    const handleDeleteUserFalse = () => setDeleteUser(false);
+
+    async function handleDeleteUser() {
+        console.log("delete called");
+        await deleteUser(user.user_id).catch((err) => {
+            setAlertType2(0);
+            setAlertMessage2(err.response.data.message)
+            return err;
+        })
+      }
+
 
     useEffect(() => {
         if (lastUserPromoted.user_id === user.user_id) {
@@ -72,9 +102,53 @@ function UserRow(props) {
                 <option value="1">Operator</option>
                 <option value="2">Owner</option>
             </Form.Select></td>
-            <td><Form.Check type="switch" id="advancedSwitch" checked={advancedChecked} onChange={() => { popModal(user) }} />
-                
+            <td><Form.Check type="switch" id="advancedSwitch" checked={advancedChecked} onChange={() => { popModal(user) }} /> </td>
+            <td>
+                {localStorage.getItem("userPerms") === "2" ? (
+                    <>
+                        <Button variant="primary" onClick={handleEditUserTrue}>Edit User</Button>
+                        <> </>
+                        <Button variant="danger" onClick={handleDeleteUserTrue}>Delete User</Button>
+                    </>
+                ) : (
+                    <></>
+                )}
             </td>
+
+            <Modal backdrop="static" show={editUser} onHide={handleEditUserFalse}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit User</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Row className="m-3">
+                        <ConditionalAlert type={alertType} message={alertMessage} />
+                    </Row>
+                    <EditUser
+                        key={user.user_id}
+                        user={user}
+                        setUp={props.setUp}
+                        setUser={setUser}
+                        setAlertType={setAlertType}
+                        setAlertMessage={setAlertMessage}
+                    />
+                </Modal.Body>
+            </Modal>
+
+            <Modal backdrop="static" show={deleteUserVar} onHide={handleDeleteUserFalse}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Delete {user.user_id}?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Row className="m-3">
+                        <ConditionalAlert type={alertType2} message={alertMessage2} />
+                    </Row>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={handleDeleteUser}>Delete</Button>
+                    <> </>
+                    <Button variant="secondary" onClick={handleDeleteUserFalse}>Cancel</Button>
+                </Modal.Footer>
+            </Modal>
         </tr>
     );
 
