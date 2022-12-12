@@ -27,7 +27,6 @@ function AssetRow(props) {
   const handleDeleteAssetTrue = () => setDeleteAsset(true);
   const handleDeleteAssetFalse = () => setDeleteAsset(false);
   useEffect(() => {
-    console.log(cats);
     setAlertMessage2("Deleting this asset cannot be undone. Are you sure you want to go through with deleting it?");
     setAlertType2(1);
   }, [asset, editAsset, deleteAssetVar]);
