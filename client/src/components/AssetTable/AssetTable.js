@@ -7,6 +7,10 @@ import {
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import AssetRow from "./AssetRow/AssetRow";
+import AddAsset from "../AddAsset/AddAsset";
+import Modal from 'react-bootstrap/Modal';
+
+import { getCategories } from "../../api/CategoryService";
 
 export default function AssetTable(props) {
   const [assets, setAssets] = useState([]);
@@ -14,6 +18,24 @@ export default function AssetTable(props) {
   const setUp = () => {
     setUpdated(!updated);
   };
+  //Displaying Add Asset
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  //Store Categories
+  const [cats, setCats] = useState([]);
+
+  useEffect(() => {
+    getCategories()
+      .then((value) => {
+        setCats(value);
+        return value;
+      })
+      .catch((err) => console.log(err));
+    console.log(cats);
+  }, [assets, setAssets]);
+
   useEffect(() => {
     async function assetTableInit() {
       let assetResults = 0;
@@ -33,9 +55,22 @@ export default function AssetTable(props) {
     assetTableInit(); // Render that son of a gun
   }, [props.cat, props.input, props.filterByCheckedOut, updated]);
 
+
+
   return (
     <div>
-      {assets != null && assets.length > 0 ? (
+      {localStorage.getItem("userPerms") == 2 ? (<button onClick={handleShow}>Add Asset</button>) : (<></>)}
+
+      <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>{(localStorage.getItem("userPerms") == 2) ? <>Add Asset</> : <>Invalid Permissions</>}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {(localStorage.getItem("userPerms") == 2) ? <AddAsset cats={cats} onSubmit={handleClose}/> : <>Only Owner can Add Assets</>}
+            </Modal.Body>
+      </Modal>
+
+      {(assets != null && assets.length > 0) ? (
         <div>
           <Table striped bordered>
             <thead>
@@ -46,7 +81,7 @@ export default function AssetTable(props) {
                 <td width="200px">Date Added</td>
                 <td width="150px">Category</td>
                 <td width="150px">Checked Out</td>
-                <td>-</td>
+                <td></td>
               </tr>
             </thead>
             <tbody>
@@ -58,6 +93,7 @@ export default function AssetTable(props) {
                         key={asset.asset_tag}
                         item={asset}
                         setUp={setUp}
+                        categoryList={props.categoryList}
                       ></AssetRow>
                     ))
                 : assets.map((asset) => (
@@ -65,6 +101,7 @@ export default function AssetTable(props) {
                       key={asset.asset_tag}
                       item={asset}
                       setUp={setUp}
+                      categoryList={props.categoryList}
                     ></AssetRow>
                   ))}
             </tbody>

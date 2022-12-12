@@ -15,13 +15,8 @@ import CounterPage from "./routes/CounterPage/CounterPage";
 import ProfilePage from "./routes/ProfilePage/ProfilePage";
 import CheckOutPage from "./routes/CheckOutPage/CheckOutPage";
 import CheckInPage from "./routes/CheckInPage/CheckInPage";
-import RecordsPage from "./routes/RecordsPage/RecordsPage";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-
-// this probably wont stay, but I cant think of a better way to do this at the moment
-var userPermissions = localStorage.getItem("userPerms");
-
-console.log(userPermissions);
+import RecordPage from "./routes/RecordsPage/RecordsPage";
+import UserPage from './routes/UserPage/UserPage';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -30,19 +25,11 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />
-          <Route element={<ProtectedRoute isAllowed={!(userPermissions !== null || userPermissions !== -1)} />}>
-            <Route path="/Profile" element={<ProfilePage />} />
-          </Route>
-
-          <Route element={<ProtectedRoute isAllowed={(userPermissions >= 1)} />}>
-            <Route path="/checkOut" element={<CheckOutPage />} />
-            <Route path="/checkIn" element={<CheckInPage />} />
-          </Route>
-
-          <Route element={<ProtectedRoute isAllowed={(userPermissions === 2)} />}>
-            <Route path="/records" element={<RecordsPage />} />
-          </Route>
-
+          <Route path="/Profile" element={<ProfilePage />} />
+          <Route path="/checkOut" element={<CheckOutPage />} />
+          <Route path="/checkIn" element={<CheckInPage />} />
+          <Route path="/records" element={<RecordPage />} />
+          <Route path="/Users" element={<UserPage />} />
           <Route path="counter" element={<CounterPage />} />
         </Route>
       </Routes>

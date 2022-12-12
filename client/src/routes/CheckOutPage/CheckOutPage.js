@@ -37,9 +37,7 @@ function CheckOutPage() {
             console.error("asset already checked out");
             return;
         }
-        const newAssetList = [...currentAssetList];
-        newAssetList.push(asset);
-        setCurrentAssetList(newAssetList);
+        setCurrentAssetList(prev => prev.concat(asset));
     }
 
     const handleCheckoutBtn = async () => {
@@ -55,7 +53,7 @@ function CheckOutPage() {
     return (
         <div>
             <div className="header-container"></div>
-            <div className="main-content">
+            <div className="main-content-checkout">
                 <h1 className="mb-3">Check Out Equipment</h1>
                 <Form>
                     <Row className="mb-3">

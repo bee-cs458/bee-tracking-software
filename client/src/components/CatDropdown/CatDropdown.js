@@ -4,9 +4,8 @@ import getAllCategories from "../../api/CategoryService";
 
 export default function CatDropdown(props) {
   // we lifted the state up
-  const { state, update } = props;
+  const { state, update, categories, updateCategories } = props;
 
-  const [categories, updateCategories] = useState([]);
   const [dom, updateDom] = useState("Loading...");
 
   const handleChange = (eventKey) => {
