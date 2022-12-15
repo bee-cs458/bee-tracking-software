@@ -172,6 +172,64 @@ export const changePermissions = async (req, res, next) => {
 
 }
 
+export const deleteUser = async (req, res, next) => {
+    const userTag = req.params.id;
+    await query(`DELETE FROM \`user\` WHERE \`user\`.\`user_id\`=?`, [
+        userTag,
+    ]).then(
+        (result) => {
+            if (result?.length <= 0)
+                next({
+                    status: 404,
+                    message: `User with user_id of ${userTag} was not found`,
+                });
+            else {
+                res.send({ result });
+            }
+        },
+        (reason) => {
+            reason.message = `Error Deleting User: ${reason.message}`;
+            next(reason);
+        }
+    );
+};
+
+export const editUser = async (req, res, next) => {
+
+    const {oldId} = req.params;
+  const {
+    user_id,
+    first_name,
+    last_name,
+  } = req.body;
+  await query(
+    `
+          UPDATE user
+          SET user_id = ?, first_name = ?, last_name = ?
+          WHERE user_id = ?
+          `,
+          [user_id, first_name, last_name, oldId]
+      ).then(
+    (result) => {
+      if (result.affectedRows == 0) {
+        next({
+          status: 404,
+          message: "User does not exist",
+        });
+      } else {
+        res.status(200).send({ result });
+      }
+    },
+    (reason) => {
+      reason.message = `Error updating the database: ${reason.message}`;
+      next(reason);
+    }
+  );
+};
+
+
+
+
 export const createUser = async (req, res, next) => {
 
     const newUser = req.body.user;
@@ -205,5 +263,4 @@ export const createUser = async (req, res, next) => {
 
             }
         );
-
 }
