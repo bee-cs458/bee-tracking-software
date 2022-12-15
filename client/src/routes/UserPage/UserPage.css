@@ -11,9 +11,10 @@
     align-items: center;
     margin-left: 250px;
     background-color: #6486A9;
+    z-index: 5;
 }
 
-.main-content-checkin {
+.main-content-user {
     overflow: auto;
     margin-left: 250px;
     text-align: left;
@@ -22,19 +23,22 @@
     height: 100vh;
 }
 
-.clearAll {
-    float: left;
+.user-actions {
+    margin: 5px;
 }
 
-.checkIn {
-    float: right;
-    margin-right: 15px;
+.actions {
+    font-weight: bolder;
 }
 
-.search {
-    margin-bottom: 8px;
+.users {
+    margin-left: 10px;
 }
 
-.notes {
-    margin-left: 3px;
+.add-user {
+    margin-left:12px;
+}
+
+.search-user {
+    margin-left: 0px;
 }
