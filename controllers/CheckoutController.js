@@ -95,6 +95,14 @@ export const checkoutAsset = async (req, res, next) => {
         return;
     }
 
+    if (user.permissions == -1){
+        next({
+            status: 404,
+            message: `The student with ID '${student_id}' does not have the permissions to checkout assets`
+        })
+        return;
+    }
+
     // check whether the student has < 3 strikes
     if (user.strikes >= 3){
         next({

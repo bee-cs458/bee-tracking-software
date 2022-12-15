@@ -1,3 +1,9 @@
+.filter-check {
+    padding: 5px;
+    font-weight: 500;
+}
+
+
 .wrapper{
     display: -webkit-box;
     display: -ms-flexbox;

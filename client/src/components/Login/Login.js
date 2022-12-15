@@ -5,6 +5,7 @@ import { setUserId, setUserPerm } from "../../App.js";
 import './Login.css';
 
 function update(perams) {
+    console.log(perams);
     setUserId(perams.user_id);
     setUserPerm(perams.permissions);
 }

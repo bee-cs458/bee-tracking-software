@@ -9,6 +9,7 @@ import categoryRoutes from "./CategoryRoutes.js";
 import checkInRoutes from "./CheckInRoutes.js";
 import checkoutRoutes from "./CheckoutRoutes.js"
 import userRoutes from './UserRoutes.js';
+import recordRoutes from './RecordRoutes.js';
 // our api routes
 router.get("/", (req, res) => res.send("Hello World!"));
 router.use("/count", counterRoutes);
@@ -17,6 +18,7 @@ router.use("/categories", categoryRoutes);
 router.use("/user", userRoutes);
 router.use("/checkin", checkInRoutes);
 router.use("/checkout", checkoutRoutes);
+router.use("/records", recordRoutes);
 // router.use("/user", UserRoutes);
 
 // Test Database Endpoint - demonstration purposes only
