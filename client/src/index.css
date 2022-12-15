@@ -7,7 +7,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.showprint {
+  display: none;
+}
+
+@media print {
+  #root, .modal-content > :not(.modal-body) {
+    display: none !important;
+  }
+  .modal-content > .modal-body {
+    display: block !important;
+  }
+  .modal-content {
+    border: 0 !important;
+  }
+}
+
 code {
+  @media print {
+    display: none;
+  }
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
