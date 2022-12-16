@@ -24,17 +24,21 @@ function CheckOutPage() {
     const handleShow = () => setShow(true);
 
     const handleAssetAddBtn = async () => {
+        if (typeof assetTag === "string" && assetTag.trim() === "") {
+            setErrMsg("You must specify an asset ID!");
+            return;
+        }
         if (currentAssetList.some((asset) => asset.asset_tag === assetTag)) {
-            console.error("asset already in the list");
+            setErrMsg("Asset is already in the list!")
             return;
         }
         const asset = (await getAssetByAssetTag(assetTag))[0];
         if (!asset) {
-            console.error("asset didn't exist or some other error");
+            setErrMsg(`Unable to retrieve asset '${assetTag}' (did you type the ID wrong?)`)
             return;
         }
         if (asset.checked_out) {
-            console.error("asset already checked out");
+            setErrMsg("That asset was already checked out!")
             return;
         }
         setCurrentAssetList(prev => prev.concat(asset));
@@ -88,7 +92,6 @@ function CheckOutPage() {
                         <Modal.Title>Error</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>Unable to complete checkout:</p>
                         <p className="text-danger text-monospace">{currErrMsg}</p>
                     </Modal.Body>
                     <Modal.Footer>

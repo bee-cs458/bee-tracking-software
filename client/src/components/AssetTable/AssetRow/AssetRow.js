@@ -4,7 +4,6 @@ import Modal from "react-bootstrap/Modal";
 import EditAsset from "../../EditAsset/EditAsset";
 import Row from "react-bootstrap/esm/Row";
 import ConditionalAlert from "../../CheckInUtilities/ConditionalAlert";
-import { format } from 'date-fns';
 import { deleteAsset } from "../../../api/AssetService";
 
 function AssetRow(props) {
@@ -13,7 +12,7 @@ function AssetRow(props) {
   const [editAsset, setEditAsset] = useState(false);
   const dates = asset.date_added;
 
-  const [dateValues, timeValues] = dates.split('T');
+  const dateValues = dates.split('T')[0];
   const [year, month, day] = dateValues.split('-');
   const formattedDate = [month, '/', day, '/', year];
 
@@ -61,7 +60,7 @@ function AssetRow(props) {
       </td>
       <td>{asset.checked_out ? "Yes" : "No"}</td>
       <td>
-        {localStorage.getItem("userPerms") == 2 ? (
+        {localStorage.getItem("userPerms") === "2" ? (
           <>
             <Button variant="primary" onClick={handleEditAssetTrue}>Edit Asset</Button>
             <> </>

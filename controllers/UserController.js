@@ -28,7 +28,15 @@ export const updateUserPassword = async (req, res, next) => {
 export const getUserById = async (req, res, next) => {
     const {userId} = req.body;
     await query(`SELECT * FROM \`user\` WHERE user_id=?;`, [userId]).then(
-        (result) => res.send({ result }),
+        (result) => {
+            if (result.length > 0) {
+                for(const index in result)
+                {
+                    delete result[index].password;
+                }
+            }
+            res.send({ result })
+        },
         (reason) => {
             reason.message = `Error Getting User by id: ${reason.message}`;
             next(reason);
@@ -38,7 +46,15 @@ export const getUserById = async (req, res, next) => {
 
 export const getAllUsers = async (req, res, next) => {
     await query(`SELECT * FROM \`user\` ;`).then(
-        (result) => res.send({ result }),
+        (result) => {
+            if (result.length > 0) {
+                for(const index in result)
+                {
+                    delete result[index].password;
+                }
+            }
+            res.send({ result })
+        },
         (reason) => {
             reason.message = `Error Getting Users: ${reason.message}`;
             next(reason);
@@ -74,7 +90,15 @@ export const searchForUser = async (req, res, next) => {
     await query(
         statement, searchTerms
     ).then(
-        (result) => res.send({ result }),
+        (result) => {
+            if (result.length > 0) {
+                for(const index in result)
+                {
+                    delete result[index].password;
+                }
+            }
+            res.send({ result })
+        },
         (reason) => {
             reason.message = `Error Searching for User: ${reason.message}`;
             next(reason);
@@ -163,7 +187,6 @@ export const changePermissions = async (req, res, next) => {
                 res.send({ result })
             },
             (reason) => {
-
                 reason.message = `Error updating permissions of user ${user_id} from ${old_permissions} to ${new_permissions}`;
                 next(reason);
 
@@ -246,8 +269,6 @@ export const createUser = async (req, res, next) => {
             return;
         }
     });
-
-
 
     // create user in the db
     await query(`INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${newUser.password}', ${newUser.permissions}, ${newUser.advanced});`)

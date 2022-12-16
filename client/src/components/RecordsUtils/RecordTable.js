@@ -10,7 +10,6 @@ export default function RecordTable() {
   const [records, setRecords] = useState();
   const [users, setUsers] = useState([{}]);
   const [assets, setAssets] = useState([{}]);
-  const [update, setUpdate] = useState(0);
 
   const getInfo = async () => {
     await getAllRecords().then((result) => {
