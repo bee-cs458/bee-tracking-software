@@ -69,7 +69,7 @@ function NavBar() {
               </Link>
             </li>
 
-            {localStorage.getItem("userPerms") == 0 ? (
+            {localStorage.getItem("userPerms") === "0" ? (
               <></>
             ) : (
               <li>

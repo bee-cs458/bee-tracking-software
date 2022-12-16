@@ -45,7 +45,11 @@
 }
 
 .asset-table {
-    width: 80vw;
+    width: calc (100vw - 250px);
+}
+
+.asset-table td {
+    width: auto !important;
 }
 
 .App-link {

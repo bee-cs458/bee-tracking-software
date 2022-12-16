@@ -33,7 +33,7 @@ export default function CatDropdown(props) {
       .then(generateList)
       .then(updateDom)
       .catch((err) => console.log(err));
-  }, []);
+  }, [updateCategories]);
 
   return (
     <Dropdown title="CategoryDropdown" onSelect={handleChange}>

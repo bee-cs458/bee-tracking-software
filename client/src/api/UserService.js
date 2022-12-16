@@ -61,6 +61,7 @@ export async function searchingForUsers(input) {
                 last_name: input,
             },
         });
+        
         return response.data.result;
     } catch (error) {
         return "Error Getting Users by searching from API";

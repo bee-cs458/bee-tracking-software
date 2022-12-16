@@ -16,7 +16,6 @@ function AddAsset(props){
     const [disabledState, setSubmitBtnDisabled] = React.useState(false);
     const [alertType, setAlertType] = useState(null);
     const [alertMessage, setAlertMessage] = useState(null);
-    const handleClose = props.onSubmit;
 
     const changeAdvanced = () => {
         setAdvancedChecked(!advancedChecked);
