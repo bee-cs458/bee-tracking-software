@@ -57,28 +57,28 @@ function NavBar() {
               </Link>
             </li>
             <li>
-              <Link to="/Users">
-                <img src={operators} alt="operators" width="20" height="18" />
-                Users
-              </Link>
-            </li>
-            <li>
               <Link to="/profile">
                 <img src={signIn} alt="profile" width="20" height="18" />
                 Profile
               </Link>
             </li>
 
-            {localStorage.getItem("userPerms") === "0" ? (
-              <></>
-            ) : (
-              <li>
-                <Link to="/records">
+            {localStorage.getItem("userPerms") === "2" &&
+              <>
+                <li>
+                <Link to="/Users">
+                  <img src={operators} alt="operators" width="20" height="18" />
+                  Users
+                </Link>
+                </li>
+                <li>
+                <Link to="/Records">
                   <img src={list} alt="records" width="20" height="18" />
                   Records
                 </Link>
-              </li>
-            )}
+                </li>
+              </>
+            }
 
             <li onClick={handleShow}>
               <Link to="/">
