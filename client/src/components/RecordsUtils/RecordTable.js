@@ -31,10 +31,9 @@ export default function RecordTable() {
     getInfo();
   }, []);
 
-  return (
-    <div>
-      {records != null && records.length > 0 ? (
-        <div>
+  function getTable(){
+    if(records !== null && records !== undefined && records?.length > 0){
+      return(<div>
           <Table bordered>
             <thead>
               <tr>
@@ -47,7 +46,7 @@ export default function RecordTable() {
               </tr>
             </thead>
             <tbody>
-              {records != null &&
+              {
                 records.map((record) => (
                   <RecordRow
                     key={record.record_id}
@@ -79,10 +78,20 @@ export default function RecordTable() {
                 ))}
             </tbody>
           </Table>
-        </div>
-      ) : (
+        </div>)
+    } else {
+      return (
         <Alert variant="warning">No records found!</Alert>
-      )}
+      )
+        
+    }
+  } 
+
+  return (
+    <div>
+      <>
+      {getTable()}
+      </>
     </div>
   );
 }
