@@ -3,10 +3,10 @@ import axios from 'axios';
 /*
     Send a checkout request
 */
-export async function doCheckout(asset_tags, student_id) {
+export async function doCheckout(asset_tags, student_id, opId) {
     try {
         const response = await axios.post("/api/checkout/checkout_assets", {
-            asset_tags, student_id
+            asset_tags, student_id, opId
         });
         return response.data;
     } catch (error) {

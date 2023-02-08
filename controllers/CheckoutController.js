@@ -42,7 +42,7 @@ export const checkoutAsset = async (req, res, next) => {
     // check that the asset(s) exist
     // select the individual assets from the DB and check if they are null
     let { asset_tags, student_id } = req.body;
-    const operator_id = req.user.user_id;
+    const operator_id = req.body.opId;
 
     if (student_id === "") {
         errHandler({
@@ -144,15 +144,14 @@ export const checkoutAsset = async (req, res, next) => {
         )
         .reduce((prev, curr) => prev.concat(curr));
 
-    await query(`UPDATE \`asset\` SET \`asset\`.\`checked_out\`=1 WHERE ${lotsOfOrs}`, asset_tags).catch(errHandler);
-
     const insertionResult = await query(`
         INSERT INTO \`checkoutrecord\` (\`operator_id\`, \`student_id\`, \`asset_tag\`, \`out_date\`, \`due_date\`)
         VALUES ${questionMarksStr}
     `, propsArr).catch(errHandler);
 
+    await query(`UPDATE \`asset\` SET \`asset\`.\`checked_out\`=1 WHERE ${lotsOfOrs}`, asset_tags).catch(errHandler);
+
     await nonPreparedQuery(`COMMIT;`).then(
         (_) => res.status(201).send(insertionResult)
     );
-    
 }

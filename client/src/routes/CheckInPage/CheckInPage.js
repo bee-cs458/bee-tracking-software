@@ -73,6 +73,10 @@ export default function CheckInPage() {
         const newAssets = result;
         if (newAssets) {
           setAssets(newAssets);
+          if (newAssets.length === 0) {
+            setAlertType(1);
+            setAlertMessage("User does not have any assets checked out");
+          }
           console.log(newAssets);
         } else {
           console.log("User did not exist!");

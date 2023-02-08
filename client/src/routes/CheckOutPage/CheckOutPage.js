@@ -15,6 +15,8 @@ function CheckOutPage() {
     const [studentId, setStudentId] = useState("");
     const [assetTag, setAssetTag] = useState("");
     const [currErrMsg, setErrMsg] = useState("");
+    const [opId, setOpId] = useState(localStorage.getItem("userId"));
+    const [disabledButton, setDisabledButton] = useState(false);
 
     const [currentAssetList, setCurrentAssetList] = useState([]);
     const handleClose = () => {
@@ -45,11 +47,13 @@ function CheckOutPage() {
     }
 
     const handleCheckoutBtn = async () => {
-        await doCheckout(currentAssetList.map((asset) => asset.asset_tag), studentId).then(
+        setDisabledButton(true);
+        await doCheckout(currentAssetList.map((asset) => asset.asset_tag), studentId, opId).then( //passes assets, student id and operator id to the query
             (result) => {
-                handleShow();
+                handleShow(); //shows the confirmation modal
             }
-        ).catch((error) => setErrMsg(error.message))
+        ).catch((error) => setErrMsg(error.message)) //displays error message in the modal
+        setDisabledButton(false);
     }
 
     useEffect(() => {}, [currentAssetList]);
@@ -64,13 +68,13 @@ function CheckOutPage() {
                         <Form.Group as={Col} controlId="assetTag">
                             <Form.Label>Asset Tag</Form.Label>
                             <Form.Control className="search" type="search" placeholder="Enter Asset Tag Number" onChange={(e) => setAssetTag(e.target.value)} />
-                            <Button id="addAsset" onClick={handleAssetAddBtn}>Add</Button>
+                            <Button id="addAsset" disabled={disabledButton} onClick={handleAssetAddBtn}>Add</Button>
                             {/* Should search for the matching asset and submit it to the table (check out queue) */}
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="studentId">
                             <Form.Label>Student ID Number</Form.Label>
-                            <Form.Control className="search" type="search" placeholder="Enter Student ID Number" onChange={(e) => setStudentId(e.target.value)} />
+                            <Form.Control className="search" type="search" disabled={disabledButton} placeholder="Enter Student ID Number" onChange={(e) => setStudentId(e.target.value)} />
                         </Form.Group>
                     </Row>
 
@@ -78,8 +82,8 @@ function CheckOutPage() {
                     <CheckOutTable assets={currentAssetList}></CheckOutTable>
                     
 
-                    <Button className="clearAll" type="reset" onClick={handleClose}>Clear All</Button>
-                    <Button className="checkOut" variant="primary" onClick={handleCheckoutBtn}>Check Out</Button>
+                    <Button className="clearAll" type="reset" disabled={disabledButton} onClick={handleClose}>Clear All</Button>
+                    <Button className="checkOut" variant="primary" disabled={disabledButton} onClick={handleCheckoutBtn}>Check Out</Button>
                     {/* Should submit the check out information to the database while also opening the confirmation modal */}
                 </Form>
                 <Modal 
