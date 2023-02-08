@@ -31,6 +31,11 @@ export default function RecordTable() {
     getInfo();
   }, []);
 
+  /**
+   * Determines whether to render the table of records or the error message
+   * Depending on whether the "records" state has values
+   * @returns JSX of the record table or the error message
+   */
   function getTable(){
     if(records !== null && records !== undefined && records?.length > 0){
       return(<div>
