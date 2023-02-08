@@ -82,7 +82,7 @@ export const requireQuery = (...paramList) => {
 
 export const restrictTo = (level) => async (req, res, next) => {
     // TODO implement authentication
-    const role = permissionEnumConversion?.[req?.user?.permissions] ?? 'guest';
+    const role = permissionEnumConversion?.[req?.get("Authorization")] ?? 'guest';
     if (permissionLevels?.[role] >= permissionLevels[level]) {
         next();
     }

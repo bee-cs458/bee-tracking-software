@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import axios from "axios";
 
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,6 +18,8 @@ import CheckOutPage from "./routes/CheckOutPage/CheckOutPage";
 import CheckInPage from "./routes/CheckInPage/CheckInPage";
 import RecordPage from "./routes/RecordsPage/RecordsPage";
 import UserPage from './routes/UserPage/UserPage';
+
+axios.defaults.headers.common['Authorization'] = localStorage.getItem("userPerms");
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
