@@ -44,14 +44,6 @@ export const checkoutAsset = async (req, res, next) => {
     let { asset_tags, student_id } = req.body;
     const operator_id = req.body.opId;
 
-    if (student_id === "") {
-        errHandler({
-            status: 400,
-            message: "Student ID cannot be blank!"
-        });
-        return;
-    }
-
     asset_tags ??= [];
     if (asset_tags.length === 0) {
         errHandler({
@@ -143,15 +135,16 @@ export const checkoutAsset = async (req, res, next) => {
             (asset) => [operator_id, student_id, asset.asset_tag, rightNow, twoDaysFromNow]
         )
         .reduce((prev, curr) => prev.concat(curr));
-
+    console.log(propsArr)
     const insertionResult = await query(`
         INSERT INTO \`checkoutrecord\` (\`operator_id\`, \`student_id\`, \`asset_tag\`, \`out_date\`, \`due_date\`)
         VALUES ${questionMarksStr}
     `, propsArr).catch(errHandler);
-
+    console.log("Hello");
     await query(`UPDATE \`asset\` SET \`asset\`.\`checked_out\`=1 WHERE ${lotsOfOrs}`, asset_tags).catch(errHandler);
-
+    console.log("bye");
     await nonPreparedQuery(`COMMIT;`).then(
         (_) => res.status(201).send(insertionResult)
     );
+    console.log("Ending");
 }

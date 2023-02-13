@@ -19,7 +19,9 @@ router.use("/count", counterRoutes);
 router.use("/asset", assetRoutes);
 router.use("/categories", categoryRoutes);
 router.use("/user", userRoutes);
-router.use("/checkin", restrictTo("operator"), checkInRoutes);
+router.use("/checkin", 
+//restrictTo("operator"), 
+checkInRoutes);
 router.use("/checkout", restrictTo("operator"), checkoutRoutes);
 router.use("/records", restrictTo("operator"), recordRoutes);
 // router.use("/user", UserRoutes);
