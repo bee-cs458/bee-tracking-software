@@ -254,7 +254,7 @@ export const editUser = async (req, res, next) => {
 /**
  * Creates a user after verifying that a user with the same ID and username do not already exist
  * @param {*} req - takes a user_id
- * @returns Toast message if an error occured; User has been added to database
+ * @returns Toast message if an error occured; Toast message if user has been added to database
  */
 export const createUser = async (req, res, next) => {
 
@@ -278,7 +278,7 @@ export const createUser = async (req, res, next) => {
                 }
             }
         );
-     //Checks the database to see if a username is already in use       
+     //Checks the database to see if a username is already in use. Allows usernames that are empty     
         await query(`SELECT username FROM user WHERE username='${newUser.username}'`).
         then(
             (result) => {
@@ -288,7 +288,7 @@ export const createUser = async (req, res, next) => {
                         result: { status: 410 },
                         message: "Username already in use!"
                     });
-                    //res.send({result});
+                    res.send({result});
                     valid = false;
                     return;
                 }
