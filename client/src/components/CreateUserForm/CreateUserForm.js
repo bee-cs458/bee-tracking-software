@@ -42,10 +42,25 @@ function CreateUserForm() {
                     show: true
                 })
                 clearForm();
+            } 
+            else if(result.status === 409){
+                setToastData({
+                    title: "Error 409",
+                    message: "User ID already in use",
+                    variant: "danger",
+                    show: true
+                })
+            } else if(result.status === 410){
+                 setToastData({
+                    title: "Error 410",
+                    message: "Username already in use",
+                    variant: "danger",
+                    show: true
+                })
             } else {
                 setToastData({
                     title: "Error",
-                    message: "There was an error creating this user!",
+                    message: "There was an error! creating this user!",
                     variant: "danger",
                     show: true
                 })

@@ -251,37 +251,64 @@ export const editUser = async (req, res, next) => {
 };
 
 
-
-
+/**
+ * Creates a user after verifying that a user with the same ID and username do not already exist
+ * @param {*} req - takes a user_id
+ * @returns Toast message if an error occured; User has been added to database
+ */
 export const createUser = async (req, res, next) => {
 
     const newUser = req.body.user;
-
+    var valid = true;
     // Check that the user ID is not in use already
-    await query(`SELECT user_id FROM user WHERE user_id=?`, [newUser.user_id]).then((result) => {
-
-        if (result.length > 0) {
-            next({
-                result: { status: 409 },
-                message: "User ID already in use!"
-            });
-            // TODO fix: for some reason, this does not stop the INSERT query from running
-            return;
-        }
-    });
-
-    // create user in the db
-    await query(`INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${newUser.password}', ${newUser.permissions}, ${newUser.advanced});`)
-        .then(
+    await query(`SELECT user_id FROM user WHERE user_id='${newUser.user_id}'`).
+        then(
             (result) => {
-                result.status = 202;
-                res.send({ result })
-            },
-            (reason) => {
 
-                reason.message = `Error creating user with user id ${newUser.user_id}`;
-                next(reason);
+                if (result.length > 0) {
+                    next({
+                        result: { status: 409 },
+                        message: "User ID already in use!"
+                    });
 
+                    valid = false;
+                   // res.send({result});
+                    
+                    return;
+                }
             }
         );
-}
+     //Checks the database to see if a username is already in use       
+        await query(`SELECT username FROM user WHERE username='${newUser.username}'`).
+        then(
+            (result) => {
+
+                if (result.length > 0) {
+                    next({
+                        result: { status: 410 },
+                        message: "Username already in use!"
+                    });
+                    //res.send({result});
+                    valid = false;
+                    return;
+                }
+            }
+        );
+
+    if (valid == true) {
+        // create user in the db
+        await query(`INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${newUser.password}', ${newUser.permissions}, ${newUser.advanced});`)
+            .then(
+                (result) => {
+                    result.status = 202;
+                    res.send({ result })
+                },
+                (reason) => {
+
+                    reason.message = `Error creating user with user id ${newUser.user_id}`;
+                    next(reason);
+
+                    return;
+                }
+            );
+    }}
