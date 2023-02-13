@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import NavBar from "./components/NavBar/NavBar";
 
-var userPermission = 0;
+var userPermission = -1;
 var userId = -1;
 if(localStorage.getItem("userPerms") == null){
 localStorage.setItem("userPerms", userPermission);
@@ -26,4 +26,4 @@ const App = () => {
 
 export default App;
 export {setUserId};
-export{setUserPerm};
+export {setUserPerm};
