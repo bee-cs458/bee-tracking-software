@@ -272,7 +272,7 @@ export const createUser = async (req, res, next) => {
                     });
 
                     valid = false;
-                   // res.send({result});
+                    res.send({result});
                     
                     return;
                 }
@@ -283,7 +283,7 @@ export const createUser = async (req, res, next) => {
         then(
             (result) => {
 
-                if (result.length > 0) {
+                if (result.length > 0 && newUser.username != '') {
                     next({
                         result: { status: 410 },
                         message: "Username already in use!"
@@ -295,7 +295,7 @@ export const createUser = async (req, res, next) => {
             }
         );
 
-    if (valid == true) {
+    if (valid) {
         // create user in the db
         await query(`INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${newUser.password}', ${newUser.permissions}, ${newUser.advanced});`)
             .then(

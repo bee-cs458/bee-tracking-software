@@ -120,13 +120,13 @@ function CreateUserForm() {
                     <Form.Group as={Col} xs={6}>
 
                         <Form.Label>Username</Form.Label>
-                        <Form.Control required type="text" id="username" value={userData.username} onChange={(event) => setUserData({ ...userData, username: event.target.value })} />
+                        <Form.Control type="text" id="username" value={userData.username} onChange={(event) => setUserData({ ...userData, username: event.target.value })} />
 
                     </Form.Group>
                     <Form.Group as={Col} xs={6}>
 
                         <Form.Label>Password</Form.Label>
-                        <Form.Control required type="password" id="password" value={userData.password} onChange={(event) => setUserData({ ...userData, password: event.target.value })} />
+                        <Form.Control type="password" id="password" value={userData.password} onChange={(event) => setUserData({ ...userData, password: event.target.value })} />
 
                     </Form.Group>
                 </Row>
