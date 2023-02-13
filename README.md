@@ -54,12 +54,13 @@ BEETS is divided into three main parts: Frontend (React), Backend/API (Express),
     - DatabaseUtilities -> contains methods that help setup the database connection. Use the "query" method to run SQL scripts
 
 ## Team
+- Fletcher, David
 - Gentz, Cody (Technical Lead)
 - Hess, Damian
 - Husein, Rahmi
 - Leverty, Keenan (Scrum Master)
+- Olson, Gavin
 - Prew, Ella
-- Thatcher, Khameron
-- Tiefenthaler, Colby (Product Owner)
+- Tiefenthaler, Colby
 - Wehrman, Joshua
 
