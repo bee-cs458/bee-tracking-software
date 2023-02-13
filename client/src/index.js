@@ -21,6 +21,11 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 var userPermValue = localStorage.getItem("userPerms");
 
+/**
+ * Adds the userPerms value from local storage to all HTTP requests originating from the frontend
+ * This value is accessed by checking the header called "Authorization"
+ * The userPerms value determines whether someone is a Guest, Student, Operator, or Owner
+ */
 axios.defaults.headers.common['Authorization'] = userPermValue;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
