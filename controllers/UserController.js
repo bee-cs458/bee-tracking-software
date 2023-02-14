@@ -267,12 +267,11 @@ export const createUser = async (req, res, next) => {
 
                 if (result.length > 0) {
                     next({
-                        result: { status: 409 },
+                        status: 409,
                         message: "User ID already in use!"
                     });
 
                     valid = false;
-                    res.send({result});
                     
                     return;
                 }
@@ -285,10 +284,10 @@ export const createUser = async (req, res, next) => {
 
                 if (result.length > 0 && newUser.username != '') {
                     next({
-                        result: { status: 410 },
+                        status: 410,
                         message: "Username already in use!"
                     });
-                    res.send({result});
+
                     valid = false;
                     return;
                 }

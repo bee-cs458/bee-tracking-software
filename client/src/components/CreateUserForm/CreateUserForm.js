@@ -46,21 +46,21 @@ function CreateUserForm() {
             else if(result.status === 409){
                 setToastData({
                     title: "Error 409",
-                    message: "User ID already in use",
+                    message: "User ID already in use.",
                     variant: "danger",
                     show: true
                 })
             } else if(result.status === 410){
                  setToastData({
                     title: "Error 410",
-                    message: "Username already in use",
+                    message: "Username already in use.",
                     variant: "danger",
                     show: true
                 })
             } else {
                 setToastData({
                     title: "Error",
-                    message: "There was an error! creating this user!",
+                    message: "There was an error creating this user!",
                     variant: "danger",
                     show: true
                 })
@@ -87,7 +87,7 @@ function CreateUserForm() {
             <h2>Creating a User</h2>
 
             <ToastContainer position="bottom-center" className="p-5 m-5">
-                <Toast bg={toastData.variant} onClose={() => setToastData({ ...toastData, show: false })} show={toastData.show} delay={6000}>
+                <Toast bg={toastData.variant} onClose={() => setToastData({ ...toastData, show: false })} show={toastData.show} delay={4000}>
                     <Toast.Header>
                         <strong className="me-auto">{toastData.title}</strong>
                     </Toast.Header>
