@@ -4,10 +4,12 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import ConditionalAlert from "../../components/CheckInUtilities/ConditionalAlert";
 import Modal from "react-bootstrap/Modal";
-import { doCheckout } from "../../api/CheckoutService";
+import { doCheckout, makeAssetCheckedOut } from "../../api/CheckoutService";
 import { getAssetByAssetTag } from "../../api/AssetService";
 import CheckOutTable from "../../components/CheckOutUtilities/CheckOutTable";
+import { getUserById } from "../../api/UserService";
 
 function CheckOutPage() {
 
@@ -15,44 +17,98 @@ function CheckOutPage() {
     const [studentId, setStudentId] = useState("");
     const [assetTag, setAssetTag] = useState("");
     const [currErrMsg, setErrMsg] = useState("");
+    const [opId, setOpId] = useState(localStorage.getItem("userId"));
+    const [disabledButton, setDisabledButton] = useState(false);
+    const [alertType, setAlertType] = useState(null);
+    const [alertMessage, setAlertMessage] = useState(null);
 
     const [currentAssetList, setCurrentAssetList] = useState([]);
-    const handleClose = () => {
-        setCurrentAssetList([]);
-        setShow(false);
+    const handleClose = () => { //clear asset list
+        setAlertType(null);
+        setCurrentAssetList([]); //makes asset list empty
+        setShow(false); //hides modal
     }
-    const handleShow = () => setShow(true);
+    const handleShow = () => setShow(true); //shows modal
 
     const handleAssetAddBtn = async () => {
-        if (typeof assetTag === "string" && assetTag.trim() === "") {
-            setErrMsg("You must specify an asset ID!");
+        setAlertType(null);
+        if (typeof assetTag === "string" && assetTag.trim() === "") { //checks if asset field is blank
+            setAlertMessage("You must specify an asset ID!");
+            setAlertType(1);
             return;
         }
-        if (currentAssetList.some((asset) => asset.asset_tag === assetTag)) {
-            setErrMsg("Asset is already in the list!")
+        if (currentAssetList.some((asset) => asset.asset_tag === assetTag)) { //checks if asset is already in list
+            setAlertMessage("Asset is already in the list!")
+            setAlertType(1);
             return;
         }
-        const asset = (await getAssetByAssetTag(assetTag))[0];
+        const asset = (await getAssetByAssetTag(assetTag))[0]; //checks if asset tag is in database
         if (!asset) {
-            setErrMsg(`Unable to retrieve asset '${assetTag}' (did you type the ID wrong?)`)
+            setAlertMessage(`Unable to retrieve asset '${assetTag}' (did you type the ID wrong?)`); 
+            setAlertType(1);
             return;
         }
-        if (asset.checked_out) {
-            setErrMsg("That asset was already checked out!")
+        if (asset.checked_out) { //checks if asset is already checked out
+            setAlertMessage("That asset is already checked out!");
+            setAlertType(0);
             return;
         }
-        setCurrentAssetList(prev => prev.concat(asset));
+        setCurrentAssetList(prev => prev.concat(asset)); //sets the current asset list with the new asset
     }
 
     const handleCheckoutBtn = async () => {
-        await doCheckout(currentAssetList.map((asset) => asset.asset_tag), studentId).then(
-            (result) => {
-                handleShow();
+        if(studentId === "" ){  //checks for the two 
+            setAlertMessage('Please enter the student ID of the user checking out the asset(s)'); 
+            setAlertType(1);
+            return;
+        }       
+        const user = (await getUserById(studentId))[0];
+        if(!user){
+            setAlertMessage(`The student with ID '${studentId}' does not exist in the DB!`);
+            setAlertType(1);
+            return;
+        }
+        console.log(localStorage.getItem("userPerms"))
+        if(localStorage.getItem("userPerms") <= 0){
+            setAlertMessage(`The student with ID '${studentId}' does not have the permissions to checkout assets`);
+            setAlertType(0);
+            return;
+        }
+        if(user.strikes >= 3){
+            setAlertMessage(`The student '${user.first_name} ${user.last_name}' has too many strikes!`);
+            setAlertType(0);
+            return;
+        }
+        if(!user.advanced){
+            if(currentAssetList.some((asset) => asset.advanced)){
+                setAlertMessage(`The student '${user.first_name} ${user.last_name}' is not allowed to check out advanced assets!`);
+                setAlertType(0);
             }
-        ).catch((error) => setErrMsg(error.message))
+            return;
+        }
+        
+        setAlertType(null);
+        setDisabledButton(true);
+        currentAssetList.forEach((asset) =>{
+            doCheckout(asset.asset_tag, studentId, opId).then( //passes assets, student id and operator id to the query
+            (result) => {
+                makeAssetCheckedOut(asset.asset_tag);
+                handleShow(); //shows the confirmation modal
+            }
+        ).catch((error) => setErrMsg(error.message)) //displays error message in the modal*/
+        });
+        /*
+        }
+        await doCheckout(currentAssetList.map((asset) => asset.asset_tag), studentId, opId).then( //passes assets, student id and operator id to the query
+            (result) => {
+                handleShow(); //shows the confirmation modal
+            }
+        ).catch((error) => setErrMsg(error.message)) //displays error message in the modal*/
+        setDisabledButton(false);
     }
 
-    useEffect(() => {}, [currentAssetList]);
+    
+    useEffect(() => {}, [currentAssetList]); //rerenders page on change to asset list
 
     return (
         <div>
@@ -60,17 +116,23 @@ function CheckOutPage() {
             <div className="main-content-checkout">
                 <h1 className="mb-3">Check Out Equipment</h1>
                 <Form>
+                <Row className="m-3">
+                <ConditionalAlert  //alert bar for error messages
+                    type={alertType}
+                    message={alertMessage}
+                ></ConditionalAlert>
+                </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="assetTag">
                             <Form.Label>Asset Tag</Form.Label>
-                            <Form.Control className="search" type="search" placeholder="Enter Asset Tag Number" onChange={(e) => setAssetTag(e.target.value)} />
-                            <Button id="addAsset" onClick={handleAssetAddBtn}>Add</Button>
+                            <Form.Control className="search" type="search" placeholder="Enter Asset Tag Number" onChange={(e) => {setAssetTag(e.target.value); setAlertType(null)}} />
+                            <Button id="addAsset" disabled={disabledButton} onClick={handleAssetAddBtn}>Add</Button>
                             {/* Should search for the matching asset and submit it to the table (check out queue) */}
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="studentId">
                             <Form.Label>Student ID Number</Form.Label>
-                            <Form.Control className="search" type="search" placeholder="Enter Student ID Number" onChange={(e) => setStudentId(e.target.value)} />
+                            <Form.Control className="search" type="search" disabled={disabledButton} placeholder="Enter Student ID Number" onChange={(e) => {setStudentId(e.target.value); setAlertType(null) }} />
                         </Form.Group>
                     </Row>
 
@@ -78,10 +140,11 @@ function CheckOutPage() {
                     <CheckOutTable assets={currentAssetList}></CheckOutTable>
                     
 
-                    <Button className="clearAll" type="reset" onClick={handleClose}>Clear All</Button>
-                    <Button className="checkOut" variant="primary" onClick={handleCheckoutBtn}>Check Out</Button>
+                    <Button className="clearAll" type="reset" disabled={disabledButton} onClick={handleClose}>Clear All</Button>
+                    <Button className="checkOut" variant="primary" disabled={disabledButton} onClick={handleCheckoutBtn}>Check Out</Button>
                     {/* Should submit the check out information to the database while also opening the confirmation modal */}
                 </Form>
+
                 <Modal 
                     show={currErrMsg !== ""}
                     onHide = {() => setErrMsg("")}
