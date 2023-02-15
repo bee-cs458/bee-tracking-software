@@ -35,9 +35,11 @@ async function getConnection(extraConfig) {
         port: process.env.DB_PORT,
         database: process.env.DB_NAME,
         password: process.env.DB_PASSWORD,
+        /*
         ssl: {
             ca: fs.readFileSync(process.env.CERT_PATH)
         }
+        */
     };
     if (extraConfig) {
         return await mysql.createConnection(Object.assign(config, extraConfig));

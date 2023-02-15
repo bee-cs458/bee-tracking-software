@@ -181,18 +181,25 @@ export async function editUser(
     user_id,
     first_name,
     last_name
-  ) {
+  ) 
+  {
+
     try {
-      console.log("Editing the user " + oldId);
-  
-      const response = await axios.post("/api/user/editUser/" + oldId, {
-        user_id,
-        first_name,
-        last_name
-      });
-      return response.data.result;
-    } catch (error) {
-      error.message = "Error while updating the user: " + error.message;
+            try {
+                console.log("Editing the user " + oldId);
+          
+                const response = await axios.post("/api/user/editUser/" + oldId, {
+                  user_id,
+                  first_name,
+                  last_name
+                });
+                return response.data.result;
+              } catch (error) {
+                error.message = "Error while updating the user: " + error.message;
+                throw error;
+              }
+    } catch (error){
+        error.message = "Error while updating the user: " + error.message;
       throw error;
     }
   }
