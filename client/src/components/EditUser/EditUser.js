@@ -39,13 +39,11 @@ function EditUser(props){
             // Read a error of 400 and displays custom error message
             else if (error.response.status === 400){
                 setAlertMessage("Error while updating the user: This User Id is already being used");
-                console.log(error);
                 setAlertType(0);
             }
             //If a random error is found it will just return the error handler message
             else {
                 setAlertMessage(error.response.data.message);
-                console.log(error);
                 setAlertType(0);
             }
           }
