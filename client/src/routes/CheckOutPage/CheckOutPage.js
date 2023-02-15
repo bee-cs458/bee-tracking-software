@@ -9,6 +9,7 @@ import Modal from "react-bootstrap/Modal";
 import { doCheckout } from "../../api/CheckoutService";
 import { getAssetByAssetTag } from "../../api/AssetService";
 import CheckOutTable from "../../components/CheckOutUtilities/CheckOutTable";
+import { getUserById } from "../../api/UserService";
 
 function CheckOutPage() {
 
@@ -61,13 +62,46 @@ function CheckOutPage() {
             setAlertType(1);
             return;
         }       
+        const user = (await getUserById(studentId))[0];
+        if(!user){
+            setAlertMessage(`The student with ID '${studentId}' does not exist in the DB!`);
+            setAlertType(1);
+            return;
+        }
+        if(user.permissions === -1){
+            setAlertMessage(`The student with ID '${studentId}' does not have the permissions to checkout assets`);
+            setAlertType(0);
+            return;
+        }
+        if(user.strikes >= 3){
+            setAlertMessage(`The student '${user.first_name} ${user.last_name}' has too many strikes!`);
+            setAlertType(0);
+            return;
+        }
+        if(!user.advanced){
+            if(currentAssetList.some((asset) => asset.advanced)){
+                setAlertMessage(`The student '${user.first_name} ${user.last_name}' is not allowed to check out advanced assets!`);
+                setAlertType(0);
+            }
+            return;
+        }
+        
         setAlertType(null);
         setDisabledButton(true);
+        currentAssetList.forEach((asset) =>{
+            doCheckout(asset.asset_tag, studentId, opId).then( //passes assets, student id and operator id to the query
+            (result) => {
+                handleShow(); //shows the confirmation modal
+            }
+        ).catch((error) => setErrMsg(error.message)) //displays error message in the modal*/
+        });
+        /*
+        }
         await doCheckout(currentAssetList.map((asset) => asset.asset_tag), studentId, opId).then( //passes assets, student id and operator id to the query
             (result) => {
                 handleShow(); //shows the confirmation modal
             }
-        ).catch((error) => setErrMsg(error.message)) //displays error message in the modal
+        ).catch((error) => setErrMsg(error.message)) //displays error message in the modal*/
         setDisabledButton(false);
     }
 
