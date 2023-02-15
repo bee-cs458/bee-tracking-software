@@ -60,21 +60,18 @@ function EditUser(props){
         setId(newVal);
         setAlertMessage(null);
         setAlertType(null);
-        console.log(newVal);
     }
 
     function handleFirstNameChange(newVal) {
         setFirstName(newVal);
         setAlertMessage(null);
         setAlertType(null);
-        console.log(newVal);
     }
 
     function handleLastNameChange(newVal) {
         setLastName(newVal);
         setAlertMessage(null);
         setAlertType(null);
-        console.log(newVal);
     }
 
     return (
