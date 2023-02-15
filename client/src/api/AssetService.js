@@ -177,6 +177,3 @@ export async function deleteAsset(asset_tag) {
     return "Error while deleting the asset" + asset_tag;
 }
 }
-
-exports.getAllAssets = getAllAssets;
-exports.getAssetByAssetTag = getAssetByAssetTag;

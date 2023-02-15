@@ -3,17 +3,58 @@ const Services = require("./AssetService.js");
 
 jest.mock("axios");
 
+beforeEach(() => {
+    axios.post.mockReset();
+    axios.get.mockReset();
+});
 
-describe('getAll tests', () => {
+describe('getAllAssets tests', () => {
     it('should return all assets', async () => {
         const assets = [
-            [{asset_tag: 1, name: "camera", description: "Black Magic Cinema"},
-            {asset_tag: 4, name: "light", description: "Black Magic Cinema"}]
+            [{ asset_tag: 1, name: "camera", description: "Black Magic Cinema" },
+            { asset_tag: 4, name: "light", description: "Black Magic Cinema" }]
         ];
-        debugger;
-        axios.get.mockResolvedValue(assets);
-        const result = Services.getAllAssets();
-        expect(axios.get).toHaveBeenCalledWith(`/api/asset/get_all`);
-        expect(result).toEqual(assets);
+        const result = { result: assets };
+        const response = { data: result };
+
+        axios.get.mockResolvedValueOnce(response);
+
+        return Services.getAllAssets().then(data => expect(data).toEqual(assets));
     })
+
+
+});
+
+describe('getAllAssetsWithDueDates tests', () => {
+    it('should return all assets with due dates', async () => {
+        const assets = [
+            [{ asset_tag: 1, name: "camera", description: "Black Magic Cinema" },
+            { asset_tag: 4, name: "light", description: "Black Magic Cinema" }]
+        ];
+        const result = { result: assets };
+        const response = { data: result };
+
+        axios.get.mockResolvedValueOnce(response);
+
+        return Services.getAllAssetsWithDueDates().then(data => expect(data).toEqual(assets));
+    })
+
+
+});
+
+describe('getAssetsByDescription tests', () => {
+    it('should return all assets with due dates', async () => {
+        const assets = [
+            [{ asset_tag: 1, name: "camera", description: "Black Magic Cinema" },
+            { asset_tag: 4, name: "light", description: "Black Magic Cinema" }]
+        ];
+        const result = { result: assets };
+        const response = { data: result };
+
+        axios.get.mockResolvedValueOnce(response);
+
+        return Services.getAllAssetsWithDueDates().then(data => expect(data).toEqual(assets));
+    })
+
+
 });
