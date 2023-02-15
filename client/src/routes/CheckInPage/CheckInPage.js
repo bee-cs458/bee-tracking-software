@@ -27,20 +27,20 @@ export default function CheckInPage() {
   function handleIDChange(newValue) {
     setEnteredID(newValue);
     setAlertType(null);
-    console.log("input value: " + studentID);
+    //console.log("input value: " + studentID);
   }
 
   function handleTagChange(newValue) {
     setEnteredTag(newValue);
     setAlertType(null);
-    console.log("Input Value: " + currentTag);
+    //console.log("Input Value: " + currentTag);
   }
 
   function clearAll() {
     setAssets([]);
     setNotes("");
     setAlertType(null);
-    console.log("Pending Assets Cleared");
+    //console.log("Pending Assets Cleared");
   }
 
   const handleTagPress = async (event) => {
@@ -59,11 +59,10 @@ export default function CheckInPage() {
           }
         });
       } else {
-        console.log("Asset already in the list");
         setAlertType(1);
         setAlertMessage("Asset is Already Queued for Check In");
       }
-      console.log(assets);
+      //console.log(assets);
     }
   };
 
@@ -77,9 +76,8 @@ export default function CheckInPage() {
             setAlertType(1);
             setAlertMessage("User does not have any assets checked out");
           }
-          console.log(newAssets);
+          //console.log(newAssets);
         } else {
-          console.log("User did not exist!");
           setAlertType(1);
           setAlertMessage("User does not exist");
         }
@@ -113,7 +111,6 @@ export default function CheckInPage() {
   };
 
   const handleSubmit = async (event) => {
-    console.log("started submission");
     if (assets.length < 1) {
       setAlertType(1);
       setAlertMessage("No Assets Selected");
