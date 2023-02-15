@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ConditionalAlert from "../../components/CheckInUtilities/ConditionalAlert";
 import Modal from "react-bootstrap/Modal";
-import { doCheckout } from "../../api/CheckoutService";
+import { doCheckout, makeAssetCheckedOut } from "../../api/CheckoutService";
 import { getAssetByAssetTag } from "../../api/AssetService";
 import CheckOutTable from "../../components/CheckOutUtilities/CheckOutTable";
 import { getUserById } from "../../api/UserService";
@@ -68,7 +68,8 @@ function CheckOutPage() {
             setAlertType(1);
             return;
         }
-        if(user.permissions === -1){
+        console.log(localStorage.getItem("userPerms"))
+        if(localStorage.getItem("userPerms") <= 0){
             setAlertMessage(`The student with ID '${studentId}' does not have the permissions to checkout assets`);
             setAlertType(0);
             return;
@@ -91,6 +92,7 @@ function CheckOutPage() {
         currentAssetList.forEach((asset) =>{
             doCheckout(asset.asset_tag, studentId, opId).then( //passes assets, student id and operator id to the query
             (result) => {
+                makeAssetCheckedOut(asset.asset_tag);
                 handleShow(); //shows the confirmation modal
             }
         ).catch((error) => setErrMsg(error.message)) //displays error message in the modal*/

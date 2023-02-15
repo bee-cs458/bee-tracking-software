@@ -50,7 +50,6 @@ export const checkoutAsset = async (req, res, next) => {
             next(reason); // generic error handler
         } // on failure
     );
-    console.log("Ending");
 }
 
 export const  makeAssetCheckedOut= async (req, res, next) => {
