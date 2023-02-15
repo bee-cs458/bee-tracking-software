@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { getAssetByAssetTag } from "../../api/AssetService";
-import { getUserById } from "../../api/UserService";
 import "./RecordRow.css";
 
 export default function CheckInRow(props) {
@@ -10,7 +7,7 @@ export default function CheckInRow(props) {
 
   function formatDate(input) {
     if (input != null) {
-      const [dateValues, timeValues] = input.split("T");
+      const dateValues = input.split("T")[0];
       const [year, month, day] = dateValues.split("-");
       const formattedDate = [month, "/", day, "/", year];
       return formattedDate;
@@ -22,8 +19,7 @@ export default function CheckInRow(props) {
   return (
     <tr
       style={{
-        background: props.date > dueDate && !record.in_date ? "#ffb9b9" : "",
-        background: record.in_date === null ? "#55ff77" : "",
+        background: record.in_date === null ? "#55ff77" : (props.date > dueDate && !record.in_date ? "#ffb9b9" : ""),
       }}
     >
       <td>{props.userName}</td>

@@ -10,7 +10,6 @@ export default function RecordTable() {
   const [records, setRecords] = useState();
   const [users, setUsers] = useState([{}]);
   const [assets, setAssets] = useState([{}]);
-  const [update, setUpdate] = useState(0);
 
   const getInfo = async () => {
     await getAllRecords().then((result) => {
@@ -32,10 +31,14 @@ export default function RecordTable() {
     getInfo();
   }, []);
 
-  return (
-    <div>
-      {records != null && records.length > 0 ? (
-        <div>
+  /**
+   * Determines whether to render the table of records or the error message
+   * Depending on whether the "records" state has values
+   * @returns JSX of the record table or the error message
+   */
+  function getTable(){
+    if(records !== null && records !== undefined && records?.length > 0){
+      return(<div>
           <Table bordered>
             <thead>
               <tr>
@@ -48,7 +51,7 @@ export default function RecordTable() {
               </tr>
             </thead>
             <tbody>
-              {records != null &&
+              {
                 records.map((record) => (
                   <RecordRow
                     key={record.record_id}
@@ -80,10 +83,20 @@ export default function RecordTable() {
                 ))}
             </tbody>
           </Table>
-        </div>
-      ) : (
+        </div>)
+    } else {
+      return (
         <Alert variant="warning">No records found!</Alert>
-      )}
+      )
+        
+    }
+  } 
+
+  return (
+    <div>
+      <>
+      {getTable()}
+      </>
     </div>
   );
 }

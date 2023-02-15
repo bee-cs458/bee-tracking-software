@@ -33,7 +33,12 @@ router.get("/get_asset_via_cat/:id", getAssetFromCat)
 router.post("/", restrictTo('owner'), requireBody('asset_tag', 'name'), createAsset);
 router.post("/:id", restrictTo('owner'), requireBody(), updateAsset);
 router.delete("/:id", restrictTo('owner'), deleteAsset);
-router.post("/editAsset/:oldTag", requireBody('asset_tag', 'name', 'description', 'damage_notes', 'category', 'operational', 'advanced'), editAsset);
+router.post(
+    "/editAsset/:oldTag",
+    restrictTo('owner'),
+    requireBody('asset_tag', 'name', 'description', 'damage_notes', 'category', 'operational', 'advanced'),
+    editAsset
+);
 // router.post("/:id(\\d+)/checkout", restrictTo('operator'), checkOutAsset);
 // router.post("/:id(\\d+)/checkin", restrictTo('operator'), checkInAsset);
 

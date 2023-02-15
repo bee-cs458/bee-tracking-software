@@ -28,7 +28,15 @@ export const updateUserPassword = async (req, res, next) => {
 export const getUserById = async (req, res, next) => {
     const {userId} = req.body;
     await query(`SELECT * FROM \`user\` WHERE user_id=?;`, [userId]).then(
-        (result) => res.send({ result }),
+        (result) => {
+            if (result.length > 0) {
+                for(const index in result)
+                {
+                    delete result[index].password;
+                }
+            }
+            res.send({ result })
+        },
         (reason) => {
             reason.message = `Error Getting User by id: ${reason.message}`;
             next(reason);
@@ -38,7 +46,15 @@ export const getUserById = async (req, res, next) => {
 
 export const getAllUsers = async (req, res, next) => {
     await query(`SELECT * FROM \`user\` ;`).then(
-        (result) => res.send({ result }),
+        (result) => {
+            if (result.length > 0) {
+                for(const index in result)
+                {
+                    delete result[index].password;
+                }
+            }
+            res.send({ result })
+        },
         (reason) => {
             reason.message = `Error Getting Users: ${reason.message}`;
             next(reason);
@@ -74,7 +90,15 @@ export const searchForUser = async (req, res, next) => {
     await query(
         statement, searchTerms
     ).then(
-        (result) => res.send({ result }),
+        (result) => {
+            if (result.length > 0) {
+                for(const index in result)
+                {
+                    delete result[index].password;
+                }
+            }
+            res.send({ result })
+        },
         (reason) => {
             reason.message = `Error Searching for User: ${reason.message}`;
             next(reason);
@@ -163,7 +187,6 @@ export const changePermissions = async (req, res, next) => {
                 res.send({ result })
             },
             (reason) => {
-
                 reason.message = `Error updating permissions of user ${user_id} from ${old_permissions} to ${new_permissions}`;
                 next(reason);
 
@@ -228,39 +251,63 @@ export const editUser = async (req, res, next) => {
 };
 
 
-
-
+/**
+ * Creates a user after verifying that a user with the same ID and username do not already exist
+ * @param {*} req - takes a user_id
+ * @returns Toast message if an error occured; Toast message if user has been added to database
+ */
 export const createUser = async (req, res, next) => {
 
     const newUser = req.body.user;
-
+    var valid = true;
     // Check that the user ID is not in use already
-    await query(`SELECT user_id FROM user WHERE user_id=?`, [newUser.user_id]).then((result) => {
-
-        if (result.length > 0) {
-            next({
-                result: { status: 409 },
-                message: "User ID already in use!"
-            });
-            // TODO fix: for some reason, this does not stop the INSERT query from running
-            return;
-        }
-    });
-
-
-
-    // create user in the db
-    await query(`INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${newUser.password}', ${newUser.permissions}, ${newUser.advanced});`)
-        .then(
+    await query(`SELECT user_id FROM user WHERE user_id='${newUser.user_id}'`).
+        then(
             (result) => {
-                result.status = 202;
-                res.send({ result })
-            },
-            (reason) => {
 
-                reason.message = `Error creating user with user id ${newUser.user_id}`;
-                next(reason);
+                if (result.length > 0) {
+                    next({
+                        status: 409,
+                        message: "User ID already in use!"
+                    });
 
+                    valid = false;
+                    
+                    return;
+                }
             }
         );
-}
+     //Checks the database to see if a username is already in use. Allows usernames that are empty     
+        await query(`SELECT username FROM user WHERE username='${newUser.username}'`).
+        then(
+            (result) => {
+
+                if (result.length > 0 && newUser.username != '') {
+                    next({
+                        status: 410,
+                        message: "Username already in use!"
+                    });
+
+                    valid = false;
+                    return;
+                }
+            }
+        );
+
+    if (valid) {
+        // create user in the db
+        await query(`INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${newUser.password}', ${newUser.permissions}, ${newUser.advanced});`)
+            .then(
+                (result) => {
+                    result.status = 202;
+                    res.send({ result })
+                },
+                (reason) => {
+
+                    reason.message = `Error creating user with user id ${newUser.user_id}`;
+                    next(reason);
+
+                    return;
+                }
+            );
+    }}

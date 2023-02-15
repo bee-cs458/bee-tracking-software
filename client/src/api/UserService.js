@@ -61,6 +61,7 @@ export async function searchingForUsers(input) {
                 last_name: input,
             },
         });
+
         return response.data.result;
     } catch (error) {
         return "Error Getting Users by searching from API";
@@ -145,15 +146,17 @@ export async function createNewUser(user) {
     try {
         const response = await axios.post("/api/user/create", { user: user });
         return response.data.result;
-
     } catch (error) {
-        console.log(error.response.data.message);
-        console.log(error.response.data.result.status);
-        return `Error creating user ${user.user_id} ${user.first_name} ${user.last_name} with API`
+        return {
+
+            status: error.response.status,
+            message: error.response.data.message
+
+        }
     }
 }
 
-export async function getUserById(userId){
+export async function getUserById(userId) {
     try {
         console.log("Getting User by ID");
 
@@ -166,8 +169,9 @@ export async function getUserById(userId){
     }
 }
 
-export async function deleteUser(userId){
-    try { console.log("Deleting user " + userId)
+export async function deleteUser(userId) {
+    try {
+        console.log("Deleting user " + userId)
         const response = await axios.delete("/api/user/" + userId);
         return response.data.result;
     } catch (error) {
@@ -202,7 +206,7 @@ export async function editUser(
         error.message = "Error while updating the user: " + error.message;
       throw error;
     }
-  }
+}
 
 // old function for updatePass(does not work)
 // export async function updatePass(pass, newPass) {

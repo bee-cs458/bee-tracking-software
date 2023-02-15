@@ -10,15 +10,18 @@ import checkInRoutes from "./CheckInRoutes.js";
 import checkoutRoutes from "./CheckoutRoutes.js"
 import userRoutes from './UserRoutes.js';
 import recordRoutes from './RecordRoutes.js';
+
+import { restrictTo } from '../controllers/SecurityController.js'
+
 // our api routes
 router.get("/", (req, res) => res.send("Hello World!"));
 router.use("/count", counterRoutes);
 router.use("/asset", assetRoutes);
 router.use("/categories", categoryRoutes);
 router.use("/user", userRoutes);
-router.use("/checkin", checkInRoutes);
-router.use("/checkout", checkoutRoutes);
-router.use("/records", recordRoutes);
+router.use("/checkin", restrictTo("operator"), checkInRoutes);
+router.use("/checkout", restrictTo("operator"), checkoutRoutes);
+router.use("/records", restrictTo("operator"), recordRoutes);
 // router.use("/user", UserRoutes);
 
 // Test Database Endpoint - demonstration purposes only

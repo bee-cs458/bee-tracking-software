@@ -33,7 +33,6 @@ export default function AssetTable(props) {
         return value;
       })
       .catch((err) => console.log(err));
-    console.log(cats);
   }, [assets, setAssets]);
 
   useEffect(() => {
@@ -59,14 +58,14 @@ export default function AssetTable(props) {
 
   return (
     <div>
-      {localStorage.getItem("userPerms") == 2 ? (<button onClick={handleShow}>Add Asset</button>) : (<></>)}
+      {localStorage.getItem("userPerms") === "2" ? (<button onClick={handleShow}>Add Asset</button>) : (<></>)}
 
       <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>{(localStorage.getItem("userPerms") == 2) ? <>Add Asset</> : <>Invalid Permissions</>}</Modal.Title>
+              <Modal.Title>{(localStorage.getItem("userPerms") === "2") ? <>Add Asset</> : <>Invalid Permissions</>}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              {(localStorage.getItem("userPerms") == 2) ? <AddAsset cats={cats} onSubmit={handleClose}/> : <>Only Owner can Add Assets</>}
+              {(localStorage.getItem("userPerms") === "2") ? <AddAsset cats={cats} onSubmit={handleClose}/> : <>Only Owner can Add Assets</>}
             </Modal.Body>
       </Modal>
 

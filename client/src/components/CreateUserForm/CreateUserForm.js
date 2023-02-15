@@ -42,6 +42,21 @@ function CreateUserForm() {
                     show: true
                 })
                 clearForm();
+            } 
+            else if(result.status === 409){
+                setToastData({
+                    title: "Error 409",
+                    message: "User ID already in use.",
+                    variant: "danger",
+                    show: true
+                })
+            } else if(result.status === 410){
+                 setToastData({
+                    title: "Error 410",
+                    message: "Username already in use.",
+                    variant: "danger",
+                    show: true
+                })
             } else {
                 setToastData({
                     title: "Error",
@@ -72,7 +87,7 @@ function CreateUserForm() {
             <h2>Creating a User</h2>
 
             <ToastContainer position="bottom-center" className="p-5 m-5">
-                <Toast bg={toastData.variant} onClose={() => setToastData({ ...toastData, show: false })} show={toastData.show} delay={6000}>
+                <Toast bg={toastData.variant} onClose={() => setToastData({ ...toastData, show: false })} show={toastData.show} delay={4000}>
                     <Toast.Header>
                         <strong className="me-auto">{toastData.title}</strong>
                     </Toast.Header>
@@ -105,13 +120,13 @@ function CreateUserForm() {
                     <Form.Group as={Col} xs={6}>
 
                         <Form.Label>Username</Form.Label>
-                        <Form.Control required type="text" id="username" value={userData.username} onChange={(event) => setUserData({ ...userData, username: event.target.value })} />
+                        <Form.Control type="text" id="username" value={userData.username} onChange={(event) => setUserData({ ...userData, username: event.target.value })} />
 
                     </Form.Group>
                     <Form.Group as={Col} xs={6}>
 
                         <Form.Label>Password</Form.Label>
-                        <Form.Control required type="password" id="password" value={userData.password} onChange={(event) => setUserData({ ...userData, password: event.target.value })} />
+                        <Form.Control type="password" id="password" value={userData.password} onChange={(event) => setUserData({ ...userData, password: event.target.value })} />
 
                     </Form.Group>
                 </Row>

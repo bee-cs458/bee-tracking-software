@@ -80,9 +80,15 @@ export const requireQuery = (...paramList) => {
 // export const isBoolean = x => (typeof x === "boolean") || x === 0 || x === 1;
 // export const isDate = x => (new Date(x) !== "Invalid Date") && !isNaN(new Date(x));
 
+/**
+ * 
+ * @param {string} level - the minimum permission level for your operation
+ * @returns If the permission check is valid (meets the minimum permission level)
+ *          the operation proceeds.
+ *          If not, returns a 401 and error message
+ */
 export const restrictTo = (level) => async (req, res, next) => {
-    // TODO implement authentication
-    const role = permissionEnumConversion?.[req?.user?.permissions] ?? 'guest';
+    const role = permissionEnumConversion?.[req?.get("Authorization")] ?? 'guest';
     if (permissionLevels?.[role] >= permissionLevels[level]) {
         next();
     }
