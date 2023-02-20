@@ -6,7 +6,7 @@ Calls the API endpoint for getting all assets, does not include due dates
 */
 export async function getAllAssets() {
   try {
-    console.log("Getting Assets");
+    //console.log("Getting Assets");
 
     const response = await axios.get("/api/asset/get_all");
 
@@ -22,7 +22,7 @@ Calls the API endpoint for getting all assets with their due dates
 */
 export async function getAllAssetsWithDueDates() {
   try {
-    console.log("Getting Assets with Due Dates");
+    //console.log("Getting Assets with Due Dates");
 
     const response = await axios.get("/api/asset/get_all_due_dates");
 
@@ -37,7 +37,7 @@ Calls API endpoint for getting assests based on description searched by user
 */
 export async function getAssetsByDescription(input) {
   try {
-    console.log(`Getting Assests by Description: ${input}`);
+    //console.log(`Getting Assests by Description: ${input}`);
 
     const response = await axios.get("/api/asset/search", {
       params: {
@@ -53,7 +53,7 @@ export async function getAssetsByDescription(input) {
 
 export async function getAssetFromCat(category) {
   try {
-    console.log("Getting Assets with matching category");
+    //console.log("Getting Assets with matching category");
 
     const response = await axios.get(
       "/api/asset/get_asset_via_cat/" + category
@@ -74,7 +74,7 @@ Calls API endpoint for getting assests based on asset Tag searched by user
 */
 export async function getAssetByAssetTag(input) {
   try {
-    console.log("Getting Assets by Asset Tag");
+    //console.log("Getting Assets by Asset Tag");
 
     const response = await axios.get("/api/asset/" + input);
 
@@ -93,7 +93,7 @@ Calls API endpoint for getting assests based on asset_tag, name, or description 
 */
 export async function searchingForAssests(input) {
   try {
-    console.log(`Searching assets by: ${input}`);
+    //console.log(`Searching assets by: ${input}`);
 
         const response = await axios.get("/api/asset/search", {
             params: {
@@ -112,7 +112,7 @@ export async function searchingForAssests(input) {
 //Calls API endpoint for creating an asset 
 export async function createNewAsset(assetTag,name,description,category,operational,advanced) {
     try {
-        console.log(`Creating new Asset with Asset_Tag: ${assetTag}`);
+        //console.log(`Creating new Asset with Asset_Tag: ${assetTag}`);
         let curDate = new Date();
         let date = curDate.getFullYear() + '-' + curDate.getMonth() + '-' + curDate.getDate();
   
@@ -144,7 +144,7 @@ export async function editAsset(
   advanced
 ) {
   try {
-    console.log("Editing the asset " + oldTag);
+    //console.log("Editing the asset " + oldTag);
 
     const response = await axios.post("/api/asset/editAsset/" + oldTag, {
       asset_tag,
@@ -166,11 +166,11 @@ export async function editAsset(
 }
 
 export async function deleteAsset(asset_tag) {
-  try { console.log("Deleting asset " + asset_tag)
+  try { //console.log("Deleting asset " + asset_tag)
   const response = await axios.delete("/api/asset/" + asset_tag);
   return response.data.result;
   } catch (error) {
-    console.log("yay Error!")
+    //console.log("yay Error!")
     if (error.response.status === 404 || error.response.status === 400) {
     return error.response.status;
     }
