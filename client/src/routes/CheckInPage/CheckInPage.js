@@ -224,7 +224,7 @@ export default function CheckInPage() {
             </Form.Group>
           </Row>
           <Row className="mb-3 notes">
-            <CheckInTable as={Row} assets={assets} disabledButton={disabledButton} handleRemove={removeAsset}></CheckInTable>
+            <CheckInTable as={Row} assets={assets} disabledButton={disabledButton} removeAsset={removeAsset}></CheckInTable>
 
             <Form.Group as={Row}>
               <Form.Label>Check In Notes</Form.Label>
