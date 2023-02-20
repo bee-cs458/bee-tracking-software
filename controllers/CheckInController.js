@@ -75,12 +75,13 @@ export const getCheckoutRecordsByUser = async (req, res, next) => {
 
 export const checkInAsset = async (req, res, next) => {
   const recordId = req.params.id;
+  const rightNow = new Date();
   await query(
     `
         UPDATE checkoutrecord, asset
-        SET checkoutrecord.in_date = CURRENT_TIMESTAMP(), asset.checked_out = 0
+        SET checkoutrecord.in_date = ?, asset.checked_out = 0
         WHERE checkoutrecord.record_id = ? and asset.asset_tag = checkoutrecord.asset_tag`,
-    [recordId]
+    [rightNow, recordId]
   ).then(
     (result) => {
       if (result.affectedRows == 0) {
@@ -104,16 +105,17 @@ export const checkInAssetWithNotes = async (req, res, next) => {
   const damage = req.body.damage;
   const notes = req.body.notes;
   const damageNotes = req.body.damageNotes;
+  const rightNow = new Date();
   await query(
     `
         UPDATE checkoutrecord, asset
-        SET checkoutrecord.in_date = CURRENT_TIMESTAMP(), 
+        SET checkoutrecord.in_date = ?, 
         asset.checked_out = 0, 
         checkoutrecord.notes = ?, 
         asset.operational = ?,
         asset.damage_notes = ?
         WHERE checkoutrecord.record_id = ? and asset.asset_tag = checkoutrecord.asset_tag`,
-    [notes, damage, damageNotes, recordId]
+    [rightNow, notes, damage, damageNotes, recordId]
   ).then(
     (result) => {
       if (result.affectedRows == 0) {

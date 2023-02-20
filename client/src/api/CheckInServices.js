@@ -6,7 +6,6 @@ Calls the API endpoint that gets every Checkout record that is in the database w
 */
 export async function getCheckoutRecords() {
   try {
-    console.log("Getting all of the checkout records");
 
     const response = await axios.get("/api/checkin");
     return response.data.result;
@@ -22,10 +21,11 @@ Calls the API endpoint that gets the checkout record for the checkout record wit
 */
 export async function getCheckoutRecordsByTag(tag) {
   try {
+    /*
     console.log(
       "Getting the mot recent checkout record for the asset with tag" + tag
     );
-
+    */
     const response = await axios.get("/api/checkin/byasset/" + tag);
     return response.data.result;
   } catch (error) {
@@ -40,10 +40,11 @@ Calls the APT endpount that gets a list of all the checkout records that with gi
 */
 export async function getCheckoutRecordsByUserID(userId) {
   try {
+    /*
     console.log(
       "Getting the mot recent checkout records for the user " + userId
     );
-
+    */
     const response = await axios.get("/api/checkin/" + userId);
     return response.data.result;
   } catch (error) {
@@ -58,11 +59,12 @@ Calls the APT endpount that gets a list the assets of all the checkout records t
 */
 export async function getAssetsByUserID(userId) {
   try {
+    /*
     console.log(
       "Getting the mot recent assets for checkout records for the user " +
         userId
     );
-
+    */
     const response = await axios.get("/api/checkin/assets/" + userId);
     return response.data.result;
   } catch (error) {
@@ -87,7 +89,7 @@ export async function checkInAssetWithNotes(
   damageNotes
 ) {
   try {
-    console.log("Getting the most recent checkout record  " + recordId);
+    //console.log("Getting the most recent checkout record  " + recordId);
 
     const response = await axios.post("/api/checkin/checkin/" + recordId, {
       notes,
@@ -107,10 +109,10 @@ Calls the API endpoint that gets true if the record asset was turned in after th
 */
 export async function getOverdue(recordId) {
   try {
-    console.log("Checking if the asset is overdue for record: " + recordId);
+    //console.log("Checking if the asset is overdue for record: " + recordId);
 
     const response = await axios.get("/api/checkin/overdue/" + recordId);
-    console.log(response.data.result);
+    //console.log(response.data.result);
     return response.data;
   } catch (error) {
     return "Error getting the overdue info for checkout record " + recordId;
@@ -123,7 +125,7 @@ Calls the API endpoint that increments the user strikes
 */
 export async function incrementUserStrikes(userId) {
   try {
-    console.log("Giving the user " + userId + " one more strike");
+    //console.log("Giving the user " + userId + " one more strike");
 
     const response = await axios.post("/api/checkin/student/" + userId);
     return response.data.result;
