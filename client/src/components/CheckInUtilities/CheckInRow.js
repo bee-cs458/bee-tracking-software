@@ -69,7 +69,7 @@ export default function CheckInRow(props) {
         />
       </td>
       <td><Button variant='danger'>
-      <img alt='minus' src={minus} width="25" disabled={disabledButton} onClick={() => {console.log("button pressed"); handleRemove(asset.asset_tag)}}/>
+      <img alt='minus' src={minus} width="25" disabled={disabledButton} onClick={() => {handleRemove(asset.asset_tag)}}/>
       </Button></td>
     </tr>
   );
