@@ -21,8 +21,23 @@ function CheckOutPage() {
     const [disabledButton, setDisabledButton] = useState(false);
     const [alertType, setAlertType] = useState(null);
     const [alertMessage, setAlertMessage] = useState(null);
-
     const [currentAssetList, setCurrentAssetList] = useState([]);
+    //setOpId(localStorage.getItem("userId"));
+
+    const removeAsset = (asset_tag) => {
+        if(asset_tag){
+            let tempList = currentAssetList.slice(); //creates a temp list that isn't a state
+            //let index = 0; // for the index of the asset
+            currentAssetList.forEach((asset) => {// go through every element in the list
+                if(asset.asset_tag === asset_tag) //check if the current asset is the passes in asset
+                    tempList.shift(); //removes the first element in the list which is the asset with the tag that was passed in
+                else
+                    tempList.push(tempList.shift()); //shifts the list so that the first element is now at the back
+            })
+            setCurrentAssetList(tempList); //set the state to the temp list that has the change
+        }
+    }
+
     const handleClose = () => { //clear asset list
         setAlertType(null);
         setCurrentAssetList([]); //makes asset list empty
@@ -55,6 +70,13 @@ function CheckOutPage() {
         }
         setCurrentAssetList(prev => prev.concat(asset)); //sets the current asset list with the new asset
     }
+
+    const handleKeypress = e => {
+        //it triggers by pressing the enter key
+      if (e.keyCode === 13) {
+        handleAssetAddBtn();
+      }
+    };
 
     const handleCheckoutBtn = async () => {
         if(studentId === "" ){  //checks for the two 
@@ -101,7 +123,7 @@ function CheckOutPage() {
         }
         await doCheckout(currentAssetList.map((asset) => asset.asset_tag), studentId, opId).then( //passes assets, student id and operator id to the query
             (result) => {
-                handleShow(); //shows the confirmation modal
+                handleShow(); //shows the confirmation modal                old things
             }
         ).catch((error) => setErrMsg(error.message)) //displays error message in the modal*/
         setDisabledButton(false);
@@ -125,7 +147,7 @@ function CheckOutPage() {
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="assetTag">
                             <Form.Label>Asset Tag</Form.Label>
-                            <Form.Control className="search" type="search" placeholder="Enter Asset Tag Number" onChange={(e) => {setAssetTag(e.target.value); setAlertType(null)}} />
+                            <Form.Control className="search" type="search" placeholder="Enter Asset Tag Number" onKeyDown={handleKeypress} onChange={(e) => {setAssetTag(e.target.value); setAlertType(null)}} />
                             <Button id="addAsset" disabled={disabledButton} onClick={handleAssetAddBtn}>Add</Button>
                             {/* Should search for the matching asset and submit it to the table (check out queue) */}
                         </Form.Group>
@@ -137,7 +159,7 @@ function CheckOutPage() {
                     </Row>
 
                     {/* Check out queue */}
-                    <CheckOutTable assets={currentAssetList}></CheckOutTable>
+                    <CheckOutTable assets={currentAssetList} removeAsset={removeAsset} receipt={false} disabledButton={disabledButton}></CheckOutTable>
                     
 
                     <Button className="clearAll" type="reset" disabled={disabledButton} onClick={handleClose}>Clear All</Button>
@@ -173,7 +195,7 @@ function CheckOutPage() {
                     </Modal.Header>
                     <Modal.Body>Successfully checked out items
                         {/* print checkout info */}
-                        <CheckOutTable assets={currentAssetList}></CheckOutTable>
+                        <CheckOutTable receipt={true} assets={currentAssetList}></CheckOutTable>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>Close</Button>

@@ -3,6 +3,7 @@ import Alert from "react-bootstrap/Alert";
 import CheckInRow from "../CheckInUtilities/CheckInRow";
 
 export default function CheckInTable(props) {
+  const {disabledButton, removeAsset } = props;
   return (
     <div>
       {props.assets != null && props.assets.length > 0 ? (
@@ -16,12 +17,13 @@ export default function CheckInTable(props) {
                 <td>Category</td>
                 <td>Due Date</td>
                 <td>Damage Notes</td>
+                <td>Remove</td>
               </tr>
             </thead>
             <tbody>
               {props.assets != null &&
                 props.assets.map((asset) => (
-                  <CheckInRow key={asset.asset_tag} item={asset}></CheckInRow>
+                  <CheckInRow key={asset.asset_tag} asset={asset} disabledButton={disabledButton} removeAsset={removeAsset}></CheckInRow>
                 ))}
             </tbody>
           </Table>

@@ -51,8 +51,19 @@ function NavBar() {
                 Check In
               </Link>
             </li>
+<<<<<<< Updated upstream
             </>
           }
+=======
+            {localStorage.getItem("userPerms")  >= 2 ? 
+            (
+            <li>
+              <Link to="/Users">
+                <img src={operators} alt="operators" width="20" height="18" />
+                Users
+              </Link>
+            </li>) :  ( <></>)}
+>>>>>>> Stashed changes
             <li>
               <Link to="/profile">
                 <img src={signIn} alt="profile" width="20" height="18" />

@@ -9,6 +9,7 @@ import Alert from "react-bootstrap/Alert";
 import AssetRow from "./AssetRow/AssetRow";
 import AddAsset from "../AddAsset/AddAsset";
 import Modal from 'react-bootstrap/Modal';
+import { Button } from "react-bootstrap";
 
 import { getCategories } from "../../api/CategoryService";
 
@@ -58,7 +59,7 @@ export default function AssetTable(props) {
 
   return (
     <div>
-      {localStorage.getItem("userPerms") === "2" ? (<button onClick={handleShow}>Add Asset</button>) : (<></>)}
+      {localStorage.getItem("userPerms") === "2" ? (<Button onClick={handleShow}>Add Asset</Button>) : (<></>)}
 
       <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -79,14 +80,14 @@ export default function AssetTable(props) {
                 <td width="400px">Description</td>
                 <td width="200px">Date Added</td>
                 <td width="150px">Category</td>
-                <td width="150px">Checked Out</td>
+                <td width="150px">Avaliable</td>
                 <td></td>
               </tr>
             </thead>
             <tbody>
               {props.filterByCheckedOut
                 ? assets
-                    .filter((asset) => asset.checked_out === 1)
+                    .filter((asset) => asset.checked_out === 0)
                     .map((asset) => (
                       <AssetRow
                         key={asset.asset_tag}
