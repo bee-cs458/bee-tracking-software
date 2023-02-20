@@ -8,6 +8,8 @@ beforeEach(() => {
     axios.get.mockReset();
 });
 
+jest.mock('axios');
+
 describe('getAllAssets tests', () => {
     it('should return all assets', async () => {
         const assets = [
@@ -53,7 +55,7 @@ describe('getAssetsByDescription tests', () => {
 
         axios.get.mockResolvedValueOnce(response);
 
-        return Services.getAllAssetsWithDueDates().then(data => expect(data).toEqual(assets));
+        return Services.getAssetsByDescription().then(data => expect(data).toEqual(assets));
     })
 
 

@@ -18,10 +18,12 @@ describe('getAllCategories tests', () => {
         const response = { data: result };
         // this should match the data format of response.data.result
         //        debugger;
+        // this will catch axios the next time it uses the get function and create the response we gave it
         axios.get.mockResolvedValue(response);
         //        console.log(await Services.getCategories());
 
         // expect(axios.get).toHaveBeenCalledWith('/api/categories/');
+        // when getCategories resolves check that the data matches the response we gave it
         return Services.getCategories().then(data => expect(data).toEqual(categories));
     })
 });
