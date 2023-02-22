@@ -2,6 +2,7 @@ import "./RecordRow.css";
 
 export default function CheckInRow(props) {
   const record = props.record;
+  // declare functions and var from the parent for ipc
   const setShow = props.setShow;
   const setPrintInfo = props.setPrintInfo;
 
@@ -19,6 +20,7 @@ export default function CheckInRow(props) {
   }
 
   const handleShow = () => {
+    // Create the formatted information to be sent back to the parent for printing
     var output =
       "<table><tr><td>Student:</td><td>" +
       props.userName +
@@ -47,6 +49,7 @@ export default function CheckInRow(props) {
             ? "#ffb9b9"
             : "",
       }}
+      // On click, open the print modal with the clicked row's information
       onClick={handleShow}
     >
       <td>{props.userName}</td>

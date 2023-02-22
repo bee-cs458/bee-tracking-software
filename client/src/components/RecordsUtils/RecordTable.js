@@ -11,8 +11,8 @@ export default function RecordTable() {
   const [records, setRecords] = useState();
   const [users, setUsers] = useState([{}]);
   const [assets, setAssets] = useState([{}]);
-  const [show, setShow] = useState(false);
-  const [printInfo, setPrintInfo] = useState("");
+  const [show, setShow] = useState(false); // Modal Show State
+  const [printInfo, setPrintInfo] = useState(""); // Info from the row for printing
 
   const getInfo = async () => {
     await getAllRecords().then((result) => {
@@ -28,12 +28,9 @@ export default function RecordTable() {
     });
   };
 
+  // Close modal
   const handleClose = () => {
     setShow(false);
-  };
-
-  const handleShow = () => {
-    setShow(true);
   };
 
   const today = new Date();
@@ -90,19 +87,21 @@ export default function RecordTable() {
                       : "Loading Student Name..."
                   }
                   date={today}
-                  setShow={setShow}
-                  setPrintInfo={setPrintInfo}
+                  setShow={setShow} // Allow row to show modal
+                  setPrintInfo={setPrintInfo} // Allow row to set print info
                 ></RecordRow>
               ))}
             </tbody>
           </Table>
 
+          {/* Modal to show information for printing */}
           <Modal show={show} keyboard={false}>
             <Modal.Header closeButton>
               <Modal.Title>Print Record</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               {
+                // Parse string as html from the child
                 <div
                   dangerouslySetInnerHTML={{
                     __html: printInfo.replaceAll(",", ""),
@@ -114,6 +113,7 @@ export default function RecordTable() {
               <Button variant="secondary" onClick={handleClose}>
                 Close
               </Button>
+              {/* Print modal with information */}
               <Button variant="primary" onClick={window.print}>
                 Print Check Out Record
               </Button>
