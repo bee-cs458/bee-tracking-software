@@ -2,6 +2,8 @@ import "./RecordRow.css";
 
 export default function CheckInRow(props) {
   const record = props.record;
+  const setShow = props.setShow;
+  const setPrintInfo = props.setPrintInfo;
 
   const dueDate = new Date(record.due_date);
 
@@ -16,11 +18,36 @@ export default function CheckInRow(props) {
     }
   }
 
+  const handleShow = () => {
+    var output =
+      "<table><tr><td>Student:</td><td>" +
+      props.userName +
+      "</td></tr><tr><td>Out Date:</td><td>" +
+      formatDate(record.out_date) +
+      "</td></tr><tr><td>Asset Name:</td><td>" +
+      props.assetName +
+      "</td></tr><tr><td>Due Date:</td><td>" +
+      formatDate(record.due_date) +
+      "</td></tr><tr><td>In Date:</td><td>" +
+      formatDate(record.in_date) +
+      "</td></tr><tr><td>Notes:</td><td>" +
+      record.notes +
+      "</td></tr></table>";
+    setPrintInfo(output);
+    setShow(true);
+  };
+
   return (
     <tr
       style={{
-        background: record.in_date === null ? "#55ff77" : (props.date > dueDate && !record.in_date ? "#ffb9b9" : ""),
+        background:
+          record.in_date === null
+            ? "#55ff77"
+            : props.date > dueDate && !record.in_date
+            ? "#ffb9b9"
+            : "",
       }}
+      onClick={handleShow}
     >
       <td>{props.userName}</td>
       <td>{formatDate(record.out_date)}</td>
