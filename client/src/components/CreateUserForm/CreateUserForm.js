@@ -57,6 +57,23 @@ function CreateUserForm() {
                     variant: "danger",
                     show: true
                 })
+            } else if(result.status === 411){
+                setToastData({
+                   title: "Error 411",
+                   message: "No password entered",
+                   variant: "danger",
+                   show: true
+               })
+            
+            
+            } else if(result.status === 412){
+                setToastData({
+                   title: "Error 412",
+                   message: "No Username entered",
+                   variant: "danger",
+                   show: true
+               })
+            
             } else {
                 setToastData({
                     title: "Error",

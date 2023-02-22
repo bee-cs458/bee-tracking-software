@@ -260,6 +260,25 @@ export const createUser = async (req, res, next) => {
 
     const newUser = req.body.user;
     var valid = true;
+
+    //Does not allow accounts with a username and no password
+    if (newUser.username.length > 0 && newUser.password.length == 0) {
+        next({
+            status: 411,
+            message: "No password entered"
+        });
+        valid = false;
+        return;
+    }
+    //Does not allow accounts with a password and no username
+    else if (newUser.password.length > 0 && newUser.username.length == 0) {
+        next({
+            status:412,
+            message: "No username entered"
+        });
+        valid = false;
+        return;
+    }
     // Check that the user ID is not in use already
     await query(`SELECT user_id FROM user WHERE user_id='${newUser.user_id}'`).
         then(
