@@ -102,7 +102,13 @@ export default function RecordTable() {
               <Modal.Title>Print Record</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              {<div dangerouslySetInnerHTML={{ __html: printInfo.replaceAll(',', '') }} />}
+              {
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: printInfo.replaceAll(",", ""),
+                  }}
+                />
+              }
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
