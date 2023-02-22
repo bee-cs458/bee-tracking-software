@@ -13,6 +13,8 @@ import {
   getCheckoutRecordsByTag,
 } from "../../api/CheckInServices";
 import CheckInTable from "../../components/CheckInUtilities/CheckInTable";
+import getCategories from "../../api/CategoryService";
+import { getAllUnavailableAssets } from "../../api/AssetService";
 
 export default function CheckInPage() {
   const [assets, setAssets] = useState([]);
@@ -24,7 +26,8 @@ export default function CheckInPage() {
   const [strikes, setStrikes] = useState(0);
   const [disabledButton, setDisabledButton] = useState(false);
   //const [selectedStudent, setStudent] = useState("TODO Enter Student Here");
-
+  const [cats, setCats] = useState([]);
+  const [unavailableAssetTags, setUnAvailableAssetTags] = useState([]);
 
   const removeAsset = (asset_tag) => {
     if(asset_tag){
@@ -131,7 +134,7 @@ export default function CheckInPage() {
         today.getFullYear() +
         ": " +
         asset.notes
-    );
+    ).then(() => setDisabledButton(false));
 
     const overDue = await getOverdue(asset.record_id);
 
@@ -149,6 +152,7 @@ export default function CheckInPage() {
     } else {
       setAlertType(null);
       setAlertMessage(null);
+
 
       assets.forEach((asset) => {
         checkIn(asset);
@@ -178,9 +182,24 @@ export default function CheckInPage() {
     // make assets available if not damaged
   };
 
+  const populateAssetTags = async () => {
+    getAllUnavailableAssets()
+      .then((tags) => {
+        setUnAvailableAssetTags(tags);
+        return tags;
+      })
+      .catch((err) => console.log(err));
+
+    getCategories()
+      .then((value) => {
+        setCats(value);
+        return value;
+      })
+      .catch((err) => console.log(err));
+  };
 
   // re-render the assets table
-  useEffect(() => {}, [assets, currentTag, studentID, alertMessage]);
+  useEffect(() => {populateAssetTags()}, [assets, currentTag, studentID, alertMessage]);
 
   return (
     <div>
@@ -200,12 +219,18 @@ export default function CheckInPage() {
               <Form.Control
                 className="search"
                 type="search"
+                list="unavailableAssets"
                 placeholder="Enter Asset Tag Number"
                 onKeyDown={handleKeypressAsset}
                 onChange={(event) => {
                   handleTagChange(event.target.value);
                 }}
               />
+              <datalist id="unavailableAssets">
+              {unavailableAssetTags.map((asset) => {
+                  return <option value={asset.asset_tag}/>;
+                })}
+              </datalist>
               <Button onClick={handleTagPress} disabled={disabledButton}>Add</Button>
             </Form.Group>
 
@@ -224,7 +249,7 @@ export default function CheckInPage() {
             </Form.Group>
           </Row>
           <Row className="mb-3 notes">
-            <CheckInTable as={Row} assets={assets} disabledButton={disabledButton} removeAsset={removeAsset}></CheckInTable>
+            <CheckInTable as={Row} assets={assets} disabledButton={disabledButton} removeAsset={removeAsset} cats={cats}></CheckInTable>
 
             <Form.Group as={Row}>
               <Form.Label>Check In Notes</Form.Label>

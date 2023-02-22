@@ -17,6 +17,38 @@ export async function getAllAssets() {
 }
 
 /*
+Calls the API endpoint for getting all available assets
+@return collection of assets from the database, where each entry is one row. 
+*/
+export async function getAllAvailableAssets() {
+  try {
+    //console.log("Getting Assets");
+
+    const response = await axios.get("/api/asset/get_available");
+
+    return response.data.result;
+  } catch (error) {
+    return "Error Getting Available Assets from API";
+  }
+}
+
+/*
+Calls the API endpoint for getting all available assets
+@return collection of assets from the database, where each entry is one row. 
+*/
+export async function getAllUnavailableAssets() {
+  try {
+    //console.log("Getting Assets");
+
+    const response = await axios.get("/api/asset/get_unavailable");
+
+    return response.data.result;
+  } catch (error) {
+    return "Error Getting Unavailable Assets from API";
+  }
+}
+
+/*
 Calls the API endpoint for getting all assets with their due dates
 @return collection of assets from the database, where each entry is one row. 
 */
@@ -93,7 +125,7 @@ Calls API endpoint for getting assests based on asset_tag, name, or description 
 */
 export async function searchingForAssests(input) {
   try {
-    //console.log(`Searching assets by: ${input}`);
+    console.log(`Searching assets by: ${input}`);
 
         const response = await axios.get("/api/asset/search", {
             params: {

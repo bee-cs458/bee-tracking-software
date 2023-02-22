@@ -7,6 +7,7 @@ import './Login.css';
 function update(perams) {
     setUserId(perams.user_id);
     setUserPerm(perams.permissions);
+    window.location.reload();
 }
 
 function Login(props) {
@@ -50,7 +51,7 @@ function Login(props) {
                     <div>
                         <Button variant="primary" onClick={
                             async () => {
-                               submit()
+                               submit();
                             }
                         } style={{ float: 'right' }}>
                             Login

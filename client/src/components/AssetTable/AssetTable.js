@@ -80,7 +80,7 @@ export default function AssetTable(props) {
                 <td width="400px">Description</td>
                 <td width="200px">Date Added</td>
                 <td width="150px">Category</td>
-                <td width="150px">Avaliable</td>
+                <td width="150px">Available</td>
                 <td></td>
               </tr>
             </thead>

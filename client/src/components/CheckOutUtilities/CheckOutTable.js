@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table";
 import CheckOutRow from "./CheckOutRow";
 
 export default function CheckOutTable(props) {
-    const { assets, removeAsset, receipt, disabledButton } = props;
+    const { assets, removeAsset, receipt, disabledButton, cats } = props;
 
     useEffect(() => {}, [assets])
     return (
@@ -21,7 +21,7 @@ export default function CheckOutTable(props) {
             <tbody>
                 {
                     (assets.map((asset) => {
-                        return (<CheckOutRow asset={asset} receipt={receipt} removeAsset={removeAsset} disabledButton={disabledButton}></CheckOutRow>);
+                        return (<CheckOutRow key= {asset.asset_tag} asset={asset} receipt={receipt} removeAsset={removeAsset} disabledButton={disabledButton} cats={cats}></CheckOutRow>);
                     }))
                 }
             </tbody>
