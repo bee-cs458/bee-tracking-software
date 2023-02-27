@@ -8,7 +8,7 @@ import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import AssetRow from "./AssetRow/AssetRow";
 import AddAsset from "../AddAsset/AddAsset";
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 
 import { getCategories } from "../../api/CategoryService";
 
@@ -39,6 +39,7 @@ export default function AssetTable(props) {
     async function assetTableInit() {
       let assetResults = 0;
       console.log(props.cat);
+
       if (props.cat >= 0) {
         // Check if category is selected
         assetResults = await getAssetFromCat(props.cat); // Then only query for that category
@@ -49,27 +50,40 @@ export default function AssetTable(props) {
       } else {
         assetResults = await getAllAssets(); // If no filters are applied, just get all assets
       }
+
       setAssets(assetResults); // Set the assets data table to be the queried result
     }
     assetTableInit(); // Render that son of a gun
   }, [props.cat, props.input, props.filterByCheckedOut, updated]);
 
-
-
   return (
     <div>
-      {localStorage.getItem("userPerms") === "2" ? (<button onClick={handleShow}>Add Asset</button>) : (<></>)}
+      {localStorage.getItem("userPerms") === "2" ? (
+        <button onClick={handleShow}>Add Asset</button>
+      ) : (
+        <></>
+      )}
 
       <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>{(localStorage.getItem("userPerms") === "2") ? <>Add Asset</> : <>Invalid Permissions</>}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {(localStorage.getItem("userPerms") === "2") ? <AddAsset cats={cats} onSubmit={handleClose}/> : <>Only Owner can Add Assets</>}
-            </Modal.Body>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {localStorage.getItem("userPerms") === "2" ? (
+              <>Add Asset</>
+            ) : (
+              <>Invalid Permissions</>
+            )}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {localStorage.getItem("userPerms") === "2" ? (
+            <AddAsset cats={cats} onSubmit={handleClose} />
+          ) : (
+            <>Only Owner can Add Assets</>
+          )}
+        </Modal.Body>
       </Modal>
 
-      {(assets != null && assets.length > 0) ? (
+      {assets != null && assets.length > 0 ? (
         <div>
           <Table striped bordered>
             <thead>
