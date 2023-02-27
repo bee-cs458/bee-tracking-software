@@ -21,6 +21,7 @@ export default function HomePage() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+<<<<<<< Updated upstream
   const [inputVal, setInputVal] = useState(null);
 
   //Store Categories
@@ -40,6 +41,16 @@ export default function HomePage() {
     if (e.key === "Enter") {
       console.log("Key press is entered");
       getInputValue();
+=======
+    const [inputVal, setInputVal] = useState(null);
+    
+    //Handling user input when user hits 'Enter'
+    function handleKeyPress(e) {
+        if (e.key === "Enter") {
+            console.log("Key press is entered");
+            getInputValue();
+        }
+>>>>>>> Stashed changes
     }
   }
 
