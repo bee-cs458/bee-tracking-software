@@ -19,6 +19,13 @@ export default function ChangePassword() {
     minLength: 0,
   });
 
+  const handleKeypress = e => {
+    //it triggers by pressing the enter key
+  if (e.keyCode === 13) {
+    submit();
+  }
+};
+
   function handleOldPassChange(password) {
     setOldPassword(password);
   }
@@ -83,6 +90,7 @@ export default function ChangePassword() {
               className="search"
               type="password"
               placeholder="Enter New Password"
+              onKeyDown={handleKeypress}
               onChange={(event) => {
                 handleNewPassChange(event.target.value);
               }}
@@ -94,6 +102,7 @@ export default function ChangePassword() {
               className="search"
               type="password"
               placeholder="Verify New Password"
+              onKeyDown={handleKeypress}
               onChange={(event) => {
                 handlePassAgainChange(event.target.value);
               }}
