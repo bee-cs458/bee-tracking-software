@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState} from 'react';
 import "./HomePage.css";
 import search from "../../assets/search.png";
 import AssetTable from "../../components/AssetTable/AssetTable";
@@ -31,7 +31,16 @@ export default function HomePage() {
 
     const [checked, setChecked] = useState(false);
 
+
+
+
+    
+
+
+
+
     return (
+
         <div className="App">
             <div className="header-container container-fluid">
                 <div className="search-header">
@@ -46,6 +55,13 @@ export default function HomePage() {
                     <button type="submit" onClick={getInputValue} className="btn btn-default">
                         <img src={search} alt="search" width="22" height="22" />
                     </button>
+                    
+
+                    
+                      
+                    
+                        
+
 
                 </div>
             </div>
@@ -62,6 +78,11 @@ export default function HomePage() {
             </div>
 
         </div>
+
+
+
+
+        
 
     );
 }

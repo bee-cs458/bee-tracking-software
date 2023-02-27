@@ -9,6 +9,8 @@ import UserTable from "./../../components/UserTable/UserTable";
 import Accordion from 'react-bootstrap/Accordion';
 import CreateUserForm from "../../components/CreateUserForm/CreateUserForm";
 
+import UserAsyncCSV from "../../components/ExportCSV/ExportUserCSV";
+
 export default function UserPage() {
 
     const [inputVal, setInputVal] = useState(null);
@@ -72,10 +74,14 @@ export default function UserPage() {
                         </Form.Group>
                     </Row>
                 </Form>
+
+                <UserAsyncCSV></UserAsyncCSV>
+
                 {/* Display information of users */}
                 <div className="container-fluid user-content">
                     <UserTable input={inputVal}> </UserTable>
                 </div>
+
 
             </div>
         </>

@@ -31,7 +31,9 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "postinstall": "^0.8.0",
-    "reactjs-popup": "^2.0.5"
+    "react-csv": "^2.2.2",
+    "reactjs-popup": "^2.0.5",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",

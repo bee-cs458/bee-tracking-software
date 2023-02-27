@@ -10,6 +10,8 @@ import AssetRow from "./AssetRow/AssetRow";
 import AddAsset from "../AddAsset/AddAsset";
 import Modal from 'react-bootstrap/Modal';
 
+import AssetAsyncCSV from "../ExportCSV/ExportAssetCSV";
+
 import { getCategories } from "../../api/CategoryService";
 
 export default function AssetTable(props) {
@@ -56,9 +58,39 @@ export default function AssetTable(props) {
 
 
 
+  const [theme, setTheme] = useState(
+        localStorage.getItem('theme') || 'light'
+      );
+      const toggleTheme = () => {
+        if (theme === 'light') {
+          setTheme('dark');
+        } else {
+          setTheme('light');
+        }
+      };
+      useEffect(() => {
+        localStorage.setItem('theme', theme);
+        document.body.className = theme;
+      }, [theme]);
+
+
+
+
+
+
+
+
+
+
   return (
     <div>
       {localStorage.getItem("userPerms") === "2" ? (<button onClick={handleShow}>Add Asset</button>) : (<></>)}
+
+
+      <button onClick={toggleTheme}>Toggle Theme</button>
+
+      <AssetAsyncCSV></AssetAsyncCSV>
+
 
       <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
