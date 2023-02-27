@@ -9,7 +9,7 @@ import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import AssetRow from "./AssetRow/AssetRow";
 import AddAsset from "../AddAsset/AddAsset";
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 
 import { getCategories } from "../../api/CategoryService";
 
@@ -45,9 +45,18 @@ export default function AssetTable(props) {
         const categoryAssets = await getAssetFromCat(props.cat);
         assetResults = categoryAssets.filter(
           (asset) =>
-            asset.asset_tag.toString().toLowerCase().includes(props.input.toLowerCase()) ||
-            asset.name.toString().toLowerCase().includes(props.input.toLowerCase()) ||
-            asset.description.toString().toLowerCase().includes(props.input.toLowerCase())
+            asset.asset_tag
+              .toString()
+              .toLowerCase()
+              .includes(props.input.toLowerCase()) ||
+            asset.name
+              .toString()
+              .toLowerCase()
+              .includes(props.input.toLowerCase()) ||
+            asset.description
+              .toString()
+              .toLowerCase()
+              .includes(props.input.toLowerCase())
         );
       } else if (props.cat >= 0) {
         // If only category is present
