@@ -6,7 +6,7 @@ import path from 'path';
 import log from 'loglevel';
 
 import apiRoutes from './routes/ApiRoutesRoot.js';
-import passport from './utilities/passport-local-auth.js';
+import passport from './utilities/PassportUtilities.js';
 
 const app = express();
 
