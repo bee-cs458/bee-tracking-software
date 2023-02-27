@@ -53,6 +53,14 @@ function NavBar() {
             </li>
             </>
           }
+            {localStorage.getItem("userPerms")  >= 2 ? 
+            (
+            <li>
+              <Link to="/Users">
+                <img src={operators} alt="operators" width="20" height="18" />
+                Users
+              </Link>
+            </li>) :  ( <></>)}
             <li>
               <Link to="/profile">
                 <img src={signIn} alt="profile" width="20" height="18" />

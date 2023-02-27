@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/esm/Button";
 import { useEffect , useState} from 'react';
 import {setUserId, setUserPerm } from "../../App.js";
-import './Login.css'; 
+import './Login.css';
 
 function update(){
     setUserId(-1);
@@ -18,7 +18,7 @@ function Logout(props) {
         <>
             Are you sure you want to Logout?
             <div >
-            <Button variant="primary" onClick= {() => {update() ; toggleUpdate(true)}}>
+            <Button variant="primary" onClick= {() => {update() ; toggleUpdate(true); window.location.reload(); return false;}}>
                 Logout
             </Button>
             </div>

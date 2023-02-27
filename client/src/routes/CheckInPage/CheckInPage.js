@@ -13,6 +13,8 @@ import {
   getCheckoutRecordsByTag,
 } from "../../api/CheckInServices";
 import CheckInTable from "../../components/CheckInUtilities/CheckInTable";
+import getCategories from "../../api/CategoryService";
+import { getAllUnavailableAssets } from "../../api/AssetService";
 
 export default function CheckInPage() {
   const [assets, setAssets] = useState([]);
@@ -22,7 +24,24 @@ export default function CheckInPage() {
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
   const [strikes, setStrikes] = useState(0);
+  const [disabledButton, setDisabledButton] = useState(false);
   //const [selectedStudent, setStudent] = useState("TODO Enter Student Here");
+  const [cats, setCats] = useState([]);
+  const [unavailableAssetTags, setUnAvailableAssetTags] = useState([]);
+
+  const removeAsset = (asset_tag) => {
+    if(asset_tag){
+        let tempList = assets.slice(); //creates a temp list that isn't a state
+        //let index = 0; // for the index of the asset
+        assets.forEach((asset) => {// go through every element in the list
+            if(asset.asset_tag === asset_tag) //check if the current asset is the passes in asset
+                tempList.shift(); //removes the first element in the list which is the asset with the tag that was passed in
+            else
+                tempList.push(tempList.shift()); //shifts the list so that the first element is now at the back
+        })
+        setAssets(tempList); //set the state to the temp list that has the change
+    }
+}
 
   function handleIDChange(newValue) {
     setEnteredID(newValue);
@@ -85,7 +104,22 @@ export default function CheckInPage() {
     }
   };
 
+  const handleKeypressAsset = e => { //called when enter key is pressed while in the asset input box
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      handleTagPress();
+    }
+  };
+
+  const handleKeypressStudent = e => { //called when enter key is pressed while in the id input box
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      handleIDPress();
+    }
+  };
+
   const checkIn = async (asset) => {
+    setDisabledButton(true);
     const today = new Date();
     await checkInAssetWithNotes(
       asset.record_id,
@@ -100,7 +134,7 @@ export default function CheckInPage() {
         today.getFullYear() +
         ": " +
         asset.notes
-    );
+    ).then(() => setDisabledButton(false));
 
     const overDue = await getOverdue(asset.record_id);
 
@@ -108,6 +142,7 @@ export default function CheckInPage() {
       incrementUserStrikes(overDue.student_id);
       setStrikes(strikes + 1);
     }
+    setDisabledButton(false);
   };
 
   const handleSubmit = async (event) => {
@@ -117,6 +152,7 @@ export default function CheckInPage() {
     } else {
       setAlertType(null);
       setAlertMessage(null);
+
 
       assets.forEach((asset) => {
         checkIn(asset);
@@ -146,8 +182,24 @@ export default function CheckInPage() {
     // make assets available if not damaged
   };
 
+  const populateAssetTags = async () => {
+    getAllUnavailableAssets()
+      .then((tags) => {
+        setUnAvailableAssetTags(tags);
+        return tags;
+      })
+      .catch((err) => console.log(err));
+
+    getCategories()
+      .then((value) => {
+        setCats(value);
+        return value;
+      })
+      .catch((err) => console.log(err));
+  };
+
   // re-render the assets table
-  useEffect(() => {}, [assets, currentTag, studentID, alertMessage]);
+  useEffect(() => {populateAssetTags()}, [assets, currentTag, studentID, alertMessage]);
 
   return (
     <div>
@@ -167,12 +219,19 @@ export default function CheckInPage() {
               <Form.Control
                 className="search"
                 type="search"
+                list="unavailableAssets"
                 placeholder="Enter Asset Tag Number"
+                onKeyDown={handleKeypressAsset}
                 onChange={(event) => {
                   handleTagChange(event.target.value);
                 }}
               />
-              <Button onClick={handleTagPress}>Add</Button>
+              <datalist id="unavailableAssets">
+              {unavailableAssetTags.map((asset) => {
+                  return <option value={asset.asset_tag}/>;
+                })}
+              </datalist>
+              <Button onClick={handleTagPress} disabled={disabledButton}>Add</Button>
             </Form.Group>
 
             <Form.Group as={Col} controlid="studentId">
@@ -181,15 +240,16 @@ export default function CheckInPage() {
                 className="search"
                 type="search"
                 placeholder="Enter Student ID Number"
+                onKeyDown={handleKeypressStudent}
                 onChange={(event) => {
                   handleIDChange(event.target.value);
                 }}
               />
-              <Button onClick={handleIDPress}>Submit</Button>
+              <Button onClick={handleIDPress} disabled={disabledButton}>Submit</Button>
             </Form.Group>
           </Row>
           <Row className="mb-3 notes">
-            <CheckInTable as={Row} assets={assets}></CheckInTable>
+            <CheckInTable as={Row} assets={assets} disabledButton={disabledButton} removeAsset={removeAsset} cats={cats}></CheckInTable>
 
             <Form.Group as={Row}>
               <Form.Label>Check In Notes</Form.Label>
@@ -204,13 +264,14 @@ export default function CheckInPage() {
           </Row>
 
           <div className="mb-3">
-            <Button className="clearAll" type="reset" onClick={clearAll}>
+            <Button className="clearAll" type="reset" onClick={clearAll} disabled={disabledButton}>
               Clear All
             </Button>
             <Button
               className="checkIn"
               variant="primary"
               onClick={handleSubmit}
+              disabled={disabledButton}
             >
               Check In
             </Button>
@@ -220,9 +281,3 @@ export default function CheckInPage() {
     </div>
   );
 }
-
-// Checked out assets in the database:
-// 11
-// 12
-// 13
-// 14

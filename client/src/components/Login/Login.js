@@ -7,6 +7,7 @@ import './Login.css';
 function update(perams) {
     setUserId(perams.user_id);
     setUserPerm(perams.permissions);
+    window.location.reload();
 }
 
 function Login(props) {
@@ -14,6 +15,19 @@ function Login(props) {
     useEffect(() => { }, [updated]);
     const toggleUpdate = () => {updated ? changeUpdate(false): changeUpdate(true)}  ;
     const { callback } = props;
+
+    const submit = async () => {
+        update(await verifyLogin(document.getElementById('username').value, document.getElementById('password').value));
+        toggleUpdate(true);
+    }
+
+    const handleKeypress = e => {
+        //it triggers by pressing the enter key
+      if (e.keyCode === 13) {
+        submit()
+      }
+    };
+
     return (
         <>
 
@@ -30,15 +44,14 @@ function Login(props) {
                             </>
                     }
                     Username:<br></br>
-                    <input id="username" type="text"></input>
+                    <input id="username" type="text" onKeyDown={handleKeypress}></input>
                     <br></br>
                     Password:<br></br>
-                    <input id="password" type="password"></input>
+                    <input id="password" type="password" onKeyDown={handleKeypress}></input>
                     <div>
                         <Button variant="primary" onClick={
                             async () => {
-                                update(await verifyLogin(document.getElementById('username').value, document.getElementById('password').value));
-                                toggleUpdate(true);
+                               submit();
                             }
                         } style={{ float: 'right' }}>
                             Login
