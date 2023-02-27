@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/esm/Button";
+import minus from "../../assets/minus.png";
 
 export default function CheckInRow(props) {
-  const asset = props.item;
+  const {asset, removeAsset, disabledButton, cats} = props;
   const [damaged, setDamaged] = useState(false);
   const [notes, setNotes] = useState(null);
+
+  const handleRemove = (asset_tag) => {
+      removeAsset(asset_tag);
+  }
+
   // const [categories, updateCategories] = useState([]);
   // const [dom, updateDom] = useState("Loading...");
 
@@ -50,7 +57,11 @@ export default function CheckInRow(props) {
       </td>
       <td>{asset.asset_tag}</td>
       <td>{asset.name}</td>
-      <td>{asset.category}</td>
+      <td>
+        {cats.map((cat) =>
+          cat.category_id === asset.category ? cat.catName : null
+        )}
+      </td>
       <td>{asset.due_date}</td>
       <td>
         <Form.Control
@@ -61,6 +72,9 @@ export default function CheckInRow(props) {
           }}
         />
       </td>
+      <td><Button variant='danger'>
+      <img alt='minus' src={minus} width="25" disabled={disabledButton} onClick={() => {handleRemove(asset.asset_tag)}}/>
+      </Button></td>
     </tr>
   );
 }

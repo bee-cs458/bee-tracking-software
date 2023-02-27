@@ -7,10 +7,6 @@ import {
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import AssetRow from "./AssetRow/AssetRow";
-import AddAsset from "../AddAsset/AddAsset";
-import Modal from 'react-bootstrap/Modal';
-
-import { getCategories } from "../../api/CategoryService";
 
 export default function AssetTable(props) {
   const [assets, setAssets] = useState([]);
@@ -19,22 +15,6 @@ export default function AssetTable(props) {
     setUpdated(!updated);
   };
   
-  //Displaying Add Asset
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  //Store Categories
-  const [cats, setCats] = useState([]);
-
-  useEffect(() => {
-    getCategories()
-      .then((value) => {
-        setCats(value);
-        return value;
-      })
-      .catch((err) => console.log(err));
-  }, [assets, setAssets]);
 
   useEffect(() => {
     async function assetTableInit() {
@@ -59,16 +39,6 @@ export default function AssetTable(props) {
 
   return (
     <div>
-      {localStorage.getItem("userPerms") === "2" ? (<button onClick={handleShow}>Add Asset</button>) : (<></>)}
-
-      <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>{(localStorage.getItem("userPerms") === "2") ? <>Add Asset</> : <>Invalid Permissions</>}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {(localStorage.getItem("userPerms") === "2") ? <AddAsset cats={cats} onSubmit={handleClose}/> : <>Only Owner can Add Assets</>}
-            </Modal.Body>
-      </Modal>
 
       {(assets != null && assets.length > 0) ? (
         <div>
@@ -80,14 +50,14 @@ export default function AssetTable(props) {
                 <td width="400px">Description</td>
                 <td width="200px">Date Added</td>
                 <td width="150px">Category</td>
-                <td width="150px">Checked Out</td>
+                <td width="150px">Available</td>
                 <td></td>
               </tr>
             </thead>
             <tbody>
               {props.filterByCheckedOut
                 ? assets
-                    .filter((asset) => asset.checked_out === 1)
+                    .filter((asset) => asset.checked_out === 0)
                     .map((asset) => (
                       <AssetRow
                         key={asset.asset_tag}

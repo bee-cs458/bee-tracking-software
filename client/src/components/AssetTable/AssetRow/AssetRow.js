@@ -80,7 +80,7 @@ async function handleSelect() { //on click, table rows should highlight and add 
           cat.category_id === asset.category ? cat.catName : null
         )}
       </td>
-      <td>{asset.checked_out ? "Yes" : "No"}</td>
+      <td>{asset.checked_out ? "No" : "Yes"}</td>
       <td>
         {localStorage.getItem("userPerms") === "2" ? (
           <>

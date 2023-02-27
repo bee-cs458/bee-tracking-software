@@ -43,7 +43,11 @@ export default function RecordTable() {
             <thead>
               <tr>
                 <th>Student</th>
+                <th>Student ID</th>
+                <th>Operator</th>
+                <th>Operator ID</th>
                 <th>Check Out</th>
+                <th>Asset Tag</th>
                 <th>Asset</th>
                 <th>Due Date</th>
                 <th>Check In</th>
@@ -75,6 +79,19 @@ export default function RecordTable() {
                           " " +
                           users.find((obj) => {
                             return obj.user_id === record.student_id;
+                          }).last_name
+                        : "Loading Student Name..."
+                    }
+                    opName={
+                      users.find((obj) => {
+                        return obj.user_id === record.operator_id;
+                      }) !== undefined
+                        ? users.find((obj) => {
+                            return obj.user_id === record.operator_id;
+                          }).first_name +
+                          " " +
+                          users.find((obj) => {
+                            return obj.user_id === record.operator_id;
                           }).last_name
                         : "Loading Student Name..."
                     }

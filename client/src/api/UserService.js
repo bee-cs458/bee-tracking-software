@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export async function updatePass(pass, newPass) {
-    console.log("Sending change password request");
+    //console.log("Sending change password request");
     // construct query
     const params = new URLSearchParams();
     params.append('password', pass);
@@ -17,7 +17,7 @@ export async function updatePass(pass, newPass) {
             return response.data;
         },
         (err) => {
-            console.log("Issue updating password");
+            //console.log("Issue updating password");
             return err.response.data;
         }
     );
@@ -25,7 +25,7 @@ export async function updatePass(pass, newPass) {
 // current API in use for update password
 export async function updatePassword(password, newPassword) {
     try {
-        console.log("Updating User Password");
+        //console.log("Updating User Password");
 
         const response = await axios.post("/api/user/update_password", {
             password: password,
@@ -39,7 +39,7 @@ export async function updatePassword(password, newPassword) {
 
 export async function getAllUsers() {
     try {
-        console.log("Getting Users");
+        //console.log("Getting Users");
 
         const response = await axios.get("/api/user/get_all");
 
@@ -51,7 +51,7 @@ export async function getAllUsers() {
 
 export async function searchingForUsers(input) {
     try {
-        console.log(`Searching Users by: ${input}`);
+        //console.log(`Searching Users by: ${input}`);
 
         const response = await axios.get("/api/user/search", {
             params: {
@@ -158,7 +158,7 @@ export async function createNewUser(user) {
 
 export async function getUserById(userId) {
     try {
-        console.log("Getting User by ID");
+        //console.log("Getting User by ID");
 
         const response = await axios.post("/api/user/get_by_id", {
             userId: userId
@@ -171,7 +171,7 @@ export async function getUserById(userId) {
 
 export async function deleteUser(userId) {
     try {
-        console.log("Deleting user " + userId)
+        //console.log("Deleting user " + userId)
         const response = await axios.delete("/api/user/" + userId);
         return response.data.result;
     } catch (error) {
@@ -190,7 +190,7 @@ export async function editUser(
 
     try {
             try {
-                console.log("Editing the user " + oldId);
+                //console.log("Editing the user " + oldId);
           
                 const response = await axios.post("/api/user/editUser/" + oldId, {
                   user_id,
