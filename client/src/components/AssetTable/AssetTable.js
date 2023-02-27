@@ -18,6 +18,7 @@ export default function AssetTable(props) {
   const setUp = () => {
     setUpdated(!updated);
   };
+  
   //Displaying Add Asset
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -93,6 +94,8 @@ export default function AssetTable(props) {
                         item={asset}
                         setUp={setUp}
                         categoryList={props.categoryList}
+                        selectList={props.selectedList}
+                        setSelectList={props.setSelectedList}
                       ></AssetRow>
                     ))
                 : assets.map((asset) => (
@@ -101,6 +104,8 @@ export default function AssetTable(props) {
                       item={asset}
                       setUp={setUp}
                       categoryList={props.categoryList}
+                      selectList={props.selectedList}
+                      setSelectList={props.setSelectedList}
                     ></AssetRow>
                   ))}
             </tbody>

@@ -52,6 +52,10 @@
     width: auto !important;
 }
 
+.asset-table td {
+    width: auto !important;
+}
+
 .App-link {
     color: #61dafb;
 }

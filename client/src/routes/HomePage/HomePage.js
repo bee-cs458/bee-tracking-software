@@ -13,7 +13,19 @@ export default function HomePage() {
     })
 
     const [inputVal, setInputVal] = useState(null);
-
+    /*const removeAsset = (asset_tag) => {
+        if(asset_tag){
+            let tempList = currentAssetList.slice(); //creates a temp list that isn't a state
+            //let index = 0; // for the index of the asset
+            currentAssetList.forEach((asset) => {// go through every element in the list
+                if(asset.asset_tag === asset_tag) //check if the current asset is the passes in asset
+                    tempList.shift(); //removes the first element in the list which is the asset with the tag that was passed in
+                else
+                    tempList.push(tempList.shift()); //shifts the list so that the first element is now at the back
+            })
+            setCurrentAssetList(tempList); //set the state to the temp list that has the change
+        }
+    } */
     //Handling user input when user hits 'Enter'
     function handleKeyPress(e) {
         if (e.key === "Enter") {
@@ -30,7 +42,7 @@ export default function HomePage() {
     };
 
     const [checked, setChecked] = useState(false);
-
+    const [selectList, setSelectList] = useState([]); //list of selected assets, for passing to Check Out
     return (
         <div className="App">
             <div className="header-container container-fluid">
@@ -56,7 +68,7 @@ export default function HomePage() {
                 </div>
                 <CheckedOut state={checked} update={setChecked}></CheckedOut>
                 <div className="asset-table">
-                    <AssetTable filterByCheckedOut={checked} cat={currentCategory?.category_id} categoryList={categories} input={inputVal}></AssetTable>
+                    <AssetTable filterByCheckedOut={checked} cat={currentCategory?.category_id} categoryList={categories} input={inputVal} selectedList={selectList} setSelectedList={setSelectList}></AssetTable>
                 </div>
 
             </div>
