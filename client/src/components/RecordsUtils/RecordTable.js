@@ -95,7 +95,7 @@ export default function RecordTable() {
           </Table>
 
           {/* Modal to show information for printing */}
-          <Modal show={show} keyboard={false}>
+          <Modal show={show} keyboard={false} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Print Record</Modal.Title>
             </Modal.Header>
