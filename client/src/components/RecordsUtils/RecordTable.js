@@ -48,7 +48,7 @@ export default function RecordTable() {
     if (records !== null && records !== undefined && records?.length > 0) {
       return (
         <div>
-          <Table bordered>
+          <Table bordered hover>
             <thead>
               <tr>
                 <th>Student</th>
