@@ -31,7 +31,7 @@ passport.deserializeUser((user, done) => {
                         (err) => done(err),
                     )
                 )
-            },v
+            },
         )
 
         // If the user information we recieve is not a Google user, then it is a regular
