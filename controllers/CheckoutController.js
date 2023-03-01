@@ -38,7 +38,7 @@ export const checkoutAsset = async (req, res, next) => {
     const rightNow = new Date(); //today's date and time
     const twoDaysFromNow = new Date(Date.now() + 172800000); //the date and time in two days
 
-    console.log([opId, student_id, asset_tag, rightNow, twoDaysFromNow]);
+    //console.log([opId, student_id, asset_tag, rightNow, twoDaysFromNow]);
 
     await query(`
         INSERT INTO \`checkoutrecord\` (\`operator_id\`, \`student_id\`, \`asset_tag\`, \`out_date\`, \`due_date\`)
