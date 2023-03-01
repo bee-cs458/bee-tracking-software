@@ -32,9 +32,5 @@ passport.deserializeUser((user, done) => {
     }
 
 });
-// passport.deserializeUser((user_id, done) => FindUserQuery(user_id).then(
-// (result) => done(null, result[0]),
-// (err) => done(err)
-// ));
 
 export default passport;
