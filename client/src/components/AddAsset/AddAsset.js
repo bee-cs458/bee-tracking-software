@@ -81,12 +81,12 @@ function getInputValues(){
         let advanced = advancedChecked ? 1 : 0;
         let operational = operationalChecked ? 1 : 0;
 
-        console.log("Asset_Tag: " + assetTag);
-        console.log("Name: " + name);
-        console.log("Description: " + description);
-        console.log("Advanced Check: " + advanced);
-        console.log("Operational Check: " + operational);
-        console.log("Selected Category: " + category);
+        //console.log("Asset_Tag: " + assetTag);
+        //console.log("Name: " + name);
+        //console.log("Description: " + description);
+        //console.log("Advanced Check: " + advanced);
+        //console.log("Operational Check: " + operational);
+        //console.log("Selected Category: " + category);
 
         //Create Asset with given values
         createNewAsset(assetTag, name, description, category, operational , advanced).then(

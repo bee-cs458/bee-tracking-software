@@ -18,7 +18,7 @@ export default function AssetTable(props) {
   useEffect(() => {
     async function assetTableInit() {
       let assetResults = 0;
-      console.log(props.cat);
+      //console.log(props.cat);
       if (props.cat >= 0) {
         // Check if category is selected
         assetResults = await getAssetFromCat(props.cat); // Then only query for that category

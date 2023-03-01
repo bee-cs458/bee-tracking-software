@@ -228,7 +228,7 @@ export default function CheckInPage() {
               />
               <datalist id="unavailableAssets">
               {unavailableAssetTags.map((asset) => {
-                  return <option value={asset.asset_tag}/>;
+                  return <option key={asset.asset_tag} value={asset.asset_tag}/>;
                 })}
               </datalist>
               <Button onClick={handleTagPress} disabled={disabledButton}>Add</Button>
