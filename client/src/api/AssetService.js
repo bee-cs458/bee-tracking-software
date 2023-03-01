@@ -123,22 +123,43 @@ export async function getAssetByAssetTag(input) {
 /*
 Calls API endpoint for getting assests based on asset_tag, name, or description searched by user
 */
-export async function searchingForAssests(input) {
+export async function searchingForAssets(input, category) {
   try {
     console.log(`Searching assets by: ${input}`);
 
-        const response = await axios.get("/api/asset/search", {
-            params: {
-                limit: 1000,
-                description: input,
-                asset_tag: input,
-                name: input,
-            },
-        });
-        return response.data.result;
-    } catch (error) {
-        return "Error Getting Assests by serach from API";
-    }
+    const response = await axios.get("/api/asset/search", {
+      params: {
+        limit: 1000,
+        description: input,
+        asset_tag: input,
+        name: input,
+        category: category,
+      },
+    });
+    return response.data.result;
+  } catch (error) {
+    return "Error Getting Assets by search from API";
+  }
+}
+
+/*
+Calls API endpoint for getting assests based on asset_tag, name, description searched by user, and category
+*/
+export async function searchingForAssetsWithCat(input, category) {
+  try {
+    console.log(`Searching assets by: ${input}`);
+      
+    const search = searchingForAssets(input);
+
+    var catResults = getAssetFromCat(category);
+    
+    const results = catResults + search;
+    return results;
+        
+  } catch (error) {
+     return "Error Getting Assests by serach from API";
+   }
+   
 }
 
 //Calls API endpoint for creating an asset 
