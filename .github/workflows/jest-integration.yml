@@ -1,9 +1,15 @@
+# Action, testing to be done
 name: 'coverage'
+
+# Event Trigger
 on:
     pull_request:
         branches:
             - master
             - main
+
+# Actions taken on Event Trigger
+# Runs the test suite and shows coverage of the tests
 jobs:
     coverage:
         runs-on: ubuntu-latest
