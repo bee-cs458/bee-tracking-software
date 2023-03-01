@@ -23,7 +23,15 @@ passport.deserializeUser((user, done) => {
             // If one is not found, return an error
             // TODO: create a new account and associate it with the google account
             //  by setting the email equal to the email in the google account
-            (err) => done(err),
+            (err) => {
+                query(`INSERT INTO user (first_name, last_name, strikes, permissions, advanced, email)
+                VALUES('${user.name.givenName}', '${user.name.familyName}', 0, 0, 0, '${user.emails[0].value}');`).then(
+                    matchUserEmail(user?.emails[0].value).then(
+                        (result) => done(null, result[0]),
+                        (err) => done(err),
+                    )
+                )
+            },v
         )
 
         // If the user information we recieve is not a Google user, then it is a regular
