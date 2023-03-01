@@ -24,3 +24,23 @@ export function verifyLogin(user, pass) {
         }
     );
 }
+
+export function googleLogin(){
+
+    window.open("http://localhost:5000/api/login/google", "_self")
+
+    return axios({
+        method: "GET",
+        url:"/api/login/success",
+    }).then(
+        (response) => {
+            return response.data;
+        },
+        (err) => {
+            return {
+                user_id: -1,
+                permissions: -1
+            };
+        }
+    );
+}

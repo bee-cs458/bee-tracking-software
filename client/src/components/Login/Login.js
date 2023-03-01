@@ -1,5 +1,5 @@
 import Button from "react-bootstrap/esm/Button";
-import { verifyLogin } from "../../api/AuthService.js";
+import { googleLogin, verifyLogin } from "../../api/AuthService.js";
 import { useEffect, useState } from 'react';
 import { setUserId, setUserPerm } from "../../App.js";
 import './Login.css';
@@ -42,6 +42,16 @@ function Login(props) {
                             }
                         } style={{ float: 'right' }}>
                             Login
+                        </Button>
+
+                        <Button variant="primary" onClick={
+                            async () => {
+                                update(await googleLogin());
+                                toggleUpdate(true);
+                            }
+                            
+                        } style={{ float: 'right' }}>
+                            Login with Google
                         </Button>
                     </div>
                 </>
