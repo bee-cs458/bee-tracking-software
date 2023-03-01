@@ -55,7 +55,6 @@ export default function AssetTable(props) {
 
   return (
     <div>
-
       {assets != null && assets.length > 0 ? (
         <div>
           <Table striped bordered>

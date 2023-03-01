@@ -19,7 +19,12 @@ export default function CheckInRow(props) {
   return (
     <tr
       style={{
-        background: record.in_date === null ? (props.date > dueDate && !record.in_date ? "#ffb9b9" : "#55ff77") :  "",
+        background:
+          record.in_date === null
+            ? props.date > dueDate && !record.in_date
+              ? "#ffb9b9"
+              : "#55ff77"
+            : "",
       }}
     >
       <td>{props.userName}</td>
