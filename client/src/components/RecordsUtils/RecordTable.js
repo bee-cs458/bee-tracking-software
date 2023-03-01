@@ -110,6 +110,32 @@ export default function RecordTable() {
               ))}
             </tbody>
           </Table>
+
+          {/* Modal to show information for printing */}
+          <Modal show={show} keyboard={false} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Print Record</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {
+                // Parse string as html from the child
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: printInfo.replaceAll(",", ""),
+                  }}
+                />
+              }
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              {/* Print modal with information */}
+              <Button variant="primary" onClick={window.print}>
+                Print Check Out Record
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       );
     } else {
