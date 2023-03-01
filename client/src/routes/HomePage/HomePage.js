@@ -10,6 +10,9 @@ import Button from "react-bootstrap/Button";
 import { useEffect } from "react";
 import getCategories from "../../api/CategoryService";
 
+import AssetAsyncCSV from '../../components/ExportCSV/ExportAssetCSV';
+
+
 export default function HomePage() {
   const [categories, updateCategories] = useState([]);
   const [currentCategory, updateCategory] = useState({
@@ -86,7 +89,7 @@ export default function HomePage() {
                 <div className="col">
               <CheckedOut state={checked} update={setChecked}></CheckedOut></div>
               <div className="col">{localStorage.getItem("userPerms") === "2" ? (<Button onClick={handleShow}>Add Asset</Button>) : (<></>)}</div>
-              <div className="col"></div>
+              <div className="col"> <AssetAsyncCSV></AssetAsyncCSV></div>
               <div className="col"></div>
               <div className="col"></div>
             </div>
