@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import {
   getAssetFromCat,
   getAllAssets,
-  searchingForAssets,
-  searchingForAssetsWithCat,
+  searchingForAssests,
 } from "../../api/AssetService";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
@@ -18,44 +17,29 @@ export default function AssetTable(props) {
 
   useEffect(() => {
     async function assetTableInit() {
-      let assetResults = [];
-
-      if (props.cat >= 0 && props.input !== undefined && props.input !== "") {
-        // If category and input search are both present
-        const categoryAssets = await getAssetFromCat(props.cat);
-        assetResults = categoryAssets.filter(
-          (asset) =>
-            asset.asset_tag
-              .toString()
-              .toLowerCase()
-              .includes(props.input.toLowerCase()) ||
-            asset.name
-              .toString()
-              .toLowerCase()
-              .includes(props.input.toLowerCase()) ||
-            asset.description
-              .toString()
-              .toLowerCase()
-              .includes(props.input.toLowerCase())
-        );
-      } else if (props.cat >= 0) {
-        // If only category is present
-        assetResults = await getAssetFromCat(props.cat);
+      let assetResults = 0;
+      //console.log(props.cat);
+      if (props.cat >= 0) {
+        // Check if category is selected
+        assetResults = await getAssetFromCat(props.cat); // Then only query for that category
       } else if (props.input !== undefined && props.input !== "") {
-        // If only input search is present
-        assetResults = await searchingForAssets(props.input);
+        //Include search results for asset_tags/descriptions/names
+        assetResults = await searchingForAssests(props.input);
+        setAssets(assetResults); // Set the assets data table to be the queried result
       } else {
-        // If no filters are applied, just get all assets
-        assetResults = await getAllAssets();
+        assetResults = await getAllAssets(); // If no filters are applied, just get all assets
       }
       setAssets(assetResults); // Set the assets data table to be the queried result
     }
     assetTableInit(); // Render that son of a gun
   }, [props.cat, props.input, props.filterByCheckedOut, updated]);
 
+
+
   return (
     <div>
-      {assets != null && assets.length > 0 ? (
+
+      {(assets != null && assets.length > 0) ? (
         <div>
           <Table striped bordered>
             <thead>
