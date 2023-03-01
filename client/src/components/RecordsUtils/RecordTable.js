@@ -64,49 +64,50 @@ export default function RecordTable() {
               </tr>
             </thead>
             <tbody>
-              {
-                records.map((record) => (
-                  <RecordRow
-                    key={record.record_id}
-                    record={record}
-                    assetName={
-                      assets.find((obj) => {
-                        return obj.asset_tag === record.asset_tag;
-                      }) !== undefined
-                        ? assets.find((obj) => {
-                            return obj.asset_tag === record.asset_tag;
-                          }).name
-                        : "Loading Asset Tag..."
-                    }
-                    userName={
-                      users.find((obj) => {
-                        return obj.user_id === record.student_id;
-                      }) !== undefined
-                        ? users.find((obj) => {
-                            return obj.user_id === record.student_id;
-                          }).first_name +
-                          " " +
-                          users.find((obj) => {
-                            return obj.user_id === record.student_id;
-                          }).last_name
-                        : "Loading Student Name..."
-                    }
-                    opName={
-                      users.find((obj) => {
-                        return obj.user_id === record.operator_id;
-                      }) !== undefined
-                        ? users.find((obj) => {
-                            return obj.user_id === record.operator_id;
-                          }).first_name +
-                          " " +
-                          users.find((obj) => {
-                            return obj.user_id === record.operator_id;
-                          }).last_name
-                        : "Loading Student Name..."
-                    }
-                    date={today}
-                  ></RecordRow>
-                ))}
+              {records.map((record) => (
+                <RecordRow
+                  key={record.record_id}
+                  record={record}
+                  assetName={
+                    assets.find((obj) => {
+                      return obj.asset_tag === record.asset_tag;
+                    }) !== undefined
+                      ? assets.find((obj) => {
+                          return obj.asset_tag === record.asset_tag;
+                        }).name
+                      : "Loading Asset Tag..."
+                  }
+                  userName={
+                    users.find((obj) => {
+                      return obj.user_id === record.student_id;
+                    }) !== undefined
+                      ? users.find((obj) => {
+                          return obj.user_id === record.student_id;
+                        }).first_name +
+                        " " +
+                        users.find((obj) => {
+                          return obj.user_id === record.student_id;
+                        }).last_name
+                      : "Loading Student Name..."
+                  }
+                  opName={
+                    users.find((obj) => {
+                      return obj.user_id === record.operator_id;
+                    }) !== undefined
+                      ? users.find((obj) => {
+                          return obj.user_id === record.operator_id;
+                        }).first_name +
+                        " " +
+                        users.find((obj) => {
+                          return obj.user_id === record.operator_id;
+                        }).last_name
+                      : "Loading Student Name..."
+                  }
+                  date={today}
+                  setShow={setShow} // Allow row to show modal
+                  setPrintInfo={setPrintInfo} // Allow row to set print info
+                ></RecordRow>
+              ))}
             </tbody>
           </Table>
 
