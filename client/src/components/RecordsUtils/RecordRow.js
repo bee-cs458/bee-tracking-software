@@ -42,18 +42,17 @@ export default function CheckInRow(props) {
   return (
     <tr
       style={{
-        background:
-          record.in_date === null
-            ? "#55ff77"
-            : props.date > dueDate && !record.in_date
-            ? "#ffb9b9"
-            : "",
+        background: record.in_date === null ? (props.date > dueDate && !record.in_date ? "#ffb9b9" : "#55ff77") :  "",
       }}
       // On click, open the print modal with the clicked row's information
       onClick={handleShow}
     >
       <td>{props.userName}</td>
+      <td>{record.student_id}</td>
+      <td>{props.opName}</td>
+      <td>{record.operator_id}</td>
       <td>{formatDate(record.out_date)}</td>
+      <td>{record.asset_tag}</td>
       <td>{props.assetName}</td>
       <td>{formatDate(record.due_date)}</td>
       <td>{formatDate(record.in_date)}</td>

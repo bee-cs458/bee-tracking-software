@@ -6,7 +6,7 @@ Calls the API endpoint for getting all assets, does not include due dates
 */
 export async function getAllRecords() {
     try {
-        console.log("Getting Records");
+        //console.log("Getting Records");
 
         const response = await axios.get("/api/records/get_all");
 

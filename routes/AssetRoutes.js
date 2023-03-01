@@ -10,6 +10,8 @@ import {
     searchForAsset,
     getAssetFromCat,
     editAsset,
+    getAllAvailableAssetTags,
+    getAllUnavailableAssetTags,
     // checkOutAsset,
     // checkInAsset
 } from '../controllers/AssetController.js';
@@ -28,8 +30,10 @@ router.get(
     filterQuery('limit', 'offset', 'description', 'damage_notes', 'asset_tag', 'name'),
     searchForAsset
 );
+router.get("/get_available", getAllAvailableAssetTags);
+router.get("/get_unavailable", getAllUnavailableAssetTags);
 router.get("/:id", getSpecificAsset);
-router.get("/get_asset_via_cat/:id", getAssetFromCat)
+router.get("/get_asset_via_cat/:id", getAssetFromCat);
 router.post("/", restrictTo('owner'), requireBody('asset_tag', 'name'), createAsset);
 router.post("/:id", restrictTo('owner'), requireBody(), updateAsset);
 router.delete("/:id", restrictTo('owner'), deleteAsset);
