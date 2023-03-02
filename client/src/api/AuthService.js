@@ -14,7 +14,7 @@ export function verifyLogin(user, pass) {
         withCredentials: true
     }).then(
         (response) => {
-            return response.data;
+            return response;
         },
         (err) => {
             return {

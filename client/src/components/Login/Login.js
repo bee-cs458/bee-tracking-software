@@ -50,7 +50,7 @@ function Login(props) {
 
                         <Button variant="primary" onClick={
                             async () => {
-                                update(googleLogin());
+                                googleLogin();
                                 toggleUpdate(true);
                             }
 

@@ -3,18 +3,27 @@ import NavBar from "./components/NavBar/NavBar";
 import { useEffect } from "react";
 import { getLoggedInUser } from "./api/AuthService";
 
-var userPermission = -1;
-var userId = -1;
-if (localStorage.getItem("userPerms") == null) {
-  localStorage.setItem("userPerms", userPermission);
-  localStorage.setItem("userId", userId);
-}
-
 function setUserId(newId) {
   localStorage.setItem("userId", newId);
 }
 function setUserPerm(newPerm) {
   localStorage.setItem("userPerms", newPerm);
+}
+function getLoggedInUserId() {
+  var id = localStorage.getItem("userId");
+  if (id === null || id === undefined) {
+    return -1;
+  } else {
+    return id;
+  }
+}
+function getLoggedInUserPerms() {
+  var perms = localStorage.getItem("userPerms");
+  if (perms === null || perms === undefined) {
+    return -1;
+  } else {
+    return perms;
+  }
 }
 
 const App = () => {
@@ -25,7 +34,13 @@ const App = () => {
 
     getLoggedInUser()
       .then((response) => {
-        if (response.status === 200) return response.data;
+        if (response.status === 200) {
+          return response.data;
+        }
+
+        setUserId(-1);
+        setUserPerm(-1);
+
         throw new Error("Failed to get logged in user");
       })
       .then((resObject) => {
@@ -48,5 +63,4 @@ const App = () => {
 }
 
 export default App;
-export { setUserId };
-export { setUserPerm };
+export { setUserId, setUserPerm, getLoggedInUserId, getLoggedInUserPerms };

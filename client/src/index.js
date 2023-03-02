@@ -37,24 +37,24 @@ root.render(
           <Route index element={<HomePage />} />
           <Route path="/Profile" element={
             <ProtectedRoute requiredPermissionLevel={0} userPermissionLevel={userPermValue}>
-              <ProfilePage/>
+              <ProfilePage />
             </ProtectedRoute>
           } />
           <Route path="/CheckOut" element={
-            <ProtectedRoute requiredPermissionLevel={1} userPermissionLevel = {userPermValue}>
-              <CheckOutPage/>
+            <ProtectedRoute requiredPermissionLevel={1} userPermissionLevel={userPermValue}>
+              <CheckOutPage />
             </ProtectedRoute>
           } />
           <Route path="/CheckIn" element={
             <ProtectedRoute requiredPermissionLevel={1} userPermissionLevel={userPermValue}>
-              <CheckInPage /> 
+              <CheckInPage />
             </ProtectedRoute>
           } />
           <Route path="/records" element={
-          <ProtectedRoute requiredPermissionLevel={2} userPermissionLevel={userPermValue}>
-            <RecordPage/>
-          </ProtectedRoute>
-          }/>
+            <ProtectedRoute requiredPermissionLevel={2} userPermissionLevel={userPermValue}>
+              <RecordPage />
+            </ProtectedRoute>
+          } />
           <Route path="/Users" element={
             <ProtectedRoute requiredPermissionLevel={2} userPermissionLevel={userPermValue}>
               <UserPage />
