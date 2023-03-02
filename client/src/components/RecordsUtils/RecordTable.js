@@ -42,16 +42,11 @@ export default function RecordTable() {
           <Table bordered>
             <thead>
               <tr>
-                <th>Student</th>
-                <th>Student ID</th>
-                <th>Operator</th>
-                <th>Operator ID</th>
-                <th>Check Out</th>
+                <th>Record ID</th>
                 <th>Asset Tag</th>
-                <th>Asset</th>
+                <th>Student ID</th>
+                <th>Operator ID</th>
                 <th>Due Date</th>
-                <th>Check In</th>
-                <th>Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -60,6 +55,15 @@ export default function RecordTable() {
                   <RecordRow
                     key={record.record_id}
                     record={record}
+                    damageNotes={
+                      assets.find((obj) => {
+                        return obj.asset_tag === record.asset_tag;
+                      }) !== undefined
+                        ? assets.find((obj) => {
+                            return obj.asset_tag === record.asset_tag;
+                          }).damage_notes
+                        : "Loading Asset Tag..."
+                    }
                     assetName={
                       assets.find((obj) => {
                         return obj.asset_tag === record.asset_tag;
