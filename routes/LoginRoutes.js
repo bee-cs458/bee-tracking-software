@@ -18,21 +18,29 @@ router.post(
  * Google Login
  */
 router.get('/google',
-  passport.authenticate("google", { scope: [ 'email', 'profile' ]
-}));
-router.get('/google/callback', passport.authenticate( 'google', {
-   successRedirect: 'http://localhost:3000/',
-   failureRedirect: '/api/login/failure'
+    passport.authenticate("google", {
+        scope: ['email', 'profile']
+    }));
+router.get('/google/callback', passport.authenticate('google', {
+    successRedirect: 'http://localhost:3000/',
+    failureRedirect: '/api/login/failure'
 }));
 
 // logout
 router.post('/logout', async (req, res, next) => {
-    await req.logout().then(res.send("Logged out")).catch(next);
+    req.logout(function (err) {
+        if (err) { return next(err); }
+        res.send("Logged Out");
+    })
 });
 
 router.get("/success", (req, res) => {
-    delete req.user?.password;
-    res.send(req.user);
+    if (req.user) {
+        delete req.user?.password;
+        res.status(200).json({
+            user: req.user
+        })
+    }
 });
 
 router.get("/failure", (req, res) =>

@@ -10,7 +10,7 @@ export function verifyLogin(user, pass) {
     return axios({
         method: 'POST',
         url: '/api/login',
-        data : params.toString(),
+        data: params.toString(),
         withCredentials: true
     }).then(
         (response) => {
@@ -25,22 +25,26 @@ export function verifyLogin(user, pass) {
     );
 }
 
-export function googleLogin(){
-
-    window.open("http://localhost:5000/api/login/google", "_self")
+export function getLoggedInUser() {
 
     return axios({
         method: "GET",
-        url:"/api/login/success",
+        url: "/api/login/success",
     }).then(
         (response) => {
-            return response.data;
+            return response;
         },
         (err) => {
             return {
-                user_id: -1,
-                permissions: -1
+                user: {
+                    user_id: -1,
+                    permissions: -1
+                }
             };
         }
     );
+}
+
+export function triggerLogout() {
+    axios.post("/api/login/logout", { withCredentials: true });
 }

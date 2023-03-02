@@ -1,5 +1,5 @@
 import Button from "react-bootstrap/esm/Button";
-import { googleLogin, verifyLogin } from "../../api/AuthService.js";
+import { verifyLogin } from "../../api/AuthService.js";
 import { useEffect, useState } from 'react';
 import { setUserId, setUserPerm } from "../../App.js";
 import './Login.css';
@@ -9,10 +9,14 @@ function update(perams) {
     setUserPerm(perams.permissions);
 }
 
+const googleLogin = () => {
+    window.open("http://localhost:5000/api/login/google", "_self");
+}
+
 function Login(props) {
     const [updated, changeUpdate] = useState(null);
     useEffect(() => { }, [updated]);
-    const toggleUpdate = () => {updated ? changeUpdate(false): changeUpdate(true)}  ;
+    const toggleUpdate = () => { updated ? changeUpdate(false) : changeUpdate(true) };
     const { callback } = props;
     return (
         <>
@@ -46,10 +50,10 @@ function Login(props) {
 
                         <Button variant="primary" onClick={
                             async () => {
-                                update(await googleLogin());
+                                update(googleLogin());
                                 toggleUpdate(true);
                             }
-                            
+
                         } style={{ float: 'right' }}>
                             Login with Google
                         </Button>
