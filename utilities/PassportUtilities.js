@@ -15,15 +15,22 @@ passport.deserializeUser((user, done) => {
     // If the user information we recieve is a google user, then search for the BEETS account
     // using the Google account email
     if (user?.provider == "google") {
-
+        console.log("Attempting to login with Google");
         // Query the database to match the google account to a BEETS account (using their email)
         matchUserEmail(user?.emails[0].value).then(
             // If a BEETS account is found, returns that BEETS account data
-            (result) => done(null, result[0]),
+            (result) => {
+                console.log("++++Google Auth Debug Info - Send to Cody++++")
+                console.log("USER: " + user)
+                console.log("RESULT: " + result);
+                console.log("+++++++++++++++++++++++++++++++++++++++++++++")
+                done(null, result[0])
+            },
             // If one is not found, return an error
             // TODO: create a new account and associate it with the google account
             //  by setting the email equal to the email in the google account
             (err) => {
+                console.log("Unable to match user - attempting to create new BEETS account")
                 query(`INSERT INTO user (first_name, last_name, strikes, permissions, advanced, email)
                 VALUES('${user.name.givenName}', '${user.name.familyName}', 0, 0, 0, '${user.emails[0].value}');`).then(
                     matchUserEmail(user?.emails[0].value).then(
@@ -37,7 +44,7 @@ passport.deserializeUser((user, done) => {
         // If the user information we recieve is not a Google user, then it is a regular
         // BEETS account - proceed with getting the user data from the DB as normal
     } else {
-        console.log("login local");
+        console.log("Attempting to login with local credentials");
         findUser(user.user_id).then(
             (result) => done(null, result[0]),
             (err) => done(err),
