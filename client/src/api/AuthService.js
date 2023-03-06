@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export function verifyLogin(user, pass) {
-    console.log("Sending login request");
+    //console.log("Sending login request");
     // construct query
     const params = new URLSearchParams();
     params.append('username', user);

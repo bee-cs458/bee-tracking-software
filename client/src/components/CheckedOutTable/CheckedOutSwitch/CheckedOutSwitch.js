@@ -24,13 +24,13 @@ const CheckedOut = (props) => {
   
     const handleChange = () => {
       setChecked(!checked);
-      console.log("Filtered By Checked Out");
+      //console.log("Filtered By Checked Out");
     };
   
     return (
       <div className="filter-check">
         <Checkbox
-          label="  Filter By Checked Out"
+          label="  Only Show Avaliable Assets"
           value={checked}
           onChange={handleChange}
         />

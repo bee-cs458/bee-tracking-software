@@ -231,3 +231,33 @@ const {oldTag} = req.params;
     }
   );
 };
+
+export const getAllAvailableAssetTags = async (req, res, next) => {
+  await query(`
+        SELECT asset_tag
+        FROM asset
+        WHERE checked_out = 0`,).then(
+    (result) => {
+      res.send({ result });
+    }, // on success
+    (reason) => {
+      reason.message = `Error Getting All Available Assets: ${reason.message}`;
+      next(reason); // generic error handler
+    } // on failure
+  );
+};
+
+export const getAllUnavailableAssetTags = async (req, res, next) => {
+  await query(`
+        SELECT asset_tag
+        FROM asset
+        WHERE checked_out = 1`,).then(
+    (result) => {
+      res.send({ result });
+    }, // on success
+    (reason) => {
+      reason.message = `Error Getting All Unavailable Assets: ${reason.message}`;
+      next(reason); // generic error handler
+    } // on failure
+  );
+};
