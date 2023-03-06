@@ -1,5 +1,6 @@
 import "./RecordRow.css";
 import { useState } from "react";
+import { Button } from "react-bootstrap";
 
 export default function CheckInRow(props) {
   const record = props.record;
@@ -99,15 +100,17 @@ export default function CheckInRow(props) {
                 </div>
                 <div className="col">
                   <span>
-                    <b>Checked Out:</b>
+                    <b>Checked Out: </b>
                   </span>
                   {formatDate(record.out_date)}
                   <br />
                   <span>
-                    <b>Checked In:</b>
+                    <b>Checked In: </b>
                   </span>
 
                   {record.in_date ? formatDate(record.in_date) : <>Still out</>}
+                  <br />
+                  <Button onClick={handleShow}>Print Record</Button>
                 </div>
               </div>
             </div>
