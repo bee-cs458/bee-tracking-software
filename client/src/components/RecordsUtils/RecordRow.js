@@ -78,7 +78,7 @@ export default function CheckInRow(props) {
         <td>{formatDate(record.due_date)}</td>
       </tr>
       {expanded ? (
-        <tr className="dropdown">
+        <tr className="dropdown01">
           <td colSpan="5">
             <div className="container-fluid">
               <div className="row">
