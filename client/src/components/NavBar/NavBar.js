@@ -27,7 +27,7 @@ function NavBar() {
             Assets
           </Link>
         </li>
-        {localStorage.getItem("userPerms") <= 0 ? ( //if
+        {localStorage.getItem("userPerms") < 0 ? ( //if
           <li onClick={handleShow}>
             <Link to="/">
               <img src={logOut} alt="log in" width="20" height="18" />
