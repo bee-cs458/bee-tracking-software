@@ -109,7 +109,7 @@ function getInputValues(){
     }else{
         console.log("All Fields required");
         setAlertType(1);
-        setAlertMessage("All Fields Required!");
+        setAlertMessage("All fields must be filled out to create an asset");
     }
 
 }
