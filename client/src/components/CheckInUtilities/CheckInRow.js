@@ -12,20 +12,6 @@ export default function CheckInRow(props) {
       removeAsset(asset_tag);
   }
 
-  // const [categories, updateCategories] = useState([]);
-  // const [dom, updateDom] = useState("Loading...");
-
-  // useEffect(() => {
-  //   getAllCategories()
-  //     .then((value) => {
-  //       updateCategories(value);
-  //       return value;
-  //     })
-  //     .then(generateList)
-  //     .then(updateDom)
-  //     .catch((err) => console.log(err));
-  // }, []);
-
   useEffect(() => {}, [asset]);
 
   useEffect(() => {
