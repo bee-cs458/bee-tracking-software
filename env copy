@@ -1,0 +1,10 @@
+PORT=5000
+DB_CONNECTION_URL=beets-db.mysql.database.azure.com
+DB_USER=beets
+DB_PORT=3306
+DB_PASSWORD=d0NtL3@kM3!
+DB_NAME=beets_realData
+CERT_PATH=DigiCertGlobalRootCA.crt.pem
+SESSION_SECRET=asldkfalnvrjnvouni45ouevnojn4o3n
+GOOGLE_CLIENT_ID=418872684552-7uhhf27eufev0fiikqnbkuntj904ouke.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
