@@ -3,7 +3,6 @@ import {
   getAssetFromCat,
   getAllAssets,
   searchingForAssets,
-  searchingForAssetsWithCat,
 } from "../../api/AssetService";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";

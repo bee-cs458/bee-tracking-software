@@ -27,7 +27,7 @@ function AssetRow(props) {
   const handleDeleteAssetFalse = () => setDeleteAsset(false);
   useEffect(() => {
     setAlertMessage2("Deleting this asset cannot be undone. Are you sure you want to go through with deleting it?");
-    setAlertType2(1);
+    setAlertType2(0);
   }, [asset, editAsset, deleteAssetVar]);
 
   async function handleDelete() {
@@ -43,7 +43,7 @@ function AssetRow(props) {
     } else {
       handleDeleteAssetFalse();
       setAlertMessage2("Deleting this asset cannot be undone. Are you sure you want to go through with deleting it?");
-      setAlertType2(1);
+      setAlertType2(0);
     }
   }
 
