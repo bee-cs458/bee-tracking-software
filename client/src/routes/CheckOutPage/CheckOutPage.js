@@ -14,6 +14,7 @@ import {
 import CheckOutTable from "../../components/CheckOutUtilities/CheckOutTable";
 import { getUserById } from "../../api/UserService";
 import getCategories from "../../api/CategoryService";
+import { useOutletContext } from "react-router-dom";
 
 function CheckOutPage() {
   const [show, setShow] = useState(false);
@@ -27,6 +28,7 @@ function CheckOutPage() {
   const [currentAssetList, setCurrentAssetList] = useState([]);
   const [cats, setCats] = useState([]);
   const [availableAssetTags, setAvailableAssetTags] = useState([]);
+  const [theme, setTheme] = useOutletContext();
 
   //setOpId(localStorage.getItem("userId"));
 
@@ -218,7 +220,7 @@ function CheckOutPage() {
               />
               <datalist id="assets">
                 {availableAssetTags.map((asset) => {
-                  return <option value={asset.asset_tag}/>;
+                  return <option value={asset.asset_tag} />;
                 })}
               </datalist>
               <Button
@@ -253,6 +255,7 @@ function CheckOutPage() {
             receipt={false}
             disabledButton={disabledButton}
             cats={cats}
+            variant={theme}
           ></CheckOutTable>
 
           <Button
@@ -309,6 +312,7 @@ function CheckOutPage() {
               receipt={true}
               assets={currentAssetList}
               cats={cats}
+              variant={theme}
             ></CheckOutTable>
           </Modal.Body>
           <Modal.Footer>

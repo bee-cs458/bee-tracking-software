@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from "react";
 import "./HomePage.css";
 import search from "../../assets/search.png";
 import AssetTable from "../../components/AssetTable/AssetTable";
@@ -8,12 +8,12 @@ import AddAsset from "../../components/AddAsset/AddAsset";
 import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
 
-import AssetAsyncCSV from '../../components/ExportCSV/ExportAssetCSV';
+import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
 
-
-export default function HomePage() {
+export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
   const [currentCategory, updateCategory] = useState({
     catName: undefined,
@@ -28,6 +28,8 @@ export default function HomePage() {
 
   //Store Categories
   const [cats, setCats] = useState([]);
+
+  const [theme, setTheme] = useOutletContext();
 
   useEffect(() => {
     getCategories()
@@ -98,7 +100,9 @@ export default function HomePage() {
                 <></>
               )}
             </div>
-            <div className="col"><AssetAsyncCSV></AssetAsyncCSV></div>
+            <div className="col">
+              <AssetAsyncCSV></AssetAsyncCSV>
+            </div>
             <div className="col"></div>
             <div className="col"></div>
           </div>
@@ -110,6 +114,7 @@ export default function HomePage() {
             cat={currentCategory?.category_id}
             categoryList={categories}
             input={inputVal}
+            variant={theme}
           ></AssetTable>
         </div>
       </div>

@@ -32,3 +32,14 @@
   padding-left: 250px;
   margin-left: 0px;
 }
+
+.dark {
+  background-color: #333;
+  color: whitesmoke;
+  
+}
+
+.light {
+  background-color: whitesmoke;
+  color: #333;
+}

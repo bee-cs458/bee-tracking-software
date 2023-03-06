@@ -39,16 +39,24 @@ export default function CheckInRow(props) {
     setShow(true);
   };
 
+  function getClassName() {
+    if (record.in_date === null) {
+      if (props.date > dueDate && !record.in_date) {
+        return "table-danger";
+      } else return "table-success";
+    } else return "";
+  }
+
   return (
     <tr
-      style={{
-        background:
-          record.in_date === null
-            ? props.date > dueDate && !record.in_date
-              ? "#ffb9b9"
-              : "#55ff77"
-            : "",
-      }}
+      // className={{
+      //     (record.in_date === null)
+      //       ? (props.date > dueDate && !record.in_date)
+      //         ? "table-danger"
+      //         : "table-success"
+      //       : "",
+      // }}
+      className={getClassName()}
       // On click, open the print modal with the clicked row's information
       onClick={handleShow}
     >
