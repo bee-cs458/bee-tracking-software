@@ -21,23 +21,27 @@ passport.deserializeUser((user, done) => {
             // If a BEETS account is found, returns that BEETS account data
             (result) => {
                 console.log("++++Google Auth Debug Info - Send to Cody++++")
-                console.log("USER: " + user)
-                console.log("RESULT: " + result);
+                console.log("USER: " + JSON.stringify(user))
+                console.log("RESULT: " + JSON.stringify(result[0]));
                 console.log("+++++++++++++++++++++++++++++++++++++++++++++")
-                done(null, result[0])
+
+                if (result[0] === undefined) {
+                    console.log("Unable to match user - attempting to create new BEETS account")
+                    query(`INSERT INTO user (user_id, first_name, last_name, strikes, permissions, advanced, email)
+                    VALUES('${user.id.slice(0, 6)}', '${user.name.givenName}', '${user.name.familyName}', 0, 0, 0, '${user.emails[0].value}');`)
+                    .then(matchUserEmail(user?.emails[0].value)
+                        .then(
+                            (result) => done(null, result[0]),
+                            (err) => done(err),
+                        )
+                    )
+                }
             },
             // If one is not found, return an error
             // TODO: create a new account and associate it with the google account
             //  by setting the email equal to the email in the google account
             (err) => {
-                console.log("Unable to match user - attempting to create new BEETS account")
-                query(`INSERT INTO user (first_name, last_name, strikes, permissions, advanced, email)
-                VALUES('${user.name.givenName}', '${user.name.familyName}', 0, 0, 0, '${user.emails[0].value}');`).then(
-                    matchUserEmail(user?.emails[0].value).then(
-                        (result) => done(null, result[0]),
-                        (err) => done(err),
-                    )
-                )
+                console.err(err);
             },
         )
 
