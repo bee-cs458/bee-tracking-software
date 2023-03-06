@@ -43,7 +43,7 @@ export default function HomePage(props) {
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {
     if (e.key === "Enter") {
-      console.log("Key press is entered");
+      //console.log("Key press is entered");
       getInputValue();
     }
   }
@@ -51,7 +51,7 @@ export default function HomePage(props) {
   function getInputValue() {
     // Selecting the input element and get its value
     const newInputVal = document.getElementById("search").value;
-    console.log("Input Value: " + newInputVal);
+    //console.log("Input Value: " + newInputVal);
     setInputVal(newInputVal);
   }
 

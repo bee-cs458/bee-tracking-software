@@ -220,7 +220,11 @@ function CheckOutPage() {
               />
               <datalist id="assets">
                 {availableAssetTags.map((asset) => {
+<<<<<<< HEAD
                   return <option value={asset.asset_tag} />;
+=======
+                  return <option key={asset.asset_tag} value={asset.asset_tag}/>;
+>>>>>>> d6f6df149847db6412b255c395b8e19c2df4c194
                 })}
               </datalist>
               <Button

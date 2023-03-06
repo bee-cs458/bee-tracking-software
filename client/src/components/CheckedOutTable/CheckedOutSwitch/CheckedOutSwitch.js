@@ -24,7 +24,7 @@ const CheckedOut = (props) => {
   
     const handleChange = () => {
       setChecked(!checked);
-      console.log("Filtered By Checked Out");
+      //console.log("Filtered By Checked Out");
     };
   
     return (
