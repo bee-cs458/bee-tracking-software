@@ -46,6 +46,9 @@ export default function CheckInRow(props) {
   };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> af9feb00aeea7de305025a57d5a9e7b1cfd1aa77
   function getClassName() {
     if (record.in_date === null) {
       if (props.date > dueDate && !record.in_date) {
@@ -54,6 +57,7 @@ export default function CheckInRow(props) {
     } else return "";
   }
 
+<<<<<<< HEAD
   return (
     <tr
       // className={{
@@ -70,13 +74,26 @@ export default function CheckInRow(props) {
       <td>{props.userName}</td>
       <td>{record.student_id}</td>
 =======
+=======
+  function getClassName() {
+    if (record.in_date === null) {
+      if (props.date > dueDate && !record.in_date) {
+        return "table-danger";
+      } else return "table-success";
+    } else return "";
+  }
+
+>>>>>>> af9feb00aeea7de305025a57d5a9e7b1cfd1aa77
   const rowClicked = () => {
     toggleExpanded();
   };
 
   /**
    * <td>{props.userName}</td>
+<<<<<<< HEAD
 >>>>>>> d6f6df149847db6412b255c395b8e19c2df4c194
+=======
+>>>>>>> af9feb00aeea7de305025a57d5a9e7b1cfd1aa77
       <td>{props.opName}</td>
       <td>{formatDate(record.out_date)}</td>
       <td>{props.assetName}</td>
@@ -87,14 +104,7 @@ export default function CheckInRow(props) {
   return (
     <>
       <tr
-        style={{
-          background:
-            record.in_date === null
-              ? props.date > dueDate && !record.in_date
-                ? "#ffb9b9"
-                : "#55ff77"
-              : "",
-        }}
+        className={getClassName()}
         onClick={() => rowClicked()}
       >
         <td>{record.record_id}</td>
