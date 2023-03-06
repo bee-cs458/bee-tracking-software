@@ -97,7 +97,7 @@ export async function getAssetFromCat(category) {
     if (error.response.status === 404) {
       return error.response.data.result;
     }
-    return "Error Getting Assets with Due Dates from API";
+    return "Error Getting Assets in category from API";
   }
 }
 
