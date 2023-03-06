@@ -89,7 +89,7 @@ function NavBar() {
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>
-              {localStorage.getItem("userPerms") <= 0 ? (
+              {localStorage.getItem("userPerms") < 0 ? (
                 <>Login</>
               ) : (
                 <>Logout</>
@@ -97,7 +97,7 @@ function NavBar() {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {localStorage.getItem("userPerms") <= 0 ? (
+            {localStorage.getItem("userPerms") < 0 ? (
               <Login callback={handleClose} />
             ) : (
               <Logout callback={handleClose} />
