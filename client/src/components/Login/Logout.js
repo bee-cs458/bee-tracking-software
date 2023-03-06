@@ -6,7 +6,7 @@ import { triggerLogout } from "../../api/AuthService.js";
 
 function update() {
     setUserId(-1);
-    setUserPerm(0);
+    setUserPerm(-1);
     triggerLogout();
 }
 
@@ -16,7 +16,7 @@ function Logout(props) {
     const { callback } = props;
     return (
         <>
-            {(localStorage.getItem("userPerms") !== '0') ?
+            {(localStorage.getItem("userPerms") > -1) ?
                 <>
                     Are you sure you want to Logout?
                     <div >
