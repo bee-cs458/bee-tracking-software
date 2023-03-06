@@ -9,7 +9,7 @@ export default function CheckInTable(props) {
     <div>
       {props.assets != null && props.assets.length > 0 ? (
         <div>
-          <Table striped bordered>
+          <Table striped bordered variant={props.variant}>
             <thead>
               <tr>
                 <td>Damaged</td>

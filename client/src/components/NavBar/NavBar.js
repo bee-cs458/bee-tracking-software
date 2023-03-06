@@ -5,21 +5,35 @@ import checkIn from "../../assets/checkIn.png";
 import operators from "../../assets/operators.png";
 import logOut from "../../assets/logOut.png";
 import signIn from "../../assets/signIn.png";
-import React, { useState } from "react";
+import mode from "../../assets/mode.png";
+import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Login from "../Login/Login";
 import Logout from "../Login/Logout";
 
 import "./NavBar.css";
+import { Button } from "react-bootstrap";
 
-function NavBar() {
-
+function NavBar(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  function handleClick() {
+    props.switchTheme();
+  }
+
   return (
     <nav className="App-nav">
       <ul>
+        <li>
+          <Button
+            variant={props.mode === "light" ? "dark" : "light"}
+            onClick={handleClick}
+          >
+            <img src={mode} alt="list" width="20" height="18" />
+          </Button>
+        </li>
         <li>
           <Link to="/">
             {/* Linked back to home page/asset view */}
@@ -36,31 +50,38 @@ function NavBar() {
           </li>
         ) : (
           <>
-          {/* Shows the Checkout and Checkin Nav buttons to operators & above*/}
-          {localStorage.getItem("userPerms") >= "1" &&
-            <>
-            <li>
-              <Link to="/checkOut">
-                <img src={checkOut} alt="check out" width="20" height="18" />
-                Check Out
-              </Link>
-            </li>
-            <li>
-              <Link to="/checkIn">
-                <img src={checkIn} alt="check in" width="20" height="18" />
-                Check In
-              </Link>
-            </li>
-            </>
-          }
-            {localStorage.getItem("userPerms")  >= 2 ? 
-            (
-            <li>
-              <Link to="/Users">
-                <img src={operators} alt="operators" width="20" height="18" />
-                Users
-              </Link>
-            </li>) :  ( <></>)}
+            {/* Shows the Checkout and Checkin Nav buttons to operators & above*/}
+            {localStorage.getItem("userPerms") >= "1" && (
+              <>
+                <li>
+                  <Link to="/checkOut">
+                    <img
+                      src={checkOut}
+                      alt="check out"
+                      width="20"
+                      height="18"
+                    />
+                    Check Out
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/checkIn">
+                    <img src={checkIn} alt="check in" width="20" height="18" />
+                    Check In
+                  </Link>
+                </li>
+              </>
+            )}
+            {localStorage.getItem("userPerms") >= 2 ? (
+              <li>
+                <Link to="/Users">
+                  <img src={operators} alt="operators" width="20" height="18" />
+                  Users
+                </Link>
+              </li>
+            ) : (
+              <></>
+            )}
             <li>
               <Link to="/profile">
                 <img src={signIn} alt="profile" width="20" height="18" />
@@ -69,22 +90,27 @@ function NavBar() {
             </li>
 
             {/* Shows the Users and Records Nav buttons to Owners*/}
-            {localStorage.getItem("userPerms") === "2" &&
+            {localStorage.getItem("userPerms") === "2" && (
               <>
                 <li>
-                <Link to="/Users">
-                  <img src={operators} alt="operators" width="20" height="18" />
-                  Users
-                </Link>
+                  <Link to="/Users">
+                    <img
+                      src={operators}
+                      alt="operators"
+                      width="20"
+                      height="18"
+                    />
+                    Users
+                  </Link>
                 </li>
                 <li>
-                <Link to="/Records">
-                  <img src={list} alt="records" width="20" height="18" />
-                  Records
-                </Link>
+                  <Link to="/Records">
+                    <img src={list} alt="records" width="20" height="18" />
+                    Records
+                  </Link>
                 </li>
               </>
-            }
+            )}
 
             <li onClick={handleShow}>
               <Link to="/">
