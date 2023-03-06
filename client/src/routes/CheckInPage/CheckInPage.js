@@ -74,7 +74,7 @@ export default function CheckInPage() {
             setAssets(currentList);
           } else {
             setAlertType(1);
-            setAlertMessage("Asset is checked in");
+            setAlertMessage("Asset is already checked in");
           }
         });
       } else {
@@ -167,7 +167,7 @@ export default function CheckInPage() {
         );
       } else {
         setAlertType(3);
-        setAlertMessage("Assets Successfully Checked In");
+        setAlertMessage("Asset(s) Successfully Checked In");
       }
 
       setStrikes(0);
@@ -228,7 +228,7 @@ export default function CheckInPage() {
               />
               <datalist id="unavailableAssets">
               {unavailableAssetTags.map((asset) => {
-                  return <option value={asset.asset_tag}/>;
+                  return <option key={asset.asset_tag} value={asset.asset_tag}/>;
                 })}
               </datalist>
               <Button onClick={handleTagPress} disabled={disabledButton}>Add</Button>

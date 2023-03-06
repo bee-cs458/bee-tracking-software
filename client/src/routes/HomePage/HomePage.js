@@ -21,7 +21,7 @@ export default function HomePage() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [inputVal, setInputVal] = useState(null);
+  const [inputVal, setInputVal] = useState("");
 
   //Store Categories
   const [cats, setCats] = useState([]);
@@ -38,7 +38,7 @@ export default function HomePage() {
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {
     if (e.key === "Enter") {
-      console.log("Key press is entered");
+      //console.log("Key press is entered");
       getInputValue();
     }
   }
@@ -46,7 +46,7 @@ export default function HomePage() {
   function getInputValue() {
     // Selecting the input element and get its value
     const newInputVal = document.getElementById("search").value;
-    console.log("Input Value: " + newInputVal);
+    //console.log("Input Value: " + newInputVal);
     setInputVal(newInputVal);
   }
 
@@ -76,20 +76,29 @@ export default function HomePage() {
 
       <div className=" main-content">
         <div className="container-fluid">
-            <div className="row">
-                <div className="col"><CatDropdown
+          <div className="row">
+            <div className="col">
+              <CatDropdown
                 state={currentCategory}
                 update={updateCategory}
                 categories={categories}
                 updateCategories={updateCategories}
-              ></CatDropdown></div>
-                <div className="col">
-              <CheckedOut state={checked} update={setChecked}></CheckedOut></div>
-              <div className="col">{localStorage.getItem("userPerms") === "2" ? (<Button onClick={handleShow}>Add Asset</Button>) : (<></>)}</div>
-              <div className="col"></div>
-              <div className="col"></div>
-              <div className="col"></div>
+              ></CatDropdown>
             </div>
+            <div className="col">
+              <CheckedOut state={checked} update={setChecked}></CheckedOut>
+            </div>
+            <div className="col">
+              {localStorage.getItem("userPerms") === "2" ? (
+                <Button onClick={handleShow}>Add Asset</Button>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+          </div>
         </div>
 
         <div className="asset-table">
@@ -105,14 +114,22 @@ export default function HomePage() {
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-            <Modal.Title>{(localStorage.getItem("userPerms") === "2") ? <>Add Asset</> : <>Invalid Permissions</>}</Modal.Title>
+          <Modal.Title>
+            {localStorage.getItem("userPerms") === "2" ? (
+              <>Add Asset</>
+            ) : (
+              <>Invalid Permissions</>
+            )}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            {(localStorage.getItem("userPerms") === "2") ? <AddAsset cats={cats} onSubmit={handleClose}/> : <>Only Owner can Add Assets</>}
+          {localStorage.getItem("userPerms") === "2" ? (
+            <AddAsset cats={cats} onSubmit={handleClose} />
+          ) : (
+            <>Only Owner can Add Assets</>
+          )}
         </Modal.Body>
       </Modal>
     </div>
-
-    
   );
 }
