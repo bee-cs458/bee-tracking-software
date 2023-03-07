@@ -1,6 +1,7 @@
 import React, { components } from 'react';
 import { CSVLink } from "react-csv";
 import { getAllUsers } from '../../api/UserService';
+import { Button } from 'react-bootstrap';
 
 const UserHeaders = [
     { label: "User Id", key: "user_id"},
@@ -38,7 +39,7 @@ class UserAsyncCSV extends React.Component {
     
         return (
           <div>
-            <input type="button" value="Export all user info to CSV" onClick={this.downloadUserReport} />
+            <Button onClick={this.downloadUserReport}>Export to CSV</Button>
             <CSVLink
               headers={UserHeaders}
               filename="Beets_User_Report_Async.csv"

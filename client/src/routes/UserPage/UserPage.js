@@ -69,10 +69,11 @@ export default function UserPage() {
                 Search
               </Button>
             </Form.Group>
+            <Form.Group as={Col}><UserAsyncCSV/></Form.Group>
           </Row>
         </Form>
 
-        <UserAsyncCSV></UserAsyncCSV>
+        
 
         {/* Display information of users */}
         <div className="container-fluid user-content">
