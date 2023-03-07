@@ -16,6 +16,7 @@ export default function HomePage() {
     catName: undefined,
     category_id: -1,
   });
+  const [selectList, setSelectList] = useState([]);
   //Displaying Add Asset
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -48,6 +49,11 @@ export default function HomePage() {
     const newInputVal = document.getElementById("search").value;
     //console.log("Input Value: " + newInputVal);
     setInputVal(newInputVal);
+  }
+
+  function clearSelection() {
+    sessionStorage.clear();
+    setSelectList([]);
   }
 
   const [checked, setChecked] = useState(false);
@@ -97,7 +103,9 @@ export default function HomePage() {
             </div>
             <div className="col"></div>
             <div className="col"></div>
-            <div className="col"></div>
+            <div className="col">
+              <Button onClick={clearSelection}>Clear Selection</Button>
+            </div>
           </div>
         </div>
 
@@ -107,6 +115,8 @@ export default function HomePage() {
             cat={currentCategory?.category_id}
             categoryList={categories}
             input={inputVal}
+            selectList={selectList}
+            setSelectList={setSelectList}
           ></AssetTable>
         </div>
       </div>
