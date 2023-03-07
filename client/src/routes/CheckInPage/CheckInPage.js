@@ -234,7 +234,16 @@ export default function CheckInPage() {
               />
               <datalist id="unavailableAssets">
               {unavailableAssetTags.map((asset) => {
-                  return <option key={asset.asset_tag} value={asset.asset_tag}/>;
+                  let inList = false;
+                  for(let i =0; i < assets.length; i++){
+                    if(assets[i].asset_tag === asset.asset_tag){
+                      inList = true;
+                      return null;
+                    }
+                  }
+                  if(!inList)
+                    return <option key={asset.asset_tag} value={asset.asset_tag}/>;
+                  return null;
                 })}
               </datalist>
               <Button onClick={handleTagPress} disabled={disabledButton}>
