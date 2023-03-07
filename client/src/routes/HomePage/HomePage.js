@@ -16,7 +16,7 @@ export default function HomePage() {
     catName: undefined,
     category_id: -1,
   });
-  const[selectList, setSelectList] = useState([]);
+  const [selectList, setSelectList] = useState([]);
   //Displaying Add Asset
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -57,7 +57,7 @@ export default function HomePage() {
   }
 
   const [checked, setChecked] = useState(false);
-  
+
   return (
     <div className="App">
       <div className="header-container container-fluid">
@@ -103,7 +103,9 @@ export default function HomePage() {
             </div>
             <div className="col"></div>
             <div className="col"></div>
-            <div className="col"><Button onClick={clearSelection}>Clear Selection</Button></div>
+            <div className="col">
+              <Button onClick={clearSelection}>Clear Selection</Button>
+            </div>
           </div>
         </div>
 

@@ -4,7 +4,7 @@
 
 .header-container {
     display: flex;
-    position: fixed; 
+    position: fixed;
     flex-direction: row;
     height: 45px;
     width: 60vw;
@@ -52,7 +52,7 @@
 
 .asset-table td {
     width: auto !important;
-    
+
 }
 
 .asset-table td {

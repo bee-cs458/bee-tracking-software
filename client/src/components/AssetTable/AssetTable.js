@@ -9,13 +9,12 @@ import Alert from "react-bootstrap/Alert";
 import AssetRow from "./AssetRow/AssetRow";
 
 export default function AssetTable(props) {
-  const {selectList, setSelectList} = props;
+  const { selectList, setSelectList } = props;
   const [assets, setAssets] = useState([]);
   const [updated, setUpdated] = useState(false);
   const setUp = () => {
     setUpdated(!updated);
   };
-  
 
   useEffect(() => {
     async function assetTableInit() {
@@ -52,7 +51,7 @@ export default function AssetTable(props) {
       setAssets(assetResults); // Set the assets data table to be the queried result
     }
     //Render which rows need to be selected
-    
+
     assetTableInit(); // Render that son of a gun
   }, [props.cat, props.input, props.filterByCheckedOut, updated]);
 

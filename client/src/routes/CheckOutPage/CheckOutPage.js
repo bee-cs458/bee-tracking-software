@@ -35,12 +35,11 @@ function CheckOutPage() {
       //let index = 0; // for the index of the asset
       currentAssetList.forEach((asset) => {
         // go through every element in the list
-        if (asset.asset_tag === asset_tag){
+        if (asset.asset_tag === asset_tag) {
           //check if the current asset is the passes in asset
           tempList.shift(); //removes the first element in the list which is the asset with the tag that was passed in
           sessionStorage.removeItem(asset_tag);
-        }
-        else tempList.push(tempList.shift()); //shifts the list so that the first element is now at the back
+        } else tempList.push(tempList.shift()); //shifts the list so that the first element is now at the back
       });
       setCurrentAssetList(tempList); //set the state to the temp list that has the change
     }
@@ -83,7 +82,7 @@ function CheckOutPage() {
       return;
     }
     setCurrentAssetList((prev) => prev.concat(asset)); //sets the current asset list with the new asset
-    sessionStorage.setItem(asset.asset_tag, asset.asset_tag)
+    sessionStorage.setItem(asset.asset_tag, asset.asset_tag);
   };
 
   const handleKeypress = (e) => {
@@ -192,12 +191,12 @@ function CheckOutPage() {
   const importAssetCart = async () => {
     let tempAssetList = [];
     let keys = Object.keys(sessionStorage);
-    for(let key of keys){
+    for (let key of keys) {
       const asset = (await getAssetByAssetTag(sessionStorage.getItem(key)))[0];
       tempAssetList.push(asset);
     }
     setCurrentAssetList(tempAssetList);
-  }
+  };
 
   useEffect(() => {
     populateAssetTags();
@@ -236,7 +235,9 @@ function CheckOutPage() {
               />
               <datalist id="assets">
                 {availableAssetTags.map((asset) => {
-                  return <option key={asset.asset_tag} value={asset.asset_tag}/>;
+                  return (
+                    <option key={asset.asset_tag} value={asset.asset_tag} />
+                  );
                 })}
               </datalist>
               <Button
