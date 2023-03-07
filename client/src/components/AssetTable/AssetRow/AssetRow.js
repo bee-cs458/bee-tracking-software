@@ -8,10 +8,11 @@ import { deleteAsset } from "../../../api/AssetService";
 
 function AssetRow(props) {
   const cats = props.categoryList;
+  const {selectList, setSelectList} = props;
+  const [selected, setSelected] = useState(false);
   const [asset, setAsset] = useState(props.item);
   const [editAsset, setEditAsset] = useState(false);
   const dates = asset.date_added;
-  const [selected, setSelected] = useState(false);
 
   const dateValues = dates.split('T')[0];
   const [year, month, day] = dateValues.split('-');
@@ -28,7 +29,7 @@ function AssetRow(props) {
   const handleDeleteAssetFalse = () => setDeleteAsset(false);
   useEffect(() => {
     setAlertMessage2("Deleting this asset cannot be undone. Are you sure you want to go through with deleting it?");
-    setAlertType2(0);
+    setAlertType2(1);
   }, [asset, editAsset, deleteAssetVar]);
 
   async function handleDelete() {
@@ -44,31 +45,53 @@ function AssetRow(props) {
     } else {
       handleDeleteAssetFalse();
       setAlertMessage2("Deleting this asset cannot be undone. Are you sure you want to go through with deleting it?");
-      setAlertType2(0);
+      setAlertType2(1);
     }
   }
 
 async function handleSelect() { //on click, table rows should highlight and add themselves to the selected asset list
-  console.log("select called");
-  if(!selected){ //unselected elements should be added to the list of selected assets
-    props.setSelectList(prev => prev.concat(asset.asset_tag))
-  }else{//rows that are already selected should remove themselves from the selected list
-    var tempList = props.selectList;
-    var index = -1;
-    var element;
-    tempList.forEach((element, i) => { //check each row for a match to the asset to unselect
-      if(element === asset.asset_tag){
-        index = i;
-      }
-    });
-    if(index != -1){ //if the asset tag is found, remove its index
-      tempList.splice(index, 1);
-    }
-    props.setSelectList(tempList)
+  if(asset.checked_out){
+    setAlertMessage("Asset is already checked out");
+    setAlertType(1);
+    return;
   }
-  console.log(props.selectList);
+  if(!selected){ //unselected elements should be added to the list of selected assets
+    sessionStorage.setItem(asset.asset_tag, asset.asset_tag);
+    setSelectList((prev) => prev.concat(asset.asset_tag));
+  }else{//rows that are already selected should remove themselves from the selected list
+    let tempList = selectList.slice(); //creates a temp list that isn't a state
+    selectList.forEach((asset_tag) => {
+      if (asset.asset_tag === asset_tag){
+        //check if the current asset is the passes in asset
+        tempList.shift(); //removes the first element in the list which is the asset with the tag that was passed in
+        sessionStorage.removeItem(asset_tag);
+      }
+      else tempList.push(tempList.shift()); //shifts the list so that the first element is now at the back
+    });
+    setSelectList(tempList);
+    
+  }
   setSelected(!selected);
 }
+
+useEffect(() => { //if item is in the Cart, select it
+  let keys = Object.keys(sessionStorage);
+  for(let key of keys){ //loops through session storage, using keys as the index
+    if(asset.asset_tag === sessionStorage.getItem(key)){
+      if(!selected){//this if statement prevents infinite loops
+        setSelected(true);
+        setSelectList((prev) => prev.concat(asset.asset_tag));
+      }
+      return;
+    }
+    
+  }
+  //if the item was not in the Cart, force the item to be unselected
+  setSelected(false);
+}, [selectList]); //calls on changes to select list to work with the Clear Selection Button
+
+
+
   return (
     <tr onClick = {handleSelect} className = {selected ? 'table-primary': null}>
       <td>{asset.asset_tag}</td>

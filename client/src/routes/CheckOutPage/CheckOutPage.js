@@ -28,17 +28,18 @@ function CheckOutPage() {
   const [cats, setCats] = useState([]);
   const [availableAssetTags, setAvailableAssetTags] = useState([]);
 
-  //setOpId(localStorage.getItem("userId"));
-
+  //recieve the items from the cart that have been saved to session storage
   const removeAsset = (asset_tag) => {
     if (asset_tag) {
       let tempList = currentAssetList.slice(); //creates a temp list that isn't a state
       //let index = 0; // for the index of the asset
       currentAssetList.forEach((asset) => {
         // go through every element in the list
-        if (asset.asset_tag === asset_tag)
+        if (asset.asset_tag === asset_tag){
           //check if the current asset is the passes in asset
           tempList.shift(); //removes the first element in the list which is the asset with the tag that was passed in
+          sessionStorage.removeItem(asset_tag);
+        }
         else tempList.push(tempList.shift()); //shifts the list so that the first element is now at the back
       });
       setCurrentAssetList(tempList); //set the state to the temp list that has the change
@@ -82,6 +83,7 @@ function CheckOutPage() {
       return;
     }
     setCurrentAssetList((prev) => prev.concat(asset)); //sets the current asset list with the new asset
+    sessionStorage.setItem(asset.asset_tag, asset.asset_tag)
   };
 
   const handleKeypress = (e) => {
@@ -186,9 +188,24 @@ function CheckOutPage() {
       .catch((err) => console.log(err));
   };
 
+  const importAssetCart = async () => {
+    let tempAssetList = [];
+    let keys = Object.keys(sessionStorage);
+    for(let key of keys){
+      const asset = (await getAssetByAssetTag(sessionStorage.getItem(key)))[0];
+      tempAssetList.push(asset);
+    }
+    setCurrentAssetList(tempAssetList);
+  }
+
   useEffect(() => {
     populateAssetTags();
   }, [currentAssetList]); //rerenders page on change to asset list
+
+  useEffect(() => {
+    importAssetCart();
+  }, []);
+
   useEffect(() => {}, [availableAssetTags, cats]);
   return (
     <div>

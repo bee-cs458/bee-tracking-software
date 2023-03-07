@@ -9,6 +9,7 @@ import Alert from "react-bootstrap/Alert";
 import AssetRow from "./AssetRow/AssetRow";
 
 export default function AssetTable(props) {
+  const {selectList, setSelectList} = props;
   const [assets, setAssets] = useState([]);
   const [updated, setUpdated] = useState(false);
   const setUp = () => {
@@ -50,6 +51,8 @@ export default function AssetTable(props) {
       }
       setAssets(assetResults); // Set the assets data table to be the queried result
     }
+    //Render which rows need to be selected
+    
     assetTableInit(); // Render that son of a gun
   }, [props.cat, props.input, props.filterByCheckedOut, updated]);
 
@@ -78,9 +81,9 @@ export default function AssetTable(props) {
                         key={asset.asset_tag}
                         item={asset}
                         setUp={setUp}
+                        selectList={selectList}
+                        setSelectList={setSelectList}
                         categoryList={props.categoryList}
-                        selectList={props.selectedList}
-                        setSelectList={props.setSelectedList}
                       ></AssetRow>
                     ))
                 : assets.map((asset) => (
@@ -88,9 +91,9 @@ export default function AssetTable(props) {
                       key={asset.asset_tag}
                       item={asset}
                       setUp={setUp}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                       categoryList={props.categoryList}
-                      selectList={props.selectedList}
-                      setSelectList={props.setSelectedList}
                     ></AssetRow>
                   ))}
             </tbody>
