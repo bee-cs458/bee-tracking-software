@@ -15,6 +15,7 @@ import {
 import CheckInTable from "../../components/CheckInUtilities/CheckInTable";
 import getCategories from "../../api/CategoryService";
 import { getAllUnavailableAssets } from "../../api/AssetService";
+import { useOutletContext } from "react-router-dom";
 
 export default function CheckInPage() {
   const [assets, setAssets] = useState([]);
@@ -28,20 +29,22 @@ export default function CheckInPage() {
   //const [selectedStudent, setStudent] = useState("TODO Enter Student Here");
   const [cats, setCats] = useState([]);
   const [unavailableAssetTags, setUnAvailableAssetTags] = useState([]);
+  const [theme, setTheme] = useOutletContext();
 
   const removeAsset = (asset_tag) => {
-    if(asset_tag){
-        let tempList = assets.slice(); //creates a temp list that isn't a state
-        //let index = 0; // for the index of the asset
-        assets.forEach((asset) => {// go through every element in the list
-            if(asset.asset_tag === asset_tag) //check if the current asset is the passes in asset
-                tempList.shift(); //removes the first element in the list which is the asset with the tag that was passed in
-            else
-                tempList.push(tempList.shift()); //shifts the list so that the first element is now at the back
-        })
-        setAssets(tempList); //set the state to the temp list that has the change
+    if (asset_tag) {
+      let tempList = assets.slice(); //creates a temp list that isn't a state
+      //let index = 0; // for the index of the asset
+      assets.forEach((asset) => {
+        // go through every element in the list
+        if (asset.asset_tag === asset_tag)
+          //check if the current asset is the passes in asset
+          tempList.shift(); //removes the first element in the list which is the asset with the tag that was passed in
+        else tempList.push(tempList.shift()); //shifts the list so that the first element is now at the back
+      });
+      setAssets(tempList); //set the state to the temp list that has the change
     }
-}
+  };
 
   function handleIDChange(newValue) {
     setEnteredID(newValue);
@@ -104,14 +107,16 @@ export default function CheckInPage() {
     }
   };
 
-  const handleKeypressAsset = e => { //called when enter key is pressed while in the asset input box
+  const handleKeypressAsset = (e) => {
+    //called when enter key is pressed while in the asset input box
     //it triggers by pressing the enter key
     if (e.keyCode === 13) {
       handleTagPress();
     }
   };
 
-  const handleKeypressStudent = e => { //called when enter key is pressed while in the id input box
+  const handleKeypressStudent = (e) => {
+    //called when enter key is pressed while in the id input box
     //it triggers by pressing the enter key
     if (e.keyCode === 13) {
       handleIDPress();
@@ -152,7 +157,6 @@ export default function CheckInPage() {
     } else {
       setAlertType(null);
       setAlertMessage(null);
-
 
       assets.forEach((asset) => {
         checkIn(asset);
@@ -199,7 +203,9 @@ export default function CheckInPage() {
   };
 
   // re-render the assets table
-  useEffect(() => {populateAssetTags()}, [assets, currentTag, studentID, alertMessage]);
+  useEffect(() => {
+    populateAssetTags();
+  }, [assets, currentTag, studentID, alertMessage]);
 
   return (
     <div>
@@ -240,7 +246,9 @@ export default function CheckInPage() {
                   return null;
                 })}
               </datalist>
-              <Button onClick={handleTagPress} disabled={disabledButton}>Add</Button>
+              <Button onClick={handleTagPress} disabled={disabledButton}>
+                Add
+              </Button>
             </Form.Group>
 
             <Form.Group as={Col} controlid="studentId">
@@ -254,11 +262,20 @@ export default function CheckInPage() {
                   handleIDChange(event.target.value);
                 }}
               />
-              <Button onClick={handleIDPress} disabled={disabledButton}>Submit</Button>
+              <Button onClick={handleIDPress} disabled={disabledButton}>
+                Submit
+              </Button>
             </Form.Group>
           </Row>
           <Row className="mb-3 notes">
-            <CheckInTable as={Row} assets={assets} disabledButton={disabledButton} removeAsset={removeAsset} cats={cats}></CheckInTable>
+            <CheckInTable
+              as={Row}
+              assets={assets}
+              disabledButton={disabledButton}
+              removeAsset={removeAsset}
+              cats={cats}
+              variant={theme}
+            ></CheckInTable>
 
             <Form.Group as={Row}>
               <Form.Label>Check In Notes</Form.Label>
@@ -273,7 +290,12 @@ export default function CheckInPage() {
           </Row>
 
           <div className="mb-3">
-            <Button className="clearAll" type="reset" onClick={clearAll} disabled={disabledButton}>
+            <Button
+              className="clearAll"
+              type="reset"
+              onClick={clearAll}
+              disabled={disabledButton}
+            >
               Clear All
             </Button>
             <Button

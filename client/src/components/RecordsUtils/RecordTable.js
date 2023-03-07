@@ -7,7 +7,7 @@ import { getAllRecords } from "../../api/RecordService";
 import { getAllAssets } from "../../api/AssetService";
 import { getAllUsers } from "../../api/UserService";
 
-export default function RecordTable() {
+export default function RecordTable(props) {
   const [records, setRecords] = useState();
   const [users, setUsers] = useState([{}]);
   const [assets, setAssets] = useState([{}]);
@@ -48,7 +48,7 @@ export default function RecordTable() {
     if (records !== null && records !== undefined && records?.length > 0) {
       return (
         <div>
-          <Table bordered hover>
+          <Table bordered hover variant={props.variant}>
             <thead>
               <tr>
                 <th>Record ID</th>

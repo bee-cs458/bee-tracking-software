@@ -59,7 +59,7 @@ export default function AssetTable(props) {
     <div>
       {assets != null && assets.length > 0 ? (
         <div>
-          <Table striped bordered hover>
+          <Table striped bordered variant={props.variant} hover>
             <thead>
               <tr>
                 <td width="100px">Tag</td>
