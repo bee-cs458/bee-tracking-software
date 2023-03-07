@@ -236,7 +236,16 @@ function CheckOutPage() {
               />
               <datalist id="assets">
                 {availableAssetTags.map((asset) => {
-                  return <option key={asset.asset_tag} value={asset.asset_tag}/>;
+                  let inList = false;
+                  for(let i =0; i < currentAssetList.length; i++){
+                    if(currentAssetList[i].asset_tag === asset.asset_tag){
+                      inList = true;
+                      return null;
+                    }
+                  }
+                  if(!inList)
+                    return <option key={asset.asset_tag} value={asset.asset_tag}/>;
+                  return null;
                 })}
               </datalist>
               <Button
