@@ -46,6 +46,13 @@
 
 .asset-table {
     width: calc (100vw - 250px);
+    height: calc(100vh - 118px);
+    overflow-y: scroll;
+}
+
+.asset-table td {
+    width: auto !important;
+
 }
 
 .asset-table td {
