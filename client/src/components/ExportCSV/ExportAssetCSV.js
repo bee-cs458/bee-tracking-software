@@ -1,4 +1,5 @@
 import React, { components } from 'react';
+import { Button } from 'react-bootstrap';
 import { CSVLink } from "react-csv";
 import { getAllAssets } from '../../api/AssetService';
 
@@ -41,7 +42,7 @@ class AssetAsyncCSV extends React.Component {
     
         return (
           <div>
-            <input type="button" value="Export all assets to CSV" onClick={this.downloadAssetsReport} />
+            <Button onClick={this.downloadAssetsReport}>Export to CSV</Button>
             <CSVLink
               headers={AssetHeaders}
               filename="Beets_Assets_Report_Async.csv"
