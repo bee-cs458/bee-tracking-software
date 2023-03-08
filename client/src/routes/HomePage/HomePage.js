@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./HomePage.css";
 import search from "../../assets/search.png";
 import AssetTable from "../../components/AssetTable/AssetTable";
@@ -8,14 +8,18 @@ import AddAsset from "../../components/AddAsset/AddAsset";
 import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
 
-export default function HomePage() {
+import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
+
+export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
   const [currentCategory, updateCategory] = useState({
     catName: undefined,
     category_id: -1,
   });
+  const [selectList, setSelectList] = useState([]);
   //Displaying Add Asset
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -25,6 +29,8 @@ export default function HomePage() {
 
   //Store Categories
   const [cats, setCats] = useState([]);
+
+  const [theme, setTheme] = useOutletContext();
 
   useEffect(() => {
     getCategories()
@@ -48,6 +54,11 @@ export default function HomePage() {
     const newInputVal = document.getElementById("search").value;
     //console.log("Input Value: " + newInputVal);
     setInputVal(newInputVal);
+  }
+
+  function clearSelection() {
+    sessionStorage.clear();
+    setSelectList([]);
   }
 
   const [checked, setChecked] = useState(false);
@@ -95,9 +106,14 @@ export default function HomePage() {
                 <></>
               )}
             </div>
+            <div className="col">
+              <AssetAsyncCSV></AssetAsyncCSV>
+            </div>
             <div className="col"></div>
             <div className="col"></div>
-            <div className="col"></div>
+            <div className="col">
+              <Button onClick={clearSelection}>Clear Selection</Button>
+            </div>
           </div>
         </div>
 
@@ -107,6 +123,9 @@ export default function HomePage() {
             cat={currentCategory?.category_id}
             categoryList={categories}
             input={inputVal}
+            variant={theme}
+            selectList={selectList}
+            setSelectList={setSelectList}
           ></AssetTable>
         </div>
       </div>

@@ -14,6 +14,7 @@ import {
 import CheckOutTable from "../../components/CheckOutUtilities/CheckOutTable";
 import { getUserById } from "../../api/UserService";
 import getCategories from "../../api/CategoryService";
+import { useOutletContext } from "react-router-dom";
 
 function CheckOutPage() {
   const [show, setShow] = useState(false);
@@ -27,19 +28,20 @@ function CheckOutPage() {
   const [currentAssetList, setCurrentAssetList] = useState([]);
   const [cats, setCats] = useState([]);
   const [availableAssetTags, setAvailableAssetTags] = useState([]);
+  const [theme, setTheme] = useOutletContext();
 
-  //setOpId(localStorage.getItem("userId"));
-
+  //recieve the items from the cart that have been saved to session storage
   const removeAsset = (asset_tag) => {
     if (asset_tag) {
       let tempList = currentAssetList.slice(); //creates a temp list that isn't a state
       //let index = 0; // for the index of the asset
       currentAssetList.forEach((asset) => {
         // go through every element in the list
-        if (asset.asset_tag === asset_tag)
+        if (asset.asset_tag === asset_tag) {
           //check if the current asset is the passes in asset
           tempList.shift(); //removes the first element in the list which is the asset with the tag that was passed in
-        else tempList.push(tempList.shift()); //shifts the list so that the first element is now at the back
+          sessionStorage.removeItem(asset_tag);
+        } else tempList.push(tempList.shift()); //shifts the list so that the first element is now at the back
       });
       setCurrentAssetList(tempList); //set the state to the temp list that has the change
     }
@@ -82,6 +84,7 @@ function CheckOutPage() {
       return;
     }
     setCurrentAssetList((prev) => prev.concat(asset)); //sets the current asset list with the new asset
+    sessionStorage.setItem(asset.asset_tag, asset.asset_tag);
   };
 
   const handleKeypress = (e) => {
@@ -161,6 +164,7 @@ function CheckOutPage() {
           setErrMsg(error.message);
         }); //displays error message in the modal*/
     });
+    sessionStorage.clear(); //wipes the cart after the items are checked out
     /*
         }
         await doCheckout(currentAssetList.map((asset) => asset.asset_tag), studentId, opId).then( //passes assets, student id and operator id to the query
@@ -186,9 +190,24 @@ function CheckOutPage() {
       .catch((err) => console.log(err));
   };
 
+  const importAssetCart = async () => {
+    let tempAssetList = [];
+    let keys = Object.keys(sessionStorage);
+    for (let key of keys) {
+      const asset = (await getAssetByAssetTag(sessionStorage.getItem(key)))[0];
+      tempAssetList.push(asset);
+    }
+    setCurrentAssetList(tempAssetList);
+  };
+
   useEffect(() => {
     populateAssetTags();
   }, [currentAssetList]); //rerenders page on change to asset list
+
+  useEffect(() => {
+    importAssetCart();
+  }, []);
+
   useEffect(() => {}, [availableAssetTags, cats]);
   return (
     <div>
@@ -218,7 +237,18 @@ function CheckOutPage() {
               />
               <datalist id="assets">
                 {availableAssetTags.map((asset) => {
-                  return <option key={asset.asset_tag} value={asset.asset_tag}/>;
+                  let inList = false;
+                  for (let i = 0; i < currentAssetList.length; i++) {
+                    if (currentAssetList[i].asset_tag === asset.asset_tag) {
+                      inList = true;
+                      return null;
+                    }
+                  }
+                  if (!inList)
+                    return (
+                      <option key={asset.asset_tag} value={asset.asset_tag} />
+                    );
+                  return null;
                 })}
               </datalist>
               <Button
@@ -253,6 +283,7 @@ function CheckOutPage() {
             receipt={false}
             disabledButton={disabledButton}
             cats={cats}
+            variant={theme}
           ></CheckOutTable>
 
           <Button
@@ -309,6 +340,7 @@ function CheckOutPage() {
               receipt={true}
               assets={currentAssetList}
               cats={cats}
+              variant={theme}
             ></CheckOutTable>
           </Modal.Body>
           <Modal.Footer>
