@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import NavBar from "./components/NavBar/NavBar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getLoggedInUser } from "./api/AuthService";
 
 function setUserId(newId) {
