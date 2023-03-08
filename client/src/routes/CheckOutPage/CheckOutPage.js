@@ -20,7 +20,7 @@ function CheckOutPage() {
   const [studentId, setStudentId] = useState("");
   const [assetTag, setAssetTag] = useState("");
   const [currErrMsg, setErrMsg] = useState("");
-  const [opId, setOpId] = useState(localStorage.getItem("userId"));
+  const [opId, setOpId] = useState(0);
   const [disabledButton, setDisabledButton] = useState(false);
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
@@ -184,6 +184,7 @@ function CheckOutPage() {
         return value;
       })
       .catch((err) => console.log(err));
+      setOpId(localStorage.getItem("userId"));
   };
 
   useEffect(() => {
