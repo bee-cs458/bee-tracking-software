@@ -45,6 +45,22 @@ export default function CheckInRow(props) {
     setShow(true);
   };
 
+  function getClassName() {
+    if (record.in_date === null) {
+      if (props.date > dueDate && !record.in_date) {
+        return "table-danger";
+      } else return "table-success";
+    } else return "";
+  }
+
+  function getClassName() {
+    if (record.in_date === null) {
+      if (props.date > dueDate && !record.in_date) {
+        return "table-danger";
+      } else return "table-success";
+    } else return "";
+  }
+
   const rowClicked = () => {
     toggleExpanded();
   };
@@ -61,14 +77,7 @@ export default function CheckInRow(props) {
   return (
     <>
       <tr
-        style={{
-          background:
-            record.in_date === null
-              ? props.date > dueDate && !record.in_date
-                ? "#ffb9b9"
-                : "#55ff77"
-              : "",
-        }}
+        className={getClassName()}
         onClick={() => rowClicked()}
       >
         <td>{record.record_id}</td>
@@ -78,7 +87,7 @@ export default function CheckInRow(props) {
         <td>{formatDate(record.due_date)}</td>
       </tr>
       {expanded ? (
-        <tr className="dropdown">
+        <tr className="dropdown01">
           <td colSpan="5">
             <div className="container-fluid">
               <div className="row">

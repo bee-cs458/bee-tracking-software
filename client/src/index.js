@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 // Bootstrap CSS
@@ -16,7 +17,7 @@ import ProfilePage from "./routes/ProfilePage/ProfilePage";
 import CheckOutPage from "./routes/CheckOutPage/CheckOutPage";
 import CheckInPage from "./routes/CheckInPage/CheckInPage";
 import RecordPage from "./routes/RecordsPage/RecordsPage";
-import UserPage from './routes/UserPage/UserPage';
+import UserPage from "./routes/UserPage/UserPage";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 var userPermValue = localStorage.getItem("userPerms");
@@ -26,9 +27,12 @@ var userPermValue = localStorage.getItem("userPerms");
  * This value is accessed by checking the header called "Authorization"
  * The userPerms value determines whether someone is a Guest, Student, Operator, or Owner
  */
-axios.defaults.headers.common['Authorization'] = userPermValue;
+axios.defaults.headers.common["Authorization"] = userPermValue;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+var theme = 'light'
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>

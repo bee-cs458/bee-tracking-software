@@ -53,14 +53,30 @@ const App = () => {
       })
 
   }, []);
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    if (theme === "light") {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    document.body.className = theme;
+  }, [theme]);
 
   return (
     <div>
-      <NavBar />
-      <Outlet />
+      <NavBar switchTheme={toggleTheme} mode={theme}/>
+      <div className={"App " + theme}>
+        <Outlet context={[theme, setTheme]}/>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default App;
 export { setUserId, setUserPerm, getLoggedInUserId, getLoggedInUserPerms };
