@@ -16,20 +16,28 @@ const googleLogin = () => {
 
 function Login(props) {
     const [updated, changeUpdate] = useState(null);
-    useEffect(() => { }, [updated]);
+    const [errorState, setErrorState] = useState(false);
+    useEffect(() => { }, [updated, errorState]);
     const toggleUpdate = () => { updated ? changeUpdate(false) : changeUpdate(true) };
     const { callback } = props;
 
     const submit = async () => {
-        update(await verifyLogin(document.getElementById('username').value, document.getElementById('password').value));
+        var loginResult = await verifyLogin(document.getElementById('username').value, document.getElementById('password').value).then((result) => {
+            if (result.status === 401) {
+                setErrorState(true);
+            } else {
+                setErrorState(false);
+                update(result);
+            }
+        });
         toggleUpdate(true);
     }
 
     const handleKeypress = e => {
         //it triggers by pressing the enter key
-      if (e.keyCode === 13) {
-        submit()
-      }
+        if (e.keyCode === 13) {
+            submit()
+        }
     };
 
     return (
@@ -38,7 +46,7 @@ function Login(props) {
             {(localStorage.getItem("userPerms") <= 0) ?
                 <>
                     {
-                        (localStorage.getItem("userPerms") < 0) ?
+                        (errorState) ?
                             <>
                                 <div className="alert alert-danger">Check your credentials and try again</div>
                             </>
@@ -55,7 +63,7 @@ function Login(props) {
                     <div>
                         <Button variant="primary" onClick={
                             async () => {
-                               submit();
+                                submit();
                             }
                         } style={{ float: 'right' }}>
                             Login

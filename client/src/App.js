@@ -70,9 +70,9 @@ const App = () => {
 
   return (
     <div>
-      <NavBar switchTheme={toggleTheme} mode={theme}/>
+      <NavBar switchTheme={toggleTheme} mode={theme} />
       <div className={"App " + theme}>
-        <Outlet context={[theme, setTheme]}/>
+        <Outlet context={[theme, setTheme]} />
       </div>
     </div>
   );

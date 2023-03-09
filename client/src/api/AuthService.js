@@ -18,8 +18,7 @@ export function verifyLogin(user, pass) {
         },
         (err) => {
             return {
-                user_id: -1,
-                permissions: -1
+                status: err.response.status,
             };
         }
     );

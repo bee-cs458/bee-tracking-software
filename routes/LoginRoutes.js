@@ -41,6 +41,10 @@ router.get("/success", (req, res) => {
             user: req.user
         })
     }
+
+    res.status(204).json({
+        message: "No user currently authenticated"
+    });
 });
 
 router.get("/failure", (req, res) =>
