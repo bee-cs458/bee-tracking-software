@@ -10,6 +10,8 @@ import Button from "react-bootstrap/Button";
 import { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
+import { AccessControl } from "../../components/AccessControl/AccessControl";
+import { Ranks } from "../../constants/PermissionRanks";
 
 import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
 
@@ -106,9 +108,11 @@ export default function HomePage(props) {
                 <></>
               )}
             </div>
-            <div className="col">
-              <AssetAsyncCSV></AssetAsyncCSV>
-            </div>
+            <AccessControl allowedRank={Ranks.OWNER}>
+              <div className="col">
+                <AssetAsyncCSV></AssetAsyncCSV>
+              </div>
+            </AccessControl>
             <div className="col"></div>
             <div className="col"></div>
             <div className="col">
