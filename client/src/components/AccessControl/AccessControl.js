@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { GlobalStateContext } from "../Context/UserContext";
+import { GlobalStateContext, useAuthenticatedUser } from "../Context/UserContext";
 
 export const AccessControl = ({allowedRank, children, renderNoAccess}) => {
 
-    const [userState, setUserState] = useContext(GlobalStateContext);
+    const user = useAuthenticatedUser();
 
-    const permitted = userState.permissions >= allowedRank;
+    const permitted = user.permissions >= allowedRank;
 
     if (permitted) {
       return children;

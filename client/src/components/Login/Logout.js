@@ -16,7 +16,7 @@ function Logout(props) {
     function update() {
         setUserId(-1);
         setUserPerm(-1);
-        setUserState(LOGGED_OUT_STATE);
+        setUserState({user: {user_id: -1, permissions: -1}});
         triggerLogout();
     }
 

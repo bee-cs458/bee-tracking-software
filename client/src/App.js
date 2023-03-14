@@ -1,11 +1,11 @@
 import { Outlet } from "react-router";
 import NavBar from "./components/NavBar/NavBar";
-import { useEffect, useState } from "react";
-import { GlobalStateProvider } from "./components/Context/UserContext";
+import { useEffect, useState, useContext } from "react";
+import { GlobalStateContext } from "./components/Context/UserContext";
 
 const App = () => {
 
-  //const [user, setUser] = useContext(UserContext);
+  const [userState, setUserState] = useContext(GlobalStateContext);
 
   
   const [theme, setTheme] = useState("light");
@@ -24,12 +24,12 @@ const App = () => {
   }, [theme]);
 
   return (
-    <GlobalStateProvider>
+    <div>
       <NavBar switchTheme={toggleTheme} mode={theme} />
       <div className={"App " + theme}>
         <Outlet context={[theme, setTheme]} />
       </div>
-    </GlobalStateProvider>
+      </div>
   );
 };
 

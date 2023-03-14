@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useState, useEffect } from "react";
 import axios from "axios";
 
 // Bootstrap CSS
@@ -19,6 +18,7 @@ import CheckInPage from "./routes/CheckInPage/CheckInPage";
 import RecordPage from "./routes/RecordsPage/RecordsPage";
 import UserPage from "./routes/UserPage/UserPage";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import { GlobalStateProvider } from "./components/Context/UserContext";
 
 var userPermValue = localStorage.getItem("userPerms");
 
@@ -35,6 +35,7 @@ var theme = 'light'
 
 root.render(
   <React.StrictMode>
+    <GlobalStateProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
@@ -67,6 +68,7 @@ root.render(
         </Route>
       </Routes>
     </BrowserRouter>
+    </GlobalStateProvider>
   </React.StrictMode>
 );
 

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext, useCallback, useMemo } from 'react';
 import { getLoggedInUser } from '../../api/AuthService';
 import { Ranks } from '../../constants/PermissionRanks';
 
@@ -27,20 +27,20 @@ function setUserPerm(newPerm) {
         }
       }
 
-
-export const LOGGED_OUT_STATE = {
-    user_id: -1,
-    permissions: Ranks.GUEST
-}
 // create a context object
 export const GlobalStateContext = createContext();
 
 // create a provider component
 export const GlobalStateProvider = ({ children }) => {
-  const [globalState, setGlobalState] = useState(LOGGED_OUT_STATE);
+  const [globalState, setGlobalState] = useState(
+    {user: {
+      user_id: -1,
+      permissions: -1
+    }}
+  );
 
   useEffect(() => {
-    console.log("UserContext");
+    console.log(globalState);
     getLoggedInUser()
       .then((response) => {
         if (response.status === 200) {
@@ -49,12 +49,12 @@ export const GlobalStateProvider = ({ children }) => {
 
         setUserId(-1);
         setUserPerm(-1);
-        setGlobalState({user_id: "-1", permission: Ranks.GUEST})
+        setGlobalState({user: {user_id: -1, permission: -1}})
 
         throw new Error("Failed to get logged in user");
       })
       .then((resObject) => {
-        setGlobalState(resObject.user);
+        setGlobalState({user: resObject.user});
         setUserId(resObject.user.user_id);
         setUserPerm(resObject.user.permissions);
       })
@@ -69,6 +69,15 @@ export const GlobalStateProvider = ({ children }) => {
       {children}
     </GlobalStateContext.Provider>
   );
+};
+
+// Memoized selector function to get only the user value from the global state
+export const useAuthenticatedUser = () => {
+  const [globalState] = useContext(GlobalStateContext);
+
+  // Use useCallback to memoize the function and useMemo to memoize the returned value
+  const getAuthenticatedUser = useCallback(() => globalState.user, [globalState.user]);
+  return useMemo(() => getAuthenticatedUser(), [getAuthenticatedUser]);
 };
 
 export {setUserId, getLoggedInUserId, setUserPerm, getLoggedInUserPerms}
