@@ -1,7 +1,6 @@
 import { Outlet } from "react-router";
 import NavBar from "./components/NavBar/NavBar";
-import { useEffect, useState, useContext } from "react";
-import { GlobalStateContext } from "./components/Context/UserContext";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [theme, setTheme] = useState("light");

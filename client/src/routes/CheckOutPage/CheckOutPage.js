@@ -194,6 +194,9 @@ function CheckOutPage() {
     let tempAssetList = [];
     let keys = Object.keys(sessionStorage);
     for (let key of keys) {
+      if (key.includes("DevTools")) {
+        continue;
+      }
       const asset = (await getAssetByAssetTag(sessionStorage.getItem(key)))[0];
       tempAssetList.push(asset);
     }
