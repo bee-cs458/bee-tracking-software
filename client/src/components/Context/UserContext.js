@@ -15,6 +15,7 @@ export const GlobalStateContext = createContext();
 
 // create a provider component
 export const GlobalStateProvider = ({ children }) => {
+  // A normal state to hold our global state
   const [globalState, setGlobalState] = useState({
     user: {
       user_id: -1,
@@ -63,8 +64,20 @@ export const GlobalStateProvider = ({ children }) => {
     </GlobalStateContext.Provider>
   );
 };
-
-// Memoized selector function to get only the user value from the global state
+/**
+ *
+ * @returns A user object that has the information of the currently authenticated user
+ * `
+ *  user_id,
+ *  first_name,
+ *  last_name,
+ *  strikes,
+ *  username,
+ *  permissions,
+ *  advanced,
+ *  email
+ * `
+ */
 export const useAuthenticatedUser = () => {
   const [globalState] = useContext(GlobalStateContext);
 
