@@ -233,16 +233,18 @@ export default function CheckInPage() {
                 }}
               />
               <datalist id="unavailableAssets">
-              {unavailableAssetTags.map((asset) => {
+                {unavailableAssetTags.map((asset) => {
                   let inList = false;
-                  for(let i =0; i < assets.length; i++){
-                    if(assets[i].asset_tag === asset.asset_tag){
+                  for (let i = 0; i < assets.length; i++) {
+                    if (assets[i].asset_tag === asset.asset_tag) {
                       inList = true;
                       return null;
                     }
                   }
-                  if(!inList)
-                    return <option key={asset.asset_tag} value={asset.asset_tag}/>;
+                  if (!inList)
+                    return (
+                      <option key={asset.asset_tag} value={asset.asset_tag} />
+                    );
                   return null;
                 })}
               </datalist>

@@ -14,6 +14,7 @@ import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
 
 import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
+import { AccountLink } from "../../components/AccountLink/AccountLink";
 
 export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
@@ -85,6 +86,7 @@ export default function HomePage(props) {
             <img src={search} alt="search" width="22" height="22" />
           </button>
         </div>
+        <AccountLink className="account-link" />
       </div>
 
       <div className=" main-content">
