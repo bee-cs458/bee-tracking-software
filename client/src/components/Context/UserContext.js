@@ -38,20 +38,8 @@ export const GlobalStateProvider = ({ children }) => {
       })
       .then((resObject) => {
         setGlobalState({ user: resObject.user });
-        /**
-         * Adds the userPerms value from our global state to all HTTP requests originating from the frontend
-         * This value is accessed by checking the header called "Authorization"
-         * The userPerms value determines whether someone is a Guest, Student, Operator, or Owner
-         */
-        axios.interceptors.request.use(
-          (config) => {
-            config.headers["Authorization"] = resObject.user.permissions;
-            return config;
-          },
-          (error) => {
-            return Promise.reject(error);
-          }
-        );
+        axios.defaults.headers.get["Authorization"] =
+          resObject.user.permissions;
       })
       .catch((err) => {
         console.log(err);
