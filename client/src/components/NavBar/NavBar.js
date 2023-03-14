@@ -6,18 +6,22 @@ import operators from "../../assets/operators.png";
 import logOut from "../../assets/logOut.png";
 import signIn from "../../assets/signIn.png";
 import mode from "../../assets/mode.png";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Login from "../Login/Login";
 import Logout from "../Login/Logout";
 
 import "./NavBar.css";
 import { Button } from "react-bootstrap";
+import { useAuthenticatedUser } from "../Context/UserContext";
+import { AccessControl } from "../AccessControl/AccessControl";
+import { Ranks } from "../../constants/PermissionRanks";
 
 function NavBar(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const user = useAuthenticatedUser();
 
   function handleClick() {
     props.switchTheme();
@@ -41,83 +45,68 @@ function NavBar(props) {
             Assets
           </Link>
         </li>
-        {localStorage.getItem("userPerms") < 0 ? ( //if
+        <AccessControl onlyLoggedOut={true}>
           <li onClick={handleShow}>
             <Link to="/">
               <img src={logOut} alt="log in" width="20" height="18" />
               Log In
             </Link>
           </li>
-        ) : (
-          <>
-            {/* Shows the Checkout and Checkin Nav buttons to operators & above*/}
-            {localStorage.getItem("userPerms") >= "1" && (
-              <>
-                <li>
-                  <Link to="/checkOut">
-                    <img
-                      src={checkOut}
-                      alt="check out"
-                      width="20"
-                      height="18"
-                    />
-                    Check Out
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/checkIn">
-                    <img src={checkIn} alt="check in" width="20" height="18" />
-                    Check In
-                  </Link>
-                </li>
-              </>
-            )}
-            <li>
-              <Link to="/profile">
-                <img src={signIn} alt="profile" width="20" height="18" />
-                Profile
-              </Link>
-            </li>
+        </AccessControl>
 
-            {/* Shows the Users and Records Nav buttons to Owners*/}
-            {localStorage.getItem("userPerms") === "2" && (
-              <>
-                <li>
-                  <Link to="/Users">
-                    <img
-                      src={operators}
-                      alt="operators"
-                      width="20"
-                      height="18"
-                    />
-                    Users
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/Records">
-                    <img src={list} alt="records" width="20" height="18" />
-                    Records
-                  </Link>
-                </li>
-              </>
-            )}
+        {/* Shows the Checkout and Checkin Nav buttons to operators & above*/}
 
-            <li onClick={handleShow}>
-              <Link to="/">
-                <img src={logOut} alt="log out" width="20" height="18" />
-                Log Out
-              </Link>
-            </li>
-          </>
-        )}
+        <AccessControl allowedRank={Ranks.OPERATOR}>
+          <li>
+            <Link to="/checkOut">
+              <img src={checkOut} alt="check out" width="20" height="18" />
+              Check Out
+            </Link>
+          </li>
+          <li>
+            <Link to="/checkIn">
+              <img src={checkIn} alt="check in" width="20" height="18" />
+              Check In
+            </Link>
+          </li>
+        </AccessControl>
+        <AccessControl allowedRank={Ranks.STUDENT}>
+          <li>
+            <Link to="/profile">
+              <img src={signIn} alt="profile" width="20" height="18" />
+              Profile
+            </Link>
+          </li>
+        </AccessControl>
+
+        {/* Shows the Users and Records Nav buttons to Owners*/}
+        <AccessControl allowedRank={Ranks.OWNER}>
+          <li>
+            <Link to="/Users">
+              <img src={operators} alt="operators" width="20" height="18" />
+              Users
+            </Link>
+          </li>
+          <li>
+            <Link to="/Records">
+              <img src={list} alt="records" width="20" height="18" />
+              Records
+            </Link>
+          </li>
+        </AccessControl>
+        <AccessControl allowedRank={Ranks.STUDENT}>
+          <li onClick={handleShow}>
+            <Link to="/">
+              <img src={logOut} alt="log out" width="20" height="18" />
+              Log Out
+            </Link>
+          </li>
+        </AccessControl>
+
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>
-              {localStorage.getItem("userPerms") < 0 ? (
-                <>Login</>
-              ) : (
-                <>Logout</>
-              )}
+              {localStorage.getItem("userPerms") < 0 ? <>Login</> : <>Logout</>}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>

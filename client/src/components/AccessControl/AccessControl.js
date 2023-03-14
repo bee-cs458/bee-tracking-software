@@ -1,14 +1,22 @@
-import { useContext } from "react";
-import { GlobalStateContext, useAuthenticatedUser } from "../Context/UserContext";
+import { Ranks } from "../../constants/PermissionRanks";
+import { useAuthenticatedUser } from "../Context/UserContext";
 
-export const AccessControl = ({allowedRank, children, renderNoAccess}) => {
+export const AccessControl = ({
+  allowedRank,
+  children,
+  renderNoAccess,
+  onlyLoggedOut,
+}) => {
+  const user = useAuthenticatedUser();
+  var permitted;
 
-    const user = useAuthenticatedUser();
+  if (onlyLoggedOut) {
+    permitted = user.permissions <= Ranks.GUEST;
+  } else {
+    permitted = user.permissions >= allowedRank;
+  }
 
-    const permitted = user.permissions >= allowedRank;
-
-    if (permitted) {
-      return children;
-    }
-
-  };
+  if (permitted) {
+    return children;
+  }
+};

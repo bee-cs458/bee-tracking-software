@@ -4,10 +4,6 @@ import { useEffect, useState, useContext } from "react";
 import { GlobalStateContext } from "./components/Context/UserContext";
 
 const App = () => {
-
-  const [userState, setUserState] = useContext(GlobalStateContext);
-
-  
   const [theme, setTheme] = useState("light");
 
   const toggleTheme = () => {
@@ -29,7 +25,7 @@ const App = () => {
       <div className={"App " + theme}>
         <Outlet context={[theme, setTheme]} />
       </div>
-      </div>
+    </div>
   );
 };
 
