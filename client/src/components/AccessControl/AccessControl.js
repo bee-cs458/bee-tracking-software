@@ -18,5 +18,7 @@ export const AccessControl = ({
 
   if (permitted) {
     return children;
+  } else if (renderNoAccess) {
+    return renderNoAccess();
   }
 };

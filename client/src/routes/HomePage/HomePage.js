@@ -102,11 +102,9 @@ export default function HomePage(props) {
               <CheckedOut state={checked} update={setChecked}></CheckedOut>
             </div>
             <div className="col">
-              {localStorage.getItem("userPerms") === "2" ? (
+              <AccessControl allowedRank={Ranks.OWNER}>
                 <Button onClick={handleShow}>Add Asset</Button>
-              ) : (
-                <></>
-              )}
+              </AccessControl>
             </div>
             <AccessControl allowedRank={Ranks.OWNER}>
               <div className="col">
@@ -136,19 +134,25 @@ export default function HomePage(props) {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
-            {localStorage.getItem("userPerms") === "2" ? (
-              <>Add Asset</>
-            ) : (
-              <>Invalid Permissions</>
-            )}
+            <AccessControl
+              allowedRank={Ranks.OWNER}
+              renderNoAccess={() => {
+                return "Invalid Permissions";
+              }}
+            >
+              Add Asset
+            </AccessControl>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {localStorage.getItem("userPerms") === "2" ? (
+          <AccessControl
+            allowedRank={Ranks.OWNER}
+            renderNoAccess={() => {
+              return "Only Owner can Add Assets";
+            }}
+          >
             <AddAsset cats={cats} onSubmit={handleClose} />
-          ) : (
-            <>Only Owner can Add Assets</>
-          )}
+          </AccessControl>
         </Modal.Body>
       </Modal>
     </div>

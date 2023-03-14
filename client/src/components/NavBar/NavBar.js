@@ -21,7 +21,6 @@ function NavBar(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const user = useAuthenticatedUser();
 
   function handleClick() {
     props.switchTheme();
@@ -106,15 +105,25 @@ function NavBar(props) {
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>
-              {localStorage.getItem("userPerms") < 0 ? <>Login</> : <>Logout</>}
+              <AccessControl
+                allowedRank={Ranks.STUDENT}
+                renderNoAccess={() => {
+                  return "Login";
+                }}
+              >
+                Logout
+              </AccessControl>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {localStorage.getItem("userPerms") < 0 ? (
-              <Login callback={handleClose} />
-            ) : (
+            <AccessControl
+              allowedRank={Ranks.STUDENT}
+              renderNoAccess={() => {
+                return <Login callback={handleClose} />;
+              }}
+            >
               <Logout callback={handleClose} />
-            )}
+            </AccessControl>
           </Modal.Body>
         </Modal>
       </ul>

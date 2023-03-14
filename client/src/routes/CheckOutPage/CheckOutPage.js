@@ -15,20 +15,23 @@ import CheckOutTable from "../../components/CheckOutUtilities/CheckOutTable";
 import { getUserById } from "../../api/UserService";
 import getCategories from "../../api/CategoryService";
 import { useOutletContext } from "react-router-dom";
+import { useAuthenticatedUser } from "../../components/Context/UserContext";
+import { Ranks } from "../../constants/PermissionRanks";
 
 function CheckOutPage() {
   const [show, setShow] = useState(false);
   const [studentId, setStudentId] = useState("");
   const [assetTag, setAssetTag] = useState("");
   const [currErrMsg, setErrMsg] = useState("");
-  const [opId, setOpId] = useState(localStorage.getItem("userId"));
+  const [opId] = useState(useAuthenticatedUser().user_id);
   const [disabledButton, setDisabledButton] = useState(false);
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
   const [currentAssetList, setCurrentAssetList] = useState([]);
   const [cats, setCats] = useState([]);
   const [availableAssetTags, setAvailableAssetTags] = useState([]);
-  const [theme, setTheme] = useOutletContext();
+  const [theme] = useOutletContext();
+  const user = useAuthenticatedUser();
 
   //recieve the items from the cart that have been saved to session storage
   const removeAsset = (asset_tag) => {
@@ -114,8 +117,8 @@ function CheckOutPage() {
       setDisabledButton(false);
       return;
     }
-    //console.log(localStorage.getItem("userPerms"))
-    if (localStorage.getItem("userPerms") <= 0) {
+
+    if (user.permissions < Ranks.OPERATOR) {
       setAlertMessage(
         `The student with ID '${studentId}' does not have the permissions to checkout assets`
       );
