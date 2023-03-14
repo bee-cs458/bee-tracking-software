@@ -31,7 +31,7 @@ function CheckOutPage() {
   const [cats, setCats] = useState([]);
   const [availableAssetTags, setAvailableAssetTags] = useState([]);
   const [theme] = useOutletContext();
-  const user = useAuthenticatedUser();
+  const authenticatedUser = useAuthenticatedUser();
 
   //recieve the items from the cart that have been saved to session storage
   const removeAsset = (asset_tag) => {
@@ -118,7 +118,7 @@ function CheckOutPage() {
       return;
     }
 
-    if (user.permissions < Ranks.OPERATOR) {
+    if (authenticatedUser.permissions < Ranks.OPERATOR) {
       setAlertMessage(
         `The student with ID '${studentId}' does not have the permissions to checkout assets`
       );

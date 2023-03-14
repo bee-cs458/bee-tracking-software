@@ -29,7 +29,9 @@ export const GlobalStateProvider = ({ children }) => {
           return response.data;
         }
 
-        setGlobalState({ user: { user_id: -1, permissions: -1 } });
+        setGlobalState({
+          user: { user_id: Ranks.GUEST, permissions: Ranks.GUEST },
+        });
 
         throw new Error("Failed to get logged in user");
       })

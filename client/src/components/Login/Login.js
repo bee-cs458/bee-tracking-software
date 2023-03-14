@@ -1,7 +1,6 @@
 import Button from "react-bootstrap/esm/Button";
 import { verifyLogin } from "../../api/AuthService.js";
 import { useEffect, useState, useContext } from "react";
-import { setUserId, setUserPerm } from "../Context/UserContext.js";
 import { GlobalStateContext } from "../Context/UserContext.js";
 import "./Login.css";
 
@@ -16,7 +15,6 @@ function Login(props) {
   const toggleUpdate = () => {
     updated ? changeUpdate(false) : changeUpdate(true);
   };
-  const { callback } = props;
 
   const [globalState, setGlobalState] = useContext(GlobalStateContext);
 

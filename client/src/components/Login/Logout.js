@@ -1,11 +1,6 @@
 import Button from "react-bootstrap/esm/Button";
-import { useContext, useEffect, useState } from "react";
-import {
-  GlobalStateContext,
-  LOGGED_OUT_STATE,
-  setUserId,
-  setUserPerm,
-} from "../Context/UserContext";
+import { useContext } from "react";
+import { GlobalStateContext } from "../Context/UserContext";
 import "./Login.css";
 import { triggerLogout } from "../../api/AuthService.js";
 import { Ranks } from "../../constants/PermissionRanks";
@@ -15,7 +10,7 @@ function Logout(props) {
   const [userState, setUserState] = useContext(GlobalStateContext);
 
   function update() {
-    setUserState({ user: { user_id: -1, permissions: -1 } });
+    setUserState({ user: { user_id: Ranks.GUEST, permissions: Ranks.GUEST } });
     callback();
     triggerLogout();
   }

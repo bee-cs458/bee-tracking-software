@@ -13,7 +13,6 @@ import Logout from "../Login/Logout";
 
 import "./NavBar.css";
 import { Button } from "react-bootstrap";
-import { useAuthenticatedUser } from "../Context/UserContext";
 import { AccessControl } from "../AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
 
