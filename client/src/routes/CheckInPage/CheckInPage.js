@@ -16,6 +16,7 @@ import CheckInTable from "../../components/CheckInUtilities/CheckInTable";
 import getCategories from "../../api/CategoryService";
 import { getAllUnavailableAssets } from "../../api/AssetService";
 import { useOutletContext } from "react-router-dom";
+import { AccountLink } from "../../components/AccountLink/AccountLink";
 
 export default function CheckInPage() {
   const [assets, setAssets] = useState([]);
@@ -209,7 +210,11 @@ export default function CheckInPage() {
 
   return (
     <div>
-      <div className="header-container" />
+      <div className="header-container">
+        <div style={{ marginLeft: "70%" }}>
+          <AccountLink />
+        </div>
+      </div>
       <div className="main-content-checkin">
         <h1 className="mb-3">Check In Equipment</h1>
         <Form>

@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import UserTable from "./../../components/UserTable/UserTable";
 import Accordion from "react-bootstrap/Accordion";
 import CreateUserForm from "../../components/CreateUserForm/CreateUserForm";
+import { AccountLink } from "../../components/AccountLink/AccountLink";
 import { useOutletContext } from "react-router-dom";
 
 import UserAsyncCSV from "../../components/ExportCSV/ExportUserCSV";
@@ -39,7 +40,11 @@ export default function UserPage() {
 
   return (
     <>
-      <div className="header-container" />
+      <div className="header-container">
+        <div style={{ marginLeft: "70%" }}>
+          <AccountLink />
+        </div>
+      </div>
       <div className="main-content-user">
         <h1 className="mb-3 users">Users</h1>
 
@@ -69,11 +74,11 @@ export default function UserPage() {
                 Search
               </Button>
             </Form.Group>
-            <Form.Group as={Col}><UserAsyncCSV/></Form.Group>
+            <Form.Group as={Col}>
+              <UserAsyncCSV />
+            </Form.Group>
           </Row>
         </Form>
-
-        
 
         {/* Display information of users */}
         <div className="container-fluid user-content">

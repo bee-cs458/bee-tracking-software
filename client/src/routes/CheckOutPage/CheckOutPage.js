@@ -17,6 +17,7 @@ import getCategories from "../../api/CategoryService";
 import { useOutletContext } from "react-router-dom";
 import { useAuthenticatedUser } from "../../components/Context/UserContext";
 import { Ranks } from "../../constants/PermissionRanks";
+import { AccountLink } from "../../components/AccountLink/AccountLink";
 
 function CheckOutPage() {
   const [show, setShow] = useState(false);
@@ -217,7 +218,11 @@ function CheckOutPage() {
   useEffect(() => {}, [availableAssetTags, cats]);
   return (
     <div>
-      <div className="header-container"></div>
+      <div className="header-container">
+        <div style={{ marginLeft: "70%" }}>
+          <AccountLink />
+        </div>
+      </div>
       <div className="main-content-checkout">
         <h1 className="mb-3">Check Out Equipment</h1>
         <Form autoComplete="off">
