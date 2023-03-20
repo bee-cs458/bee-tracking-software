@@ -6,10 +6,12 @@ import operators from "../../assets/operators.png";
 import logOut from "../../assets/logOut.png";
 import signIn from "../../assets/signIn.png";
 import mode from "../../assets/mode.png";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import Login from "../Login/Login";
 import Logout from "../Login/Logout";
+import logo from "../../assets/logo.png"
+import logoDark from "../../assets/logoDark.png"
 
 import "./NavBar.css";
 import { Button } from "react-bootstrap";
@@ -25,10 +27,11 @@ function NavBar(props) {
 
   return (
     <nav className="App-nav">
+      <img src={props.mode === "light" ? logo : logoDark} alt="logo" width="200"></img>
       <ul>
         <li>
           <Button
-            variant={props.mode === "light" ? "dark" : "light"}
+            variant={props.mode === "light" ? "light" : "dark"}
             onClick={handleClick}
           >
             <img src={mode} alt="list" width="20" height="18" />
