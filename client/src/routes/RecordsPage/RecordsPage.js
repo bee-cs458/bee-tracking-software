@@ -1,4 +1,5 @@
 import RecordTable from "../../components/RecordsUtils/RecordTable.js";
+import { AccountLink } from "../../components/AccountLink/AccountLink.js";
 import { useOutletContext } from "react-router-dom";
 
 import CheckoutRecordCSV from "../../components/ExportCSV/ExportRecordsCSV.js";
@@ -8,9 +9,13 @@ export default function RecordsPage() {
 
   return (
     <div className="App">
-      <div className="header-container container-fluid">
-
-
+      <div className="header-container">
+        <div style={{ marginLeft: "70%" }}>
+          <AccountLink />
+        </div>
+      </div>
+      <div className="main-content">
+        <RecordTable variant={theme}></RecordTable>
       </div>
 
 
@@ -40,7 +45,6 @@ export default function RecordsPage() {
             ></RecordTable>
           </div>
         </div>
-
 
     </div>
   );

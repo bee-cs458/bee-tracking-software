@@ -4,7 +4,9 @@ import Modal from "react-bootstrap/Modal";
 import EditAsset from "../../EditAsset/EditAsset";
 import Row from "react-bootstrap/esm/Row";
 import ConditionalAlert from "../../CheckInUtilities/ConditionalAlert";
+import { AccessControl } from "../../AccessControl/AccessControl";
 import { deleteAsset } from "../../../api/AssetService";
+import { Ranks } from "../../../constants/PermissionRanks";
 
 function AssetRow(props) {
   const cats = props.categoryList;
@@ -114,19 +116,14 @@ function AssetRow(props) {
       </td>
       <td>{asset.checked_out ? "No" : "Yes"}</td>
       <td>
-        {localStorage.getItem("userPerms") === "2" ? (
-          <>
-            <Button variant="primary" onClick={handleEditAssetTrue}>
-              Edit Asset
-            </Button>
-            <> </>
-            <Button variant="danger" onClick={handleDeleteAssetTrue}>
-              Delete Asset
-            </Button>
-          </>
-        ) : (
-          <></>
-        )}
+        <AccessControl allowedRank={Ranks.OWNER}>
+          <Button variant="primary" onClick={handleEditAssetTrue}>
+            Edit Asset
+          </Button>
+          <Button variant="danger" onClick={handleDeleteAssetTrue}>
+            Delete Asset
+          </Button>
+        </AccessControl>
       </td>
       <Modal backdrop="static" show={editAsset} onHide={handleEditAssetFalse}>
         <Modal.Header closeButton>

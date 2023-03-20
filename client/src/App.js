@@ -1,20 +1,6 @@
 import { Outlet } from "react-router";
 import NavBar from "./components/NavBar/NavBar";
-import { useState, useEffect } from "react";
-
-var userPermission = -1;
-var userId = -1;
-if (localStorage.getItem("userPerms") == null) {
-  localStorage.setItem("userPerms", userPermission);
-  localStorage.setItem("userId", userId);
-}
-
-function setUserId(newId) {
-  localStorage.setItem("userId", newId);
-}
-function setUserPerm(newPerm) {
-  localStorage.setItem("userPerms", newPerm);
-}
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [theme, setTheme] = useState("light");
@@ -34,14 +20,12 @@ const App = () => {
 
   return (
     <div>
-      <NavBar switchTheme={toggleTheme} mode={theme}/>
+      <NavBar switchTheme={toggleTheme} mode={theme} />
       <div className={"App " + theme}>
-        <Outlet context={[theme, setTheme]}/>
+        <Outlet context={[theme, setTheme]} />
       </div>
     </div>
   );
 };
 
 export default App;
-export { setUserId };
-export { setUserPerm };
