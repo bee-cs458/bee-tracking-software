@@ -2,7 +2,6 @@ import axios from 'axios';
 
 export const getCategories = async () => {
     try {
-        //console.log("Getting Categories");
 
         const response = await axios.get('/api/categories/');
 

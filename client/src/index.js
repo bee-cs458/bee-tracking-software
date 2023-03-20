@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
 
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -19,84 +17,63 @@ import CheckInPage from "./routes/CheckInPage/CheckInPage";
 import RecordPage from "./routes/RecordsPage/RecordsPage";
 import UserPage from "./routes/UserPage/UserPage";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-
-var userPermValue = localStorage.getItem("userPerms");
-
-/**
- * Adds the userPerms value from local storage to all HTTP requests originating from the frontend
- * This value is accessed by checking the header called "Authorization"
- * The userPerms value determines whether someone is a Guest, Student, Operator, or Owner
- */
-axios.defaults.headers.common["Authorization"] = userPermValue;
+import { GlobalStateProvider } from "./components/Context/UserContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-var theme = 'light'
+var theme = "light";
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App theme={theme}/>}>
-          <Route index element={<HomePage variant={theme}/> }/>
-          <Route
-            path="/Profile"
-            element={
-              <ProtectedRoute
-                requiredPermissionLevel={0}
-                userPermissionLevel={userPermValue}
-              >
-                <ProfilePage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/CheckOut"
-            element={
-              <ProtectedRoute
-                requiredPermissionLevel={1}
-                userPermissionLevel={userPermValue}
-              >
-                <CheckOutPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/CheckIn"
-            element={
-              <ProtectedRoute
-                requiredPermissionLevel={1}
-                userPermissionLevel={userPermValue}
-              >
-                <CheckInPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/records"
-            element={
-              <ProtectedRoute
-                requiredPermissionLevel={2}
-                userPermissionLevel={userPermValue}
-              >
-                <RecordPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Users"
-            element={
-              <ProtectedRoute
-                requiredPermissionLevel={2}
-                userPermissionLevel={userPermValue}
-              >
-                <UserPage />
-              </ProtectedRoute>
-            }
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <GlobalStateProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<HomePage />} />
+            <Route
+              path="/Profile"
+              element={
+                <ProtectedRoute requiredPermissionLevel={0}>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/CheckOut"
+              element={
+                <ProtectedRoute requiredPermissionLevel={1}>
+                  <CheckOutPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/CheckIn"
+              element={
+                <ProtectedRoute requiredPermissionLevel={1}>
+                  <CheckInPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/records"
+              element={
+                <ProtectedRoute requiredPermissionLevel={2}>
+                  <RecordPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Users"
+              element={
+                <ProtectedRoute requiredPermissionLevel={2}>
+                  <UserPage />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </GlobalStateProvider>
   </React.StrictMode>
 );
 
