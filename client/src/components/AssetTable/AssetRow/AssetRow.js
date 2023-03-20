@@ -109,8 +109,8 @@ function AssetRow(props) {
   return (
     <tr className={selected ? "table-primary" : null}>
       <td>
-          <Button variant="block" disabled={asset.checked_out ? true : false} onClick={handleSelect}>
-            <img alt={selected ? 'Added to Cart' : 'Add to Cart'} src={selected ? checkMark : cartIcon} width="25" />
+          <Button variant={selected? "success" : "secondary"} onClick={handleSelect}>
+            <img alt={selected ? 'Added to Cart' : 'Add to Cart'} src={selected ? checkMark : cartIcon} width="25" height="25"/>
           </Button>
       </td>
       <td>{asset.asset_tag}</td>
