@@ -50,12 +50,13 @@ export default function UsersTable(props) {
           <Table striped bordered variant={props.variant}>
             <thead>
               <tr>
-                <th>User Id</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Strikes</th>
-                <th>Permissions</th>
-                <th>Advanced</th>
+                <th width="100px">User Id</th>
+                <th width="200px">First Name</th>
+                <th width="200px">Last Name</th>
+                <th width="100px">Strikes</th>
+                <th width="200px">Permissions</th>
+                <th width="100px">Advanced</th>
+                <th width="200px">Edit User</th>
               </tr>
             </thead>
             <tbody>
