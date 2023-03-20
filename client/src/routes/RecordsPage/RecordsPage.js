@@ -1,15 +1,43 @@
 import RecordTable from "../../components/RecordsUtils/RecordTable.js";
 import { useOutletContext } from "react-router-dom";
 
+import CheckoutRecordCSV from "../../components/ExportCSV/ExportRecordsCSV.js";
+
 export default function RecordsPage() {
   const [theme, setTheme] = useOutletContext();
 
   return (
-    <>
-      <div className="header-container"></div>
-      <div className="main-content">
-        <RecordTable variant={theme}></RecordTable>
+    <div className="App">
+      <div className="header-container container-fluid">
+
+
       </div>
-    </>
+
+
+
+        <div className="main-content">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col">
+                <CheckoutRecordCSV></CheckoutRecordCSV>
+              </div>
+              <div className="col"></div>
+              <div className="col"></div>
+              <div className="col"></div>
+              <div className="col"></div>
+              <div className="col"></div>
+              <div className="col"></div>
+            </div>
+          </div>
+
+          <div className="record-table">
+            <RecordTable 
+              variant={theme}
+            ></RecordTable>
+          </div>
+        </div>
+
+
+    </div>
   );
 }
