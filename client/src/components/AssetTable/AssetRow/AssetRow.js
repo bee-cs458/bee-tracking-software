@@ -6,6 +6,8 @@ import Row from "react-bootstrap/esm/Row";
 import ConditionalAlert from "../../CheckInUtilities/ConditionalAlert";
 import { deleteAsset } from "../../../api/AssetService";
 import cartIcon from "../../../assets/shopping-cart.png";
+import checkMark from "../../../assets/check-mark.png";
+import crossedOut from "../../../assets/crossed-out.png";
 
 function AssetRow(props) {
   const cats = props.categoryList;
@@ -104,8 +106,11 @@ function AssetRow(props) {
 
   return (
     <tr className={selected ? "table-primary" : null}>
-      <td><Button variant={selected ? "success" : "secondary"} onClick={handleSelect}>
-      <img alt='minus' src={cartIcon} width="25" /></Button></td>
+      <td>
+          <Button variant="block" disabled={asset.checked_out ? true : false} onClick={handleSelect}>
+            <img alt={selected ? 'Added to Cart' : 'Add to Cart'} src={selected ? checkMark : cartIcon} width="25" />
+          </Button>
+      </td>
       <td>{asset.asset_tag}</td>
       <td>{asset.name}</td>
       <td>{asset.description}</td>
