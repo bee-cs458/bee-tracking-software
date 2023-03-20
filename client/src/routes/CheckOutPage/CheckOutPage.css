@@ -10,7 +10,7 @@
     width: 100vw;
     align-items: center;
     margin-left: 250px;
-    background-color: #6486A9;
+    background-color: #004990;
 }
 
 .main-content-checkout {
@@ -24,10 +24,14 @@
 }
 
 .clearAll {
+    background-color: #015FB4;
+    border-color: #015FB4;
     float: left;
 }
 
 .checkOut {
+    background-color: #015FB4;
+    border-color: #015FB4;
     float: right;
     margin-right: 15px;
 }

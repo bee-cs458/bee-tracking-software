@@ -39,7 +39,8 @@ class UserAsyncCSV extends React.Component {
     
         return (
           <div>
-            <Button onClick={this.downloadUserReport}>Export to CSV</Button>
+            <Button 
+            className="buttons" onClick={this.downloadUserReport}>Export to CSV</Button>
             <CSVLink
               headers={UserHeaders}
               filename="Beets_User_Report_Async.csv"

@@ -10,7 +10,7 @@
     width: 100vw;
     align-items: center;
     margin-left: 250px;
-    background-color: #6486A9;
+    background-color: #004990;
 }
 
 .main-content-checkin {
@@ -25,9 +25,13 @@
 
 .clearAll {
     float: left;
+    background-color: #015FB4;
+    border-color: #015FB4;
 }
 
 .checkIn {
+    background-color: #015FB4;
+    border-color: #015FB4;
     float: right;
     margin-right: 15px;
 }

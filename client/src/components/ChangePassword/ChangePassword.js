@@ -109,6 +109,7 @@ export default function ChangePassword() {
             />
             <div id="btnContainer">
               <Button
+              className="buttons"
                 variant="primary"
                 onClick={async () => {
                   submit();

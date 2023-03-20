@@ -116,7 +116,7 @@ function AssetRow(props) {
       <td>
         {localStorage.getItem("userPerms") === "2" ? (
           <>
-            <Button variant="primary" onClick={handleEditAssetTrue}>
+            <Button variant="primary" className="buttons" onClick={handleEditAssetTrue}>
               Edit Asset
             </Button>
             <> </>

@@ -102,11 +102,12 @@ function UserRow(props) {
                 <option value="1">Operator</option>
                 <option value="2">Owner</option>
             </Form.Select></td>
-            <td><Form.Check type="switch" id="advancedSwitch" checked={advancedChecked} onChange={() => { popModal(user) }} /> </td>
+            <td><Form.Check type="switch" className="switchColor" id="advancedSwitch" checked={advancedChecked} onChange={() => { popModal(user) }} /> </td>
             <td>
                 {localStorage.getItem("userPerms") === "2" ? (
                     <>
-                        <Button variant="primary" onClick={handleEditUserTrue}>Edit User</Button>
+                        <Button 
+            className="buttons" variant="primary" onClick={handleEditUserTrue}>Edit User</Button>
                         <> </>
                         <Button variant="danger" onClick={handleDeleteUserTrue}>Delete User</Button>
                     </>

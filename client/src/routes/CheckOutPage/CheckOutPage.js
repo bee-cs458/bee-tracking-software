@@ -254,6 +254,7 @@ function CheckOutPage() {
               </datalist>
               <Button
                 id="addAsset"
+                className="buttons"
                 disabled={disabledButton}
                 onClick={handleAssetAddBtn}
               >
@@ -319,7 +320,8 @@ function CheckOutPage() {
             <p className="text-danger text-monospace">{currErrMsg}</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={() => setErrMsg("")}>
+            <Button 
+    className="buttons" variant="primary" onClick={() => setErrMsg("")}>
               Close
             </Button>
           </Modal.Footer>
@@ -348,7 +350,7 @@ function CheckOutPage() {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={window.print}>
+            <Button className="buttons" variant="primary" onClick={window.print}>
               Print Check Out Record
             </Button>
           </Modal.Footer>

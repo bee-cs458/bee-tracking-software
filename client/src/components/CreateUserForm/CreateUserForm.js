@@ -130,7 +130,7 @@ function CreateUserForm() {
                 </Row>
                 <Row>
                     <Col className="w-100 mb-2">
-                        <Button variant="primary" size="md" type="submit" className="w-100">Submit</Button>
+                        <Button variant="primary" size="md" type="submit" className="w-100 buttons">Submit</Button>
                     </Col>
                 </Row>
                 <Row>

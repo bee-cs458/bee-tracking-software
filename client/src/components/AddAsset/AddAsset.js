@@ -61,7 +61,7 @@ return(
             <br></br><br></br>
         </div>
 
-        <Button variant="primary" id="submitButton" disabled={disabledState} onClick={getInputValues}>Submit</Button>
+        <Button variant="primary" className="buttons" id="submitButton" disabled={disabledState} onClick={getInputValues}>Submit</Button>
     </div>
     </>
 );

@@ -18,7 +18,8 @@ function Logout(props) {
         <>
             Are you sure you want to Logout?
             <div >
-            <Button variant="primary" onClick= {() => {update() ; toggleUpdate(true); window.location.reload(); return false;}}>
+            <Button 
+            className="buttons" variant="primary" onClick= {() => {update() ; toggleUpdate(true); window.location.reload(); return false;}}>
                 Logout
             </Button>
             </div>

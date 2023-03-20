@@ -101,7 +101,8 @@ export default function HomePage(props) {
             </div>
             <div className="col">
               {localStorage.getItem("userPerms") === "2" ? (
-                <Button onClick={handleShow}>Add Asset</Button>
+                <Button
+                className="buttons" onClick={handleShow}>Add Asset</Button>
               ) : (
                 <></>
               )}
@@ -112,7 +113,8 @@ export default function HomePage(props) {
             <div className="col"></div>
             <div className="col"></div>
             <div className="col">
-              <Button onClick={clearSelection}>Clear Selection</Button>
+              <Button 
+            className="buttons"onClick={clearSelection}>Clear Selection</Button>
             </div>
           </div>
         </div>

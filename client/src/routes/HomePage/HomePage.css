@@ -10,7 +10,7 @@
     width: 60vw;
     align-items: center;
     margin-left: 250px;
-    background-color: #6486A9;
+    background-color: #004990;
     z-index: 4;
 }
 
@@ -48,6 +48,15 @@
     width: calc (100vw - 250px);
     height: calc(100vh - 118px);
     overflow-y: scroll;
+}
+
+.buttons {
+    background-color: #015FB4;
+    border-color: #015FB4;    
+}
+
+.dropdownColor {
+    color: #015FB4;
 }
 
 .asset-table td {
