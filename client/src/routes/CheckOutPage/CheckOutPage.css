@@ -24,14 +24,10 @@
 }
 
 .clearAll {
-    background-color: #015FB4;
-    border-color: #015FB4;
     float: left;
 }
 
 .checkOut {
-    background-color: #015FB4;
-    border-color: #015FB4;
     float: right;
     margin-right: 15px;
 }

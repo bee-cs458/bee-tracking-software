@@ -25,13 +25,9 @@
 
 .clearAll {
     float: left;
-    background-color: #015FB4;
-    border-color: #015FB4;
 }
 
 .checkIn {
-    background-color: #015FB4;
-    border-color: #015FB4;
     float: right;
     margin-right: 15px;
 }

@@ -235,19 +235,24 @@ export default function CheckInPage() {
               <datalist id="unavailableAssets">
               {unavailableAssetTags.map((asset) => {
                   let inList = false;
-                  for(let i =0; i < assets.length; i++){
-                    if(assets[i].asset_tag === asset.asset_tag){
+                  for (let i = 0; i < assets.length; i++) {
+                    if (assets[i].asset_tag === asset.asset_tag) {
                       inList = true;
                       return null;
                     }
                   }
-                  if(!inList)
-                    return <option key={asset.asset_tag} value={asset.asset_tag}/>;
+                  if (!inList)
+                    return (
+                      <option key={asset.asset_tag} value={asset.asset_tag} />
+                    );
                   return null;
                 })}
               </datalist>
-              <Button 
-            className="buttons" onClick={handleTagPress} disabled={disabledButton}>
+              <Button
+                className="buttons"
+                onClick={handleTagPress}
+                disabled={disabledButton}
+              >
                 Add
               </Button>
             </Form.Group>
@@ -293,7 +298,7 @@ export default function CheckInPage() {
 
           <div className="mb-3">
             <Button
-              className="clearAll" 
+              className="clearAll buttons"
               type="reset"
               onClick={clearAll}
               disabled={disabledButton}
@@ -301,7 +306,7 @@ export default function CheckInPage() {
               Clear All
             </Button>
             <Button
-              className="checkIn"
+              className="checkIn buttons"
               variant="primary"
               onClick={handleSubmit}
               disabled={disabledButton}

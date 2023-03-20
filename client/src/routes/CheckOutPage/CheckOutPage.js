@@ -188,7 +188,7 @@ function CheckOutPage() {
         return value;
       })
       .catch((err) => console.log(err));
-      setOpId(localStorage.getItem("userId"));
+    setOpId(localStorage.getItem("userId"));
   };
 
   const importAssetCart = async () => {
@@ -289,7 +289,7 @@ function CheckOutPage() {
           ></CheckOutTable>
 
           <Button
-            className="clearAll"
+            className="clearAll buttons"
             type="reset"
             disabled={disabledButton}
             onClick={handleClose}
@@ -297,7 +297,7 @@ function CheckOutPage() {
             Clear All
           </Button>
           <Button
-            className="checkOut"
+            className="checkOut buttons"
             variant="primary"
             disabled={disabledButton}
             onClick={handleCheckoutBtn}
@@ -320,8 +320,11 @@ function CheckOutPage() {
             <p className="text-danger text-monospace">{currErrMsg}</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button 
-    className="buttons" variant="primary" onClick={() => setErrMsg("")}>
+            <Button
+              className="buttons"
+              variant="primary"
+              onClick={() => setErrMsg("")}
+            >
               Close
             </Button>
           </Modal.Footer>
@@ -350,7 +353,11 @@ function CheckOutPage() {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button className="buttons" variant="primary" onClick={window.print}>
+            <Button
+              className="buttons"
+              variant="primary"
+              onClick={window.print}
+            >
               Print Check Out Record
             </Button>
           </Modal.Footer>
