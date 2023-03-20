@@ -51,11 +51,11 @@ export default function RecordTable(props) {
           <Table bordered hover variant={props.variant}>
             <thead>
               <tr>
-                <th>Record ID</th>
-                <th>Asset Tag</th>
-                <th>Student ID</th>
-                <th>Operator ID</th>
-                <th>Due Date</th>
+                <th width="100px">Record ID</th>
+                <th width="200px">Asset Tag</th>
+                <th width="100px">Student ID</th>
+                <th width="100px">Operator ID</th>
+                <th width="100px">Due Date</th>
               </tr>
             </thead>
             <tbody>
