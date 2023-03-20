@@ -5,6 +5,7 @@ import EditAsset from "../../EditAsset/EditAsset";
 import Row from "react-bootstrap/esm/Row";
 import ConditionalAlert from "../../CheckInUtilities/ConditionalAlert";
 import { deleteAsset } from "../../../api/AssetService";
+import cartIcon from "../../../assets/shopping-cart.png";
 
 function AssetRow(props) {
   const cats = props.categoryList;
@@ -102,7 +103,9 @@ function AssetRow(props) {
   }, [selectList]); //calls on changes to select list to work with the Clear Selection Button
 
   return (
-    <tr onClick={handleSelect} className={selected ? "table-primary" : null}>
+    <tr className={selected ? "table-primary" : null}>
+      <td><Button variant={selected ? "success" : "secondary"} onClick={handleSelect}>
+      <img alt='minus' src={cartIcon} width="25" /></Button></td>
       <td>{asset.asset_tag}</td>
       <td>{asset.name}</td>
       <td>{asset.description}</td>
