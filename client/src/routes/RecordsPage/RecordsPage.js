@@ -14,37 +14,32 @@ export default function RecordsPage() {
           <AccountLink />
         </div>
       </div>
+
       <div className="main-content">
-        <RecordTable variant={theme}></RecordTable>
-      </div>
-
-
-
-        <div className="main-content">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col">
-                {localStorage.getItem("userPerms") === "2" ? (
-                  <CheckoutRecordCSV></CheckoutRecordCSV>
-                ) : (
-                  <></>
-                )}
-              </div>
-              <div className="col"></div>
-              <div className="col"></div>
-              <div className="col"></div>
-              <div className="col"></div>
-              <div className="col"></div>
-              <div className="col"></div>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col">             
+              {localStorage.getItem("userPerms") === "2" ? (
+                <CheckoutRecordCSV></CheckoutRecordCSV>
+              ) : (
+                <></>
+              )}
             </div>
-          </div>
-
-          <div className="record-table">
-            <RecordTable 
-              variant={theme}
-            ></RecordTable>
-          </div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+          </div>         
         </div>
+
+        <div className="record-table">
+          <RecordTable 
+            variant={theme}
+          ></RecordTable>
+        </div>        
+      </div>
 
     </div>
   );
