@@ -106,8 +106,6 @@ Calls API endpoint for getting assests based on asset Tag searched by user
 */
 export async function getAssetByAssetTag(input) {
   try {
-    //console.log("Getting Assets by Asset Tag");
-
     const response = await axios.get("/api/asset/" + input);
 
     return response.data.result;
@@ -148,43 +146,54 @@ Calls API endpoint for getting assests based on asset_tag, name, description sea
 export async function searchingForAssetsWithCat(input, category) {
   try {
     console.log(`Searching assets by: ${input}`);
-      
+
     const search = searchingForAssets(input);
 
     var catResults = getAssetFromCat(category);
-    
+
     const results = catResults + search;
     return results;
-        
   } catch (error) {
-     return "Error Getting Assests by serach from API";
-   }
-   
+    return "Error Getting Assests by serach from API";
+  }
 }
 
-//Calls API endpoint for creating an asset 
-export async function createNewAsset(assetTag,name,description,category,operational,advanced) {
-    try {
-        //console.log(`Creating new Asset with Asset_Tag: ${assetTag}`);
-        let curDate = new Date();
-        let date = curDate.getFullYear() + '-' + curDate.getMonth() + '-' + curDate.getDate();
-  
-        const response = await axios.post("/api/asset/", {
-            asset_tag: assetTag,
-            name: name,
-            description: description,
-            date_added: date, //Set date to todays date (FIX)
-            category: category,
-            operational: operational,
-            advanced: advanced,
-            checked_out: 0, //Automatically set to not checked out
-        });
-        return response.data.result;
-    } catch (error) {
-        throw new Error(error.response.data.message ?? "Error Creating Asset from API");
-    }
-}
+//Calls API endpoint for creating an asset
+export async function createNewAsset(
+  assetTag,
+  name,
+  description,
+  category,
+  operational,
+  advanced
+) {
+  try {
+    //console.log(`Creating new Asset with Asset_Tag: ${assetTag}`);
+    let curDate = new Date();
+    let date =
+      curDate.getFullYear() +
+      "-" +
+      curDate.getMonth() +
+      "-" +
+      curDate.getDate();
 
+    const response = await axios.post("/api/asset/", {
+      asset_tag: assetTag,
+      name: name,
+      description: description,
+      date_added: date, //Set date to todays date (FIX)
+      category: category,
+      operational: operational,
+      advanced: advanced,
+      checked_out: 0, //Automatically set to not checked out
+    });
+    return response.data.result;
+  } catch (error) {
+    throw new Error(
+      error.response.data.message ?? "Error Creating Asset from API"
+    );
+  }
+}
 
 export async function editAsset(
   oldTag,
@@ -219,14 +228,15 @@ export async function editAsset(
 }
 
 export async function deleteAsset(asset_tag) {
-  try { //console.log("Deleting asset " + asset_tag)
-  const response = await axios.delete("/api/asset/" + asset_tag);
-  return response.data.result;
+  try {
+    //console.log("Deleting asset " + asset_tag)
+    const response = await axios.delete("/api/asset/" + asset_tag);
+    return response.data.result;
   } catch (error) {
     //console.log("yay Error!")
     if (error.response.status === 404 || error.response.status === 400) {
-    return error.response.status;
+      return error.response.status;
     }
     return "Error while deleting the asset" + asset_tag;
-}
+  }
 }
