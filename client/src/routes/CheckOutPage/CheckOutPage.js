@@ -192,7 +192,6 @@ function CheckOutPage() {
         return value;
       })
       .catch((err) => console.log(err));
-    setOpId(localStorage.getItem("userId"));
   };
 
   const importAssetCart = async () => {
