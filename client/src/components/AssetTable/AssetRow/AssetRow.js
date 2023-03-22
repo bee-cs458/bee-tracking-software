@@ -104,13 +104,13 @@ function AssetRow(props) {
     }
     //if the item was not in the Cart, force the item to be unselected
     setSelected(false);
-  }, [selectList]); //calls on changes to select list to work with the Clear Selection Button
+  }, [selectList, selected, setSelectList, asset.asset_tag]); //calls on changes to select list to work with the Clear Selection Button
 
   return (
     <tr className={selected ? "table-primary" : null}>
       <td>{/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}  
-          <Button variant={selected? "success" : "secondary"} onClick={handleSelect}>
-            <img alt={selected ? 'Added to Cart' : 'Add to Cart'} src={selected ? checkMark : cartIcon} width="25" height="25"/>
+          <Button variant={asset.checked_out ? "danger" : selected ? "success" : "secondary"} onClick={handleSelect} disabled={asset.checked_out ? true : false}>
+            <img alt={asset.checked_out ? 'Unavailable' : selected ? 'Added to Cart' : 'Add to Cart'} src={asset.checked_out ? crossedOut : selected ? checkMark : cartIcon} width="25" height="25"/>
           </Button>
       </td>
       <td>{asset.asset_tag}</td>
