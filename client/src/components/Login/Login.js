@@ -62,7 +62,8 @@ function Login(props) {
       <input id="password" type="password" onKeyDown={handleKeypress}></input>
       <div>
         <Button
-          variant="primary"
+          
+            className="beets_buttons" variant="primary"
           onClick={async () => {
             submit();
           }}
@@ -70,9 +71,10 @@ function Login(props) {
         >
           Login
         </Button>
-
+        
         <Button
           variant="primary"
+          className="beets_buttons"
           onClick={async () => {
             googleLogin();
             toggleUpdate(true);
