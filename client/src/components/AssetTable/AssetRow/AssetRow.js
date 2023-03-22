@@ -65,8 +65,6 @@ function AssetRow(props) {
   async function handleSelect() {
     //on click, table rows should highlight and add themselves to the selected asset list
     if (asset.checked_out) {
-      setAlertMessage("Asset is already checked out");
-      setAlertType(1);
       return;
     }
     if (!selected) {
