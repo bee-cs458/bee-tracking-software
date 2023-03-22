@@ -14,6 +14,6 @@
     transform: rotate(180deg);
 }
 
-.darkModeArrow{ /*class that makes a black image into a white image*/
+.darkModeFilter{ /*class that makes a black image into a white image*/
     filter: brightness(0) invert(1);
 }
