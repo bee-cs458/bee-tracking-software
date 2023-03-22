@@ -7,6 +7,9 @@ import ConditionalAlert from "../../CheckInUtilities/ConditionalAlert";
 import { AccessControl } from "../../AccessControl/AccessControl";
 import { deleteAsset } from "../../../api/AssetService";
 import { Ranks } from "../../../constants/PermissionRanks";
+import cartIcon from "../../../assets/shopping-cart.png";
+import checkMark from "../../../assets/check-mark.png";
+import crossedOut from "../../../assets/crossed-out.png";
 
 function AssetRow(props) {
   const cats = props.categoryList;
@@ -104,7 +107,12 @@ function AssetRow(props) {
   }, [selectList]); //calls on changes to select list to work with the Clear Selection Button
 
   return (
-    <tr onClick={handleSelect} className={selected ? "table-primary" : null}>
+    <tr className={selected ? "table-primary" : null}>
+      <td>{/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}  
+          <Button variant={selected? "success" : "secondary"} onClick={handleSelect}>
+            <img alt={selected ? 'Added to Cart' : 'Add to Cart'} src={selected ? checkMark : cartIcon} width="25" height="25"/>
+          </Button>
+      </td>
       <td>{asset.asset_tag}</td>
       <td>{asset.name}</td>
       <td>{asset.description}</td>
