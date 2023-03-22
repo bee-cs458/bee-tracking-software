@@ -155,7 +155,8 @@ function UserRow(props) {
       </td>
       <td>
         <AccessControl allowedRank={Ranks.OWNER}>
-          <Button variant="primary" onClick={handleEditUserTrue}>
+          <Button 
+            className="beets_buttons" variant="primary" onClick={handleEditUserTrue}>
             Edit User
           </Button>
           <> </>
