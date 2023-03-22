@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Logs in a user with their username and password
 export function verifyLogin(user, pass) {
   // construct query
   const params = new URLSearchParams();
@@ -23,6 +24,7 @@ export function verifyLogin(user, pass) {
   );
 }
 
+// Retrieves the current logged in user
 export function getLoggedInUser() {
   return axios({
     method: "GET",
