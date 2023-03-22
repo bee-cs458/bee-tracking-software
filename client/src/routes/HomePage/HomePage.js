@@ -10,8 +10,11 @@ import Button from "react-bootstrap/Button";
 import { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
+import { AccessControl } from "../../components/AccessControl/AccessControl";
+import { Ranks } from "../../constants/PermissionRanks";
 
 import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
+import { AccountLink } from "../../components/AccountLink/AccountLink";
 
 export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
@@ -83,6 +86,7 @@ export default function HomePage(props) {
             <img src={search} alt="search" width="22" height="22" />
           </button>
         </div>
+        <AccountLink className="account-link" />
       </div>
 
       <div className=" main-content">
@@ -100,15 +104,15 @@ export default function HomePage(props) {
               <CheckedOut state={checked} update={setChecked}></CheckedOut>
             </div>
             <div className="col">
-              {localStorage.getItem("userPerms") === "2" ? (
+              <AccessControl allowedRank={Ranks.OWNER}>
                 <Button onClick={handleShow}>Add Asset</Button>
-              ) : (
-                <></>
-              )}
+              </AccessControl>
             </div>
-            <div className="col">
-              <AssetAsyncCSV></AssetAsyncCSV>
-            </div>
+            <AccessControl allowedRank={Ranks.OWNER}>
+              <div className="col">
+                <AssetAsyncCSV></AssetAsyncCSV>
+              </div>
+            </AccessControl>
             <div className="col"></div>
             <div className="col"></div>
             <div className="col">
@@ -132,19 +136,25 @@ export default function HomePage(props) {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
-            {localStorage.getItem("userPerms") === "2" ? (
-              <>Add Asset</>
-            ) : (
-              <>Invalid Permissions</>
-            )}
+            <AccessControl
+              allowedRank={Ranks.OWNER}
+              renderNoAccess={() => {
+                return "Invalid Permissions";
+              }}
+            >
+              Add Asset
+            </AccessControl>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {localStorage.getItem("userPerms") === "2" ? (
+          <AccessControl
+            allowedRank={Ranks.OWNER}
+            renderNoAccess={() => {
+              return "Only Owner can Add Assets";
+            }}
+          >
             <AddAsset cats={cats} onSubmit={handleClose} />
-          ) : (
-            <>Only Owner can Add Assets</>
-          )}
+          </AccessControl>
         </Modal.Body>
       </Modal>
     </div>
