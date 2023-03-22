@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(45) DEFAULT NULL,
   `permissions` tinyint NOT NULL,
   `advanced` tinyint NOT NULL,
+  `email` varchar(90) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
