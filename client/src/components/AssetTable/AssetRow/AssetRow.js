@@ -108,7 +108,7 @@ function AssetRow(props) {
 
   return (
     <tr className={selected ? "table-primary" : null}>
-      <td>
+      <td>{/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}  
           <Button variant={selected? "success" : "secondary"} onClick={handleSelect}>
             <img alt={selected ? 'Added to Cart' : 'Add to Cart'} src={selected ? checkMark : cartIcon} width="25" height="25"/>
           </Button>
