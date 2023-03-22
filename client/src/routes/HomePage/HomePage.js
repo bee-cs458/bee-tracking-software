@@ -104,19 +104,22 @@ export default function HomePage(props) {
             </div>
             <div className="col">
               <AccessControl allowedRank={Ranks.OWNER}>
-                <Button className="beets_buttons" onClick={handleShow}>Add Asset</Button>
+                <Button className="beets_buttons" onClick={handleShow}>
+                  Add Asset
+                </Button>
               </AccessControl>
             </div>
-            <AccessControl allowedRank={Ranks.OWNER}>
-              <div className="col">
-                <AssetAsyncCSV></AssetAsyncCSV>
-              </div>
-            </AccessControl>
+
+            <div className="col">
+              <AssetAsyncCSV></AssetAsyncCSV>
+            </div>
+
             <div className="col"></div>
             <div className="col"></div>
             <div className="col">
-              <Button 
-            className="beets_buttons"onClick={clearSelection}>Clear Selection</Button>
+              <Button className="beets_buttons" onClick={clearSelection}>
+                Clear Selection
+              </Button>
             </div>
           </div>
         </div>
