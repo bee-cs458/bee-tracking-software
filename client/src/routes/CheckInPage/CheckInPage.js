@@ -253,7 +253,11 @@ export default function CheckInPage() {
                   return null;
                 })}
               </datalist>
-              <Button onClick={handleTagPress} disabled={disabledButton}>
+              <Button
+                className="beets_buttons"
+                onClick={handleTagPress}
+                disabled={disabledButton}
+              >
                 Add
               </Button>
             </Form.Group>
@@ -269,7 +273,8 @@ export default function CheckInPage() {
                   handleIDChange(event.target.value);
                 }}
               />
-              <Button onClick={handleIDPress} disabled={disabledButton}>
+              <Button 
+            className="beets_buttons" onClick={handleIDPress} disabled={disabledButton}>
                 Submit
               </Button>
             </Form.Group>
@@ -298,7 +303,7 @@ export default function CheckInPage() {
 
           <div className="mb-3">
             <Button
-              className="clearAll"
+              className="clearAll beets_buttons"
               type="reset"
               onClick={clearAll}
               disabled={disabledButton}
@@ -306,7 +311,7 @@ export default function CheckInPage() {
               Clear All
             </Button>
             <Button
-              className="checkIn"
+              className="checkIn beets_buttons"
               variant="primary"
               onClick={handleSubmit}
               disabled={disabledButton}

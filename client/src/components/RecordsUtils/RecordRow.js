@@ -119,7 +119,8 @@ export default function CheckInRow(props) {
 
                   {record.in_date ? formatDate(record.in_date) : <>Still out</>}
                   <br />
-                  <Button onClick={handleShow}>Print Record</Button>
+                  <Button 
+            className="beets_buttons" onClick={handleShow}>Print Record</Button>
                 </div>
               </div>
             </div>
