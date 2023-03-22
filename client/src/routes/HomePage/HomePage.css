@@ -3,15 +3,15 @@
 }
 
 .header-container {
-  display: flex;
-  position: fixed;
-  flex-direction: row;
-  height: 45px;
-  width: 60vw;
-  align-items: center;
-  margin-left: 250px;
-  background-color: #6486a9;
-  z-index: 4;
+    display: flex;
+    position: fixed;
+    flex-direction: row;
+    height: 45px;
+    width: 60vw;
+    align-items: center;
+    margin-left: 250px;
+    background-color: #004990;
+    z-index: 4;
 }
 
 .search-header {
@@ -50,8 +50,9 @@
   overflow-y: scroll;
 }
 
-.asset-table td {
-  width: auto !important;
+.beets_buttons { /*class that changes the color of the buttons in the webpage*/
+    background-color: #015FB4;
+    border-color: #015FB4;    
 }
 
 .asset-table td {

@@ -61,6 +61,7 @@ function Login(props) {
       <input id="password" type="password" onKeyDown={handleKeypress}></input>
       <div>
         <Button
+          className="beets_buttons"
           variant="primary"
           onClick={async () => {
             submit();

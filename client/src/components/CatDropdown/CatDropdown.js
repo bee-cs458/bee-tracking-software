@@ -37,7 +37,7 @@ export default function CatDropdown(props) {
 
   return (
     <Dropdown title="CategoryDropdown" onSelect={handleChange}>
-      <Dropdown.Toggle id="dropdown-basic">
+      <Dropdown.Toggle id="dropdown-basic" className="beets_buttons">
         {state?.catName || "Filter Category"}
       </Dropdown.Toggle>
       <Dropdown.Menu>
