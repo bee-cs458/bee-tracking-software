@@ -63,7 +63,7 @@ function Login(props) {
       <div>
         <Button
           
-            className="buttons" variant="primary"
+            className="beets_buttons" variant="primary"
           onClick={async () => {
             submit();
           }}
@@ -71,9 +71,10 @@ function Login(props) {
         >
           Login
         </Button>
-
+        
         <Button
           variant="primary"
+          className="beets_buttons"
           onClick={async () => {
             googleLogin();
             toggleUpdate(true);

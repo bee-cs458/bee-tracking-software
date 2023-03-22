@@ -21,7 +21,7 @@ function Logout(props) {
       <div>
         <Button
           
-            className="buttons" variant="primary"
+            className="beets_buttons" variant="primary"
           onClick={() => {
             update();
             window.location.reload();

@@ -264,7 +264,7 @@ function CheckOutPage() {
               </datalist>
               <Button
                 id="addAsset"
-                className="buttons"
+                className="beets_buttons"
                 disabled={disabledButton}
                 onClick={handleAssetAddBtn}
               >
@@ -299,7 +299,7 @@ function CheckOutPage() {
           ></CheckOutTable>
 
           <Button
-            className="clearAll buttons"
+            className="clearAll beets_buttons"
             type="reset"
             disabled={disabledButton}
             onClick={handleClose}
@@ -307,7 +307,7 @@ function CheckOutPage() {
             Clear All
           </Button>
           <Button
-            className="checkOut buttons"
+            className="checkOut beets_buttons"
             variant="primary"
             disabled={disabledButton}
             onClick={handleCheckoutBtn}
@@ -331,7 +331,7 @@ function CheckOutPage() {
           </Modal.Body>
           <Modal.Footer>
             <Button
-              className="buttons"
+              className="beets_buttons"
               variant="primary"
               onClick={() => setErrMsg("")}
             >
@@ -364,7 +364,7 @@ function CheckOutPage() {
               Close
             </Button>
             <Button
-              className="buttons"
+              className="beets_buttons"
               variant="primary"
               onClick={window.print}
             >

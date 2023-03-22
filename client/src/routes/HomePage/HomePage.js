@@ -105,7 +105,7 @@ export default function HomePage(props) {
             </div>
             <div className="col">
               <AccessControl allowedRank={Ranks.OWNER}>
-                <Button className="buttons" onClick={handleShow}>Add Asset</Button>
+                <Button className="beets_buttons" onClick={handleShow}>Add Asset</Button>
               </AccessControl>
             </div>
             <AccessControl allowedRank={Ranks.OWNER}>
@@ -117,7 +117,7 @@ export default function HomePage(props) {
             <div className="col"></div>
             <div className="col">
               <Button 
-            className="buttons"onClick={clearSelection}>Clear Selection</Button>
+            className="beets_buttons"onClick={clearSelection}>Clear Selection</Button>
             </div>
           </div>
         </div>

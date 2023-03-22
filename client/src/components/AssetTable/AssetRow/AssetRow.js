@@ -117,7 +117,7 @@ function AssetRow(props) {
       <td>{asset.checked_out ? "No" : "Yes"}</td>
       <td>
         <AccessControl allowedRank={Ranks.OWNER}>
-          <Button variant="primary" className="buttons" onClick={handleEditAssetTrue}>
+          <Button variant="primary" className="beets_buttons" onClick={handleEditAssetTrue}>
             Edit Asset
           </Button>
           <Button variant="danger" onClick={handleDeleteAssetTrue}>

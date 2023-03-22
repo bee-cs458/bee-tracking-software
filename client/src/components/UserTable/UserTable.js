@@ -97,7 +97,7 @@ export default function UsersTable(props) {
             <Modal.Footer>
               <Button
                 variant="primary"
-                className="buttons"
+                className="`beets_buttons"
                 onClick={handleConfirmButton}
                 disabled={loading}
               >

@@ -70,7 +70,7 @@ export default function UserPage() {
             </Form.Group>
             {/* console error: controlId="userId" ignored when id is specified  */}
             <Form.Group as={Col}>
-              <Button className="buttons" type="submit" onClick={getInputValue}>
+              <Button className="beets_buttons" type="submit" onClick={getInputValue}>
                 Search
               </Button>
             </Form.Group>

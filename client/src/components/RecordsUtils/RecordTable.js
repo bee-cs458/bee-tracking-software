@@ -136,7 +136,7 @@ export default function RecordTable(props) {
               </Button>
               {/* Print modal with information */}
               <Button 
-            className="buttons" variant="primary" onClick={window.print}>
+            className="beets_buttons" variant="primary" onClick={window.print}>
                 Print Check Out Record
               </Button>
             </Modal.Footer>
