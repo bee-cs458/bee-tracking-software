@@ -131,7 +131,6 @@ function AssetRow(props) {
             height="25"
           />
         </Button>
-        
       </td>
       </AccessControl>
       <td>{asset.asset_tag}</td>
@@ -146,7 +145,6 @@ function AssetRow(props) {
       <td>{asset.checked_out ? "No" : "Yes"}</td>
       <AccessControl allowedRank={Ranks.OWNER}>
       <td>
-        
           <Button
             variant="primary"
             className="beets_buttons"

@@ -12,7 +12,6 @@ import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
 import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
-
 import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
 import { AccountLink } from "../../components/AccountLink/AccountLink";
 
