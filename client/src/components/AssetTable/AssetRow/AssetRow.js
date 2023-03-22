@@ -108,10 +108,30 @@ function AssetRow(props) {
 
   return (
     <tr className={selected ? "table-primary" : null}>
-      <td>{/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}  
-          <Button variant={asset.checked_out ? "danger" : selected ? "success" : "secondary"} onClick={handleSelect} disabled={asset.checked_out ? true : false}>
-            <img alt={asset.checked_out ? 'Unavailable' : selected ? 'Added to Cart' : 'Add to Cart'} src={asset.checked_out ? crossedOut : selected ? checkMark : cartIcon} width="25" height="25"/>
-          </Button>
+      <td>
+        {/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}
+        <Button
+          variant={
+            asset.checked_out ? "danger" : selected ? "success" : "secondary"
+          }
+          onClick={handleSelect}
+          disabled={asset.checked_out ? true : false}
+        >
+          <img
+            alt={
+              asset.checked_out
+                ? "Unavailable"
+                : selected
+                ? "Added to Cart"
+                : "Add to Cart"
+            }
+            src={
+              asset.checked_out ? crossedOut : selected ? checkMark : cartIcon
+            }
+            width="25"
+            height="25"
+          />
+        </Button>
       </td>
       <td>{asset.asset_tag}</td>
       <td>{asset.name}</td>
@@ -125,7 +145,11 @@ function AssetRow(props) {
       <td>{asset.checked_out ? "No" : "Yes"}</td>
       <td>
         <AccessControl allowedRank={Ranks.OWNER}>
-          <Button variant="primary" className="beets_buttons" onClick={handleEditAssetTrue}>
+          <Button
+            variant="primary"
+            className="beets_buttons"
+            onClick={handleEditAssetTrue}
+          >
             Edit Asset
           </Button>
           <Button variant="danger" onClick={handleDeleteAssetTrue}>
