@@ -246,7 +246,7 @@ function CheckOutPage() {
                   setAlertType(null);
                 }}
               />
-              <datalist id="assets">
+              <datalist id="assets" variant={theme}>
                 {availableAssetTags.map((asset) => {
                   let inList = false;
                   for (let i = 0; i < currentAssetList.length; i++) {

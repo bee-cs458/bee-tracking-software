@@ -9,6 +9,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
+import { useOutletContext } from "react-router-dom";
 
 function AddAsset(props) {
   //Pass in list of categories
@@ -20,6 +21,8 @@ function AddAsset(props) {
   const [disabledState, setSubmitBtnDisabled] = React.useState(false);
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
+
+  const [theme] = useOutletContext();
 
   const changeAdvanced = () => {
     setAdvancedChecked(!advancedChecked);
@@ -82,7 +85,7 @@ function AddAsset(props) {
             onChange={changeAdvanced}
           />
         </div> */}
-        <div id="div3">
+        {/* <div id="div3">
           <h6>Operational Status</h6>
           <input
             id="operational"
@@ -92,7 +95,7 @@ function AddAsset(props) {
           />
           <br></br>
           <br></br>
-        </div>
+        </div> */}
 
         <Form>
           <Col>
@@ -104,6 +107,7 @@ function AddAsset(props) {
                 name="assetTag"
               ></Form.Control>
             </Form.Group>
+
             <Form.Group>
               <Form.Label>Name:</Form.Label>
               <Form.Control
@@ -112,6 +116,7 @@ function AddAsset(props) {
                 name="assetName"
               ></Form.Control>
             </Form.Group>
+
             <Form.Group>
               <Form.Label>Description:</Form.Label>
               <Form.Control
@@ -121,13 +126,14 @@ function AddAsset(props) {
                 lines="3"
               ></Form.Control>
             </Form.Group>
+
             <Form.Group>
               <Form.Label>Select Category</Form.Label>
               <Dropdown title="Select Category" onSelect={handleCatChange}>
                 <DropdownToggle>
                   {cats[category]?.catName || "Select Category"}
                 </DropdownToggle>
-                <DropdownMenu>
+                <DropdownMenu variant={theme}>
                   {cats.map((cat) => (
                     <DropdownItem eventKey={cat.category_id}>
                       {cat.catName}
@@ -136,8 +142,26 @@ function AddAsset(props) {
                 </DropdownMenu>
               </Dropdown>
             </Form.Group>
+
+            <Form.Group>
+              <Form.Label dark>Advanced Status</Form.Label>
+              <Form.Check
+                inline
+                type="switch"
+                id="advanced"
+                checked={advancedChecked}
+                onChange={changeAdvanced}
+              ></Form.Check>
+              <Form.Label>Operational:</Form.Label>
+              <Form.Check
+                inline
+                type="switch"
+                id="operational"
+                checked={operationalChecked}
+                onChange={changeOperational}
+              ></Form.Check>
+            </Form.Group>
           </Col>
-          <Col></Col>
         </Form>
 
         <Button
