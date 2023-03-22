@@ -50,7 +50,7 @@
   overflow-y: scroll;
 }
 
-.beets_buttons {
+.beets_buttons { /*class that changes the color of the buttons in the webpage*/
     background-color: #015FB4;
     border-color: #015FB4;    
 }
