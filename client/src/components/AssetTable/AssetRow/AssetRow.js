@@ -106,6 +106,7 @@ function AssetRow(props) {
 
   return (
     <tr className={selected ? "table-primary" : null}>
+    <AccessControl allowedRank={Ranks.OPERATOR}>
       <td>
         {/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}
         <Button
@@ -130,7 +131,9 @@ function AssetRow(props) {
             height="25"
           />
         </Button>
+        
       </td>
+      </AccessControl>
       <td>{asset.asset_tag}</td>
       <td>{asset.name}</td>
       <td>{asset.description}</td>
@@ -141,8 +144,9 @@ function AssetRow(props) {
         )}
       </td>
       <td>{asset.checked_out ? "No" : "Yes"}</td>
+      <AccessControl allowedRank={Ranks.OWNER}>
       <td>
-        <AccessControl allowedRank={Ranks.OWNER}>
+        
           <Button
             variant="primary"
             className="beets_buttons"
@@ -153,8 +157,8 @@ function AssetRow(props) {
           <Button variant="danger" onClick={handleDeleteAssetTrue}>
             Delete Asset
           </Button>
-        </AccessControl>
       </td>
+      </AccessControl>
       <Modal backdrop="static" show={editAsset} onHide={handleEditAssetFalse}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Asset</Modal.Title>
