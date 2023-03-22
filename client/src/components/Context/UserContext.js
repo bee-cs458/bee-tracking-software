@@ -38,8 +38,6 @@ export const GlobalStateProvider = ({ children }) => {
       })
       .then((resObject) => {
         setGlobalState({ user: resObject.user });
-        axios.defaults.headers.get["Authorization"] =
-          resObject.user.permissions;
       })
       .catch((err) => {
         console.log(err);
