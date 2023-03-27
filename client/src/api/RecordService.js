@@ -18,7 +18,7 @@ export async function getAllRecords() {
 
 export async function getCheckedOutRecords() {
     try {
-        const response = await axios.get("/api/records/")
+        const response = await axios.get("/api/records/get_all")
 
     } catch (error) {
         return "Error Getting Records from API";

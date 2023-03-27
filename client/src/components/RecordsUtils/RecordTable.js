@@ -22,7 +22,7 @@ export default function RecordTable(props) {
   };
 
   const getInfo = async () => {
-    if (filterByCheckedOut == false) {
+    if (filterByCheckedOut === false) {
       await getAllRecords().then((result) => {
         setRecords(result);
       });
@@ -36,7 +36,7 @@ export default function RecordTable(props) {
       });
     }
 
-    else if (filterByCheckedOut == true) {
+    else {
       await getCheckedOutRecords().then((result) => {
         setRecords(result);
       });
@@ -70,9 +70,9 @@ export default function RecordTable(props) {
    * @returns JSX of the record table or the error message
    */
   function getTable() {
-    if (records !== null && records !== undefined && records?.length > 0) {
+    if (Array.isArray(records) && records.length > 0) {
       const filteredRecords = filterByCheckedOut
-        ? records.filter((record) => record.checked_out === true)
+        ? records.filter((record) => record.in_date === null)
         : records;
 
       return (
@@ -90,7 +90,7 @@ export default function RecordTable(props) {
             </thead>
             <tbody>
               {
-                filteredRecords.map((record) => (
+                records.map((record) => (
                 <RecordRow
                   variant={props.variant} /*passes through the dark mode variable*/
                   key={record.record_id}
