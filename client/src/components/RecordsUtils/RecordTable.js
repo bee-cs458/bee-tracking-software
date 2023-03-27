@@ -48,19 +48,21 @@ export default function RecordTable(props) {
     if (records !== null && records !== undefined && records?.length > 0) {
       return (
         <div>
-          <Table bordered hover variant={props.variant}>
+          <Table bordered striped hover variant={props.variant}>
             <thead>
               <tr>
-                <th width="100px">Record ID</th>
-                <th width="200px">Asset Tag</th>
-                <th width="100px">Student ID</th>
-                <th width="100px">Operator ID</th>
-                <th width="100px">Due Date</th>
+                <th>Record ID</th>
+                <th>Asset Tag</th>
+                <th>Student ID</th>
+                <th>Operator ID</th>
+                <th>Due Date</th>
+                <th width="40"></th>{/* row for the arrow icon*/}
               </tr>
             </thead>
             <tbody>
               {records.map((record) => (
                 <RecordRow
+                  variant={props.variant} /*passes through the dark mode variable*/
                   key={record.record_id}
                   record={record}
                     damageNotes={
