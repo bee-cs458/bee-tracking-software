@@ -13,7 +13,6 @@ import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
 import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
-
 import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
 import { AccountLink } from "../../components/AccountLink/AccountLink";
 
@@ -129,9 +128,11 @@ export default function HomePage(props) {
             <div className="col"></div>
             <div className="col"></div>
             <div className="col">
+            <AccessControl allowedRank={Ranks.OPERATOR}>
               <Button className="beets_buttons" onClick={clearSelection}>
                 Clear Selection
               </Button>
+            </AccessControl>
             </div>
           </div>
         </div>
