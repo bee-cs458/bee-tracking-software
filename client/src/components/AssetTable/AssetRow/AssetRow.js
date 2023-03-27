@@ -74,11 +74,11 @@ function AssetRow(props) {
     } else {
       //rows that are already selected should remove themselves from the selected list
       let tempList = selectList.slice(); //creates a temp list that isn't a state
-      selectList.forEach((asset_tag) => {
-        if (asset.asset_tag === asset_tag) {
+      selectList.forEach((tag) => {
+        if (asset.asset_tag === tag) {
           //check if the current asset is the passes in asset
           tempList.shift(); //removes the first element in the list which is the asset with the tag that was passed in
-          sessionStorage.removeItem(asset_tag);
+          sessionStorage.removeItem(tag);
         } else tempList.push(tempList.shift()); //shifts the list so that the first element is now at the back
       });
       setSelectList(tempList);
