@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { getAllRecords } from "../../api/RecordService";
 import { getAllAssets } from "../../api/AssetService";
 import { getAllUsers } from "../../api/UserService";
-import { getCheckedOutRecords } from "../../api/RecordService";
 
 export default function RecordTable(props) {
   const [records, setRecords] = useState();
@@ -14,41 +13,24 @@ export default function RecordTable(props) {
   const [assets, setAssets] = useState([{}]);
   const [show, setShow] = useState(false); // Modal Show State
   const [printInfo, setPrintInfo] = useState(""); // Info from the row for printing
-  const { selectList, setSelectList } = props;
-  const [updated, setUpdated] = useState(false);
-  const {filterByCheckedOut} = props;
-  const setUp = () => {
-    setUpdated(!updated);
-  };
 
   const getInfo = async () => {
-    if (filterByCheckedOut === false) {
-      await getAllRecords().then((result) => {
-        setRecords(result);
-      });
+    await getAllRecords().then((result) => {
+      setRecords(result);
+      console.log(result);
+    });
 
-      await getAllUsers().then((result) => {
-        setUsers(result);
-      });
-
-      await getAllAssets().then((result) => {
-        setAssets(result);
-      });
+    if (props.filterByCheckedOut) {
+      setRecords(records.filter((record) => record.in_date === null));
     }
 
-    else {
-      await getCheckedOutRecords().then((result) => {
-        setRecords(result);
-      });
+    await getAllUsers().then((result) => {
+      setUsers(result);
+    });
 
-      await getAllUsers().then((result) => {
-        setUsers(result);
-      });
-
-      await getAllAssets().then((result) => {
-        setAssets(result);
-      });
-    }
+    await getAllAssets().then((result) => {
+      setAssets(result);
+    });
   };
 
   // Close modal
@@ -58,11 +40,9 @@ export default function RecordTable(props) {
 
   const today = new Date();
 
-
   useEffect(() => {
-    
-    getInfo(); 
-  }, [props.filterByCheckedOut, updated]);
+    getInfo();
+  }, [props.filterByCheckedOut]);
 
   /**
    * Determines whether to render the table of records or the error message
@@ -71,9 +51,9 @@ export default function RecordTable(props) {
    */
   function getTable() {
     if (Array.isArray(records) && records.length > 0) {
-      const filteredRecords = filterByCheckedOut
-        ? records.filter((record) => record.in_date === null)
-        : records;
+      // const filteredRecords = filterByCheckedOut
+      //   ? records.filter((record) => record.in_date === null)
+      //   : records;
 
       return (
         <div>
@@ -85,25 +65,27 @@ export default function RecordTable(props) {
                 <th>Student ID</th>
                 <th>Operator ID</th>
                 <th>Due Date</th>
-                <th width="40"></th>{/* row for the arrow icon*/}
+                <th width="40"></th>
+                {/* row for the arrow icon*/}
               </tr>
             </thead>
             <tbody>
-              {
-                records.map((record) => (
+              {records.map((record) => (
                 <RecordRow
-                  variant={props.variant} /*passes through the dark mode variable*/
+                  variant={
+                    props.variant
+                  } /*passes through the dark mode variable*/
                   key={record.record_id}
                   record={record}
-                    damageNotes={
-                      assets.find((obj) => {
-                        return obj.asset_tag === record.asset_tag;
-                      }) !== undefined
-                        ? assets.find((obj) => {
-                            return obj.asset_tag === record.asset_tag;
-                          }).damage_notes
-                        : "Loading Asset Tag..."
-                    }
+                  damageNotes={
+                    assets.find((obj) => {
+                      return obj.asset_tag === record.asset_tag;
+                    }) !== undefined
+                      ? assets.find((obj) => {
+                          return obj.asset_tag === record.asset_tag;
+                        }).damage_notes
+                      : "Loading Asset Tag..."
+                  }
                   assetName={
                     assets.find((obj) => {
                       return obj.asset_tag === record.asset_tag;
@@ -142,13 +124,11 @@ export default function RecordTable(props) {
                   date={today}
                   setShow={setShow} // Allow row to show modal
                   setPrintInfo={setPrintInfo} // Allow row to set print info
-                  
                 ></RecordRow>
-                
               ))}
             </tbody>
           </Table>
-  
+
           {/* Modal to show information for printing */}
           <Modal show={show} keyboard={false} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -169,8 +149,11 @@ export default function RecordTable(props) {
                 Close
               </Button>
               {/* Print modal with information */}
-              <Button 
-            className="beets_buttons" variant="primary" onClick={window.print}>
+              <Button
+                className="beets_buttons"
+                variant="primary"
+                onClick={window.print}
+              >
                 Print Check Out Record
               </Button>
             </Modal.Footer>

@@ -2,7 +2,6 @@ import RecordTable from "../../components/RecordsUtils/RecordTable.js";
 import { AccountLink } from "../../components/AccountLink/AccountLink.js";
 import { useOutletContext } from "react-router-dom";
 import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/CheckedOutSwitch";
-import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import React, { useState } from "react";
 
