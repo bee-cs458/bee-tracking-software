@@ -1,4 +1,5 @@
 import Button from "react-bootstrap/esm/Button";
+import GoogleButton from "react-google-button";
 import { verifyLogin } from "../../api/AuthService.js";
 import { useEffect, useState, useContext } from "react";
 import { GlobalStateContext } from "../Context/UserContext.js";
@@ -51,9 +52,7 @@ function Login(props) {
           </div>
         </>
       ) : (
-        <>
-          <p>Please log in</p>
-        </>
+        <></>
       )}
       Username:<br></br>
       <input id="username" type="text" onKeyDown={handleKeypress}></input>
@@ -62,25 +61,22 @@ function Login(props) {
       <input id="password" type="password" onKeyDown={handleKeypress}></input>
       <div>
         <Button
+          className="beets_buttons"
           variant="primary"
           onClick={async () => {
             submit();
           }}
-          style={{ float: "right" }}
+          className={"mt-2 mb-2"}
         >
           Login
         </Button>
 
-        <Button
-          variant="primary"
+        <GoogleButton
           onClick={async () => {
             googleLogin();
             toggleUpdate(true);
           }}
-          style={{ float: "right" }}
-        >
-          Login with Google
-        </Button>
+        />
       </div>
     </>
   );

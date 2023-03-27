@@ -20,7 +20,8 @@ function Logout(props) {
       Are you sure you want to Logout?
       <div>
         <Button
-          variant="primary"
+          
+            className="beets_buttons" variant="primary"
           onClick={() => {
             update();
             window.location.reload();

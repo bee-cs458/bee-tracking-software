@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import axios from "axios";
 
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,6 +23,8 @@ import { GlobalStateProvider } from "./components/Context/UserContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 var theme = "light";
+
+axios.defaults.withCredentials = true;
 
 root.render(
   <React.StrictMode>

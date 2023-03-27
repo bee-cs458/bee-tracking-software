@@ -6,7 +6,6 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import axios from "axios";
 import { getLoggedInUser } from "../../api/AuthService";
 import { Ranks } from "../../constants/PermissionRanks";
 
@@ -23,13 +22,16 @@ export const GlobalStateProvider = ({ children }) => {
     },
   });
 
+  // Every time the page is reloaded, this useEffect will get the currently authenticated user
   useEffect(() => {
     getLoggedInUser()
       .then((response) => {
+        // If the API returns 200, then there is an authenticated user & the information can be returned
         if (response.status === 200) {
           return response.data;
         }
 
+        // Otherwise, the global state will be set to a default "logged out" value
         setGlobalState({
           user: { user_id: Ranks.GUEST, permissions: Ranks.GUEST },
         });
@@ -37,9 +39,8 @@ export const GlobalStateProvider = ({ children }) => {
         throw new Error("Failed to get logged in user");
       })
       .then((resObject) => {
+        // sets the global state to our user's information
         setGlobalState({ user: resObject.user });
-        axios.defaults.headers.get["Authorization"] =
-          resObject.user.permissions;
       })
       .catch((err) => {
         console.log(err);

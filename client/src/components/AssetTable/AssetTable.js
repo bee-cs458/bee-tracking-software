@@ -62,6 +62,7 @@ export default function AssetTable(props) {
           <Table striped bordered variant={props.variant} hover>
             <thead>
               <tr>
+                <td width="50px">Cart</td>
                 <th width="100px">Tag</th>
                 <th width="200px">Name</th>
                 <th width="400px">Description</th>
