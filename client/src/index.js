@@ -19,6 +19,7 @@ import RecordPage from "./routes/RecordsPage/RecordsPage";
 import UserPage from "./routes/UserPage/UserPage";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { GlobalStateProvider } from "./components/Context/UserContext";
+import SingleAssetPage from "./routes/SingleAssetPage/SingleAssetPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -73,6 +74,7 @@ root.render(
                 </ProtectedRoute>
               }
             />
+            <Route path="/asset/:id" element={<SingleAssetPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
