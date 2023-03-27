@@ -58,7 +58,10 @@ export default function ChangePassword() {
   }
 
   function submit() {
-    if (newPassword !== passwordAgain) {
+    if(oldPassword === ""){
+      setAlert(1, "Please enter your old password.")
+    }
+    else if (newPassword !== passwordAgain) {
       setAlert(0, "Passwords do not match!");
     } else if (strength.id < 2) {
       var missingReqs =
