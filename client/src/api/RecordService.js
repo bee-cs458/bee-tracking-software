@@ -15,3 +15,12 @@ export async function getAllRecords() {
         return "Error Getting Records from API";
     }
 }
+
+export async function getCheckedOutRecords() {
+    try {
+        const response = await axios.get("/api/records/")
+
+    } catch (error) {
+        return "Error Getting Records from API";
+    }
+}

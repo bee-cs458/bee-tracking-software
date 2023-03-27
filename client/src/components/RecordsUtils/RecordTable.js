@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { getAllRecords } from "../../api/RecordService";
 import { getAllAssets } from "../../api/AssetService";
 import { getAllUsers } from "../../api/UserService";
+import { getCheckedOutRecords } from "../../api/RecordService";
 
 export default function RecordTable(props) {
   const [records, setRecords] = useState();
@@ -13,19 +14,41 @@ export default function RecordTable(props) {
   const [assets, setAssets] = useState([{}]);
   const [show, setShow] = useState(false); // Modal Show State
   const [printInfo, setPrintInfo] = useState(""); // Info from the row for printing
+  const { selectList, setSelectList } = props;
+  const [updated, setUpdated] = useState(false);
+  const {filterByCheckedOut} = props;
+  const setUp = () => {
+    setUpdated(!updated);
+  };
 
   const getInfo = async () => {
-    await getAllRecords().then((result) => {
-      setRecords(result);
-    });
+    if (filterByCheckedOut == false) {
+      await getAllRecords().then((result) => {
+        setRecords(result);
+      });
 
-    await getAllUsers().then((result) => {
-      setUsers(result);
-    });
+      await getAllUsers().then((result) => {
+        setUsers(result);
+      });
 
-    await getAllAssets().then((result) => {
-      setAssets(result);
-    });
+      await getAllAssets().then((result) => {
+        setAssets(result);
+      });
+    }
+
+    else if (filterByCheckedOut == true) {
+      await getCheckedOutRecords().then((result) => {
+        setRecords(result);
+      });
+
+      await getAllUsers().then((result) => {
+        setUsers(result);
+      });
+
+      await getAllAssets().then((result) => {
+        setAssets(result);
+      });
+    }
   };
 
   // Close modal
@@ -35,9 +58,11 @@ export default function RecordTable(props) {
 
   const today = new Date();
 
+
   useEffect(() => {
-    getInfo();
-  }, []);
+    
+    getInfo(); 
+  }, [props.filterByCheckedOut, updated]);
 
   /**
    * Determines whether to render the table of records or the error message
@@ -46,6 +71,10 @@ export default function RecordTable(props) {
    */
   function getTable() {
     if (records !== null && records !== undefined && records?.length > 0) {
+      const filteredRecords = filterByCheckedOut
+        ? records.filter((record) => record.checked_out === true)
+        : records;
+
       return (
         <div>
           <Table bordered hover variant={props.variant}>
@@ -59,7 +88,8 @@ export default function RecordTable(props) {
               </tr>
             </thead>
             <tbody>
-              {records.map((record) => (
+              {
+                filteredRecords.map((record) => (
                 <RecordRow
                   key={record.record_id}
                   record={record}
@@ -110,11 +140,13 @@ export default function RecordTable(props) {
                   date={today}
                   setShow={setShow} // Allow row to show modal
                   setPrintInfo={setPrintInfo} // Allow row to set print info
+                  
                 ></RecordRow>
+                
               ))}
             </tbody>
           </Table>
-
+  
           {/* Modal to show information for printing */}
           <Modal show={show} keyboard={false} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -146,7 +178,6 @@ export default function RecordTable(props) {
       return <Alert variant="warning">No records found!</Alert>;
     }
   }
-
   return (
     <div>
       <>{getTable()}</>
