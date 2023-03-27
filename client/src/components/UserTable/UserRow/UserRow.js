@@ -40,7 +40,6 @@ function UserRow(props) {
   const handleDeleteUserFalse = () => setDeleteUser(false);
 
   async function handleDeleteUser() {
-    //console.log("delete called");
     await deleteUser(user.user_id).catch((err) => {
       setAlertType2(0);
       setAlertMessage2(err.response.data.message);
