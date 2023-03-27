@@ -58,16 +58,45 @@ export default function ChangePassword() {
   }
 
   function submit() {
-    if (strength.id < 2) {
-      alert("Password is too weak");
-    } else {
-      if (newPassword === passwordAgain) {
-        updatePassword(oldPassword, newPassword);
-        alert("Password was updated");
-        clearFields();
-      } else {
-        alert("Passwords do not match");
+    if (newPassword !== passwordAgain) {
+      setAlert(0, "Passwords do not match!");
+    } else if (strength.id < 2) {
+      var missingReqs =
+        "Your password is missing these strength requirements:\t"; //error message
+      var lowercasePattern = new RegExp("^(?=.*[a-z]).+"); //lowercase letter pattern
+      var uppercasePattern = new RegExp("^(?=.*[A-Z]).+"); //uppercase letter pattern
+      var numberPattern = new RegExp("^(?=.*\\d).+$"); //number pattern
+      var specialPattern = new RegExp("^(?=.*[-+_!@#$%^&*.,?]).+$"); //specail character pattern
+      if (newPassword.length < 8) {
+        //checks if the password is long enough
+        missingReqs += "\nPassword must be at least 8 characters long!"; //adds error to message
       }
+      if (!lowercasePattern.test(newPassword)) {
+        //checks if the password includes a lowercase letter
+        missingReqs += "\nPlease include a lowercase letter in password!"; //adds error to message
+      }
+      if (!uppercasePattern.test(newPassword)) {
+        //checks if the password includes an uppercase letter
+        missingReqs += "\nPlease include a uppercase letter in password!"; //adds error to message
+      }
+      if (!numberPattern.test(newPassword)) {
+        //checks if the password includes a number
+        missingReqs += "\nPlease include a number in password!"; //adds error to message
+      }
+      if (!specialPattern.test(newPassword)) {
+        //checks if the password includes a special character
+        missingReqs += "\nPlease include a special character in password!"; //adds error to message
+      }
+      setAlert(0, missingReqs); //prompts user with error alert and any requirement they are missing
+    } else {
+      let error = updatePassword(oldPassword, newPassword).then((res) => {
+        if (res === 404) {
+        setAlert(0, "Your old password is not correct! Please check that you entered the right password!");
+        } else {
+          setAlert(3, "Password has been updated!");
+          clearFields();
+        }
+      }); //if oldPassword is incorrect display an error
     }
   }
 
