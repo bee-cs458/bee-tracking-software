@@ -18,7 +18,7 @@ export default function RecordsPage() {
       <div className="main-content">
         <div className="container-fluid">
           <div className="row">
-            <div className="col">             
+            <div className="col">          
               {localStorage.getItem("userPerms") === "2" ? (
                 <CheckoutRecordCSV></CheckoutRecordCSV>
               ) : (

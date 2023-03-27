@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { CSVLink } from "react-csv";
 import { getAllRecords } from '../../api/RecordService';
 
+//Constant headers for the CSV file and the corresponding key
 const CheckoutRecordHeaders = [
     { label: "Record Id", key: "record_id"},
     { label: "Student Id", key: "student_id"},
@@ -13,6 +14,7 @@ const CheckoutRecordHeaders = [
     { label: "Check in Date", key: "in_date"},
     { label: "Due Date", key: "due_date"}
 ]
+
 
 class CheckoutRecordCSV extends React.Component {
     constructor(props) {
