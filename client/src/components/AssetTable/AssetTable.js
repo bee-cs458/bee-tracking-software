@@ -6,6 +6,8 @@ import {
 } from "../../api/AssetService";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
+import { AccessControl } from "../../components/AccessControl/AccessControl";
+import { Ranks } from "../../constants/PermissionRanks";
 import AssetRow from "./AssetRow/AssetRow";
 
 export default function AssetTable(props) {
@@ -62,13 +64,18 @@ export default function AssetTable(props) {
           <Table striped bordered variant={props.variant} hover>
             <thead>
               <tr>
+              <AccessControl allowedRank={Ranks.OPERATOR}>
+                <td width="50px">Cart</td>
+              </AccessControl>
                 <td width="100px">Tag</td>
                 <td width="200px">Name</td>
                 <td width="400px">Description</td>
                 <td width="200px">Date Added</td>
                 <td width="150px">Category</td>
                 <td width="150px">Available</td>
+                <AccessControl allowedRank={Ranks.OWNER}>
                 <td></td>
+                </AccessControl>
               </tr>
             </thead>
             <tbody>

@@ -1,4 +1,5 @@
 import RecordTable from "../../components/RecordsUtils/RecordTable.js";
+import { AccountLink } from "../../components/AccountLink/AccountLink.js";
 import { useOutletContext } from "react-router-dom";
 import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/CheckedOutSwitch";
 import { useEffect } from "react";
@@ -17,7 +18,11 @@ export default function RecordsPage() {
 
   return (
     <>
-      <div className="header-container"></div>
+      <div className="header-container">
+        <div style={{ marginLeft: "70%" }}>
+          <AccountLink />
+        </div>
+      </div>
       <div className="main-content">
         <CheckedOut
           state={checked}

@@ -7,8 +7,7 @@ import Button from "react-bootstrap/esm/Button";
 import { createNewUser } from "../../api/UserService";
 import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
 
-function CreateUserForm() {
-
+function CreateUserForm(props) {
 
     const [userData, setUserData] = useState({
 
@@ -33,6 +32,7 @@ function CreateUserForm() {
                 setAlertType(3);
                 setAlertMessage("User created successfully");
                 clearForm();
+                props.toggleTableChanged(); //changes useState so that table will render with new user
             } 
             else if(result.status === 409){
                 setAlertType(1);
@@ -130,7 +130,7 @@ function CreateUserForm() {
                 </Row>
                 <Row>
                     <Col className="w-100 mb-2">
-                        <Button variant="primary" size="md" type="submit" className="w-100">Submit</Button>
+                        <Button variant="primary" size="md" type="submit" className="w-100 beets_buttons">Submit</Button>
                     </Col>
                 </Row>
                 <Row>

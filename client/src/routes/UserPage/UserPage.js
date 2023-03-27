@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import UserTable from "./../../components/UserTable/UserTable";
 import Accordion from "react-bootstrap/Accordion";
 import CreateUserForm from "../../components/CreateUserForm/CreateUserForm";
+import { AccountLink } from "../../components/AccountLink/AccountLink";
 import { useOutletContext } from "react-router-dom";
 
 import UserAsyncCSV from "../../components/ExportCSV/ExportUserCSV";
@@ -15,6 +16,12 @@ import UserAsyncCSV from "../../components/ExportCSV/ExportUserCSV";
 export default function UserPage() {
   const [inputVal, setInputVal] = useState(null);
   const [theme, setTheme] = useOutletContext();
+  const [userTableChanged, setUserTableChanged] = useState(true); //use state for any changes made to the table
+/*simply toggles the variable so that it changes. the actual value does not matter,
+ just that it is changed when this function is called */
+  function toggleTableChanged() {  
+    setUserTableChanged(!userTableChanged);
+  }
 
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {
@@ -39,14 +46,20 @@ export default function UserPage() {
 
   return (
     <>
-      <div className="header-container" />
+      <div className="header-container">
+        <div style={{ marginLeft: "70%" }}>
+          <AccountLink />
+        </div>
+      </div>
       <div className="main-content-user">
         <h1 className="mb-3 users">Users</h1>
 
         <Accordion className="mb-3 border add-user">
           <Accordion.Header>Add a User</Accordion.Header>
           <Accordion.Body>
-            <CreateUserForm></CreateUserForm>
+            <CreateUserForm
+              toggleTableChanged={toggleTableChanged} //passes toggle function so table will be able to render upon adding user
+            ></CreateUserForm>
           </Accordion.Body>
         </Accordion>
 
@@ -65,19 +78,28 @@ export default function UserPage() {
             </Form.Group>
             {/* console error: controlId="userId" ignored when id is specified  */}
             <Form.Group as={Col}>
-              <Button type="submit" onClick={getInputValue}>
+              <Button
+                className="beets_buttons"
+                type="submit"
+                onClick={getInputValue}
+              >
                 Search
               </Button>
             </Form.Group>
-            <Form.Group as={Col}><UserAsyncCSV/></Form.Group>
+            <Form.Group as={Col}>
+              <UserAsyncCSV />
+            </Form.Group>
           </Row>
         </Form>
 
-        
-
         {/* Display information of users */}
         <div className="container-fluid user-content">
-          <UserTable input={inputVal} variant={theme}>
+          <UserTable
+            input={inputVal}
+            variant={theme}
+            toggleTableChanged={toggleTableChanged} //passes toggle function so table will be able to render upon deleting user
+            userTableChanged={userTableChanged} //pass the use state so the table will be able to render on any change made to it
+          >
             {" "}
           </UserTable>
         </div>

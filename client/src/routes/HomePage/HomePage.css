@@ -1,5 +1,5 @@
 .App {
-    text-align: center;
+  text-align: center;
 }
 
 .header-container {
@@ -10,70 +10,69 @@
     width: 60vw;
     align-items: center;
     margin-left: 250px;
-    background-color: #6486A9;
+    background-color: #004990;
     z-index: 4;
 }
 
 .search-header {
-    height: 40px;
-    width: 545px;
-    display: inline-flex;
-    color: white;
-    text-align: left;
-    padding-top: 1px;
+  height: 40px;
+  width: 545px;
+  display: inline-flex;
+  color: white;
+  text-align: left;
+  padding-top: 1px;
 }
 
 .search-header button {
-    display: inline-flex;
-    margin-left: 10px;
+  display: inline-flex;
+  margin-left: 10px;
 }
 
 .search-header button:hover {
-    background-color: #538cc6;
+  background-color: #538cc6;
 }
 
 .btn {
-    color: white;
+  color: white;
 }
 
 .main-content {
-    margin-left: 250px;
-    text-align: left;
-    padding-top: 60px;
-    padding-left: 10px;
-    height: 100vh;
+  margin-left: 250px;
+  text-align: left;
+  padding-top: 60px;
+  padding-left: 10px;
+  height: 100vh;
 }
 
 .asset-table {
-    width: calc (100vw - 250px);
-    height: calc(100vh - 118px);
-    overflow-y: scroll;
+  width: calc (100vw - 250px);
+  height: calc(100vh - 118px);
+  overflow-y: scroll;
+}
+
+.beets_buttons { /*class that changes the color of the buttons in the webpage*/
+    background-color: #015FB4;
+    border-color: #015FB4;    
 }
 
 .asset-table td {
-    width: auto !important;
-
-}
-
-.asset-table td {
-    width: auto !important;
+  width: auto !important;
 }
 
 .App-link {
-    color: #61dafb;
+  color: #61dafb;
 }
 
 .category {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .dark {
-    background-color: #333;
-    color: #fff;
-
+  background-color: #333;
+  color: #fff;
 }
 
 .light {
-    background-color: #fff;
-    color: #333;
+  background-color: #fff;
+  color: #333;
 }

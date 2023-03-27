@@ -1,6 +1,7 @@
 import "./RecordRow.css";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import arrow from "../../assets/arrow.png";
 
 export default function CheckInRow(props) {
   const record = props.record;
@@ -85,6 +86,12 @@ export default function CheckInRow(props) {
         <td>{record.student_id}</td>
         <td>{record.operator_id}</td>
         <td>{formatDate(record.due_date)}</td>
+        {props.variant === "light" ? //if in light mode
+          expanded ? <td><img alt="collapse" src={arrow} className="upsidedown"></img></td> //use the normal arrow upside down if expanded
+          : <td><img src={arrow} alt="expand" ></img></td> //use the normal arrow if not expanded
+        : expanded ? <td><img alt="collapse" src={arrow} className="upsidedown darkModeFilter"></img></td> //if in dark mode use the filter and upsidedown class when expanded
+          : <td><img src={arrow} alt="expand" className="darkModeFliter"></img></td>/*if not expanded just use the dark mode filter */}
+        
       </tr>
       {expanded ? (
         <tr className="dropdown01">
@@ -119,7 +126,8 @@ export default function CheckInRow(props) {
 
                   {record.in_date ? formatDate(record.in_date) : <>Still out</>}
                   <br />
-                  <Button onClick={handleShow}>Print Record</Button>
+                  <Button 
+            className="beets_buttons" onClick={handleShow}>Print Record</Button>
                 </div>
               </div>
             </div>

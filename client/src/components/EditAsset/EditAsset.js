@@ -189,7 +189,9 @@ function EditAsset(props) {
       <Row>
         <Col></Col>
         <Col></Col>
-        <Button as={Col} variant="primary" onClick={handleSubmit}>
+        <Button as={Col} 
+            className="beets_buttons"
+            variant="primary" onClick={handleSubmit}>
           Submit Edit
         </Button>
       </Row>

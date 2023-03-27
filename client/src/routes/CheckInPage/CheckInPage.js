@@ -16,6 +16,7 @@ import CheckInTable from "../../components/CheckInUtilities/CheckInTable";
 import getCategories from "../../api/CategoryService";
 import { getAllUnavailableAssets } from "../../api/AssetService";
 import { useOutletContext } from "react-router-dom";
+import { AccountLink } from "../../components/AccountLink/AccountLink";
 
 export default function CheckInPage() {
   const [assets, setAssets] = useState([]);
@@ -209,7 +210,11 @@ export default function CheckInPage() {
 
   return (
     <div>
-      <div className="header-container" />
+      <div className="header-container">
+        <div style={{ marginLeft: "70%" }}>
+          <AccountLink />
+        </div>
+      </div>
       <div className="main-content-checkin">
         <h1 className="mb-3">Check In Equipment</h1>
         <Form>
@@ -233,20 +238,26 @@ export default function CheckInPage() {
                 }}
               />
               <datalist id="unavailableAssets">
-              {unavailableAssetTags.map((asset) => {
+                {unavailableAssetTags.map((asset) => {
                   let inList = false;
-                  for(let i =0; i < assets.length; i++){
-                    if(assets[i].asset_tag === asset.asset_tag){
+                  for (let i = 0; i < assets.length; i++) {
+                    if (assets[i].asset_tag === asset.asset_tag) {
                       inList = true;
                       return null;
                     }
                   }
-                  if(!inList)
-                    return <option key={asset.asset_tag} value={asset.asset_tag}/>;
+                  if (!inList)
+                    return (
+                      <option key={asset.asset_tag} value={asset.asset_tag} />
+                    );
                   return null;
                 })}
               </datalist>
-              <Button onClick={handleTagPress} disabled={disabledButton}>
+              <Button
+                className="beets_buttons"
+                onClick={handleTagPress}
+                disabled={disabledButton}
+              >
                 Add
               </Button>
             </Form.Group>
@@ -262,7 +273,8 @@ export default function CheckInPage() {
                   handleIDChange(event.target.value);
                 }}
               />
-              <Button onClick={handleIDPress} disabled={disabledButton}>
+              <Button 
+            className="beets_buttons" onClick={handleIDPress} disabled={disabledButton}>
                 Submit
               </Button>
             </Form.Group>
@@ -291,7 +303,7 @@ export default function CheckInPage() {
 
           <div className="mb-3">
             <Button
-              className="clearAll"
+              className="clearAll beets_buttons"
               type="reset"
               onClick={clearAll}
               disabled={disabledButton}
@@ -299,7 +311,7 @@ export default function CheckInPage() {
               Clear All
             </Button>
             <Button
-              className="checkIn"
+              className="checkIn beets_buttons"
               variant="primary"
               onClick={handleSubmit}
               disabled={disabledButton}

@@ -15,20 +15,24 @@ import CheckOutTable from "../../components/CheckOutUtilities/CheckOutTable";
 import { getUserById } from "../../api/UserService";
 import getCategories from "../../api/CategoryService";
 import { useOutletContext } from "react-router-dom";
+import { useAuthenticatedUser } from "../../components/Context/UserContext";
+import { Ranks } from "../../constants/PermissionRanks";
+import { AccountLink } from "../../components/AccountLink/AccountLink";
 
 function CheckOutPage() {
   const [show, setShow] = useState(false);
   const [studentId, setStudentId] = useState("");
   const [assetTag, setAssetTag] = useState("");
   const [currErrMsg, setErrMsg] = useState("");
-  const [opId, setOpId] = useState(0);
+  const [opId] = useState(useAuthenticatedUser().user_id);
   const [disabledButton, setDisabledButton] = useState(false);
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
   const [currentAssetList, setCurrentAssetList] = useState([]);
   const [cats, setCats] = useState([]);
   const [availableAssetTags, setAvailableAssetTags] = useState([]);
-  const [theme, setTheme] = useOutletContext();
+  const [theme] = useOutletContext();
+  const authenticatedUser = useAuthenticatedUser();
 
   //recieve the items from the cart that have been saved to session storage
   const removeAsset = (asset_tag) => {
@@ -114,8 +118,8 @@ function CheckOutPage() {
       setDisabledButton(false);
       return;
     }
-    //console.log(localStorage.getItem("userPerms"))
-    if (localStorage.getItem("userPerms") <= 0) {
+
+    if (authenticatedUser.permissions < Ranks.OPERATOR) {
       setAlertMessage(
         `The student with ID '${studentId}' does not have the permissions to checkout assets`
       );
@@ -188,13 +192,15 @@ function CheckOutPage() {
         return value;
       })
       .catch((err) => console.log(err));
-      setOpId(localStorage.getItem("userId"));
   };
 
   const importAssetCart = async () => {
     let tempAssetList = [];
     let keys = Object.keys(sessionStorage);
     for (let key of keys) {
+      if (key.includes("DevTools")) {
+        continue;
+      }
       const asset = (await getAssetByAssetTag(sessionStorage.getItem(key)))[0];
       tempAssetList.push(asset);
     }
@@ -212,7 +218,11 @@ function CheckOutPage() {
   useEffect(() => {}, [availableAssetTags, cats]);
   return (
     <div>
-      <div className="header-container"></div>
+      <div className="header-container">
+        <div style={{ marginLeft: "70%" }}>
+          <AccountLink />
+        </div>
+      </div>
       <div className="main-content-checkout">
         <h1 className="mb-3">Check Out Equipment</h1>
         <Form autoComplete="off">
@@ -254,6 +264,7 @@ function CheckOutPage() {
               </datalist>
               <Button
                 id="addAsset"
+                className="beets_buttons"
                 disabled={disabledButton}
                 onClick={handleAssetAddBtn}
               >
@@ -288,7 +299,7 @@ function CheckOutPage() {
           ></CheckOutTable>
 
           <Button
-            className="clearAll"
+            className="clearAll beets_buttons"
             type="reset"
             disabled={disabledButton}
             onClick={handleClose}
@@ -296,7 +307,7 @@ function CheckOutPage() {
             Clear All
           </Button>
           <Button
-            className="checkOut"
+            className="checkOut beets_buttons"
             variant="primary"
             disabled={disabledButton}
             onClick={handleCheckoutBtn}
@@ -319,7 +330,11 @@ function CheckOutPage() {
             <p className="text-danger text-monospace">{currErrMsg}</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={() => setErrMsg("")}>
+            <Button
+              className="beets_buttons"
+              variant="primary"
+              onClick={() => setErrMsg("")}
+            >
               Close
             </Button>
           </Modal.Footer>
@@ -348,7 +363,11 @@ function CheckOutPage() {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={window.print}>
+            <Button
+              className="beets_buttons"
+              variant="primary"
+              onClick={window.print}
+            >
               Print Check Out Record
             </Button>
           </Modal.Footer>
