@@ -7,12 +7,12 @@ import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/Checke
 import AddAsset from "../../components/AddAsset/AddAsset";
 import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { Container, Col, Row } from "react-bootstrap";
 import { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
 import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
-
 import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
 import { AccountLink } from "../../components/AccountLink/AccountLink";
 
@@ -68,26 +68,36 @@ export default function HomePage(props) {
 
   return (
     <div className="App">
-      <div className="header-container container-fluid">
-        <div className="search-header">
-          <input
-            type="text"
-            onKeyDown={handleKeyPress}
-            className="form-control"
-            id="search"
-            placeholder="Search"
-            name="search"
-          />
-          <button
-            type="submit"
-            onClick={getInputValue}
-            className="btn btn-default"
+      <Container fluid className={"header-container"}>
+        <Row>
+          <Col xs={10} className={"search-header"}>
+            <input
+              type="text"
+              onKeyDown={handleKeyPress}
+              className="form-control"
+              id="search"
+              placeholder="Search"
+              name="search"
+            />
+            <button
+              type="submit"
+              onClick={getInputValue}
+              className="btn btn-default"
+            >
+              <img src={search} alt="search" width="22" height="22" />
+            </button>
+          </Col>
+          <Col
+            style={{
+              marginTop: "auto",
+              marginBottom: "auto",
+              marginLeft: "19.4em",
+            }}
           >
-            <img src={search} alt="search" width="22" height="22" />
-          </button>
-        </div>
-        <AccountLink className="account-link" />
-      </div>
+            <AccountLink />
+          </Col>
+        </Row>
+      </Container>
 
       <div className=" main-content">
         <div className="container-fluid">
@@ -118,9 +128,11 @@ export default function HomePage(props) {
             <div className="col"></div>
             <div className="col"></div>
             <div className="col">
+            <AccessControl allowedRank={Ranks.OPERATOR}>
               <Button className="beets_buttons" onClick={clearSelection}>
                 Clear Selection
               </Button>
+            </AccessControl>
             </div>
           </div>
         </div>
