@@ -65,8 +65,6 @@ function AssetRow(props) {
   async function handleSelect() {
     //on click, table rows should highlight and add themselves to the selected asset list
     if (asset.checked_out) {
-      setAlertMessage("Asset is already checked out");
-      setAlertType(1);
       return;
     }
     if (!selected) {
@@ -104,15 +102,37 @@ function AssetRow(props) {
     }
     //if the item was not in the Cart, force the item to be unselected
     setSelected(false);
-  }, [selectList]); //calls on changes to select list to work with the Clear Selection Button
+  }, [selectList, selected, setSelectList, asset.asset_tag]); //calls on changes to select list to work with the Clear Selection Button
 
   return (
     <tr className={selected ? "table-primary" : null}>
-      <td>{/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}  
-          <Button variant={selected? "success" : "secondary"} onClick={handleSelect}>
-            <img alt={selected ? 'Added to Cart' : 'Add to Cart'} src={selected ? checkMark : cartIcon} width="25" height="25"/>
-          </Button>
+    <AccessControl allowedRank={Ranks.OPERATOR}>
+      <td>
+        {/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}
+        <Button
+          variant={
+            asset.checked_out ? "danger" : selected ? "success" : "secondary"
+          }
+          onClick={handleSelect}
+          disabled={asset.checked_out ? true : false}
+        >
+          <img
+            alt={
+              asset.checked_out
+                ? "Unavailable"
+                : selected
+                ? "Added to Cart"
+                : "Add to Cart"
+            }
+            src={
+              asset.checked_out ? crossedOut : selected ? checkMark : cartIcon
+            }
+            width="25"
+            height="25"
+          />
+        </Button>
       </td>
+      </AccessControl>
       <td>{asset.asset_tag}</td>
       <td>{asset.name}</td>
       <td>{asset.description}</td>
@@ -123,16 +143,20 @@ function AssetRow(props) {
         )}
       </td>
       <td>{asset.checked_out ? "No" : "Yes"}</td>
+      <AccessControl allowedRank={Ranks.OWNER}>
       <td>
-        <AccessControl allowedRank={Ranks.OWNER}>
-          <Button variant="primary" className="beets_buttons" onClick={handleEditAssetTrue}>
+          <Button
+            variant="primary"
+            className="beets_buttons"
+            onClick={handleEditAssetTrue}
+          >
             Edit Asset
           </Button>
           <Button variant="danger" onClick={handleDeleteAssetTrue}>
             Delete Asset
           </Button>
-        </AccessControl>
       </td>
+      </AccessControl>
       <Modal backdrop="static" show={editAsset} onHide={handleEditAssetFalse}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Asset</Modal.Title>

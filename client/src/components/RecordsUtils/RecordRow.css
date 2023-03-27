@@ -9,3 +9,11 @@
 .dropdown01{
     background-color: #EEEEEE;
 }
+
+.upsidedown{ /*class that rotates an image 180 degrees*/
+    transform: rotate(180deg);
+}
+
+.darkModeFilter{ /*class that makes a black image into a white image*/
+    filter: brightness(0) invert(1);
+}

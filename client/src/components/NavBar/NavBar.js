@@ -21,7 +21,8 @@ import { Ranks } from "../../constants/PermissionRanks";
 function NavBar(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {setShow(true);
+                            sessionStorage.clear();} //clear session storage to wipe the current Cart on user change
 
   function handleClick() {
     props.switchTheme();

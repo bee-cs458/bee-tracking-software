@@ -98,7 +98,7 @@ export const requireQuery = (...paramList) => {
  *          If not, returns a 401 and error message
  */
 export const restrictTo = (level) => async (req, res, next) => {
-  const role = permissionEnumConversion?.[req.user.permissions] ?? "guest";
+  const role = permissionEnumConversion?.[req.user?.permissions] ?? "guest";
   if (permissionLevels?.[role] >= permissionLevels[level]) {
     next();
   } else

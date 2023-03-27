@@ -9,11 +9,15 @@ export const AccountLink = (props) => {
 
   return (
     <AccessControl allowedRank={Ranks.STUDENT}>
-      <div style={{ margin: "auto" }}>
-        <Link style={{ color: "#fff", textDecoration: "none" }} to="/profile">
-          {user.first_name} {user.last_name}
-        </Link>
-      </div>
+      <Link
+        style={{
+          color: "#fff",
+          textDecoration: "none",
+        }}
+        to="/profile"
+      >
+        {user.first_name} {user.last_name}
+      </Link>
     </AccessControl>
   );
 };
