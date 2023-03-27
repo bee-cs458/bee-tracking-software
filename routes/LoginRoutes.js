@@ -41,13 +41,19 @@ router.post("/logout", async (req, res, next) => {
   });
 });
 
+// Retrieves the information of the currently autheticated user, if there is one
+// Return a status of 204 if there is no authenticated user
 router.get("/success", (req, res) => {
+  // If a user exists
   if (req.user) {
+    // Make sure the password is deleted from the user data stored in the session
     delete req.user?.password;
+    // Send the user data to the front end
     res.status(200).json({
       user: req.user,
     });
   } else {
+    // return a 204 code if there is no user authenticated
     res.status(204).json({
       message: "No user currently authenticated",
     });
