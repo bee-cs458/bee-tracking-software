@@ -12,6 +12,8 @@ export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
+  const [alertType, setAlertType] = useState(null);
+  const [alertMesssage, setAlertMessage] = useState("");
   const [strength, setStrength] = useState({
     id: 0,
     value: "Too weak",
@@ -19,12 +21,22 @@ export default function ChangePassword() {
     minLength: 0,
   });
 
-  const handleKeypress = e => {
-    //it triggers by pressing the enter key
-  if (e.keyCode === 13) {
-    submit();
+  /**
+   * a function to set the type and message of a ConditionalAlert
+   * @param {int} type the type of alert
+   * @param {String} message the massage for the alert
+   */
+  function setAlert(type, message) {
+    setAlertType(type);
+    setAlertMessage(message);
   }
-};
+
+  const handleKeypress = (e) => {
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      submit();
+    }
+  };
 
   function handleOldPassChange(password) {
     setOldPassword(password);
@@ -109,7 +121,7 @@ export default function ChangePassword() {
             />
             <div id="btnContainer">
               <Button
-              className="beets_buttons"
+                className="beets_buttons"
                 variant="primary"
                 onClick={async () => {
                   submit();
@@ -117,6 +129,10 @@ export default function ChangePassword() {
               >
                 Update
               </Button>
+              <ConditionalAlert
+                type={alertType}
+                message={alertMesssage}
+              ></ConditionalAlert>
             </div>
           </Form.Group>
         </Row>
