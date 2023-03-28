@@ -12,7 +12,7 @@ const googleLogin = () => {
 function Login(props) {
   const [updated, changeUpdate] = useState(null);
   const [errorState, setErrorState] = useState(false);
-  useEffect(() => {}, [updated, errorState]);
+  useEffect(() => { }, [updated, errorState]);
   const toggleUpdate = () => {
     updated ? changeUpdate(false) : changeUpdate(true);
   };
@@ -61,12 +61,11 @@ function Login(props) {
       <input id="password" type="password" onKeyDown={handleKeypress}></input>
       <div>
         <Button
-          className="beets_buttons"
           variant="primary"
           onClick={async () => {
             submit();
           }}
-          className={"mt-2 mb-2"}
+          className={"beets_buttons mt-2 mb-2"}
         >
           Login
         </Button>
