@@ -17,6 +17,8 @@ const SingleAssetPage = () => {
   // Used to prevent crashes if the asset data hasn't loaded yet
   const [isLoading, setLoading] = useState(state?.asset ? false : true);
 
+  // Sets the state of the page using information passed in from the link
+  // If the page wasn't loaded from a link, it uses the ID from the URL to get the info from the db
   useEffect(() => {
     if (state?.asset) {
       setAsset(state.asset);
@@ -27,6 +29,7 @@ const SingleAssetPage = () => {
     }
   }, []);
 
+  // Updates the loading flag
   useEffect(() => {
     if (asset) {
       setLoading(false);
