@@ -10,6 +10,7 @@ import { Ranks } from "../../../constants/PermissionRanks";
 import cartIcon from "../../../assets/shopping-cart.png";
 import checkMark from "../../../assets/check-mark.png";
 import crossedOut from "../../../assets/crossed-out.png";
+import { Link } from "react-router-dom";
 
 function AssetRow(props) {
   const cats = props.categoryList;
@@ -106,34 +107,34 @@ function AssetRow(props) {
 
   return (
     <tr className={selected ? "table-primary" : null}>
-    <AccessControl allowedRank={Ranks.OPERATOR}>
-      <td>
-        {/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}
-        <Button
-          variant={
-            asset.checked_out ? "danger" : selected ? "success" : "secondary"
-          }
-          onClick={handleSelect}
-          disabled={asset.checked_out ? true : false}
-        >
-          <img
-            alt={
-              asset.checked_out
-                ? "Unavailable"
-                : selected
-                ? "Added to Cart"
-                : "Add to Cart"
+      <AccessControl allowedRank={Ranks.OPERATOR}>
+        <td>
+          {/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}
+          <Button
+            variant={
+              asset.checked_out ? "danger" : selected ? "success" : "secondary"
             }
-            src={
-              asset.checked_out ? crossedOut : selected ? checkMark : cartIcon
-            }
-            width="25"
-            height="25"
-          />
-        </Button>
-      </td>
+            onClick={handleSelect}
+            disabled={asset.checked_out ? true : false}
+          >
+            <img
+              alt={
+                asset.checked_out
+                  ? "Unavailable"
+                  : selected
+                    ? "Added to Cart"
+                    : "Add to Cart"
+              }
+              src={
+                asset.checked_out ? crossedOut : selected ? checkMark : cartIcon
+              }
+              width="25"
+              height="25"
+            />
+          </Button>
+        </td>
       </AccessControl>
-      <td>{asset.asset_tag}</td>
+      <td><Link to={`/asset/${asset.asset_tag}`} state={{ asset }}>{asset.asset_tag}</Link></td>
       <td>{asset.name}</td>
       <td>{asset.description}</td>
       <td>{formattedDate}</td>
@@ -144,7 +145,7 @@ function AssetRow(props) {
       </td>
       <td>{asset.checked_out ? "No" : "Yes"}</td>
       <AccessControl allowedRank={Ranks.OWNER}>
-      <td>
+        <td>
           <Button
             variant="primary"
             className="beets_buttons"
@@ -155,7 +156,7 @@ function AssetRow(props) {
           <Button variant="danger" onClick={handleDeleteAssetTrue}>
             Delete Asset
           </Button>
-      </td>
+        </td>
       </AccessControl>
       <Modal backdrop="static" show={editAsset} onHide={handleEditAssetFalse}>
         <Modal.Header closeButton>
