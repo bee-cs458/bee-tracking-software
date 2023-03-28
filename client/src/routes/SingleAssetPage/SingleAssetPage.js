@@ -4,17 +4,21 @@ import { useParams, useLocation } from "react-router-dom";
 
 import { getAssetByAssetTag } from "../../api/AssetService";
 import { AccountLink } from "../../components/AccountLink/AccountLink";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import { SIDE_NAV_WIDTH, TOP_BAR_HEIGHT } from "../../constants/StyleConstants";
 
 const SingleAssetPage = () => {
+  // Gets the Asset Tag from the URL
   const { id } = useParams();
+  // If we came from a link in the asset table, this gets the asset data from that link
   const { state } = useLocation();
-  const [asset, setAsset] = useState();
-  const [isLoading, setLoading] = useState(true);
-
+  // Stores the asset information for this page
+  const [asset, setAsset] = useState(state?.asset);
+  // Used to prevent crashes if the asset data hasn't loaded yet
+  const [isLoading, setLoading] = useState(state?.asset ? false : true);
 
   useEffect(() => {
-    if (state.asset) {
+    if (state?.asset) {
       setAsset(state.asset);
     } else {
       getAssetByAssetTag(id).then((result) => {
@@ -32,7 +36,7 @@ const SingleAssetPage = () => {
   }, [asset])
 
   return (
-    <div style={{ overflow: "hidden" }}>
+    <div className="d-flex flex-column" style={{ overflow: "hidden" }}>
       <div className="header-container">
         <div style={{ marginLeft: "70%" }}>
           <AccountLink />
@@ -42,19 +46,15 @@ const SingleAssetPage = () => {
       <Container
         fluid
         style={{
-          marginLeft: `${SIDE_NAV_WIDTH}`,
+          paddingLeft: `${SIDE_NAV_WIDTH}`,
           paddingTop: `${TOP_BAR_HEIGHT}`,
-          textAlign: "left",
         }}
       >
 
-        {isLoading ? (<>
-
-          <p>Loading</p>
-
-        </>) : (<>
+        {isLoading ? (<><LoadingSpinner /></>) : (<>
 
           <p>{asset.asset_tag}</p>
+
 
         </>)}
 
