@@ -14,10 +14,13 @@ export default function RecordTable(props) {
   const [show, setShow] = useState(false); // Modal Show State
   const [printInfo, setPrintInfo] = useState(""); // Info from the row for printing
 
+  // Gets the information from the server
+  // Dependant on the prop of if the checkbox for viewing only checked-out is selected
+  // If it is, the records are set to be filtered by checked out
+  // Gets the users and assets normally
   const getInfo = async () => {
     await getAllRecords().then((result) => {
       setRecords(result);
-      console.log(result);
     });
 
     if (props.filterByCheckedOut) {
@@ -40,6 +43,7 @@ export default function RecordTable(props) {
 
   const today = new Date();
 
+  // Filter the informnation when the check box is selected
   useEffect(() => {
     getInfo();
   }, [props.filterByCheckedOut]);
@@ -51,9 +55,6 @@ export default function RecordTable(props) {
    */
   function getTable() {
     if (Array.isArray(records) && records.length > 0) {
-      // const filteredRecords = filterByCheckedOut
-      //   ? records.filter((record) => record.in_date === null)
-      //   : records;
 
       return (
         <div>
