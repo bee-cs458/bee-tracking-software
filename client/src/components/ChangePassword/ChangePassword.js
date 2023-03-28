@@ -7,6 +7,7 @@ import { updatePassword } from "../../api/UserService.js";
 import "./ChangePassword.css";
 import { passwordStrength } from "check-password-strength";
 import ConditionalAlert from "../../components/CheckInUtilities/ConditionalAlert.js";
+import PasswordAlert from "../../components/PasswordAlert/PasswordAlert.js";
 
 export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
@@ -20,6 +21,7 @@ export default function ChangePassword() {
     minDiversity: 0,
     minLength: 0,
   });
+  const [requirements, setRequirements] = useState("");
 
   /**
    * a function to set the type and message of a ConditionalAlert
@@ -58,12 +60,14 @@ export default function ChangePassword() {
   }
 
   function submit() {
-    if(oldPassword === ""){
-      setAlert(1, "Please enter your old password.")
-    }
-    else if (newPassword !== passwordAgain) {
+    if (oldPassword === "") {
+      setAlert(1, "Please enter your old password.");
+      setRequirements("");// makes password alert disapear
+    } else if (newPassword !== passwordAgain) {
       setAlert(0, "Passwords do not match!");
+      setRequirements("");// makes password alert disapear
     } else if (strength.id < 2) {
+      setAlert(null, "");//makes conditional alert blank
       var missingReqs =
         "Your password is missing these strength requirements:\t"; //error message
       var lowercasePattern = new RegExp("^(?=.*[a-z]).+"); //lowercase letter pattern
@@ -72,31 +76,33 @@ export default function ChangePassword() {
       var specialPattern = new RegExp("^(?=.*[-+_!@#$%^&*.,?]).+$"); //specail character pattern
       if (newPassword.length < 8) {
         //checks if the password is long enough
-        missingReqs += "\nPassword must be at least 8 characters long!"; //adds error to message
+        missingReqs += "<br>Password must be at least 8 characters long!"; //adds error to message
       }
       if (!lowercasePattern.test(newPassword)) {
         //checks if the password includes a lowercase letter
-        missingReqs += "\nPlease include a lowercase letter in password!"; //adds error to message
+        missingReqs += "<br>Please include a lowercase letter in password!"; //adds error to message
       }
       if (!uppercasePattern.test(newPassword)) {
         //checks if the password includes an uppercase letter
-        missingReqs += "\nPlease include a uppercase letter in password!"; //adds error to message
+        missingReqs += "<br>Please include a uppercase letter in password!"; //adds error to message
       }
       if (!numberPattern.test(newPassword)) {
         //checks if the password includes a number
-        missingReqs += "\nPlease include a number in password!"; //adds error to message
+        missingReqs += "<br>Please include a number in password!"; //adds error to message
       }
       if (!specialPattern.test(newPassword)) {
         //checks if the password includes a special character
-        missingReqs += "\nPlease include a special character in password!"; //adds error to message
+        missingReqs += "<br>Please include a special character in password!"; //adds error to message
       }
-      setAlert(0, missingReqs); //prompts user with error alert and any requirement they are missing
+      setRequirements(missingReqs); //prompts user with error alert and any requirement they are missing
     } else {
       let error = updatePassword(oldPassword, newPassword).then((res) => {
         if (res === 404) {
-        setAlert(0, "Your old password is not correct! Please check that you entered the right password!");
+          setAlert(0, "Your old password is not correct! Please check that you entered the right password!");
+          setRequirements("");// makes password alert disapear
         } else {
           setAlert(3, "Password has been updated!");
+          setRequirements("");// makes password alert disapear
           clearFields();
         }
       }); //if oldPassword is incorrect display an error
@@ -165,6 +171,7 @@ export default function ChangePassword() {
                 type={alertType}
                 message={alertMesssage}
               ></ConditionalAlert>
+              <PasswordAlert message={requirements}></PasswordAlert>{/* special alert for passwords */}
             </div>
           </Form.Group>
         </Row>
