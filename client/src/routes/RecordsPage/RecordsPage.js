@@ -23,13 +23,7 @@ export default function RecordsPage() {
         </div>
       </div>
       <div className="main-content">
-        <CheckedOut
-          state={checked}
-          update={setChecked}
-        />
-        <Button variant="outline-secondary" onClick={clearSelection}>
-          Clear Selection
-        </Button>
+        <CheckedOut state={checked} update={setChecked} />
         <RecordTable
           variant={theme}
           filterByCheckedOut={checked}
