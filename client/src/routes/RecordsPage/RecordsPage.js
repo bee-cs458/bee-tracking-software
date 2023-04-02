@@ -3,7 +3,7 @@ import { AccountLink } from "../../components/AccountLink/AccountLink.js";
 import { useOutletContext } from "react-router-dom";
 
 export default function RecordsPage() {
-  const [theme, setTheme] = useOutletContext();
+  const theme = useOutletContext();
 
   return (
     <>

@@ -8,21 +8,17 @@ import { createNewUser } from "../../api/UserService";
 import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
 
 function CreateUserForm(props) {
-
-
-    const [userData, setUserData] = useState({
-
-        user_id: "",
-        first_name: "",
-        last_name: "",
-        username: "",
-        password: "",
-        permissions: -1,
-        advanced: 0
-
-    });
-    const [alertType, setAlertType] = useState(null);
-    const [alertMessage, setAlertMessage] = useState("");
+  const [userData, setUserData] = useState({
+    user_id: "",
+    first_name: "",
+    last_name: "",
+    username: "",
+    password: "",
+    permissions: -1,
+    advanced: 0,
+  });
+  const [alertType, setAlertType] = useState(null);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { createNewAsset } from "../../api/AssetService";
 import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
 import { Form, Button, Row } from "react-bootstrap";
-import { useOutletContext } from "react-router-dom";
 import "./AddAsset.css";
 
 export default function AddAsset({ cats }) {
@@ -12,10 +11,9 @@ export default function AddAsset({ cats }) {
   const [assetTag, setAssetTag] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [disabledState, setSubmitBtnDisabled] = useState(false);
+  const [setSubmitBtnDisabled] = useState(false);
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
-  const [theme] = useOutletContext();
 
   // This function is called when a user changes the category they are interested in.
   // It updates the state variables for the category and clears any existing alert.

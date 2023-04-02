@@ -33,7 +33,7 @@ export default function HomePage(props) {
   //Store Categories
   const [cats, setCats] = useState([]);
 
-  const [theme, setTheme] = useOutletContext();
+  const theme = useOutletContext();
 
   useEffect(() => {
     getCategories()
@@ -129,11 +129,11 @@ export default function HomePage(props) {
             <div className="col"></div>
             <div className="col"></div>
             <div className="col">
-            <AccessControl allowedRank={Ranks.OPERATOR}>
-              <Button className="beets_buttons" onClick={clearSelection}>
-                Clear Selection
-              </Button>
-            </AccessControl>
+              <AccessControl allowedRank={Ranks.OPERATOR}>
+                <Button className="beets_buttons" onClick={clearSelection}>
+                  Clear Selection
+                </Button>
+              </AccessControl>
             </div>
           </div>
         </div>
