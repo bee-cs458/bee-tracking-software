@@ -17,21 +17,33 @@ export default function AddAsset({ cats }) {
   const [alertMessage, setAlertMessage] = useState(null);
   const [theme] = useOutletContext();
 
+  // This function is called when a user changes the category they are interested in.
+  // It updates the state variables for the category and clears any existing alert.
   const handleCatChange = (newVal) => {
-    setCategory(newVal);
-    setAlertMessage(null);
-    setAlertType(null);
+    setCategory(newVal); // Sets the category state variable to the new value
+    setAlertMessage(null); // Clears the alert message
+    setAlertType(null); // Clears the alert type
   };
 
+  /*
+    Handles the submission of an asset creation form by checking if all 
+    required fields have been filled out, disabling the submit button and 
+    displaying a success message if all fields are filled out, creating the 
+    asset, displaying a success message if the creation is successful, 
+    displaying an error message if the creation fails, and resetting 
+    the submit button to the default state.
+  */
   const handleSubmit = async () => {
+    // 1. Check if all required fields have been filled out
     if (assetTag && name && description) {
-      console.log("Passed Validation");
+      // 2. If all fields are filled out, disable the submit button and display a success message
       setSubmitBtnDisabled(true);
 
+      // 3. Check if the user has selected advanced or operational and set the variable to 1 or 0
       const advanced = advancedChecked ? 1 : 0;
       const operational = operationalChecked ? 1 : 0;
-
       try {
+        // 4. Create the Asset
         const result = await createNewAsset(
           assetTag,
           name,
@@ -41,17 +53,20 @@ export default function AddAsset({ cats }) {
           advanced
         );
         console.log(result);
+        // 5. Display a success message
         setAlertMessage("Asset has been Successfully Created!");
         setAlertType(3);
       } catch (err) {
+        // 6. Display an error message if the asset creation fails
         setAlertType(1);
         setAlertMessage("Failed to Create New Asset!");
         console.log(err);
       } finally {
+        // 7. Reset the submit button to the default state
         setSubmitBtnDisabled(false);
       }
     } else {
-      console.log("All Fields required");
+      // 8. Display an error message if the user has not filled out all required fields
       setAlertType(1);
       setAlertMessage("All fields must be filled out to create an asset");
     }
