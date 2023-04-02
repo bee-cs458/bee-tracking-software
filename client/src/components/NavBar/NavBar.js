@@ -17,12 +17,15 @@ import "./NavBar.css";
 import { Button } from "react-bootstrap";
 import { AccessControl } from "../AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
+import DarkModeSwitch from "../DarkModeSwitch/DarkModeSwitch";
 
 function NavBar(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => {setShow(true);
-                            sessionStorage.clear();} //clear session storage to wipe the current Cart on user change
+  const handleShow = () => {
+    setShow(true);
+    sessionStorage.clear();
+  } //clear session storage to wipe the current Cart on user change
 
   function handleClick() {
     props.switchTheme();
@@ -33,12 +36,7 @@ function NavBar(props) {
       <img src={props.mode === "light" ? logo : logoDark} alt="logo" width="200"></img>
       <ul>
         <li>
-          <Button
-            variant={props.mode === "light" ? "light" : "dark"}
-            onClick={handleClick}
-          >
-            <img src={mode} alt="list" width="20" height="18" />
-          </Button>
+          <DarkModeSwitch onChange={handleClick} />
         </li>
         <li>
           <Link to="/">
