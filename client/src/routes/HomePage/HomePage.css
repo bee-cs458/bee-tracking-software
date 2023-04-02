@@ -46,7 +46,7 @@
 
 .asset-table {
   width: calc (100vw - 250px);
-  height: calc(100vh - 118px);
+  height: calc(100vh - 143px);
   overflow-y: scroll;
 }
 
@@ -75,4 +75,9 @@
 .light {
   background-color: #fff;
   color: #333;
+}
+
+label{
+  display: inline;
+  font-weight: 500;
 }

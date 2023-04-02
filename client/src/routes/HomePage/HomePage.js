@@ -66,7 +66,11 @@ export default function HomePage(props) {
   }
 
   const [checked, setChecked] = useState(false);
+  const [byCart, setByCart] = useState(false);
 
+  function handleByCart() {
+    setByCart(!byCart);
+  }
   return (
     <div className="App">
       <Container fluid className={"header-container"}>
@@ -127,7 +131,12 @@ export default function HomePage(props) {
             </div>
 
             <div className="col"></div>
-            <div className="col"></div>
+            <div className="col">
+              <AccessControl allowedRank={Ranks.OPERATOR}>
+                <input type="checkbox" id="showcart" onClick={handleByCart}/>
+                <label htmlFor="showcart"> Only Show Assets in Cart</label>
+              </AccessControl>
+            </div>
             <div className="col">
               <AccessControl allowedRank={Ranks.OPERATOR}>
                 <Button className="beets_buttons" onClick={clearSelection}>
@@ -141,6 +150,7 @@ export default function HomePage(props) {
         <div className="asset-table">
           <AssetTable
             filterByCheckedOut={checked}
+            filterByCart={byCart}
             cat={currentCategory?.category_id}
             categoryList={categories}
             input={inputVal}
