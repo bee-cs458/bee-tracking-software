@@ -14,10 +14,18 @@ export default function RecordTable(props) {
   const [show, setShow] = useState(false); // Modal Show State
   const [printInfo, setPrintInfo] = useState(""); // Info from the row for printing
 
+  // Gets the information from the server
+  // Dependant on the prop of if the checkbox for viewing only checked-out is selected
+  // If it is, the records are set to be filtered by checked out
+  // Gets the users and assets normally
   const getInfo = async () => {
     await getAllRecords().then((result) => {
       setRecords(result);
     });
+
+    if (props.filterByCheckedOut) {
+      setRecords(records.filter((record) => record.in_date === null));
+    }
 
     await getAllUsers().then((result) => {
       setUsers(result);
@@ -35,9 +43,10 @@ export default function RecordTable(props) {
 
   const today = new Date();
 
+  // Filter the informnation when the check box is selected
   useEffect(() => {
     getInfo();
-  }, []);
+  }, [props.filterByCheckedOut]);
 
   /**
    * Determines whether to render the table of records or the error message
@@ -45,7 +54,8 @@ export default function RecordTable(props) {
    * @returns JSX of the record table or the error message
    */
   function getTable() {
-    if (records !== null && records !== undefined && records?.length > 0) {
+    if (Array.isArray(records) && records.length > 0) {
+
       return (
         <div>
           <Table bordered striped hover variant={props.variant}>
@@ -56,24 +66,27 @@ export default function RecordTable(props) {
                 <th>Student ID</th>
                 <th>Operator ID</th>
                 <th>Due Date</th>
-                <th width="40"></th>{/* row for the arrow icon*/}
+                <th width="40"></th>
+                {/* row for the arrow icon*/}
               </tr>
             </thead>
             <tbody>
               {records.map((record) => (
                 <RecordRow
-                  variant={props.variant} /*passes through the dark mode variable*/
+                  variant={
+                    props.variant
+                  } /*passes through the dark mode variable*/
                   key={record.record_id}
                   record={record}
-                    damageNotes={
-                      assets.find((obj) => {
-                        return obj.asset_tag === record.asset_tag;
-                      }) !== undefined
-                        ? assets.find((obj) => {
-                            return obj.asset_tag === record.asset_tag;
-                          }).damage_notes
-                        : "Loading Asset Tag..."
-                    }
+                  damageNotes={
+                    assets.find((obj) => {
+                      return obj.asset_tag === record.asset_tag;
+                    }) !== undefined
+                      ? assets.find((obj) => {
+                          return obj.asset_tag === record.asset_tag;
+                        }).damage_notes
+                      : "Loading Asset Tag..."
+                  }
                   assetName={
                     assets.find((obj) => {
                       return obj.asset_tag === record.asset_tag;
@@ -137,8 +150,11 @@ export default function RecordTable(props) {
                 Close
               </Button>
               {/* Print modal with information */}
-              <Button 
-            className="beets_buttons" variant="primary" onClick={window.print}>
+              <Button
+                className="beets_buttons"
+                variant="primary"
+                onClick={window.print}
+              >
                 Print Check Out Record
               </Button>
             </Modal.Footer>
@@ -149,7 +165,6 @@ export default function RecordTable(props) {
       return <Alert variant="warning">No records found!</Alert>;
     }
   }
-
   return (
     <div>
       <>{getTable()}</>

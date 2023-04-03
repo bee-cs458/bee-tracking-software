@@ -40,12 +40,14 @@ function UserRow(props) {
   const handleDeleteUserFalse = () => setDeleteUser(false);
 
   async function handleDeleteUser() {
-    console.log("delete called");
     await deleteUser(user.user_id).catch((err) => {
       setAlertType2(0);
       setAlertMessage2(err.response.data.message);
       return err;
     });
+    setAlertType2(3); //sets confirmation error message
+    setAlertMessage2("User has been deleted");
+    props.toggleTableChanged(); //updates useState so that the table will render without deleted user
   }
 
   useEffect(() => {

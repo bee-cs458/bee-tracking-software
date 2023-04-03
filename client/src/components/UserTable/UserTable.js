@@ -41,7 +41,7 @@ export default function UsersTable(props) {
       setUsers(userResults);
     }
     userTableInit();
-  }, [props.input]);
+  }, [props.input, props.userTableChanged]); //renders table when these useStates change
 
   return (
     <div>
@@ -66,6 +66,7 @@ export default function UsersTable(props) {
                   setLastUserPromoted={setLastUserPromoted}
                   popModal={popModal}
                   item={user}
+                  toggleTableChanged={props.toggleTableChanged}
                 ></UserRow>
               ))}
             </tbody>
