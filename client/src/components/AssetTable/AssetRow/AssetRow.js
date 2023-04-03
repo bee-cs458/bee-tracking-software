@@ -11,6 +11,9 @@ import cartIcon from "../../../assets/shopping-cart.png";
 import checkMark from "../../../assets/check-mark.png";
 import crossedOut from "../../../assets/crossed-out.png";
 
+import ExportOneAsset from "../../ExportCSV/ExportOnlyOneAsset";
+import Clueless from "../../ExportCSV/ExportOneAsset";
+
 function AssetRow(props) {
   const cats = props.categoryList;
   const { selectList, setSelectList } = props;
@@ -153,6 +156,9 @@ function AssetRow(props) {
           <Button variant="danger" onClick={handleDeleteAssetTrue}>
             Delete Asset
           </Button>
+
+          <ExportOneAsset></ExportOneAsset>
+
         </AccessControl>
       </td>
       <Modal backdrop="static" show={editAsset} onHide={handleEditAssetFalse}>

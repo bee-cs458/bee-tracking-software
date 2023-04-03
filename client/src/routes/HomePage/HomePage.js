@@ -14,7 +14,7 @@ import getCategories from "../../api/CategoryService";
 import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
 
-import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
+import AssetAsyncCSV from "../../components/ExportCSV/ExportAllAssetCSV";
 import { AccountLink } from "../../components/AccountLink/AccountLink";
 
 export default function HomePage(props) {
