@@ -29,37 +29,6 @@ export default function RecordsPage() {
 
   return (
     <div className="App">
-      <div className="header-container">
-        <div style={{ marginLeft: "70%" }}>
-          <AccountLink />
-        </div>
-      </div>
-
-      <div className="main-content">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col">          
-              {localStorage.getItem("userPerms") === "2" ? (
-                <CheckoutRecordCSV></CheckoutRecordCSV>
-              ) : (
-                <></>
-              )}
-            </div>
-            <div className="col"></div>
-            <div className="col"></div>
-            <div className="col"></div>
-            <div className="col"></div>
-            <div className="col"></div>
-            <div className="col"></div>
-          </div>         
-        </div>
-
-        <div className="record-table">
-          <RecordTable 
-            variant={theme}
-          ></RecordTable>
-        </div>        
-    <>
       <Container fluid className={"header-container"}>
         <Row>
           <Col xs={10} className={"search-header"}>
@@ -92,7 +61,23 @@ export default function RecordsPage() {
       </Container>
 
       <div className="main-content">
-        <CheckedOut state={checked} update={setChecked} />
+        <div className="row">
+            <div className="col">
+              <CheckedOut state={checked} update={setChecked} />
+            </div>
+            <div className="col">
+              {localStorage.getItem("userPerms") === "2" ? (
+                <CheckoutRecordCSV></CheckoutRecordCSV>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+          </div>
         <RecordTable
           filterByCheckedOut={checked}
           inputVal={inputVal}
