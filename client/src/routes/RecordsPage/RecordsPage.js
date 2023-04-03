@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import search from "../../assets/search.png";
 
+import CheckoutRecordCSV from "../../components/ExportCSV/ExportRecordsCSV.js";
+
 export default function RecordsPage() {
   const [checked, setChecked] = useState(false);
   const [selectList, setSelectList] = useState([]);
@@ -26,7 +28,7 @@ export default function RecordsPage() {
   }
 
   return (
-    <>
+    <div className="App">
       <Container fluid className={"header-container"}>
         <Row>
           <Col xs={10} className={"search-header"}>
@@ -59,7 +61,23 @@ export default function RecordsPage() {
       </Container>
 
       <div className="main-content">
-        <CheckedOut state={checked} update={setChecked} />
+        <div className="row">
+            <div className="col">
+              <CheckedOut state={checked} update={setChecked} />
+            </div>
+            <div className="col">
+              {localStorage.getItem("userPerms") === "2" ? (
+                <CheckoutRecordCSV></CheckoutRecordCSV>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+          </div>
         <RecordTable
           filterByCheckedOut={checked}
           inputVal={inputVal}
@@ -67,6 +85,7 @@ export default function RecordsPage() {
           setSelectList={setSelectList}
         />
       </div>
-    </>
+
+    </div>
   );
 }
