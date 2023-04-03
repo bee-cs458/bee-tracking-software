@@ -19,38 +19,31 @@ export default function RecordTable(props) {
   // If it is, the records are set to be filtered by checked out
   // Gets the users and assets normally
   const getInfo = async () => {
-    await getAllRecords().then((result) => {
-      setRecords(result);
-    });
+    let allRecords = await getAllRecords();
 
     if (props.inputVal !== "") {
-      setRecords(
-        records.filter(
-          (record) =>
-            record.student_id
-              .toString()
-              .toLowerCase()
-              .includes(props.inputVal) ||
-            record.operator_id
-              .toString()
-              .toLowerCase()
-              .includes(props.inputVal) ||
-            record.asset_tag.toString().toLowerCase().includes(props.inputVal)
-        )
+      allRecords = allRecords.filter(
+        (record) =>
+          record.student_id.toString().toLowerCase().includes(props.inputVal) ||
+          record.operator_id
+            .toString()
+            .toLowerCase()
+            .includes(props.inputVal) ||
+          record.asset_tag.toString().toLowerCase().includes(props.inputVal)
       );
     }
 
     if (props.filterByCheckedOut) {
-      setRecords(records.filter((record) => record.in_date === null));
+      allRecords = allRecords.filter((record) => record.in_date === null);
     }
 
-    await getAllUsers().then((result) => {
-      setUsers(result);
-    });
+    setRecords(allRecords);
 
-    await getAllAssets().then((result) => {
-      setAssets(result);
-    });
+    const allUsers = await getAllUsers();
+    setUsers(allUsers);
+
+    const allAssets = await getAllAssets();
+    setAssets(allAssets);
   };
 
   // Close modal
@@ -60,10 +53,10 @@ export default function RecordTable(props) {
 
   const today = new Date();
 
-  // Filter the informnation when the check box is selected
+  // Filter the information when the checkbox is selected
   useEffect(() => {
     getInfo();
-  }, [props.filterByCheckedOut, props.inputVal]);
+  }, [props]);
 
   /**
    * Determines whether to render the table of records or the error message
