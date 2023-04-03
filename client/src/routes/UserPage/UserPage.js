@@ -15,7 +15,13 @@ import UserAsyncCSV from "../../components/ExportCSV/ExportUserCSV";
 
 export default function UserPage() {
   const [inputVal, setInputVal] = useState(null);
-  const [theme, setTheme] = useOutletContext();
+  const theme = useOutletContext();
+  const [userTableChanged, setUserTableChanged] = useState(true); //use state for any changes made to the table
+  /*simply toggles the variable so that it changes. the actual value does not matter,
+ just that it is changed when this function is called */
+  function toggleTableChanged() {
+    setUserTableChanged(!userTableChanged);
+  }
 
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {
@@ -51,7 +57,9 @@ export default function UserPage() {
         <Accordion className="mb-3 border add-user">
           <Accordion.Header>Add a User</Accordion.Header>
           <Accordion.Body>
-            <CreateUserForm></CreateUserForm>
+            <CreateUserForm
+              toggleTableChanged={toggleTableChanged} //passes toggle function so table will be able to render upon adding user
+            ></CreateUserForm>
           </Accordion.Body>
         </Accordion>
 
@@ -70,7 +78,11 @@ export default function UserPage() {
             </Form.Group>
             {/* console error: controlId="userId" ignored when id is specified  */}
             <Form.Group as={Col}>
-              <Button className="beets_buttons" type="submit" onClick={getInputValue}>
+              <Button
+                className="beets_buttons"
+                type="submit"
+                onClick={getInputValue}
+              >
                 Search
               </Button>
             </Form.Group>
@@ -82,7 +94,12 @@ export default function UserPage() {
 
         {/* Display information of users */}
         <div className="container-fluid user-content">
-          <UserTable input={inputVal} variant={theme}>
+          <UserTable
+            input={inputVal}
+            variant={theme}
+            toggleTableChanged={toggleTableChanged} //passes toggle function so table will be able to render upon deleting user
+            userTableChanged={userTableChanged} //pass the use state so the table will be able to render on any change made to it
+          >
             {" "}
           </UserTable>
         </div>
