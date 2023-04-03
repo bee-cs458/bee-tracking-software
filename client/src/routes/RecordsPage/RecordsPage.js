@@ -1,17 +1,14 @@
 import RecordTable from "../../components/RecordsUtils/RecordTable.js";
 import { AccountLink } from "../../components/AccountLink/AccountLink.js";
-import { useOutletContext } from "react-router-dom";
 import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/CheckedOutRecords.js";
 import React, { useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import search from "../../assets/search.png";
 
 export default function RecordsPage() {
-  const theme = useOutletContext();
   const [checked, setChecked] = useState(false);
   const [selectList, setSelectList] = useState([]);
   const [inputVal, setInputVal] = useState("");
-
 
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {
@@ -64,7 +61,6 @@ export default function RecordsPage() {
       <div className="main-content">
         <CheckedOut state={checked} update={setChecked} />
         <RecordTable
-          variant={theme}
           filterByCheckedOut={checked}
           inputVal={inputVal}
           selectList={selectList}

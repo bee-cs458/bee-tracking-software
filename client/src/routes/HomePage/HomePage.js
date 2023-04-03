@@ -9,7 +9,6 @@ import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Container, Col, Row } from "react-bootstrap";
 import { useEffect } from "react";
-import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
 import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
@@ -32,8 +31,6 @@ export default function HomePage(props) {
 
   //Store Categories
   const [cats, setCats] = useState([]);
-
-  const theme = useOutletContext();
 
   useEffect(() => {
     getCategories()
@@ -154,7 +151,6 @@ export default function HomePage(props) {
             cat={currentCategory?.category_id}
             categoryList={categories}
             input={inputVal}
-            variant={theme}
             selectList={selectList}
             setSelectList={setSelectList}
           ></AssetTable>
