@@ -1,27 +1,28 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
+import Login from "../Login/Login";
+import Logout from "../Login/Logout";
+import { AccessControl } from "../AccessControl/AccessControl";
+import { Ranks } from "../../constants/PermissionRanks";
+import DarkModeSwitch from "../DarkModeSwitch/DarkModeSwitch";
+import logo from "../../assets/logo.png";
+import logoDark from "../../assets/logoDark.png";
 import list from "../../assets/list.png";
 import checkOut from "../../assets/checkout.png";
 import checkIn from "../../assets/checkIn.png";
 import operators from "../../assets/operators.png";
 import logOut from "../../assets/logOut.png";
 import signIn from "../../assets/signIn.png";
-import mode from "../../assets/mode.png";
-import React, { useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import Login from "../Login/Login";
-import Logout from "../Login/Logout";
-import logo from "../../assets/logo.png"
-import logoDark from "../../assets/logoDark.png"
-
 import "./NavBar.css";
-import { Button } from "react-bootstrap";
-import { AccessControl } from "../AccessControl/AccessControl";
-import { Ranks } from "../../constants/PermissionRanks";
 
 function NavBar(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+    sessionStorage.clear();
+  }; //clear session storage to wipe the current Cart on user change
 
   function handleClick() {
     props.switchTheme();
@@ -29,15 +30,14 @@ function NavBar(props) {
 
   return (
     <nav className="App-nav">
-      <img src={props.mode === "light" ? logo : logoDark} alt="logo" width="200"></img>
+      <img
+        src={props.mode === "light" ? logo : logoDark}
+        alt="logo"
+        width="200"
+      ></img>
       <ul>
         <li>
-          <Button
-            variant={props.mode === "light" ? "light" : "dark"}
-            onClick={handleClick}
-          >
-            <img src={mode} alt="list" width="20" height="18" />
-          </Button>
+          <DarkModeSwitch onChange={handleClick} />
         </li>
         <li>
           <Link to="/">

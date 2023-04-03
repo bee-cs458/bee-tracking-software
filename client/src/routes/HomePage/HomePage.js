@@ -9,11 +9,9 @@ import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Container, Col, Row } from "react-bootstrap";
 import { useEffect } from "react";
-import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
 import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
-
 import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
 import { AccountLink } from "../../components/AccountLink/AccountLink";
 
@@ -34,8 +32,6 @@ export default function HomePage(props) {
   //Store Categories
   const [cats, setCats] = useState([]);
 
-  const [theme, setTheme] = useOutletContext();
-
   useEffect(() => {
     getCategories()
       .then((value) => {
@@ -53,10 +49,11 @@ export default function HomePage(props) {
     }
   }
 
+  // Create a function that will be called when the user clicks the search button
   function getInputValue() {
-    // Selecting the input element and get its value
+    // Get the value of the user's input from the input field
     const newInputVal = document.getElementById("search").value;
-    //console.log("Input Value: " + newInputVal);
+    // Update the inputVal state variable with the new value
     setInputVal(newInputVal);
   }
 
@@ -66,7 +63,11 @@ export default function HomePage(props) {
   }
 
   const [checked, setChecked] = useState(false);
+  const [byCart, setByCart] = useState(false);
 
+  function handleByCart() {
+    setByCart(!byCart);
+  }
   return (
     <div className="App">
       <Container fluid className={"header-container"}>
@@ -127,11 +128,18 @@ export default function HomePage(props) {
             </div>
 
             <div className="col"></div>
-            <div className="col"></div>
             <div className="col">
-              <Button className="beets_buttons" onClick={clearSelection}>
-                Clear Selection
-              </Button>
+              <AccessControl allowedRank={Ranks.OPERATOR}>
+                <input type="checkbox" id="showcart" onClick={handleByCart}/>
+                <label htmlFor="showcart"> Only Show Assets in Cart</label>
+              </AccessControl>
+            </div>
+            <div className="col">
+              <AccessControl allowedRank={Ranks.OPERATOR}>
+                <Button className="beets_buttons" onClick={clearSelection}>
+                  Clear Selection
+                </Button>
+              </AccessControl>
             </div>
           </div>
         </div>
@@ -139,10 +147,10 @@ export default function HomePage(props) {
         <div className="asset-table">
           <AssetTable
             filterByCheckedOut={checked}
+            filterByCart={byCart}
             cat={currentCategory?.category_id}
             categoryList={categories}
             input={inputVal}
-            variant={theme}
             selectList={selectList}
             setSelectList={setSelectList}
           ></AssetTable>

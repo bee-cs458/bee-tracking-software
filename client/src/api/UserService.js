@@ -33,6 +33,9 @@ export async function updatePassword(password, newPassword) {
         });
         return response.data.result;
     } catch (error) {
+        if (error.response.status === 404) {
+            return error.response.status;
+          }
         return "Error Updating User Password from API";
     }
 }
