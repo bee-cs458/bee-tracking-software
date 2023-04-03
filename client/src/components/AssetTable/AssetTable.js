@@ -68,6 +68,7 @@ export default function AssetTable(props) {
               <tr>
               <AccessControl allowedRank={Ranks.OPERATOR}>
                 <td width="50px">Cart</td>
+                </AccessControl>
                 <th width="100px">Tag</th>
                 <th width="200px">Name</th>
                 <th width="400px">Description</th>
