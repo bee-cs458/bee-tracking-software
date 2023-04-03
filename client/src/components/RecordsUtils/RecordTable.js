@@ -29,7 +29,7 @@ export default function RecordTable(props) {
             .toString()
             .toLowerCase()
             .includes(props.inputVal) ||
-          record.asset_tag.toString().toLowerCase().includes(props.inputVal)
+          record.asset_tag.toString().toLowerCase().includes(props.inputVal.toLowerCase())
       );
     }
 
