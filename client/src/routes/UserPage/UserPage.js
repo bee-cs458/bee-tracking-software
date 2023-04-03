@@ -15,7 +15,8 @@ import UserAsyncCSV from "../../components/ExportCSV/ExportUserCSV";
 
 export default function UserPage() {
   const [inputVal, setInputVal] = useState(null);
-  const theme = useOutletContext();
+  const [theme, setTheme] = useOutletContext();
+
   const [userTableChanged, setUserTableChanged] = useState(true); //use state for any changes made to the table
   /*simply toggles the variable so that it changes. the actual value does not matter,
  just that it is changed when this function is called */
@@ -96,7 +97,6 @@ export default function UserPage() {
         <div className="container-fluid user-content">
           <UserTable
             input={inputVal}
-            variant={theme}
             toggleTableChanged={toggleTableChanged} //passes toggle function so table will be able to render upon deleting user
             userTableChanged={userTableChanged} //pass the use state so the table will be able to render on any change made to it
           >

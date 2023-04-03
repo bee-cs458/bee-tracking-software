@@ -9,6 +9,7 @@ import Alert from "react-bootstrap/Alert";
 import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
 import AssetRow from "./AssetRow/AssetRow";
+import { useOutletContext } from "react-router-dom";
 
 export default function AssetTable(props) {
   const { selectList, setSelectList } = props;
@@ -17,6 +18,7 @@ export default function AssetTable(props) {
   const setUp = () => {
     setUpdated(!updated);
   };
+  const [theme, setTheme] = useOutletContext();
 
   useEffect(() => {
     async function assetTableInit() {
@@ -61,7 +63,7 @@ export default function AssetTable(props) {
     <div>
       {assets != null && assets.length > 0 ? (
         <div>
-          <Table striped bordered variant={props.variant} hover>
+          <Table striped bordered variant={theme} hover>
             <thead>
               <tr>
               <AccessControl allowedRank={Ranks.OPERATOR}>

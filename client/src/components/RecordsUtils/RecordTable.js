@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { getAllRecords } from "../../api/RecordService";
 import { getAllAssets } from "../../api/AssetService";
 import { getAllUsers } from "../../api/UserService";
+import { useOutletContext } from "react-router-dom";
 
 export default function RecordTable(props) {
   const [records, setRecords] = useState();
@@ -13,6 +14,7 @@ export default function RecordTable(props) {
   const [assets, setAssets] = useState([{}]);
   const [show, setShow] = useState(false); // Modal Show State
   const [printInfo, setPrintInfo] = useState(""); // Info from the row for printing
+  const [theme, setTheme] = useOutletContext();
 
   // Gets the information from the server
   // Dependant on the prop of if the checkbox for viewing only checked-out is selected
@@ -29,7 +31,7 @@ export default function RecordTable(props) {
             .toString()
             .toLowerCase()
             .includes(props.inputVal) ||
-          record.asset_tag.toString().toLowerCase().includes(props.inputVal)
+          record.asset_tag.toString().toLowerCase().includes(props.inputVal.toLowerCase())
       );
     }
 
@@ -67,7 +69,7 @@ export default function RecordTable(props) {
     if (Array.isArray(records) && records.length > 0) {
       return (
         <div>
-          <Table bordered striped hover variant={props.variant}>
+          <Table bordered striped hover variant={theme}>
             <thead>
               <tr>
                 <th>Record ID</th>
