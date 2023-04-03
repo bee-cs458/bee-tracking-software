@@ -159,6 +159,10 @@ function AssetRow(props) {
           <Button variant="danger" onClick={handleDeleteAssetTrue}>
             Delete Asset
           </Button>
+
+          <ExportOneAsset></ExportOneAsset>
+
+
         </td>
       </AccessControl>
       <Modal backdrop="static" show={editAsset} onHide={handleEditAssetFalse}>
