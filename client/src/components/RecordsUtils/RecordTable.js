@@ -23,6 +23,23 @@ export default function RecordTable(props) {
       setRecords(result);
     });
 
+    if (props.inputVal !== "") {
+      setRecords(
+        records.filter(
+          (record) =>
+            record.student_id
+              .toString()
+              .toLowerCase()
+              .includes(props.inputVal) ||
+            record.operator_id
+              .toString()
+              .toLowerCase()
+              .includes(props.inputVal) ||
+            record.asset_tag.toString().toLowerCase().includes(props.inputVal)
+        )
+      );
+    }
+
     if (props.filterByCheckedOut) {
       setRecords(records.filter((record) => record.in_date === null));
     }
@@ -46,7 +63,7 @@ export default function RecordTable(props) {
   // Filter the informnation when the check box is selected
   useEffect(() => {
     getInfo();
-  }, [props.filterByCheckedOut]);
+  }, [props.filterByCheckedOut, props.inputVal]);
 
   /**
    * Determines whether to render the table of records or the error message
@@ -55,7 +72,6 @@ export default function RecordTable(props) {
    */
   function getTable() {
     if (Array.isArray(records) && records.length > 0) {
-
       return (
         <div>
           <Table bordered striped hover variant={props.variant}>
