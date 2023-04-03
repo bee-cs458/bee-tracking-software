@@ -15,11 +15,11 @@ import UserAsyncCSV from "../../components/ExportCSV/ExportUserCSV";
 
 export default function UserPage() {
   const [inputVal, setInputVal] = useState(null);
-  const [theme, setTheme] = useOutletContext();
+  const theme = useOutletContext();
   const [userTableChanged, setUserTableChanged] = useState(true); //use state for any changes made to the table
-/*simply toggles the variable so that it changes. the actual value does not matter,
+  /*simply toggles the variable so that it changes. the actual value does not matter,
  just that it is changed when this function is called */
-  function toggleTableChanged() {  
+  function toggleTableChanged() {
     setUserTableChanged(!userTableChanged);
   }
 

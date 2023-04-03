@@ -33,7 +33,7 @@ export default function HomePage(props) {
   //Store Categories
   const [cats, setCats] = useState([]);
 
-  const [theme, setTheme] = useOutletContext();
+  const theme = useOutletContext();
 
   useEffect(() => {
     getCategories()
@@ -52,10 +52,11 @@ export default function HomePage(props) {
     }
   }
 
+  // Create a function that will be called when the user clicks the search button
   function getInputValue() {
-    // Selecting the input element and get its value
+    // Get the value of the user's input from the input field
     const newInputVal = document.getElementById("search").value;
-    //console.log("Input Value: " + newInputVal);
+    // Update the inputVal state variable with the new value
     setInputVal(newInputVal);
   }
 

@@ -62,12 +62,12 @@ export default function ChangePassword() {
   function submit() {
     if (oldPassword === "") {
       setAlert(1, "Please enter your old password.");
-      setRequirements("");// makes password alert disapear
+      setRequirements(""); // makes password alert disapear
     } else if (newPassword !== passwordAgain) {
       setAlert(0, "Passwords do not match!");
-      setRequirements("");// makes password alert disapear
+      setRequirements(""); // makes password alert disapear
     } else if (strength.id < 2) {
-      setAlert(null, "");//makes conditional alert blank
+      setAlert(null, ""); //makes conditional alert blank
       var missingReqs =
         "Your password is missing these strength requirements:\t"; //error message
       var lowercasePattern = new RegExp("^(?=.*[a-z]).+"); //lowercase letter pattern
@@ -96,13 +96,16 @@ export default function ChangePassword() {
       }
       setRequirements(missingReqs); //prompts user with error alert and any requirement they are missing
     } else {
-      let error = updatePassword(oldPassword, newPassword).then((res) => {
+      updatePassword(oldPassword, newPassword).then((res) => {
         if (res === 404) {
-          setAlert(0, "Your old password is not correct! Please check that you entered the right password!");
-          setRequirements("");// makes password alert disapear
+          setAlert(
+            0,
+            "Your old password is not correct! Please check that you entered the right password!"
+          );
+          setRequirements(""); // makes password alert disapear
         } else {
           setAlert(3, "Password has been updated!");
-          setRequirements("");// makes password alert disapear
+          setRequirements(""); // makes password alert disapear
           clearFields();
         }
       }); //if oldPassword is incorrect display an error
@@ -171,7 +174,8 @@ export default function ChangePassword() {
                 type={alertType}
                 message={alertMesssage}
               ></ConditionalAlert>
-              <PasswordAlert message={requirements}></PasswordAlert>{/* special alert for passwords */}
+              <PasswordAlert message={requirements}></PasswordAlert>
+              {/* special alert for passwords */}
             </div>
           </Form.Group>
         </Row>

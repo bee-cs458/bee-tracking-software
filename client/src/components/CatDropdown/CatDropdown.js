@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import getAllCategories from "../../api/CategoryService";
+import { useOutletContext } from "react-router-dom";
 
 export default function CatDropdown(props) {
   // we lifted the state up
   const { state, update, categories, updateCategories } = props;
 
   const [dom, updateDom] = useState("Loading...");
+  const [theme] = useOutletContext();
 
   const handleChange = (eventKey) => {
     // eventKey is the index
@@ -40,7 +42,7 @@ export default function CatDropdown(props) {
       <Dropdown.Toggle id="dropdown-basic" className="beets_buttons">
         {state?.catName || "Filter Category"}
       </Dropdown.Toggle>
-      <Dropdown.Menu>
+      <Dropdown.Menu variant={theme}>
         <Dropdown.Item eventKey={null}>
           All
         </Dropdown.Item>

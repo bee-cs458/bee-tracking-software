@@ -27,7 +27,7 @@ const SingleAssetPage = () => {
         setAsset(result[0]);
       });
     }
-  }, []);
+  }, [id, state?.asset]);
 
   // Updates the loading flag
   useEffect(() => {
@@ -36,7 +36,7 @@ const SingleAssetPage = () => {
     } else {
       setLoading(true);
     }
-  }, [asset])
+  }, [asset]);
 
   return (
     <div className="d-flex flex-column" style={{ overflow: "hidden" }}>
@@ -53,14 +53,15 @@ const SingleAssetPage = () => {
           paddingTop: `${TOP_BAR_HEIGHT}`,
         }}
       >
-
-        {isLoading ? (<><LoadingSpinner /></>) : (<>
-
-          <p>{asset.asset_tag}</p>
-
-
-        </>)}
-
+        {isLoading ? (
+          <>
+            <LoadingSpinner />
+          </>
+        ) : (
+          <>
+            <p>{asset.asset_tag}</p>
+          </>
+        )}
       </Container>
     </div>
   );
