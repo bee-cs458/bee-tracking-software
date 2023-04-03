@@ -5,7 +5,7 @@ import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/Checke
 import React, { useState } from "react";
 
 export default function RecordsPage() {
-  const [theme, setTheme] = useOutletContext();
+  const theme = useOutletContext();
   const [checked, setChecked] = useState(false);
   const [selectList, setSelectList] = useState([]);
 
