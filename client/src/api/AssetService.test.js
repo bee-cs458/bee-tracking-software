@@ -195,26 +195,6 @@ describe('getAssetsByDescription tests', () => {
 
         })
 
-        // it('should return an error', async() => {
-        //     const error = [response];
-        
-        //     axios.get.mockImplementation(() => {
-        //         throw new Error();
-        //     }); 
-            
-        //     expect(await Services.getAssetFromCat()).toBe("Error Getting Assets in category from API");
-        // })
-
-        // it('should return a 404 error', async() => {
-
-        //     error.response.status = 404;
-        //     error.response.data.result = "rats";
-        //     axios.get.mockResolvedValueOnce(error); 
-            
-        //     expect(await Services.getAssetFromCat()).toBe("rats");
-        // })
-
-    //});
 
 });
 
