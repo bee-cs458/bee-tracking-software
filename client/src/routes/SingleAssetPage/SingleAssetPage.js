@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import { useParams, useLocation } from "react-router-dom";
 
 import { getAssetByAssetTag } from "../../api/AssetService";
+import { getCategoryById } from "../../api/CategoryService";
 import { AccountLink } from "../../components/AccountLink/AccountLink";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import { SIDE_NAV_WIDTH, TOP_BAR_HEIGHT } from "../../constants/StyleConstants";
@@ -14,6 +15,8 @@ const SingleAssetPage = () => {
   const { state } = useLocation();
   // Stores the asset information for this page
   const [asset, setAsset] = useState(state?.asset);
+  // Stores the text version of the asset's category
+  const [categoryLabel, setCategoryLabel] = useState();
   // Used to prevent crashes if the asset data hasn't loaded yet
   const [isLoading, setLoading] = useState(state?.asset ? false : true);
 
@@ -60,6 +63,9 @@ const SingleAssetPage = () => {
         ) : (
           <>
             <p>{asset.asset_tag}</p>
+            <p>{asset.name}</p>
+            <p>{asset.description}</p>
+            <p>{asset.damage_notes}</p>
           </>
         )}
       </Container>
