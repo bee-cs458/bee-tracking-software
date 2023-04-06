@@ -122,7 +122,8 @@ export default function ChangePassword() {
   }
 
   //componet renders upon these states changing
-  useEffect(() => {checkRequirements()}, [newPassword, oldPassword, passwordAgain]);
+  useEffect(() => {checkRequirements();
+  setAlert(null,"")}, [newPassword, oldPassword, passwordAgain]);
 
   return (
     <div id="mainContent">
