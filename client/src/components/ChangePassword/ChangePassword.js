@@ -113,7 +113,7 @@ export default function ChangePassword() {
   }
 
   return (
-    <div id="mainContent">
+    <div>
       <Form>
         <Row>
           <Form.Group as={Col}>
