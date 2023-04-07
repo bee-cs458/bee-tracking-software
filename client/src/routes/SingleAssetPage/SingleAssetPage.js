@@ -25,21 +25,25 @@ const SingleAssetPage = () => {
   useEffect(() => {
     if (state?.asset) {
       setAsset(state.asset);
+      setCategoryLabel(state.categoryLabel);
     } else {
       getAssetByAssetTag(id).then((result) => {
         setAsset(result[0]);
+        getCategoryById(result[0].category).then((result) => {
+          setCategoryLabel(result.catName);
+        })
       });
     }
   }, [id, state?.asset]);
 
   // Updates the loading flag
   useEffect(() => {
-    if (asset) {
+    if (asset && categoryLabel) {
       setLoading(false);
     } else {
       setLoading(true);
     }
-  }, [asset]);
+  }, [asset, categoryLabel]);
 
   return (
     <div className="d-flex flex-column" style={{ overflow: "hidden" }}>
@@ -66,6 +70,7 @@ const SingleAssetPage = () => {
             <p>{asset.name}</p>
             <p>{asset.description}</p>
             <p>{asset.damage_notes}</p>
+            <p>{categoryLabel}</p>
           </>
         )}
       </Container>
