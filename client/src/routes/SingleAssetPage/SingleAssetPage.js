@@ -7,6 +7,7 @@ import { getCategoryById } from "../../api/CategoryService";
 import { AccountLink } from "../../components/AccountLink/AccountLink";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import { SIDE_NAV_WIDTH, TOP_BAR_HEIGHT } from "../../constants/StyleConstants";
+import styles from "./SingleAssetPage.css"
 
 const SingleAssetPage = () => {
   // Gets the Asset Tag from the URL
@@ -60,19 +61,24 @@ const SingleAssetPage = () => {
           paddingTop: `${TOP_BAR_HEIGHT}`,
         }}
       >
-        {isLoading ? (
-          <>
-            <LoadingSpinner />
-          </>
-        ) : (
-          <>
-            <p>{asset.asset_tag}</p>
-            <p>{asset.name}</p>
-            <p>{asset.description}</p>
-            <p>{asset.damage_notes}</p>
-            <p>{categoryLabel}</p>
-          </>
-        )}
+        <section>
+
+          {isLoading ? (
+            <>
+              <LoadingSpinner />
+            </>
+          ) : (
+            <>
+              <h2>{asset.name}</h2>
+              <div className="seperator" />
+              <p>Asset Tag: {asset.asset_tag}</p>
+              <p>Description: {asset.description}</p>
+              <p>Damage Notes: {asset.damage_notes}</p>
+              <p>Category: {categoryLabel}</p>
+            </>
+          )}
+
+        </section>
       </Container>
     </div>
   );
