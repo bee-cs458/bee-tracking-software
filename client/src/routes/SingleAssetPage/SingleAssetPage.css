@@ -10,3 +10,27 @@ section {
     margin-bottom: 1rem;
     border-top: 4px solid #992f9a;
 }
+
+.icon {
+    font-size: 1.5rem;
+}
+
+.icon.blue {
+    color: #992f9a;
+}
+
+.icon.gray {
+    color: gray;
+}
+
+.icon.green {
+    color: green;
+}
+
+.icon.red {
+    color: red;
+}
+
+th {
+    font-size: 1.25rem;
+}
