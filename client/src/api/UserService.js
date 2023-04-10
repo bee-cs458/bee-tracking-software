@@ -187,7 +187,8 @@ export async function editUser(
     oldId,
     user_id,
     first_name,
-    last_name
+    last_name,
+    updatePass
   ) 
   {
 
@@ -198,7 +199,8 @@ export async function editUser(
                 const response = await axios.post("/api/user/editUser/" + oldId, {
                   user_id,
                   first_name,
-                  last_name
+                  last_name,
+                  updatePass
                 });
                 return response.data.result;
               } catch (error) {

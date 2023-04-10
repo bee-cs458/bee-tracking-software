@@ -39,5 +39,5 @@ router.post("/create",
 router.post("/get_all", restrictTo('operator'), getAllUsers);
 
 router.delete("/:id", restrictTo('owner'), deleteUser);
-router.post("/editUser/:oldId", restrictTo("owner"), requireBody('user_id', 'first_name', 'last_name'), editUser);
+router.post("/editUser/:oldId", restrictTo("owner"), requireBody('user_id', 'first_name', 'last_name', 'updatePass'), editUser);
 export default router;

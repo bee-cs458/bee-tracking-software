@@ -9,6 +9,8 @@ function EditUser(props) {
   const [user_id, setId] = useState(user.user_id);
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
+  const [updatePassword, setUpdatePass] = useState(user.updatePass);
+
 
   async function handleSubmitUser() {
     await editUser(user.user_id, user_id, firstName, lastName)
@@ -19,6 +21,7 @@ function EditUser(props) {
               user_id,
               first_name: firstName,
               last_name: lastName,
+              updatePass: updatePassword
             })
           );
         }
@@ -72,6 +75,7 @@ function EditUser(props) {
     setAlertType(null);
   }
 
+
   return (
     <Form>
       <Row>
@@ -113,7 +117,14 @@ function EditUser(props) {
         </Form.Group>
       </Row>
       <Row>
-        <Col></Col>
+      <Form.Check as={Col} controlId="UpdatePassword">
+          <Form.Label>Password Reset</Form.Label>
+          <Form.Check
+          type="switch"
+          id="passwordResetSwitch"
+          checked={updatePassword}
+        />
+        </Form.Check>
         <Col></Col>
         <Col></Col>
         <Button
