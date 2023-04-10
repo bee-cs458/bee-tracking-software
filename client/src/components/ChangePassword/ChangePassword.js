@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -44,29 +44,8 @@ export default function ChangePassword() {
     setOldPassword(password);
   }
 
-  function handleNewPassChange(password) {
-    setNewPassword(password);
-    setStrength(passwordStrength(password));
-  }
-  function handlePassAgainChange(password) {
-    setPasswordAgain(password);
-  }
-
-  function clearFields() {
-    setNewPassword("");
-    setOldPassword("");
-    setPasswordAgain("");
-    setStrength({ id: 0, value: "Too weak", minDiversity: 0, minLength: 0 });
-  }
-
-  function submit() {
-    if (oldPassword === "") {
-      setAlert(1, "Please enter your old password.");
-      setRequirements(""); // makes password alert disapear
-    } else if (newPassword !== passwordAgain) {
-      setAlert(0, "Passwords do not match!");
-      setRequirements(""); // makes password alert disapear
-    } else if (strength.id < 2) {
+  function checkRequirements(){//updates the message in the passwordAlert
+    if (strength.id < 2) {
       setAlert(null, ""); //makes conditional alert blank
       var missingReqs =
         "Your password is missing these strength requirements:\t"; //error message
@@ -96,6 +75,36 @@ export default function ChangePassword() {
       }
       setRequirements(missingReqs); //prompts user with error alert and any requirement they are missing
     } else {
+      setRequirements("Passed")//lest the user know that everything is going to be alright
+    }
+  }
+
+  function handleNewPassChange(password) {
+    setNewPassword(password);
+    setStrength(passwordStrength(password));
+    checkRequirements(); //updates password alert for any changes made to newPassword
+  }
+  function handlePassAgainChange(password) {
+    setPasswordAgain(password);
+  }
+
+  function clearFields() {
+    setNewPassword("");
+    setOldPassword("");
+    setPasswordAgain("");
+    setStrength({ id: 0, value: "Too weak", minDiversity: 0, minLength: 0 });
+  }
+
+  function submit() {
+    if (oldPassword === "") {
+      setAlert(1, "Please enter your old password.");
+      setRequirements(""); // makes password alert disapear
+    } else if (newPassword !== passwordAgain) {
+      setAlert(0, "Passwords do not match!");
+      setRequirements(""); // makes password alert disapear
+    } else if (strength.id < 2) {
+      checkRequirements()// sets the password alert if any are missed.
+    } else {
       updatePassword(oldPassword, newPassword).then((res) => {
         if (res === 404) {
           setAlert(
@@ -111,6 +120,10 @@ export default function ChangePassword() {
       }); //if oldPassword is incorrect display an error
     }
   }
+
+  //componet renders upon these states changing
+  useEffect(() => {checkRequirements();
+  setAlert(null,"")}, [newPassword, oldPassword, passwordAgain]);
 
   return (
     <div id="mainContent">
@@ -148,7 +161,12 @@ export default function ChangePassword() {
                 handleNewPassChange(event.target.value);
               }}
             />
-            <ConditionalAlert type={strength.id} message={strength.value} />
+            <ConditionalAlert
+              type={alertType}
+              message={alertMesssage}
+            ></ConditionalAlert>
+            <PasswordAlert message={requirements}></PasswordAlert>
+            {/* special alert for passwords */}
             <Form.Label>Verify Password</Form.Label>
             <Form.Control
               id="passwordNew2"
@@ -170,12 +188,6 @@ export default function ChangePassword() {
               >
                 Update
               </Button>
-              <ConditionalAlert
-                type={alertType}
-                message={alertMesssage}
-              ></ConditionalAlert>
-              <PasswordAlert message={requirements}></PasswordAlert>
-              {/* special alert for passwords */}
             </div>
           </Form.Group>
         </Row>
