@@ -35,7 +35,7 @@ function NavBar(props) {
         alt="logo"
         width="200"
       ></img>
-      <ul>
+      <ul className="navBarList">
         <li>
           <DarkModeSwitch onChange={handleClick} />
         </li>
