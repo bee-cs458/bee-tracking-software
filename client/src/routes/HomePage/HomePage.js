@@ -28,7 +28,7 @@ export default function HomePage(props) {
   //Displaying Add Asset
   const [show, setShow] = useState(false);
 
-  // WHen the user clicks the close button, the modal will close
+  // When the user clicks the close button, the modal will close
   // and the current category will be set to -1, thus
   // re-rendering the table
   const handleClose = () => {
