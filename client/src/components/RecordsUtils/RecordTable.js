@@ -43,8 +43,6 @@ export default function RecordTable(props) {
     if(props.selectedDate1 || props.selectedDate2  ){
       allRecords = allRecords.filter((record) => record.due_date >= props.selectedDate1 && record.due_date <= props.selectedDate2);
     }
-    console.log(props.selectedDate1);
-    console.log(props.selectedDate2);
     setRecords(allRecords);
 
     const allUsers = await getAllUsers();
