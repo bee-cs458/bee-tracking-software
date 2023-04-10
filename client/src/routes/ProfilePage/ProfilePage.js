@@ -8,25 +8,28 @@ import ProfileAssetTable from "../../components/ProfileAssetTable/ProfileAssetTa
 import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
 import { Button, Modal } from "react-bootstrap";
+import UserInformation from "../../components/UserInformation/UserInformation";
 //import { useOutletContext } from "react-router-dom";
 
 export default function ProfilePage() {
   const [checkedOutAssets, setCheckedOutAssets] = useState([]);
-  const [userId] = useState(useAuthenticatedUser().user_id); //gets id of signed in user
+  const [editPage, setEditPage] = useState(false);
+  const [user] = useState(useAuthenticatedUser()); //gets information of signed in user
   const [cats, setCats] = useState([]);
   const [theme] = useOutletContext(); //gets darkmode theme
   const [show, setShow] = useState(false);
-  //const [theme, setTheme] = useOutletContext();
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setShow(true);
     sessionStorage.clear();
   };
+  const toggleEdit = () => {
+    setEditPage(!editPage);
+  };
 
-  
   const getUserCheckedOutAssets = async (event) => {
     //gets the info for the assets checked out by the user
-    getCheckoutRecordsByUserID(userId).then((result) => {
+    getCheckoutRecordsByUserID(user.user_id).then((result) => {
       const newAssets = result;
       if (newAssets) setCheckedOutAssets(newAssets);
     });
@@ -39,9 +42,10 @@ export default function ProfilePage() {
       .catch((err) => console.log(err));
   };
 
+  //gets the asset table information when the page renders
   useEffect(() => {
-    getUserCheckedOutAssets(); //gets the asset table information when the page renders
-  }, []);
+    getUserCheckedOutAssets();
+  }, [editPage]);
 
   return (
     <div>
@@ -51,22 +55,50 @@ export default function ProfilePage() {
         </div>
       </div>
       <div className="main-content">
-        <h2>Checked Out Assets</h2>
-        <ProfileAssetTable
-          assets={checkedOutAssets}
-          cats={cats}
-          variant={theme}
-        ></ProfileAssetTable>
-        <Button
-          className="beets_buttons"
-          onClick={() => {
-            handleShow();
-          }}
-        >
-          Change Password
-        </Button>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col">
+              <h2>Profile Information</h2>
+              <UserInformation
+                user={user}
+                edit={editPage}
+                toggleEdit={toggleEdit}
+              ></UserInformation>
+              {editPage ? (
+                <></>
+              ) : (
+                <Button
+                  className="beets_buttons"
+                  onClick={() => {
+                    toggleEdit();
+                  }}
+                  disabled={editPage}
+                >
+                  Edit Information
+                </Button>
+              )}
+              <br />
+              <Button
+                className="beets_buttons"
+                onClick={() => {
+                  handleShow();
+                }}
+              >
+                Change Password
+              </Button>
+            </div>
+            <div className="col">
+              <h2>Checked Out Assets</h2>
+              <ProfileAssetTable
+                assets={checkedOutAssets}
+                cats={cats}
+                variant={theme}
+              ></ProfileAssetTable>
+            </div>
+          </div>
+        </div>
       </div>
-      <Modal show={show} onHide={handleClose} backdrop="static" >
+      <Modal show={show} onHide={handleClose} backdrop="static">
         <Modal.Header closeButton>
           <Modal.Title>Change Password</Modal.Title>
         </Modal.Header>
