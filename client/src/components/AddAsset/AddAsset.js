@@ -33,7 +33,6 @@ export default function AddAsset({ categories }) {
   const handleSubmit = async () => {
     // 1. Check if all required fields have been filled out
     if (assetTag && name && description) {
-
       // 3. Check if the user has selected advanced or operational and set the variable to 1 or 0
       const advanced = advancedChecked ? 1 : 0;
       const operational = operationalChecked ? 1 : 0;
