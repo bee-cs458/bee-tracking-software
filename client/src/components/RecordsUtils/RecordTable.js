@@ -32,12 +32,16 @@ export default function RecordTable(props) {
             .toLowerCase()
             .includes(props.inputVal) ||
           record.asset_tag.toString().toLowerCase().includes(props.inputVal.toLowerCase())
+          
       );
     }
-
+    //Filters Records table by only checked out items
     if (props.filterByCheckedOut) {
       allRecords = allRecords.filter((record) => record.in_date === null);
     }
+    //Filters Records Table by range of selected dates
+    if(props.selectedDate1 != null || props.selectedDate2 != null)
+    allRecords = allRecords.filter((record) => record.due_date >= props.selectedDate1 && record.due_date <= props.selectedDate2);
 
     setRecords(allRecords);
 

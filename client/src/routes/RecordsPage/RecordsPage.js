@@ -4,13 +4,15 @@ import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/Checke
 import React, { useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import search from "../../assets/search.png";
-
+import { Button } from "react-bootstrap";
 import CheckoutRecordCSV from "../../components/ExportCSV/ExportRecordsCSV.js";
 
 export default function RecordsPage() {
   const [checked, setChecked] = useState(false);
   const [selectList, setSelectList] = useState([]);
   const [inputVal, setInputVal] = useState("");
+  const [selectedDate1, setSelectedDate1] = useState(null);
+  const [selectedDate2, setSelectedDate2] = useState(null);
 
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {
@@ -27,6 +29,26 @@ export default function RecordsPage() {
     setInputVal(newInputVal);
   }
 
+  
+  /**
+   *Sets selected Date 1 as start Date for search
+   *
+   * @param {*} date Date selected from start date
+   */
+  function handleDateChange(date) {
+    setSelectedDate1(date);
+  }
+
+  /**
+   *Sets selected Date 2 as endDate for search
+   *
+   * @param {*} date Date selected from end date
+   */
+  function handleDateChange2(date) {
+    setSelectedDate2(date);
+  }
+
+  
   return (
     <div className="App">
       <Container fluid className={"header-container"}>
@@ -47,6 +69,7 @@ export default function RecordsPage() {
             >
               <img src={search} alt="search" width="22" height="22" />
             </button>
+            
           </Col>
           <Col
             style={{
@@ -71,10 +94,26 @@ export default function RecordsPage() {
               ) : (
                 <></>
               )}
+              
             </div>
-            <div className="col"></div>
-            <div className="col"></div>
-            <div className="col"></div>
+            <div className="col">
+              <label for="start">Start Date:</label>
+              <input
+                type="date"
+                onChange={(e) => handleDateChange(e.target.value)}
+                value={selectedDate1}
+              />
+            </div>
+            <div className="col">
+              <label for="end">End Date:</label>
+                <input
+                  type="date"
+                  onChange={(e) => handleDateChange2(e.target.value)}
+                  value={selectedDate2}
+                />
+            </div>
+            <div className="col"> 
+             </div>
             <div className="col"></div>
             <div className="col"></div>
           </div>
@@ -83,6 +122,8 @@ export default function RecordsPage() {
           inputVal={inputVal}
           selectList={selectList}
           setSelectList={setSelectList}
+          selectedDate1={selectedDate1}
+          selectedDate2={selectedDate2}
         />
       </div>
 
