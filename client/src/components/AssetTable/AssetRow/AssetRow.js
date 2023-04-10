@@ -43,6 +43,8 @@ function AssetRow(props) {
 
   async function handleExport(){
     {/* Will need to grab the information the row and export*/}
+    console.log("Export Called");
+    const error = await ExportOneAsset(asset.asset_tag);
   }
 
   useEffect(() => {
