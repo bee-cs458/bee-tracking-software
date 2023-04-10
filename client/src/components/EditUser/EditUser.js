@@ -56,6 +56,14 @@ function EditUser(props) {
         }
       });
   }
+  function handleUpdatePass(updatePassword){
+    if(updatePassword == 0){
+      updatePassword = 1;
+    } else{
+      updatePassword = 0;
+    }
+    setUpdatePass(updatePassword);
+  }
 
   function handleIdChange(newVal) {
     setId(newVal);
@@ -123,6 +131,7 @@ function EditUser(props) {
           type="switch"
           id="passwordResetSwitch"
           checked={updatePassword}
+          onClick={handleUpdatePass}
         />
         </Form.Check>
         <Col></Col>
