@@ -14,6 +14,7 @@ import checkIn from "../../assets/checkIn.png";
 import operators from "../../assets/operators.png";
 import logOut from "../../assets/logOut.png";
 import signIn from "../../assets/signIn.png";
+import WeatherWidget from "../WeatherWidget/WeatherWidget";
 import "./NavBar.css";
 
 function NavBar(props) {
@@ -103,6 +104,8 @@ function NavBar(props) {
             </Link>
           </li>
         </AccessControl>
+
+        <WeatherWidget />
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
