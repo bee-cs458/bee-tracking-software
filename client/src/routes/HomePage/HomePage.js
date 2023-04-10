@@ -39,18 +39,6 @@ export default function HomePage(props) {
 
   const [inputVal, setInputVal] = useState("");
 
-  //Store Categories
-  const [cats, setCats] = useState([]);
-
-  useEffect(() => {
-    getCategories()
-      .then((value) => {
-        setCats(value);
-        return value;
-      })
-      .catch((err) => console.log(err));
-  }, [show]);
-
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {
     if (e.key === "Enter") {
@@ -185,7 +173,7 @@ export default function HomePage(props) {
               return "Only Owner can Add Assets";
             }}
           >
-            <AddAsset cats={cats} onSubmit={handleClose} />
+            <AddAsset categories={categories} onSubmit={handleClose} />
           </AccessControl>
         </Modal.Body>
       </Modal>

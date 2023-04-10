@@ -4,8 +4,8 @@ import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
 import { Form, Button, Row } from "react-bootstrap";
 import "./AddAsset.css";
 
-export default function AddAsset({ cats }) {
-  const [category, setCategory] = useState(cats[0]?.category_id);
+export default function AddAsset({ categories }) {
+  const [category, setCategory] = useState(categories[0]?.category_id);
   const [advancedChecked, setAdvancedChecked] = useState(false);
   const [operationalChecked, setOperationalChecked] = useState(true);
   const [assetTag, setAssetTag] = useState("");
@@ -112,10 +112,10 @@ export default function AddAsset({ cats }) {
             <Form.Label>Select Category:</Form.Label>
             <Form.Control
               as="select"
-              defaultValue={cats[0].category_id}
+              defaultValue={categories[0].category_id}
               onChange={(event) => handleCatChange(event.target.value)}
             >
-              {cats.map((cat) => (
+              {categories.map((cat) => (
                 <option key={cat.category_id} value={cat.category_id}>
                   {cat.catName}
                 </option>
