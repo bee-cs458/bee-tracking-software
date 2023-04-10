@@ -36,6 +36,15 @@ function AssetRow(props) {
   const handleEditAssetFalse = () => setEditAsset(false);
   const handleDeleteAssetTrue = () => setDeleteAsset(true);
   const handleDeleteAssetFalse = () => setDeleteAsset(false);
+
+  const handleExportAssetTrue = () => setExportAsset(true);
+  const handleExportAssetFalse = () => setExportAsset(false);
+  const[exportAsset, setExportAsset] = useState(false);
+
+  async function handleExport(){
+    {/* Will need to grab the information the row and export*/}
+  }
+
   useEffect(() => {
     setAlertMessage2(
       "Deleting this asset cannot be undone. Are you sure you want to go through with deleting it?"
@@ -159,8 +168,14 @@ function AssetRow(props) {
           <Button variant="danger" onClick={handleDeleteAssetTrue}>
             Delete Asset
           </Button>
+          <Button
+          variant="primary"
+          className="beets_buttons"
+          onClick={handleExportAssetTrue}
+          >
+            Export Asset
+          </Button>
 
-          <ExportOneAsset></ExportOneAsset>
 
 
         </td>
@@ -184,6 +199,7 @@ function AssetRow(props) {
           ></EditAsset>
         </Modal.Body>
       </Modal>
+
       <Modal
         backdrop="static"
         show={deleteAssetVar}
@@ -203,6 +219,25 @@ function AssetRow(props) {
           </Button>
           <> </>
           <Button variant="secondary" onClick={handleDeleteAssetFalse}>
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal backdrop="static" show={exportAsset} onHide={handleExportAssetFalse}>
+        <Modal.Header closeButton>
+          <Modal.Title>Export {asset.name} To CSV</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row className="m-3">
+            {/* Could put a condidtional alert here for exporting*/}
+          </Row>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={handleExport}>
+            Export
+          </Button>
+          <Button variant="secondary" onClick={handleExportAssetFalse}>
             Cancel
           </Button>
         </Modal.Footer>
