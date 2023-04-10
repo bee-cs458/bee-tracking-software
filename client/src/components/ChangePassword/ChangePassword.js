@@ -126,7 +126,7 @@ export default function ChangePassword() {
   setAlert(null,"")}, [newPassword, oldPassword, passwordAgain]);
 
   return (
-    <div id="mainContent">
+    <div>
       <Form>
         <Row>
           <Form.Group as={Col}>

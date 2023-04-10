@@ -7,12 +7,21 @@ import { useAuthenticatedUser } from "../../components/Context/UserContext";
 import ProfileAssetTable from "../../components/ProfileAssetTable/ProfileAssetTable";
 import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
+import { Button, Modal } from "react-bootstrap";
+//import { useOutletContext } from "react-router-dom";
 
 export default function ProfilePage() {
   const [checkedOutAssets, setCheckedOutAssets] = useState([]);
   const [userId] = useState(useAuthenticatedUser().user_id); //gets id of signed in user
   const [cats, setCats] = useState([]);
   const [theme] = useOutletContext(); //gets darkmode theme
+  const [show, setShow] = useState(false);
+  //const [theme, setTheme] = useOutletContext();
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    setShow(true);
+    sessionStorage.clear();
+  };
 
   
   const getUserCheckedOutAssets = async (event) => {
@@ -48,9 +57,23 @@ export default function ProfilePage() {
           cats={cats}
           variant={theme}
         ></ProfileAssetTable>
-        <h1>Change Password</h1>
-        <ChangePassword></ChangePassword>
+        <Button
+          className="beets_buttons"
+          onClick={() => {
+            handleShow();
+          }}
+        >
+          Change Password
+        </Button>
       </div>
+      <Modal show={show} onHide={handleClose} backdrop="static" >
+        <Modal.Header closeButton>
+          <Modal.Title>Change Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ChangePassword></ChangePassword>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }
