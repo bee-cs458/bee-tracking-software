@@ -11,7 +11,6 @@ export default function AddAsset({ cats }) {
   const [assetTag, setAssetTag] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [setSubmitBtnDisabled] = useState(false);
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
 
@@ -34,8 +33,6 @@ export default function AddAsset({ cats }) {
   const handleSubmit = async () => {
     // 1. Check if all required fields have been filled out
     if (assetTag && name && description) {
-      // 2. If all fields are filled out, disable the submit button and display a success message
-      setSubmitBtnDisabled(true);
 
       // 3. Check if the user has selected advanced or operational and set the variable to 1 or 0
       const advanced = advancedChecked ? 1 : 0;
@@ -61,7 +58,7 @@ export default function AddAsset({ cats }) {
         console.log(err);
       } finally {
         // 7. Reset the submit button to the default state
-        setSubmitBtnDisabled(false);
+        // setSubmitBtnDisabled(false);
       }
     } else {
       // 8. Display an error message if the user has not filled out all required fields
@@ -143,7 +140,7 @@ export default function AddAsset({ cats }) {
               onChange={() => setOperationalChecked(!operationalChecked)}
             />
           </Form.Group>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button variant="primary" onClick={handleSubmit}>
             Submit
           </Button>
         </Form>
