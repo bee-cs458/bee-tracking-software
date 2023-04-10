@@ -1,4 +1,7 @@
-import { faCircleCheck, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
@@ -12,7 +15,9 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import RecordTable from "../../components/RecordsUtils/RecordTable";
 import { Ranks } from "../../constants/PermissionRanks";
 import { SIDE_NAV_WIDTH, TOP_BAR_HEIGHT } from "../../constants/StyleConstants";
-import styles from "./SingleAssetPage.css"
+import styles from "./SingleAssetPage.css";
+import { getAllRecords } from "../../api/RecordService";
+import CheckoutHistoryTable from "../CheckoutHistoryTable/CheckoutHistoryTable";
 
 const SingleAssetPage = () => {
   // Gets the Asset Tag from the URL
@@ -37,7 +42,7 @@ const SingleAssetPage = () => {
         setAsset(result[0]);
         getCategoryById(result[0].category).then((result) => {
           setCategoryLabel(result.catName);
-        })
+        });
       });
     }
   }, [id, state?.asset]);
@@ -67,7 +72,6 @@ const SingleAssetPage = () => {
         }}
       >
         <section>
-
           {isLoading ? (
             <>
               <LoadingSpinner />
@@ -102,15 +106,51 @@ const SingleAssetPage = () => {
                   <table className="w-100">
                     <tr>
                       <th>Operational</th>
-                      <td>{asset.operational ? <FontAwesomeIcon icon={faCircleCheck} className={"icon green"} /> : <FontAwesomeIcon icon={faCircleXmark} className={"icon red"} />}</td>
+                      <td>
+                        {asset.operational ? (
+                          <FontAwesomeIcon
+                            icon={faCircleCheck}
+                            className={"icon green"}
+                          />
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={faCircleXmark}
+                            className={"icon red"}
+                          />
+                        )}
+                      </td>
                     </tr>
                     <tr>
                       <th>Available</th>
-                      <td>{!asset.checked_out ? <FontAwesomeIcon icon={faCircleCheck} className={"icon green"} /> : <FontAwesomeIcon icon={faCircleXmark} className={"icon red"} />}</td>
+                      <td>
+                        {!asset.checked_out ? (
+                          <FontAwesomeIcon
+                            icon={faCircleCheck}
+                            className={"icon green"}
+                          />
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={faCircleXmark}
+                            className={"icon red"}
+                          />
+                        )}
+                      </td>
                     </tr>
                     <tr>
                       <th>Advanced</th>
-                      <td>{asset.advanced ? <FontAwesomeIcon icon={faCircleCheck} className={"icon blue"} /> : <FontAwesomeIcon icon={faCircleXmark} className={"icon gray"} />}</td>
+                      <td>
+                        {asset.advanced ? (
+                          <FontAwesomeIcon
+                            icon={faCircleCheck}
+                            className={"icon blue"}
+                          />
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={faCircleXmark}
+                            className={"icon gray"}
+                          />
+                        )}
+                      </td>
                     </tr>
                   </table>
                 </Col>
@@ -123,7 +163,11 @@ const SingleAssetPage = () => {
                       <th>Damage Notes</th>
                     </tr>
                     <tr>
-                      <td>{asset.damage_notes === null ? "No damage notes have been recorded. " : asset.damage_notes}</td>
+                      <td>
+                        {asset.damage_notes === null
+                          ? "No damage notes have been recorded. "
+                          : asset.damage_notes}
+                      </td>
                     </tr>
                   </table>
                 </Col>
@@ -135,38 +179,11 @@ const SingleAssetPage = () => {
                 <AccessControl allowedRank={Ranks.OPERATOR}>
                   <h3>Checkout History</h3>
                   <div className="seperator" />
-                  <table className="w-100">
-                    <tr>
-                      <th>Record ID</th>
-                      <th>Asset Tag</th>
-                      <th>Student ID</th>
-                      <th>Operator ID</th>
-                      <th>Due Date</th>
-                    </tr>
-                    <tr>
-                      <td>Asset Tag</td>
-                      <td>{asset.asset_tag}</td>
-                    </tr>
-                    <tr>
-                      <td>Category</td>
-                      <td>{categoryLabel}</td>
-                    </tr>
-                    <tr>
-                      <td>Date Added</td>
-                      <td>{asset.date_added}</td>
-                    </tr>
-                    <tr>
-                      <td>Description</td>
-                      <td>{asset.description}</td>
-                    </tr>
-                  </table>
+                  <CheckoutHistoryTable />
                 </AccessControl>
               </div>
-
-
             </>
           )}
-
         </section>
       </Container>
     </div>

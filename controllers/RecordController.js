@@ -3,10 +3,8 @@ import { query } from "../utilities/DatabaseUtilities.js";
 export const getAllRecords = async (req, res, next) => {
   let statement = `SELECT * FROM checkoutrecord ORDER BY record_id DESC;`;
 
-  console.log(JSON.stringify(req.params));
-
-  if (req.params.assetTag) {
-    statement = `SELECT * FROM checkoutrecord WHERE asset_tag=${req.params.assetTag} ORDER BY record_id DESC;`;
+  if (req.query.assetTag) {
+    statement = `SELECT * FROM checkoutrecord WHERE checkoutrecord.asset_tag=${req.query.assetTag} ORDER BY record_id DESC;`;
   }
 
   await query(statement).then(
