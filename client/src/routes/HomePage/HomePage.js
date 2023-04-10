@@ -17,14 +17,24 @@ import { AccountLink } from "../../components/AccountLink/AccountLink";
 
 export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
+
   const [currentCategory, updateCategory] = useState({
     catName: undefined,
     category_id: -1,
   });
+
   const [selectList, setSelectList] = useState([]);
+
   //Displaying Add Asset
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+
+  // WHen the user clicks the close button, the modal will close
+  // and the current category will be set to -1, thus
+  // re-rendering the table
+  const handleClose = () => {
+    currentCategory.category_id = -1;
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
 
   const [inputVal, setInputVal] = useState("");
@@ -44,7 +54,6 @@ export default function HomePage(props) {
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {
     if (e.key === "Enter") {
-      //console.log("Key press is entered");
       getInputValue();
     }
   }
@@ -130,7 +139,7 @@ export default function HomePage(props) {
             <div className="col"></div>
             <div className="col">
               <AccessControl allowedRank={Ranks.OPERATOR}>
-                <input type="checkbox" id="showcart" onClick={handleByCart}/>
+                <input type="checkbox" id="showcart" onClick={handleByCart} />
                 <label htmlFor="showcart"> Only Show Assets in Cart</label>
               </AccessControl>
             </div>
