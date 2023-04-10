@@ -12,8 +12,7 @@ import checkMark from "../../../assets/check-mark.png";
 import crossedOut from "../../../assets/crossed-out.png";
 import { Link } from "react-router-dom";
 
-import ExportOneAsset from "../../ExportCSV/ExportOnlyOneAsset";
-import Clueless from "../../ExportCSV/ExportOneAsset";
+import ExportOneAsset from "../../ExportCSV/ExportOneAsset";
 
 function AssetRow(props) {
   const cats = props.categoryList;

@@ -5,32 +5,23 @@ import { getAssetByAssetTag } from "../../api/AssetService";
 import { Ranks } from "../../constants/PermissionRanks";
 import { AccessControl } from "../AccessControl/AccessControl";
 
-const AssetHeaders = [
-  { label: "Asset Tag", key: "asset_tag" },
-  { label: "Name", key: "name" },
-  { label: "Description", key: "description" },
-  { label: "Date Added", key: "date_added" },
-  { label: "Damage Notes", key: "damage_notes" },
-  { label: "Category", key: "category" },
-  { label: "Operational", key: "operational" },
-  { label: "Checked Out", key: "checked_out" },
-  { label: "Operational", key: "operational" },
-];
-
-function Clueless(props){
+function ExportOneAsset(props){
     const {asset} = props;
-class ExportOneAsset extends React.Component {
-    
-    constructor(props) {
-      super(props);
-      this.state = {
-        data: [],
-      };
-      this.csvLinkEl = React.createRef();
-    }
-  
-    // Gets the single asset
-    downloadAssetsReport = async () => {
+    const { data } = this.state;
+
+    const AssetHeaders = [
+      { label: "Asset Tag", key: "asset_tag" },
+      { label: "Name", key: "name" },
+      { label: "Description", key: "description" },
+      { label: "Date Added", key: "date_added" },
+      { label: "Damage Notes", key: "damage_notes" },
+      { label: "Category", key: "category" },
+      { label: "Operational", key: "operational" },
+      { label: "Checked Out", key: "checked_out" },
+      { label: "Operational", key: "operational" },
+    ];
+
+    async function downloadAssetsReport() {
       const data = await getAssetByAssetTag(asset.asset_tag);
       this.setState({ data: data }, () => {
         setTimeout(() => {
@@ -38,10 +29,6 @@ class ExportOneAsset extends React.Component {
         });
       });
     };
-  
-    //Renders a button for the user to press and download a CSV with the one asset
-    render() {
-      const { data } = this.state;
   
       return (
         <AccessControl allowedRank={Ranks.OWNER}>
@@ -59,6 +46,4 @@ class ExportOneAsset extends React.Component {
         </AccessControl>
       );
     }
-  }
-}
-export default Clueless;
+export default ExportOneAsset;
