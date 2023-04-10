@@ -8,16 +8,20 @@ import { Ranks } from "../../constants/PermissionRanks";
 import DarkModeSwitch from "../DarkModeSwitch/DarkModeSwitch";
 import logo from "../../assets/logo.png";
 import logoDark from "../../assets/logoDark.png";
+import logoShrunk from "../../assets/logo-shrunk.png";
+import logoDarkShrunk from "../../assets/logoDark-shrunk.png";
 import list from "../../assets/list.png";
 import checkOut from "../../assets/checkout.png";
 import checkIn from "../../assets/checkIn.png";
 import operators from "../../assets/operators.png";
 import logOut from "../../assets/logOut.png";
 import signIn from "../../assets/signIn.png";
+import doubleArrow from "../../assets/double-arrow.png";
 import "./NavBar.css";
 
 function NavBar(props) {
   const [show, setShow] = useState(false);
+  const [collapse, setCollapse] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setShow(true);
@@ -28,29 +32,34 @@ function NavBar(props) {
     props.switchTheme();
   }
 
+  function handleCollapse(){
+    setCollapse(!collapse);
+  }
+
   return (
-    <nav className="App-nav">
+    <nav className={collapse ? "App-nav-shrunk" : "App-nav"}>
       <img
-        src={props.mode === "light" ? logo : logoDark}
+        src={props.mode === "light" && !collapse ? logo : !collapse ? logoDark : props.mode === "light" && collapse ? logoShrunk : logoDarkShrunk}
         alt="logo"
-        width="200"
+        width={!collapse ? "200" : "50"}
+        className={collapse?"collapsed":null}
       ></img>
       <ul>
         <li>
-          <DarkModeSwitch onChange={handleClick} />
+          <DarkModeSwitch onChange={handleClick} collapse={collapse}/>
         </li>
         <li>
           <Link to="/">
             {/* Linked back to home page/asset view */}
-            <img src={list} alt="list" width="20" height="18" />
-            Assets
+            <img src={list} className={collapse?"collapsed":null} alt="list" width="20" height="18" />
+            {!collapse ? "Assets" : null}
           </Link>
         </li>
         <AccessControl onlyLoggedOut={true}>
           <li onClick={handleShow}>
             <Link to="/">
-              <img src={logOut} alt="log in" width="20" height="18" />
-              Log In
+              <img src={logOut} className={collapse?"collapsed":null} alt="log in" width="20" height="18" />
+              {!collapse ? "Log In" : null}
             </Link>
           </li>
         </AccessControl>
@@ -60,22 +69,22 @@ function NavBar(props) {
         <AccessControl allowedRank={Ranks.OPERATOR}>
           <li>
             <Link to="/checkOut">
-              <img src={checkOut} alt="check out" width="20" height="18" />
-              Check Out
+              <img src={checkOut} className={collapse?"collapsed":null} alt="check out" width="20" height="18" />
+              {!collapse ? "Check Out" : null}
             </Link>
           </li>
           <li>
             <Link to="/checkIn">
-              <img src={checkIn} alt="check in" width="20" height="18" />
-              Check In
+              <img src={checkIn} className={collapse?"collapsed":null} alt="check in" width="20" height="18" />
+              {!collapse ? "Check In" : null}
             </Link>
           </li>
         </AccessControl>
         <AccessControl allowedRank={Ranks.STUDENT}>
           <li>
             <Link to="/profile">
-              <img src={signIn} alt="profile" width="20" height="18" />
-              Profile
+              <img src={signIn} className={collapse?"collapsed":null} alt="profile" width="20" height="18" />
+              {!collapse ? "Profile" : null}
             </Link>
           </li>
         </AccessControl>
@@ -84,26 +93,31 @@ function NavBar(props) {
         <AccessControl allowedRank={Ranks.OWNER}>
           <li>
             <Link to="/Users">
-              <img src={operators} alt="operators" width="20" height="18" />
-              Users
+              <img src={operators} className={collapse?"collapsed":null} alt="operators" width="20" height="18" />
+              {!collapse ? "Users" : null}
             </Link>
           </li>
           <li>
             <Link to="/Records">
-              <img src={list} alt="records" width="20" height="18" />
-              Records
+              <img src={list} className={collapse?"collapsed":null} alt="records" width="20" height="18" />
+              {!collapse ? "Records" : null}
             </Link>
           </li>
         </AccessControl>
         <AccessControl allowedRank={Ranks.STUDENT}>
           <li onClick={handleShow}>
             <Link to="/">
-              <img src={logOut} alt="log out" width="20" height="18" />
-              Log Out
+              <img src={logOut} className={collapse?"collapsed":null} alt="log out" width="20" height="18" />
+              {!collapse ? "Log Out" : null}
             </Link>
           </li>
         </AccessControl>
 
+        <li onClick={handleCollapse} >
+          <Link>
+            <img src={doubleArrow} className="collapsed" alt="collapse" width ="20" height="18" />
+          </Link>
+        </li>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>
