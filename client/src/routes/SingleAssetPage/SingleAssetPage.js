@@ -12,11 +12,9 @@ import { getCategoryById } from "../../api/CategoryService";
 import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { AccountLink } from "../../components/AccountLink/AccountLink";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
-import RecordTable from "../../components/RecordsUtils/RecordTable";
 import { Ranks } from "../../constants/PermissionRanks";
 import { SIDE_NAV_WIDTH, TOP_BAR_HEIGHT } from "../../constants/StyleConstants";
 import styles from "./SingleAssetPage.css";
-import { getAllRecords } from "../../api/RecordService";
 import CheckoutHistoryTable from "../CheckoutHistoryTable/CheckoutHistoryTable";
 
 const SingleAssetPage = () => {
