@@ -179,7 +179,7 @@ const SingleAssetPage = () => {
                 <AccessControl allowedRank={Ranks.OPERATOR}>
                   <h3>Checkout History</h3>
                   <div className="seperator" />
-                  <CheckoutHistoryTable />
+                  <CheckoutHistoryTable asset={asset.asset_tag} />
                 </AccessControl>
               </div>
             </>
