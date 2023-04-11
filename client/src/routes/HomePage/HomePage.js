@@ -41,12 +41,9 @@ export default function HomePage(props) {
       .catch((err) => console.log(err));
   }, [show]);
 
-  //Handling user input when user hits 'Enter'
+  // Changes the search result on every key press, so as to live update the search results
   function handleKeyPress(e) {
-    if (e.key === "Enter") {
-      //console.log("Key press is entered");
-      getInputValue();
-    }
+    getInputValue();
   }
 
   // Create a function that will be called when the user clicks the search button
@@ -130,7 +127,7 @@ export default function HomePage(props) {
             <div className="col"></div>
             <div className="col">
               <AccessControl allowedRank={Ranks.OPERATOR}>
-                <input type="checkbox" id="showcart" onClick={handleByCart}/>
+                <input type="checkbox" id="showcart" onClick={handleByCart} />
                 <label htmlFor="showcart"> Only Show Assets in Cart</label>
               </AccessControl>
             </div>
