@@ -81,7 +81,7 @@ export default function AssetTable(props) {
                 <th width="200px">Date Added</th>
                 <th width="150px">Category</th>
                 <th width="150px">Available</th>
-                <AccessControl allowedRank={Ranks.OPERATOR}>
+                <AccessControl allowedRank={Ranks.OWNER}>
                   <th width="250px">Edit Asset</th>
                 </AccessControl>
               </tr>
