@@ -40,11 +40,11 @@ export default function RecordTable(props) {
       allRecords = allRecords.filter((record) => record.in_date === null);
     }
     //Filters Records Table by range of selected dates
-     if (props.selectedDate1) {
-      allRecords = allRecords.filter((record) => record.due_date >= props.selectedDate1);
+     if (props.startDate) {
+      allRecords = allRecords.filter((record) => record.due_date >= props.startDate);
     } 
-     if (props.selectedDate2) {
-      const selectedDate = new Date(props.selectedDate2);
+     if (props.endDate) {
+      const selectedDate = new Date(props.endDate);
       selectedDate.setDate(selectedDate.getDate() + 1);
       allRecords = allRecords.filter((record) => record.due_date <= selectedDate.toISOString().slice(0, 10));
     }

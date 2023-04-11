@@ -11,8 +11,8 @@ export default function RecordsPage() {
   const [checked, setChecked] = useState(false);
   const [selectList, setSelectList] = useState([]);
   const [inputVal, setInputVal] = useState("");
-  const [selectedDate1, setSelectedDate1] = useState(null);
-  const [selectedDate2, setSelectedDate2] = useState(null);
+  const [startDate, setstartDate] = useState(null);
+  const [endDate, setendDate] = useState(null);
 
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {
@@ -35,8 +35,8 @@ export default function RecordsPage() {
    *
    * @param {*} date Date selected from start date
    */
-  function handleDateChange(date) {
-    setSelectedDate1(date);
+  function handleStartDate(date) {
+    setstartDate(date);
   }
 
   /**
@@ -44,8 +44,8 @@ export default function RecordsPage() {
    *
    * @param {*} date Date selected from end date
    */
-  function handleDateChange2(date) {
-    setSelectedDate2(date);
+  function handleEndDate(date) {
+    setendDate(date);
   }
 
   
@@ -100,16 +100,16 @@ export default function RecordsPage() {
               <label for="start">Start Date:</label>
               <input
                 type="date"
-                onChange={(e) => handleDateChange(e.target.value)}
-                value={selectedDate1}
+                onChange={(e) => handleStartDate(e.target.value)}
+                value={startDate}
               />
             </div>
             <div className="col">
               <label for="end">End Date:</label>
                 <input
                   type="date"
-                  onChange={(e) => handleDateChange2(e.target.value)}
-                  value={selectedDate2}
+                  onChange={(e) => handleEndDate(e.target.value)}
+                  value={endDate}
                 />
             </div>
             <div className="col"> 
@@ -122,8 +122,8 @@ export default function RecordsPage() {
           inputVal={inputVal}
           selectList={selectList}
           setSelectList={setSelectList}
-          selectedDate1={selectedDate1}
-          selectedDate2={selectedDate2}
+          startDate={startDate}
+          endDate={endDate}
         />
       </div>
 
