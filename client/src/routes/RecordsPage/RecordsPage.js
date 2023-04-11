@@ -102,6 +102,7 @@ export default function RecordsPage() {
                 type="date"
                 onChange={(e) => handleStartDate(e.target.value)}
                 value={startDate}
+                class="form-control"
               />
             </div>
             <div className="col">
@@ -110,6 +111,7 @@ export default function RecordsPage() {
                   type="date"
                   onChange={(e) => handleEndDate(e.target.value)}
                   value={endDate}
+                  class="form-control"
                 />
             </div>
             <div className="col"> 
