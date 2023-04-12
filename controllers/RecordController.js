@@ -6,7 +6,7 @@ export const getAllRecords = async (req, res, next) => {
   // Checks whether an asset tag was passed in from the frontend
   // If there was, the query is changed to get all records for that specific asset tag
   if (req.query.assetTag) {
-    statement = `SELECT * FROM checkoutrecord WHERE checkoutrecord.asset_tag=${req.query.assetTag} ORDER BY record_id DESC;`;
+    statement = `SELECT * FROM checkoutrecord WHERE checkoutrecord.asset_tag='${req.query.assetTag}' ORDER BY record_id DESC;`;
   }
 
   await query(statement).then(
