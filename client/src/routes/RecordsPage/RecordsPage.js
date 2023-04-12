@@ -10,8 +10,8 @@ export default function RecordsPage() {
   const [checked, setChecked] = useState(false);
   const [selectList, setSelectList] = useState([]);
   const [inputVal, setInputVal] = useState("");
-  const [startDate, setstartDate] = useState(null);
-  const [endDate, setendDate] = useState(null);
+  const [startDate, setstartDate] = useState("");
+  const [endDate, setendDate] = useState("");
 
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {
@@ -97,21 +97,21 @@ export default function RecordsPage() {
             </div>
 
             <div className="col">
-              <label for="start">Start Date:</label>
+              <label htmlFor="start">Start Date:</label>
               <input
                 type="date"
                 onChange={(e) => handleStartDate(e.target.value)}
                 value={startDate}
-                class="form-control"
+                className="form-control"
               />
             </div>
             <div className="col">
-              <label for="end">End Date:</label>
+              <label htmlFor="end">End Date:</label>
                 <input
                   type="date"
                   onChange={(e) => handleEndDate(e.target.value)}
                   value={endDate}
-                  class="form-control"
+                  className="form-control"
                 />
             </div>
             <div className="col"> 
