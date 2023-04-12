@@ -14,7 +14,7 @@ import { useOutletContext } from "react-router-dom";
 export default function AssetTable(props) {
   const { selectList, setSelectList } = props;
   const [assets, setAssets] = useState([]);
-  const [updated, setUpdated] = useState(false);
+  const { updated, setUpdated } = props;
   const setUp = () => {
     setUpdated(!updated);
   };
