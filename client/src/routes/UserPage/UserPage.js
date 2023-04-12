@@ -47,11 +47,6 @@ export default function UserPage() {
 
   return (
     <>
-      <div className="header-container">
-        <div style={{ marginLeft: "70%" }}>
-          <AccountLink />
-        </div>
-      </div>
       <div className="main-content-user">
         <h1 className="mb-3 users">Users</h1>
 

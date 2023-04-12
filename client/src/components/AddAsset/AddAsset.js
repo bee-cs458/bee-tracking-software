@@ -4,14 +4,13 @@ import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
 import { Form, Button, Row } from "react-bootstrap";
 import "./AddAsset.css";
 
-export default function AddAsset({ cats }) {
-  const [category, setCategory] = useState(cats[0]?.category_id);
+export default function AddAsset({ categories }) {
+  const [category, setCategory] = useState(categories[0]?.category_id);
   const [advancedChecked, setAdvancedChecked] = useState(false);
   const [operationalChecked, setOperationalChecked] = useState(true);
   const [assetTag, setAssetTag] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [setSubmitBtnDisabled] = useState(false);
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
 
@@ -34,14 +33,11 @@ export default function AddAsset({ cats }) {
   const handleSubmit = async () => {
     // 1. Check if all required fields have been filled out
     if (assetTag && name && description) {
-      // 2. If all fields are filled out, disable the submit button and display a success message
-      setSubmitBtnDisabled(true);
-
-      // 3. Check if the user has selected advanced or operational and set the variable to 1 or 0
+      // 2. Check if the user has selected advanced or operational and set the variable to 1 or 0
       const advanced = advancedChecked ? 1 : 0;
       const operational = operationalChecked ? 1 : 0;
       try {
-        // 4. Create the Asset
+        // 3. Create the Asset
         const result = await createNewAsset(
           assetTag,
           name,
@@ -51,20 +47,22 @@ export default function AddAsset({ cats }) {
           advanced
         );
         console.log(result);
-        // 5. Display a success message
+        // 4. Display a success message
         setAlertMessage("Asset has been Successfully Created!");
         setAlertType(3);
       } catch (err) {
-        // 6. Display an error message if the asset creation fails
+        // 5. Display an error message if the asset creation fails
         setAlertType(1);
         setAlertMessage("Failed to Create New Asset!");
         console.log(err);
       } finally {
-        // 7. Reset the submit button to the default state
-        setSubmitBtnDisabled(false);
+        // 6. Reset the assetTag, name, and description fields
+        setAssetTag("");
+        setName("");
+        setDescription("");
       }
     } else {
-      // 8. Display an error message if the user has not filled out all required fields
+      // 7. Display an error message if the user has not filled out all required fields
       setAlertType(1);
       setAlertMessage("All fields must be filled out to create an asset");
     }
@@ -115,10 +113,10 @@ export default function AddAsset({ cats }) {
             <Form.Label>Select Category:</Form.Label>
             <Form.Control
               as="select"
-              defaultValue={cats[0].category_id}
+              defaultValue={categories[0].category_id}
               onChange={(event) => handleCatChange(event.target.value)}
             >
-              {cats.map((cat) => (
+              {categories.map((cat) => (
                 <option key={cat.category_id} value={cat.category_id}>
                   {cat.catName}
                 </option>
@@ -143,7 +141,7 @@ export default function AddAsset({ cats }) {
               onChange={() => setOperationalChecked(!operationalChecked)}
             />
           </Form.Group>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button variant="primary" onClick={handleSubmit}>
             Submit
           </Button>
         </Form>

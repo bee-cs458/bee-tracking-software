@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import NavBar from "./components/NavBar/NavBar";
 import { useEffect, useState } from "react";
+import Header from "./components/Header/Header";
 
 const App = () => {
   const [theme, setTheme] = useState("light");
@@ -20,7 +21,8 @@ const App = () => {
 
   return (
     <div>
-      <NavBar switchTheme={toggleTheme} mode={theme} />
+      <Header switchTheme={toggleTheme} />
+      <NavBar mode={theme} />
       <div className={"App " + theme}>
         <Outlet context={[theme, setTheme]} />
       </div>
