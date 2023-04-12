@@ -131,7 +131,7 @@ function EditUser(props) {
           <Form.Check
           type="switch"
           id="passwordResetSwitch"
-          defaultValue={updatePassword}
+          checked={updatePassword}
           onChange={() => {handleUpdatePass(updatePassword)}}
         />
         </Form.Check>
