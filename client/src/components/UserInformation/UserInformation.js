@@ -39,7 +39,6 @@ function UserInformation(props) {
   const handleSubmit = async () => {
     let error = await editUserProfile(
       user.user_id,
-      user.user_id,
       newFirstName,
       newLastName
     );
