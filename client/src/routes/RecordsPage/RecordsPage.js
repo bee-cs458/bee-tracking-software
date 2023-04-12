@@ -28,7 +28,6 @@ export default function RecordsPage() {
     setInputVal(newInputVal);
   }
 
-  
   /**
    *Sets selected Date 1 as start Date for search
    *
@@ -47,10 +46,9 @@ export default function RecordsPage() {
     setendDate(date);
   }
 
-  
   return (
     <div className="App">
-      <Container fluid className={"header-container"}>
+      <div className="main-content">
         <Row>
           <Col xs={10} className={"search-header"}>
             <input
@@ -68,7 +66,6 @@ export default function RecordsPage() {
             >
               <img src={search} alt="search" width="22" height="22" />
             </button>
-            
           </Col>
           <Col
             style={{
@@ -76,49 +73,42 @@ export default function RecordsPage() {
               marginBottom: "auto",
               marginLeft: "19.4em",
             }}
-          >
-            <AccountLink />
-          </Col>
+          ></Col>
         </Row>
-      </Container>
-
-      <div className="main-content">
         <div className="row">
-            <div className="col">
-              <CheckedOut state={checked} update={setChecked} />
-            </div>
-            <div className="col">
-              {localStorage.getItem("userPerms") === "2" ? (
-                <CheckoutRecordCSV></CheckoutRecordCSV>
-              ) : (
-                <></>
-              )}
-              
-            </div>
-
-            <div className="col">
-              <label htmlFor="start">Start Date:</label>
-              <input
-                type="date"
-                onChange={(e) => handleStartDate(e.target.value)}
-                value={startDate}
-                className="form-control"
-              />
-            </div>
-            <div className="col">
-              <label htmlFor="end">End Date:</label>
-                <input
-                  type="date"
-                  onChange={(e) => handleEndDate(e.target.value)}
-                  value={endDate}
-                  className="form-control"
-                />
-            </div>
-            <div className="col"> 
-             </div>
-            <div className="col"></div>
-            <div className="pt-3"></div>
+          <div className="col">
+            <CheckedOut state={checked} update={setChecked} />
           </div>
+          <div className="col">
+            {localStorage.getItem("userPerms") === "2" ? (
+              <CheckoutRecordCSV></CheckoutRecordCSV>
+            ) : (
+              <></>
+            )}
+          </div>
+
+          <div className="col">
+            <label htmlFor="start">Start Date:</label>
+            <input
+              type="date"
+              onChange={(e) => handleStartDate(e.target.value)}
+              value={startDate}
+              className="form-control"
+            />
+          </div>
+          <div className="col">
+            <label htmlFor="end">End Date:</label>
+            <input
+              type="date"
+              onChange={(e) => handleEndDate(e.target.value)}
+              value={endDate}
+              className="form-control"
+            />
+          </div>
+          <div className="col"></div>
+          <div className="col"></div>
+          <div className="pt-3"></div>
+        </div>
         <RecordTable
           filterByCheckedOut={checked}
           inputVal={inputVal}
@@ -128,7 +118,6 @@ export default function RecordsPage() {
           endDate={endDate}
         />
       </div>
-
     </div>
   );
 }

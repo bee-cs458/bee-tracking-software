@@ -52,11 +52,6 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <div className="header-container">
-        <div style={{ marginLeft: "70%" }}>
-          <AccountLink />
-        </div>
-      </div>
       <div className="main-content">
         <div className="container-fluid">
           <div className="row">

@@ -56,12 +56,6 @@ const SingleAssetPage = () => {
 
   return (
     <div className="d-flex flex-column" style={{ overflow: "hidden" }}>
-      <div className="header-container">
-        <div style={{ marginLeft: "70%" }}>
-          <AccountLink />
-        </div>
-      </div>
-
       <Container
         fluid
         style={{

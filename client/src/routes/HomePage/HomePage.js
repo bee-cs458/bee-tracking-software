@@ -14,6 +14,7 @@ import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
 import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
 import { AccountLink } from "../../components/AccountLink/AccountLink";
+import Header from "../../components/Header/Header";
 
 export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
@@ -79,9 +80,9 @@ export default function HomePage(props) {
   }
   return (
     <div className="App">
-      <Container fluid className={"header-container"}>
-        <Row>
-          <Col xs={10} className={"search-header"}>
+      <div className=" main-content">
+        <div className="container-fluid">
+          <Col xs={10} className="search-header mr-auto">
             <input
               type="text"
               onKeyDown={handleKeyPress}
@@ -104,14 +105,7 @@ export default function HomePage(props) {
               marginBottom: "auto",
               marginLeft: "19.4em",
             }}
-          >
-            <AccountLink />
-          </Col>
-        </Row>
-      </Container>
-
-      <div className=" main-content">
-        <div className="container-fluid">
+          ></Col>
           <div className="row">
             <div className="col">
               <CatDropdown
