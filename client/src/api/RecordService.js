@@ -19,6 +19,6 @@ export async function getAllRecords(assetTag) {
       return response.data.result;
     }
   } catch (error) {
-    return error.message;
+    return "Error Getting Records from API";
   }
 }
