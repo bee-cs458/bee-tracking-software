@@ -17,6 +17,7 @@ import { AccountLink } from "../../components/AccountLink/AccountLink";
 
 export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
+  const [updated, setUpdated] = useState(false);
 
   const [currentCategory, updateCategory] = useState({
     catName: undefined,
@@ -32,9 +33,10 @@ export default function HomePage(props) {
   // and the current category will be set to -1, thus
   // re-rendering the table
   const handleClose = () => {
-    currentCategory.category_id = -1;
+    setUpdated(!updated);
     setShow(false);
   };
+
   const handleShow = () => setShow(true);
 
   const [inputVal, setInputVal] = useState("");
@@ -137,7 +139,7 @@ export default function HomePage(props) {
             <div className="col"></div>
             <div className="col">
               <AccessControl allowedRank={Ranks.OPERATOR}>
-                <input type="checkbox" id="showcart" onClick={handleByCart}/>
+                <input type="checkbox" id="showcart" onClick={handleByCart} />
                 <label htmlFor="showcart"> Only Show Assets in Cart</label>
               </AccessControl>
             </div>
@@ -160,6 +162,8 @@ export default function HomePage(props) {
             input={inputVal}
             selectList={selectList}
             setSelectList={setSelectList}
+            updated={updated}
+            setUpdated={setUpdated}
           ></AssetTable>
         </div>
       </div>
