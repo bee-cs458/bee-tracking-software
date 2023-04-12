@@ -4,6 +4,8 @@ import { CSVLink } from "react-csv";
 import { getAllAssets } from "../../api/AssetService";
 import { Ranks } from "../../constants/PermissionRanks";
 import { AccessControl } from "../AccessControl/AccessControl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileExport } from "@fortawesome/free-solid-svg-icons";
 
 const AssetHeaders = [
   { label: "Asset Tag", key: "asset_tag" },
@@ -44,7 +46,11 @@ class AssetAsyncCSV extends React.Component {
       <AccessControl allowedRank={Ranks.OWNER}>
         <div>
           <Button className="beets_buttons" onClick={this.downloadAssetsReport}>
-            Export to CSV
+            <FontAwesomeIcon
+              icon={faFileExport}
+              size="lg"
+              style={{ color: "#ffffff" }}
+            />
           </Button>
           <CSVLink
             headers={AssetHeaders}

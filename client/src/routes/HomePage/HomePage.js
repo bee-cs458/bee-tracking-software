@@ -5,16 +5,22 @@ import AssetTable from "../../components/AssetTable/AssetTable";
 import CatDropdown from "../../components/CatDropdown/CatDropdown";
 import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/CheckedOutSwitch";
 import AddAsset from "../../components/AddAsset/AddAsset";
-import { Modal } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import { Container, Col, Row } from "react-bootstrap";
+import {
+  Container,
+  Col,
+  Row,
+  OverlayTrigger,
+  Tooltip,
+  Button,
+  Modal,
+} from "react-bootstrap";
 import { useEffect } from "react";
 import getCategories from "../../api/CategoryService";
 import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
 import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
-import { AccountLink } from "../../components/AccountLink/AccountLink";
-import Header from "../../components/Header/Header";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle, faStoreSlash } from "@fortawesome/free-solid-svg-icons";
 
 export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
@@ -78,74 +84,88 @@ export default function HomePage(props) {
   function handleByCart() {
     setByCart(!byCart);
   }
+
+  function tooltip(text) {
+    return (
+      <Tooltip id="tooltip" style={{ position: "fixed" }}>
+        {text}
+      </Tooltip>
+    );
+  }
+
   return (
     <div className="App">
       <div className=" main-content">
-        <div className="container-fluid">
-          <Col xs={10} className="search-header mr-auto">
-            <input
-              type="text"
-              onKeyDown={handleKeyPress}
-              className="form-control"
-              id="search"
-              placeholder="Search"
-              name="search"
-            />
-            <button
-              type="submit"
-              onClick={getInputValue}
-              className="btn btn-default"
-            >
-              <img src={search} alt="search" width="22" height="22" />
-            </button>
-          </Col>
-          <Col
-            style={{
-              marginTop: "auto",
-              marginBottom: "auto",
-              marginLeft: "19.4em",
-            }}
-          ></Col>
-          <div className="row">
-            <div className="col">
+        <Container fluid>
+          <Row>
+            <Col>
               <CatDropdown
                 state={currentCategory}
                 update={updateCategory}
                 categories={categories}
                 updateCategories={updateCategories}
               ></CatDropdown>
-            </div>
-            <div className="col">
               <CheckedOut state={checked} update={setChecked}></CheckedOut>
-            </div>
-            <div className="col">
-              <AccessControl allowedRank={Ranks.OWNER}>
-                <Button className="beets_buttons" onClick={handleShow}>
-                  Add Asset
-                </Button>
-              </AccessControl>
-            </div>
-
-            <div className="col">
-              <AssetAsyncCSV></AssetAsyncCSV>
-            </div>
-
-            <div className="col"></div>
-            <div className="col">
               <AccessControl allowedRank={Ranks.OPERATOR}>
                 <input type="checkbox" id="showcart" onClick={handleByCart} />
                 <label htmlFor="showcart"> Only Show Assets in Cart</label>
               </AccessControl>
-            </div>
-            <div className="col">
-              <AccessControl allowedRank={Ranks.OPERATOR}>
-                <Button className="beets_buttons" onClick={clearSelection}>
-                  Clear Selection
-                </Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={8} className="search-header mb-2">
+              <input
+                type="text"
+                onKeyDown={handleKeyPress}
+                className="form-control"
+                id="search"
+                placeholder="Search Assets"
+                name="search"
+              />
+              <button
+                type="submit"
+                onClick={getInputValue}
+                className="beets_button"
+              >
+                <img src={search} alt="search" width="22" height="22" />
+              </button>
+            </Col>
+            <Col xs={4}>
+              <AccessControl allowedRank={Ranks.OWNER}>
+                <OverlayTrigger placement="top" overlay={tooltip("Add Asset")}>
+                  <Button className="beets_buttons" onClick={handleShow}>
+                    <FontAwesomeIcon
+                      icon={faPlusCircle}
+                      style={{ color: "#ffffff" }}
+                      size="lg"
+                    />
+                  </Button>
+                </OverlayTrigger>
               </AccessControl>
-            </div>
-          </div>
-        </div>
+
+              <OverlayTrigger
+                placement="top"
+                overlay={tooltip("Export Asset CSV")}
+              >
+                <AccessControl allowedRank={Ranks.OPERATOR}>
+                  <AssetAsyncCSV></AssetAsyncCSV>
+                </AccessControl>
+              </OverlayTrigger>
+
+              <AccessControl allowedRank={Ranks.OPERATOR}>
+                <OverlayTrigger placement="top" overlay={tooltip("Clear Cart")}>
+                  <Button className="beets_buttons" onClick={clearSelection}>
+                    <FontAwesomeIcon
+                      icon={faStoreSlash}
+                      size="lg"
+                      style={{ color: "#ffffff" }}
+                    />
+                  </Button>
+                </OverlayTrigger>
+              </AccessControl>
+            </Col>
+          </Row>
+        </Container>
 
         <div className="asset-table">
           <AssetTable
