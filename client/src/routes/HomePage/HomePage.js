@@ -17,14 +17,26 @@ import { AccountLink } from "../../components/AccountLink/AccountLink";
 
 export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
+  const [updated, setUpdated] = useState(false);
+
   const [currentCategory, updateCategory] = useState({
     catName: undefined,
     category_id: -1,
   });
+
   const [selectList, setSelectList] = useState([]);
+
   //Displaying Add Asset
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+
+  // When the user clicks the close button, the modal will close
+  // and the current category will be set to -1, thus
+  // re-rendering the table
+  const handleClose = () => {
+    setUpdated(!updated);
+    setShow(false);
+  };
+
   const handleShow = () => setShow(true);
 
   const [inputVal, setInputVal] = useState("");
@@ -150,6 +162,8 @@ export default function HomePage(props) {
             input={inputVal}
             selectList={selectList}
             setSelectList={setSelectList}
+            updated={updated}
+            setUpdated={setUpdated}
           ></AssetTable>
         </div>
       </div>
@@ -173,7 +187,7 @@ export default function HomePage(props) {
               return "Only Owner can Add Assets";
             }}
           >
-            <AddAsset cats={cats} onSubmit={handleClose} />
+            <AddAsset categories={categories} onSubmit={handleClose} />
           </AccessControl>
         </Modal.Body>
       </Modal>
