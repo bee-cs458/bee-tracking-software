@@ -200,6 +200,7 @@ export async function editUser(oldId, user_id, first_name, last_name) {
   }
 }
 
+//pretty much the same as the one above, was just trying a different way for the errors to be sent
 export async function editUserProfile(user_id, first_name, last_name) {
   try {
     //console.log("Editing the user " + oldId);

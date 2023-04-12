@@ -7,6 +7,7 @@ function UserInformation(props) {
   const [newFirstName, setNewFirstName] = useState(user.first_name);
   const [newLastName, setNewLastName] = useState(user.last_name);
   var perms = "";
+  //translates permission number to it's name
   switch (user.permissions) {
     case -1:
       perms = "Guest";
@@ -24,14 +25,17 @@ function UserInformation(props) {
       perms = "Guest";
   }
 
+  //for when the first name is changed
   function handleFirstChange(newVal) {
     setNewFirstName(newVal);
   }
 
+  //for when the last name is changed
   function handleLastChange(newVal) {
     setNewLastName(newVal);
   }
 
+  //for when the submit button is pressed
   const handleSubmit = async () => {
     let error = await editUserProfile(
       user.user_id,
@@ -53,7 +57,9 @@ function UserInformation(props) {
     //will eventually change the user data in the DB
   };
 
+  //for when the cancel button is pressed
   function handleCancel() {
+    //sets the states back to normal
     setNewFirstName(user.first_name);
     setNewLastName(user.last_name);
   }
