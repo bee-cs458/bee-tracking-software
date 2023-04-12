@@ -5,13 +5,14 @@ import { editUser } from "../../api/UserService";
 import "./EditUser.css";
 
 function EditUser(props) {
+  // set props and the useState Functions
   const { user, setUser, setAlertType, setAlertMessage } = props;
   const [user_id, setId] = useState(user.user_id);
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
   const [updatePassword, setUpdatePass] = useState(user.updatePass);
 
-
+// HANDLE FUNCTIONS
   async function handleSubmitUser() {
     await editUser(user.user_id, user_id, firstName, lastName, updatePassword)
       .then(() => {
@@ -56,6 +57,7 @@ function EditUser(props) {
         }
       });
   }
+  // changes the updatePass value when the switch is flipped
   function handleUpdatePass(switchValue){
     // if the user clicks the switch the value will update
     if(switchValue === 0){
@@ -63,7 +65,10 @@ function EditUser(props) {
     } else{
       switchValue = 0;
     }
+    // update the state of the password value
     setUpdatePass(switchValue);
+    setAlertMessage(null);
+    setAlertType(null);
   }
 
   function handleIdChange(newVal) {
@@ -84,7 +89,7 @@ function EditUser(props) {
     setAlertType(null);
   }
 
-
+// MODAL FORM INFORMATION
   return (
     <Form>
       <Row>
@@ -127,17 +132,22 @@ function EditUser(props) {
       </Row>
       <Row>
       <Form.Check as={Col} controlId="UpdatePassword">
+        
           <Form.Label>Password Reset</Form.Label>
           <Form.Check
+          // this switch will determine whether the user is flagged for a password reset
           type="switch"
           id="passwordResetSwitch"
+          // state is based on the user data
           checked={updatePassword}
+          // when the switch is flipped the updatePassword value will update
           onChange={() => {handleUpdatePass(updatePassword)}}
         />
         </Form.Check>
         <Col></Col>
         <Col></Col>
         <Button
+        
           as={Col}
           className="submitButton"
           variant="primary"
