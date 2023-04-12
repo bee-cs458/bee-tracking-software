@@ -39,10 +39,12 @@ export default function RecordTable(props) {
     if (props.filterByCheckedOut) {
       allRecords = allRecords.filter((record) => record.in_date === null);
     }
-    //Filters Records Table by range of selected dates
+    //Filters Records Table to items due after or on a selected day
      if (props.startDate) {
       allRecords = allRecords.filter((record) => record.due_date >= props.startDate);
     } 
+    //Filters Records Table to items due before or on a selected day. 
+    //Converts date to add a day to be able to show items due the selected day due to HTML date picker incompatibilities
      if (props.endDate) {
       const selectedDate = new Date(props.endDate);
       selectedDate.setDate(selectedDate.getDate() + 1);
