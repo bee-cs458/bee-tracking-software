@@ -81,75 +81,79 @@ const SingleAssetPage = () => {
               <Row>
                 <Col xs={8}>
                   <table className="w-100">
-                    <tr>
-                      <th>Asset Tag</th>
-                      <td>{asset.asset_tag}</td>
-                    </tr>
-                    <tr>
-                      <th>Category</th>
-                      <td>{categoryLabel}</td>
-                    </tr>
-                    <tr>
-                      <th>Date Added</th>
-                      <td>{asset.date_added}</td>
-                    </tr>
-                    <tr>
-                      <th>Description</th>
-                      <td>{asset.description}</td>
-                    </tr>
+                    <tbody>
+                      <tr>
+                        <th>Asset Tag</th>
+                        <td>{asset.asset_tag}</td>
+                      </tr>
+                      <tr>
+                        <th>Category</th>
+                        <td>{categoryLabel}</td>
+                      </tr>
+                      <tr>
+                        <th>Date Added</th>
+                        <td>{asset.date_added}</td>
+                      </tr>
+                      <tr>
+                        <th>Description</th>
+                        <td>{asset.description}</td>
+                      </tr>
+                    </tbody>
                   </table>
                 </Col>
                 <Col xs={1} />
                 <Col xs={2}>
                   <table className="w-100">
-                    <tr>
-                      <th>Operational</th>
-                      <td>
-                        {asset.operational ? (
-                          <FontAwesomeIcon
-                            icon={faCircleCheck}
-                            className={"icon green"}
-                          />
-                        ) : (
-                          <FontAwesomeIcon
-                            icon={faCircleXmark}
-                            className={"icon red"}
-                          />
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Available</th>
-                      <td>
-                        {!asset.checked_out ? (
-                          <FontAwesomeIcon
-                            icon={faCircleCheck}
-                            className={"icon green"}
-                          />
-                        ) : (
-                          <FontAwesomeIcon
-                            icon={faCircleXmark}
-                            className={"icon red"}
-                          />
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Advanced</th>
-                      <td>
-                        {asset.advanced ? (
-                          <FontAwesomeIcon
-                            icon={faCircleCheck}
-                            className={"icon blue"}
-                          />
-                        ) : (
-                          <FontAwesomeIcon
-                            icon={faCircleXmark}
-                            className={"icon gray"}
-                          />
-                        )}
-                      </td>
-                    </tr>
+                    <tbody>
+                      <tr>
+                        <th>Operational</th>
+                        <td>
+                          {asset.operational ? (
+                            <FontAwesomeIcon
+                              icon={faCircleCheck}
+                              className={"icon green"}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={faCircleXmark}
+                              className={"icon red"}
+                            />
+                          )}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Available</th>
+                        <td>
+                          {!asset.checked_out ? (
+                            <FontAwesomeIcon
+                              icon={faCircleCheck}
+                              className={"icon green"}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={faCircleXmark}
+                              className={"icon red"}
+                            />
+                          )}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Advanced</th>
+                        <td>
+                          {asset.advanced ? (
+                            <FontAwesomeIcon
+                              icon={faCircleCheck}
+                              className={"icon blue"}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={faCircleXmark}
+                              className={"icon gray"}
+                            />
+                          )}
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </Col>
                 <Col xs={1} />
@@ -157,16 +161,18 @@ const SingleAssetPage = () => {
               <Row className="mt-3">
                 <Col>
                   <table>
-                    <tr>
-                      <th>Damage Notes</th>
-                    </tr>
-                    <tr>
-                      <td>
-                        {asset.damage_notes === null
-                          ? "No damage notes have been recorded. "
-                          : asset.damage_notes}
-                      </td>
-                    </tr>
+                    <tbody>
+                      <tr>
+                        <th>Damage Notes</th>
+                      </tr>
+                      <tr>
+                        <td>
+                          {asset.damage_notes === null
+                            ? "No damage notes have been recorded. "
+                            : asset.damage_notes}
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </Col>
               </Row>
