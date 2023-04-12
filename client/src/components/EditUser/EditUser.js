@@ -57,7 +57,7 @@ function EditUser(props) {
       });
   }
   function handleUpdatePass(switchValue){
-
+    console.log(switchValue);
     if(switchValue == 0){
       switchValue = 1;
     } else{
@@ -134,7 +134,7 @@ function EditUser(props) {
           type="switch"
           id="passwordResetSwitch"
           checked={updatePassword}
-          onChange={handleUpdatePass}
+          onChange={handleUpdatePass(updatePassword)}
         />
         </Form.Check>
         <Col></Col>
