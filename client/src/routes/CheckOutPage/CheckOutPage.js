@@ -218,11 +218,6 @@ function CheckOutPage() {
   useEffect(() => {}, [availableAssetTags, cats]);
   return (
     <div>
-      <div className="header-container">
-        <div style={{ marginLeft: "70%" }}>
-          <AccountLink />
-        </div>
-      </div>
       <div className="main-content-checkout">
         <h1 className="mb-3">Check Out Equipment</h1>
         <Form autoComplete="off">

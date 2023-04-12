@@ -24,10 +24,6 @@ function NavBar(props) {
     sessionStorage.clear();
   }; //clear session storage to wipe the current Cart on user change
 
-  function handleClick() {
-    props.switchTheme();
-  }
-
   return (
     <nav className="App-nav">
       <img
@@ -36,9 +32,6 @@ function NavBar(props) {
         width="200"
       ></img>
       <ul>
-        <li>
-          <DarkModeSwitch onChange={handleClick} />
-        </li>
         <li>
           <Link to="/">
             {/* Linked back to home page/asset view */}

@@ -23,7 +23,6 @@ export default function ProfilePage() {
     sessionStorage.clear();
   };
 
-  
   const getUserCheckedOutAssets = async (event) => {
     //gets the info for the assets checked out by the user
     getCheckoutRecordsByUserID(userId).then((result) => {
@@ -45,11 +44,6 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <div className="header-container">
-        <div style={{ marginLeft: "70%" }}>
-          <AccountLink />
-        </div>
-      </div>
       <div className="main-content">
         <h2>Checked Out Assets</h2>
         <ProfileAssetTable
@@ -66,7 +60,7 @@ export default function ProfilePage() {
           Change Password
         </Button>
       </div>
-      <Modal show={show} onHide={handleClose} backdrop="static" >
+      <Modal show={show} onHide={handleClose} backdrop="static">
         <Modal.Header closeButton>
           <Modal.Title>Change Password</Modal.Title>
         </Modal.Header>

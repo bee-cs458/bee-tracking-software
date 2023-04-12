@@ -210,11 +210,6 @@ export default function CheckInPage() {
 
   return (
     <div>
-      <div className="header-container">
-        <div style={{ marginLeft: "70%" }}>
-          <AccountLink />
-        </div>
-      </div>
       <div className="main-content-checkin">
         <h1 className="mb-3">Check In Equipment</h1>
         <Form>
@@ -273,8 +268,11 @@ export default function CheckInPage() {
                   handleIDChange(event.target.value);
                 }}
               />
-              <Button 
-            className="beets_buttons" onClick={handleIDPress} disabled={disabledButton}>
+              <Button
+                className="beets_buttons"
+                onClick={handleIDPress}
+                disabled={disabledButton}
+              >
                 Submit
               </Button>
             </Form.Group>
