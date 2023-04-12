@@ -13,7 +13,7 @@ function EditUser(props) {
 
 
   async function handleSubmitUser() {
-    await editUser(user.user_id, user_id, firstName, lastName)
+    await editUser(user.user_id, user_id, firstName, lastName, updatePassword)
       .then(() => {
         if (user_id >= 0) {
           setUser(
@@ -56,13 +56,16 @@ function EditUser(props) {
         }
       });
   }
-  function handleUpdatePass(updatePassword){
-    if(updatePassword == 0){
-      updatePassword = 1;
+  function handleUpdatePass(switchValue){
+
+    if(switchValue == 0){
+      switchValue = 1;
     } else{
-      updatePassword = 0;
+      switchValue = 0;
     }
-    setUpdatePass(updatePassword);
+    console.log(updatePassword);
+    setUpdatePass(switchValue);
+    console.log(updatePassword);
   }
 
   function handleIdChange(newVal) {
@@ -131,7 +134,7 @@ function EditUser(props) {
           type="switch"
           id="passwordResetSwitch"
           checked={updatePassword}
-          onClick={handleUpdatePass}
+          onChange={handleUpdatePass}
         />
         </Form.Check>
         <Col></Col>
