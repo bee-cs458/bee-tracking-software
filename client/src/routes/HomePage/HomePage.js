@@ -39,11 +39,21 @@ export default function HomePage(props) {
 
   const [inputVal, setInputVal] = useState("");
 
-  //Handling user input when user hits 'Enter'
+  //Store Categories
+  const [cats, setCats] = useState([]);
+
+  useEffect(() => {
+    getCategories()
+      .then((value) => {
+        setCats(value);
+        return value;
+      })
+      .catch((err) => console.log(err));
+  }, [show]);
+
+  // Changes the search result on every key press, so as to live update the search results
   function handleKeyPress(e) {
-    if (e.key === "Enter") {
-      getInputValue();
-    }
+    getInputValue();
   }
 
   // Create a function that will be called when the user clicks the search button
@@ -127,7 +137,7 @@ export default function HomePage(props) {
             <div className="col"></div>
             <div className="col">
               <AccessControl allowedRank={Ranks.OPERATOR}>
-                <input type="checkbox" id="showcart" onClick={handleByCart} />
+                <input type="checkbox" id="showcart" onClick={handleByCart}/>
                 <label htmlFor="showcart"> Only Show Assets in Cart</label>
               </AccessControl>
             </div>
