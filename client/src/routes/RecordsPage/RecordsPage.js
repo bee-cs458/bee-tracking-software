@@ -4,7 +4,6 @@ import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/Checke
 import React, { useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import search from "../../assets/search.png";
-import { Button } from "react-bootstrap";
 import CheckoutRecordCSV from "../../components/ExportCSV/ExportRecordsCSV.js";
 
 export default function RecordsPage() {
@@ -96,6 +95,7 @@ export default function RecordsPage() {
               )}
               
             </div>
+
             <div className="col">
               <label for="start">Start Date:</label>
               <input
@@ -117,7 +117,7 @@ export default function RecordsPage() {
             <div className="col"> 
              </div>
             <div className="col"></div>
-            <div className="col"></div>
+            <div className="pt-3"></div>
           </div>
         <RecordTable
           filterByCheckedOut={checked}
