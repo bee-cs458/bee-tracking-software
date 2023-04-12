@@ -11,4 +11,14 @@ export const getCategories = async () => {
     }
 }
 
+export const getCategoryById = async (id) => {
+    try {
+        const result = await getCategories();
+
+        return result[id];
+    } catch (e) {
+        return "Provided category ID does not match a real category ID";
+    }
+}
+
 export default getCategories;
