@@ -14,6 +14,7 @@ import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
 import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
 import { AccountLink } from "../../components/AccountLink/AccountLink";
+import Header from "../../components/Header/Header";
 
 export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
@@ -67,36 +68,34 @@ export default function HomePage(props) {
   }
   return (
     <div className="App">
-      <Container fluid className={"header-container"}>
-        <Row>
-          <Col xs={10} className={"search-header"}>
-            <input
-              type="text"
-              onKeyDown={handleKeyPress}
-              className="form-control"
-              id="search"
-              placeholder="Search"
-              name="search"
-            />
-            <button
-              type="submit"
-              onClick={getInputValue}
-              className="btn btn-default"
-            >
-              <img src={search} alt="search" width="22" height="22" />
-            </button>
-          </Col>
-          <Col
-            style={{
-              marginTop: "auto",
-              marginBottom: "auto",
-              marginLeft: "19.4em",
-            }}
+      <Header>
+        <Col xs={10} className="search-header mr-auto">
+          <input
+            type="text"
+            onKeyDown={handleKeyPress}
+            className="form-control"
+            id="search"
+            placeholder="Search"
+            name="search"
+          />
+          <button
+            type="submit"
+            onClick={getInputValue}
+            className="btn btn-default"
           >
-            <AccountLink />
-          </Col>
-        </Row>
-      </Container>
+            <img src={search} alt="search" width="22" height="22" />
+          </button>
+        </Col>
+        <Col
+          style={{
+            marginTop: "auto",
+            marginBottom: "auto",
+            marginLeft: "19.4em",
+          }}
+        >
+        </Col>
+      </Header>
+
 
       <div className=" main-content">
         <div className="container-fluid">

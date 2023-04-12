@@ -2,18 +2,6 @@
   text-align: center;
 }
 
-.header-container {
-    display: flex;
-    position: fixed;
-    flex-direction: row;
-    height: 45px;
-    width: 60vw;
-    align-items: center;
-    margin-left: 250px;
-    background-color: #004990;
-    z-index: 4;
-}
-
 .search-header {
   height: 40px;
   width: 545px;
@@ -50,9 +38,10 @@
   overflow-y: scroll;
 }
 
-.beets_buttons { /*class that changes the color of the buttons in the webpage*/
-    background-color: #015FB4;
-    border-color: #015FB4;    
+.beets_buttons {
+  /*class that changes the color of the buttons in the webpage*/
+  background-color: #015FB4;
+  border-color: #015FB4;
 }
 
 .asset-table td {
@@ -77,7 +66,7 @@
   color: #333;
 }
 
-label{
+label {
   display: inline;
   font-weight: 500;
 }
