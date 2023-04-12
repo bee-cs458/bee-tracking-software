@@ -1,74 +1,74 @@
-import axios from 'axios';
+import axios from "axios";
 
 export async function updatePass(pass, newPass) {
-    //console.log("Sending change password request");
-    // construct query
-    const params = new URLSearchParams();
-    params.append('password', pass);
-    params.append('newPassword', newPass);
-    // do request
-    return axios({
-        method: 'POST',
-        url: '/api/user/update_password',
-        data: params.toString(),
-        withCredentials: true
-    }).then(
-        (response) => {
-            return response.data;
-        },
-        (err) => {
-            //console.log("Issue updating password");
-            return err.response.data;
-        }
-    );
+  //console.log("Sending change password request");
+  // construct query
+  const params = new URLSearchParams();
+  params.append("password", pass);
+  params.append("newPassword", newPass);
+  // do request
+  return axios({
+    method: "POST",
+    url: "/api/user/update_password",
+    data: params.toString(),
+    withCredentials: true,
+  }).then(
+    (response) => {
+      return response.data;
+    },
+    (err) => {
+      //console.log("Issue updating password");
+      return err.response.data;
+    }
+  );
 }
 // current API in use for update password
 export async function updatePassword(password, newPassword) {
-    try {
-        //console.log("Updating User Password");
+  try {
+    //console.log("Updating User Password");
 
-        const response = await axios.post("/api/user/update_password", {
-            password: password,
-            newPassword: newPassword,
-        });
-        return response.data.result;
-    } catch (error) {
-        if (error.response.status === 404) {
-            return error.response.status;
-          }
-        return "Error Updating User Password from API";
+    const response = await axios.post("/api/user/update_password", {
+      password: password,
+      newPassword: newPassword,
+    });
+    return response.data.result;
+  } catch (error) {
+    if (error.response.status === 404) {
+      return error.response.status;
     }
+    return "Error Updating User Password from API";
+  }
 }
 
 export async function getAllUsers() {
-    try {
-        //console.log("Getting Users");
+  try {
+    //console.log("Getting Users");
 
-        const response = await axios.get("/api/user/get_all");
+    const response = await axios.get("/api/user/get_all");
 
-        return response.data.result;
-    } catch (error) {
-        return "Error Getting Users from API";
-    }
+    return response.data.result;
+  } catch (error) {
+    return "Error Getting Users from API";
+  }
 }
 
 export async function searchingForUsers(input) {
-    try {
-        //console.log(`Searching Users by: ${input}`);
+  try {
+    //console.log(`Searching Users by: ${input}`);
 
-        const response = await axios.get("/api/user/search", {
-            params: {
-                limit: 1000,
-                user_id: input,
-                first_name: input,
-                last_name: input,
-            },
-        });
+    const response = await axios.get("/api/user/search", {
+      params: {
+        limit: 1000,
+        user_id: input,
+        first_name: input,
+        last_name: input,
+      },
+    });
 
-        return response.data.result;
-    } catch (error) {
-        return "Error Getting Users by searching from API";
-    }
+    return response.data.result;
+  } catch (error) {
+    return "Error Getting Users by searching from API";
+  }
 }
 
 /**
@@ -79,16 +79,14 @@ export async function searchingForUsers(input) {
  * @returns response of the API call
  */
 export async function promoteOrDemoteAdvancedUser(userId) {
-    try {
-
-        const response = await axios.patch("/api/user/invert_advanced", {
-            user_id: userId
-        });
-        return response.data.result;
-
-    } catch (error) {
-        return "Error promoting or demoting user with API";
-    }
+  try {
+    const response = await axios.patch("/api/user/invert_advanced", {
+      user_id: userId,
+    });
+    return response.data.result;
+  } catch (error) {
+    return "Error promoting or demoting user with API";
+  }
 }
 
 /**
@@ -97,7 +95,7 @@ export async function promoteOrDemoteAdvancedUser(userId) {
  * @returns response of the API call
  */
 export async function makeUserGuest(userId) {
-    await changeUserPermissions(userId, -1);
+  await changeUserPermissions(userId, -1);
 }
 
 /**
@@ -106,7 +104,7 @@ export async function makeUserGuest(userId) {
  * @returns response of the API call
  */
 export async function makeUserStudent(userId) {
-    await changeUserPermissions(userId, 0);
+  await changeUserPermissions(userId, 0);
 }
 
 /**
@@ -115,7 +113,7 @@ export async function makeUserStudent(userId) {
  * @returns response of the API call
  */
 export async function makeUserOperator(userId) {
-    await changeUserPermissions(userId, 1);
+  await changeUserPermissions(userId, 1);
 }
 
 /**
@@ -124,19 +122,19 @@ export async function makeUserOperator(userId) {
  * @returns response of the API call
  */
 export async function makeUserOwner(userId) {
-    await changeUserPermissions(userId, 2);
+  await changeUserPermissions(userId, 2);
 }
 
 async function changeUserPermissions(userId, newPermissions) {
-    try {
-        const response = await axios.patch("/api/user/change_permissions", {
-            user_id: userId,
-            new_permissions: newPermissions
-        });
-        return response.data.result;
-    } catch (error) {
-        return `Error changing user (${userId}) permission to ${newPermissions} with API`;
-    }
+  try {
+    const response = await axios.patch("/api/user/change_permissions", {
+      user_id: userId,
+      new_permissions: newPermissions,
+    });
+    return response.data.result;
+  } catch (error) {
+    return `Error changing user (${userId}) permission to ${newPermissions} with API`;
+  }
 }
 
 /**
@@ -146,69 +144,76 @@ async function changeUserPermissions(userId, newPermissions) {
  * @returns response of the API call
  */
 export async function createNewUser(user) {
-    try {
-        const response = await axios.post("/api/user/create", { user: user });
-        return response.data.result;
-    } catch (error) {
-        return {
-
-            status: error.response.status,
-            message: error.response.data.message
-
-        }
-    }
+  try {
+    const response = await axios.post("/api/user/create", { user: user });
+    return response.data.result;
+  } catch (error) {
+    return {
+      status: error.response.status,
+      message: error.response.data.message,
+    };
+  }
 }
 
 export async function getUserById(userId) {
-    try {
-        //console.log("Getting User by ID");
+  try {
+    //console.log("Getting User by ID");
 
-        const response = await axios.post("/api/user/get_by_id", {
-            userId: userId
-        });
-        return response.data.result;
-    } catch (error) {
-        return "Error getting user by ID";
-    }
+    const response = await axios.post("/api/user/get_by_id", {
+      userId: userId,
+    });
+    return response.data.result;
+  } catch (error) {
+    return "Error getting user by ID";
+  }
 }
 
 export async function deleteUser(userId) {
-    try {
-        //console.log("Deleting user " + userId)
-        const response = await axios.delete("/api/user/" + userId);
-        return response.data.result;
-    } catch (error) {
-        error.message = "Error while deleting the User" + error.message;
-        throw error;
-    }
+  try {
+    //console.log("Deleting user " + userId)
+    const response = await axios.delete("/api/user/" + userId);
+    return response.data.result;
+  } catch (error) {
+    error.message = "Error while deleting the User" + error.message;
+    throw error;
+  }
 }
 
-export async function editUser(
-    oldId,
-    user_id,
-    first_name,
-    last_name
-  ) 
-  {
-
+export async function editUser(oldId, user_id, first_name, last_name) {
+  try {
     try {
-            try {
-                //console.log("Editing the user " + oldId);
-          
-                const response = await axios.post("/api/user/editUser/" + oldId, {
-                  user_id,
-                  first_name,
-                  last_name
-                });
-                return response.data.result;
-              } catch (error) {
-                error.message = "Error while updating the user: " + error.message;
-                throw error;
-              }
-    } catch (error){
-        error.message = "Error while updating the user: " + error.message;
+      //console.log("Editing the user " + oldId);
+
+      const response = await axios.post("/api/user/editUser/" + oldId, {
+        user_id,
+        first_name,
+        last_name,
+      });
+      return response.data.result;
+    } catch (error) {
+      error.message = "Error while updating the user: " + error.message;
       throw error;
     }
+  } catch (error) {
+    error.message = "Error while updating the user: " + error.message;
+    throw error;
+  }
+}
+
+export async function editUserProfile(user_id, first_name, last_name) {
+  try {
+    //console.log("Editing the user " + oldId);
+
+    const response = await axios.post("/api/user/editUser/" + user_id, {
+      user_id,
+      first_name,
+      last_name,
+    });
+    return response.data.result;
+  } catch (error) {
+    error.message = "Error while updating the user: " + error.message;
+    return error.response.status;
+  }
 }
 
 // old function for updatePass(does not work)

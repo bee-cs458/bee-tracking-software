@@ -9,6 +9,7 @@ import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
 import { Button, Modal } from "react-bootstrap";
 import UserInformation from "../../components/UserInformation/UserInformation";
+import ConditionalAlert from "../../components/CheckInUtilities/ConditionalAlert";
 //import { useOutletContext } from "react-router-dom";
 
 export default function ProfilePage() {
@@ -16,6 +17,8 @@ export default function ProfilePage() {
   const [editPage, setEditPage] = useState(false);
   const [user] = useState(useAuthenticatedUser()); //gets information of signed in user
   const [cats, setCats] = useState([]);
+  const [alertType, setAlertType] = useState(null);
+  const [alertMessage, setAlertMessage] = useState("");
   const [theme] = useOutletContext(); //gets darkmode theme
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -63,37 +66,56 @@ export default function ProfilePage() {
                 user={user}
                 edit={editPage}
                 toggleEdit={toggleEdit}
+                setAlertMessage={setAlertMessage}
+                setAlertType={setAlertType}
               ></UserInformation>
               {editPage ? (
                 <></>
               ) : (
-                <Button
-                  className="beets_buttons"
-                  onClick={() => {
-                    toggleEdit();
-                  }}
-                  disabled={editPage}
-                >
-                  Edit Information
-                </Button>
+                <>
+                  <Button
+                    className="beets_buttons"
+                    onClick={() => {
+                      toggleEdit();
+                      setAlertType(null)
+                    }}
+                    disabled={editPage}
+                  >
+                    Edit Information
+                  </Button>
+                  <br />
+                </>
               )}
               <br />
               <Button
                 className="beets_buttons"
                 onClick={() => {
                   handleShow();
+                  setAlertType(null)
                 }}
+                disabled={editPage}
               >
                 Change Password
               </Button>
+              <br />
+              <br />
+              <ConditionalAlert
+                message={alertMessage}
+                type={alertType}
+              ></ConditionalAlert>
             </div>
             <div className="col">
               <h2>Checked Out Assets</h2>
-              <ProfileAssetTable
-                assets={checkedOutAssets}
-                cats={cats}
-                variant={theme}
-              ></ProfileAssetTable>
+              <div className="seperator"></div>
+              {checkedOutAssets.length > 0 ? (
+                <ProfileAssetTable
+                  assets={checkedOutAssets}
+                  cats={cats}
+                  variant={theme}
+                ></ProfileAssetTable>
+              ) : (
+                <h3>No assets checked out</h3>
+              )}
             </div>
           </div>
         </div>
