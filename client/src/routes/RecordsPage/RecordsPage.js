@@ -29,7 +29,7 @@ export default function RecordsPage() {
 
   return (
     <div className="App">
-      <Container fluid className={"header-container"}>
+      <div className="main-content">
         <Row>
           <Col xs={10} className={"search-header"}>
             <input
@@ -54,30 +54,25 @@ export default function RecordsPage() {
               marginBottom: "auto",
               marginLeft: "19.4em",
             }}
-          >
-            <AccountLink />
-          </Col>
+          ></Col>
         </Row>
-      </Container>
-
-      <div className="main-content">
         <div className="row">
-            <div className="col">
-              <CheckedOut state={checked} update={setChecked} />
-            </div>
-            <div className="col">
-              {localStorage.getItem("userPerms") === "2" ? (
-                <CheckoutRecordCSV></CheckoutRecordCSV>
-              ) : (
-                <></>
-              )}
-            </div>
-            <div className="col"></div>
-            <div className="col"></div>
-            <div className="col"></div>
-            <div className="col"></div>
-            <div className="col"></div>
+          <div className="col">
+            <CheckedOut state={checked} update={setChecked} />
           </div>
+          <div className="col">
+            {localStorage.getItem("userPerms") === "2" ? (
+              <CheckoutRecordCSV></CheckoutRecordCSV>
+            ) : (
+              <></>
+            )}
+          </div>
+          <div className="col"></div>
+          <div className="col"></div>
+          <div className="col"></div>
+          <div className="col"></div>
+          <div className="col"></div>
+        </div>
         <RecordTable
           filterByCheckedOut={checked}
           inputVal={inputVal}
@@ -85,7 +80,6 @@ export default function RecordsPage() {
           setSelectList={setSelectList}
         />
       </div>
-
     </div>
   );
 }

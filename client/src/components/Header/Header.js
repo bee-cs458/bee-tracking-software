@@ -4,21 +4,22 @@ import DarkModeSwitch from "../DarkModeSwitch/DarkModeSwitch";
 import styles from "./Header.css";
 
 const Header = (props) => {
-    return (
-        <Container fluid className={"header-container"}>
-            <Row className="align-items-center header-row">
-                <Col xs={10}>
-                    {props.children}
-                </Col>
-                <Col xs={1} className="">
-                    <DarkModeSwitch />
-                </Col>
-                <Col xs={1} className="">
-                    <AccountLink />
-                </Col>
-            </Row>
-        </Container>
-    )
-}
+  function handleClick() {
+    props.switchTheme();
+  }
+  return (
+    <Container fluid className={"header-container"}>
+      <Row className="align-items-center header-row">
+        <Col xs={8}>{props.children}</Col>
+        <Col xs={2} className="">
+          <DarkModeSwitch onChange={handleClick} />
+        </Col>
+        <Col xs={2} className="">
+          <AccountLink />
+        </Col>
+      </Row>
+    </Container>
+  );
+};
 
 export default Header;

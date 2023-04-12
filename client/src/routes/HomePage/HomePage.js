@@ -68,37 +68,32 @@ export default function HomePage(props) {
   }
   return (
     <div className="App">
-      <Header>
-        <Col xs={10} className="search-header mr-auto">
-          <input
-            type="text"
-            onKeyDown={handleKeyPress}
-            className="form-control"
-            id="search"
-            placeholder="Search"
-            name="search"
-          />
-          <button
-            type="submit"
-            onClick={getInputValue}
-            className="btn btn-default"
-          >
-            <img src={search} alt="search" width="22" height="22" />
-          </button>
-        </Col>
-        <Col
-          style={{
-            marginTop: "auto",
-            marginBottom: "auto",
-            marginLeft: "19.4em",
-          }}
-        >
-        </Col>
-      </Header>
-
-
       <div className=" main-content">
         <div className="container-fluid">
+          <Col xs={10} className="search-header mr-auto">
+            <input
+              type="text"
+              onKeyDown={handleKeyPress}
+              className="form-control"
+              id="search"
+              placeholder="Search"
+              name="search"
+            />
+            <button
+              type="submit"
+              onClick={getInputValue}
+              className="btn btn-default"
+            >
+              <img src={search} alt="search" width="22" height="22" />
+            </button>
+          </Col>
+          <Col
+            style={{
+              marginTop: "auto",
+              marginBottom: "auto",
+              marginLeft: "19.4em",
+            }}
+          ></Col>
           <div className="row">
             <div className="col">
               <CatDropdown
