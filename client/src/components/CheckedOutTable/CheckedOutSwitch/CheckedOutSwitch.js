@@ -14,7 +14,7 @@ const CheckedOut = (props) => {
   return (
     <div className="filter-check">
       <Checkbox
-        label="  Only Show Avaliable Assets"
+        label="  Available Only"
         value={checked}
         onChange={handleChange}
       />
@@ -24,10 +24,10 @@ const CheckedOut = (props) => {
 
 const Checkbox = ({ label, value, onChange }) => {
   return (
-    <label>
-      <input type="checkbox" checked={value} onChange={onChange} />
-      {label}
-    </label>
+    <div id="inputPreview">
+      <input name="cssCheckbox" id="checkedout" type="checkbox" className="css-checkbox" checked={value} onChange={onChange} />
+      <label for="checkedout">{label}</label>
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./HomePage.css";
-import search from "../../assets/search.png";
 import AssetTable from "../../components/AssetTable/AssetTable";
 import CatDropdown from "../../components/CatDropdown/CatDropdown";
 import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/CheckedOutSwitch";
@@ -20,7 +19,7 @@ import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
 import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle, faStoreSlash } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faStoreSlash, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
@@ -95,23 +94,8 @@ export default function HomePage(props) {
 
   return (
     <div className="App">
-      <div className=" main-content">
+      <div className="main-content">
         <Container fluid>
-          <Row>
-            <Col>
-              <CatDropdown
-                state={currentCategory}
-                update={updateCategory}
-                categories={categories}
-                updateCategories={updateCategories}
-              ></CatDropdown>
-              <CheckedOut state={checked} update={setChecked}></CheckedOut>
-              <AccessControl allowedRank={Ranks.OPERATOR}>
-                <input type="checkbox" id="showcart" onClick={handleByCart} />
-                <label htmlFor="showcart"> Only Show Assets in Cart</label>
-              </AccessControl>
-            </Col>
-          </Row>
           <Row>
             <Col xs={8} className="search-header mb-2">
               <input
@@ -125,39 +109,53 @@ export default function HomePage(props) {
               <button
                 type="submit"
                 onClick={getInputValue}
-                className="beets_button"
+                className="beets_buttons"
               >
-                <img src={search} alt="search" width="22" height="22" />
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
               </button>
             </Col>
-            <Col xs={4}>
+            <Col style={{ display: "flex", flexDirection: "row" }} className="mb-2 align-items-center">
+              <CatDropdown
+                state={currentCategory}
+                update={updateCategory}
+                categories={categories}
+                updateCategories={updateCategories}
+              ></CatDropdown>
+              <CheckedOut state={checked} update={setChecked}></CheckedOut>
+              <AccessControl allowedRank={Ranks.OPERATOR}>
+                <div id="inputPreview">
+                  <input name="cssCheckbox" id="showcart" type="checkbox" className="css-checkbox" onClick={handleByCart} />
+                  <label for="showcart">Cart Only</label>
+                </div>
+              </AccessControl>
+
+            </Col>
+            <Col style={{ display: "flex", flexDirection: "row" }} className="mb-2 justify-content-end">
               <AccessControl allowedRank={Ranks.OWNER}>
                 <OverlayTrigger placement="top" overlay={tooltip("Add Asset")}>
-                  <Button className="beets_buttons" onClick={handleShow}>
+                  <Button className="beets_buttons icon-button" onClick={handleShow}>
                     <FontAwesomeIcon
                       icon={faPlusCircle}
                       style={{ color: "#ffffff" }}
-                      size="lg"
                     />
                   </Button>
                 </OverlayTrigger>
               </AccessControl>
 
-              <OverlayTrigger
-                placement="top"
-                overlay={tooltip("Export Asset CSV")}
-              >
-                <AccessControl allowedRank={Ranks.OPERATOR}>
+              <AccessControl allowedRank={Ranks.OPERATOR}>
+                <OverlayTrigger
+                  placement="top"
+                  overlay={tooltip("Export Asset CSV")}
+                >
                   <AssetAsyncCSV></AssetAsyncCSV>
-                </AccessControl>
-              </OverlayTrigger>
+                </OverlayTrigger>
+              </AccessControl>
 
               <AccessControl allowedRank={Ranks.OPERATOR}>
                 <OverlayTrigger placement="top" overlay={tooltip("Clear Cart")}>
-                  <Button className="beets_buttons" onClick={clearSelection}>
+                  <Button className="beets_buttons icon-button" onClick={clearSelection}>
                     <FontAwesomeIcon
                       icon={faStoreSlash}
-                      size="lg"
                       style={{ color: "#ffffff" }}
                     />
                   </Button>
