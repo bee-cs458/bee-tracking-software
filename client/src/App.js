@@ -17,7 +17,6 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
-    localStorage.setItem("collapse", collapse);
     document.body.className = theme;
   }, [theme]);
 

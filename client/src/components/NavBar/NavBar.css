@@ -48,6 +48,7 @@ li a {
     color: white;
     text-decoration: none;
     padding: 15px;
+    padding-left: 20px;
     height: 60px;
 }
 
@@ -68,3 +69,17 @@ li img {
     margin-left: auto;
     margin-right: auto;
 }
+
+.collapsed li a {
+    padding-left: 15px;
+}
+
+.logo-image {
+    display: block;
+    margin-left: 8px;
+}
+
+.left {
+    transform: rotate(180deg);
+}
+
