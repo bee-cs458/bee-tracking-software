@@ -30,6 +30,7 @@
     "express-session": "^1.17.3",
     "loglevel": "^1.8.0",
     "loglevel-plugin-prefix": "^0.8.4",
+    "mdb-react-ui-kit": "^6.0.0",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.20",
     "passport": "^0.6.0",

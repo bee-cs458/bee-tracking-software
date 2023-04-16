@@ -14,7 +14,7 @@ import checkIn from "../../assets/checkIn.png";
 import operators from "../../assets/operators.png";
 import logOut from "../../assets/logOut.png";
 import signIn from "../../assets/signIn.png";
-import WeatherWidget from "../WeatherWidget/WeatherWidget";
+import Card from "../WeatherWidget/Card";
 import "./NavBar.css";
 
 function NavBar(props) {
@@ -37,6 +37,9 @@ function NavBar(props) {
         width="200"
       ></img>
       <ul>
+        <li>
+          <Card crossorigin apiKey={"b3cd383e1a41099de4513c032475c2ea"} city={"new york"}/>
+        </li>
         <li>
           <DarkModeSwitch onChange={handleClick} />
         </li>
@@ -104,8 +107,6 @@ function NavBar(props) {
             </Link>
           </li>
         </AccessControl>
-
-        <WeatherWidget />
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
