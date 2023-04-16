@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  width: 100vw - 250px;
 }
 
 .App-logo {
@@ -42,4 +43,14 @@
 .light {
   background-color: whitesmoke;
   color: #333;
+}
+
+.shrunk {
+  width: calc(100vw - 100px);
+  float: right;
+}
+
+.full {
+  width: calc(100vw - 250px);
+  float: right;
 }

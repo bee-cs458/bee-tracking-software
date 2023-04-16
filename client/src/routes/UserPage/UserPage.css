@@ -9,14 +9,12 @@
     height: 45px;
     width: 100vw;
     align-items: center;
-    margin-left: 250px;
     background-color: #004990;
     z-index: 5;
 }
 
 .main-content-user {
     overflow: auto;
-    margin-left: 250px;
     text-align: left;
     padding-top: 60px;
     padding-left: 10px;

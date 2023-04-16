@@ -39,7 +39,7 @@
 
 ul {
     list-style-type: none;
-    padding-top: 25%;
+    padding-top: 20px;
     padding-left: 0px;
 }
 
@@ -48,6 +48,7 @@ li a {
     color: white;
     text-decoration: none;
     padding: 15px;
+    height: 60px;
 }
 
 li a:hover {

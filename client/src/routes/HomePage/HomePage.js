@@ -101,7 +101,7 @@ export default function HomePage(props) {
         </Row>
       </Container>
 
-      <div className=" main-content">
+      <div className={props.collapsed ? "main-content-assets-shrunk" : "main-content-assets"}>
         <div className="container-fluid">
           <div className="row">
             <div className="col">

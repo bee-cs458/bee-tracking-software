@@ -9,7 +9,6 @@
     height: 45px;
     width: 60vw;
     align-items: center;
-    margin-left: 250px;
     background-color: #004990;
     z-index: 4;
 }
@@ -36,8 +35,15 @@
   color: white;
 }
 
-.main-content {
-  margin-left: 250px;
+.main-content-assets {
+  text-align: left;
+  padding-top: 60px;
+  padding-left: 10px;
+  height: 100vh;
+}
+
+.main-content-assets-shrunk {
+  margin-left: 50px;
   text-align: left;
   padding-top: 60px;
   padding-left: 10px;

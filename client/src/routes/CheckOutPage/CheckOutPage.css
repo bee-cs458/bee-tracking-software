@@ -9,13 +9,11 @@
     height: 45px;
     width: 100vw;
     align-items: center;
-    margin-left: 250px;
     background-color: #004990;
 }
 
 .main-content-checkout {
     overflow: auto;
-    margin-left: 250px;
     text-align: left;
     padding-top: 60px;
     padding-left: 10px;

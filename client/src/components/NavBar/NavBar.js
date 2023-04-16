@@ -21,7 +21,7 @@ import "./NavBar.css";
 
 function NavBar(props) {
   const [show, setShow] = useState(false);
-  const [collapse, setCollapse] = useState(false);
+  const {collapse, setCollapse} = props;
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setShow(true);
@@ -41,6 +41,7 @@ function NavBar(props) {
       <img
         src={props.mode === "light" && !collapse ? logo : !collapse ? logoDark : props.mode === "light" && collapse ? logoShrunk : logoDarkShrunk}
         alt="logo"
+        height="55px"
         width={!collapse ? "200" : "50"}
         className={collapse?"collapsed":null}
       ></img>
