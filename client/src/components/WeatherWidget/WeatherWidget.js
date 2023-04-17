@@ -85,9 +85,12 @@ export default function WeatherWidget({ apiKey }) {
               alt={weatherCondition}
             />
             {/* Temperature */}
-            <div>{temperature}&deg;F</div>
-            {/* Weather condition */}
-            <div>{weatherCondition}</div>
+            <div>
+              {temperature}&deg;F
+              <br />
+              {/* Weather Condition */}
+              {weatherCondition}
+            </div>
           </div>
         </div>
       </>
