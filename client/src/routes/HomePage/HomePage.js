@@ -82,11 +82,15 @@ export default function HomePage(props) {
     setSelectList([]);
   }
 
-  const [checked, setChecked] = useState(false);
+  const [byAvailable, setByAvailable] = useState(false);
   const [byCart, setByCart] = useState(false);
 
   function handleByCart() {
     setByCart(!byCart);
+  }
+
+  function handleByAvailable() {
+    setByAvailable(!byAvailable);
   }
 
   function tooltip(text) {
@@ -132,7 +136,9 @@ export default function HomePage(props) {
                 <Dropdown.Item onClick={handleByCart} active={byCart}>
                   Filter by your Cart
                 </Dropdown.Item>
-                <CheckedOut state={checked} update={setChecked}></CheckedOut>
+                <Dropdown.Item onClick={handleByAvailable} active={byAvailable}>
+                  Filter by Available Assets
+                </Dropdown.Item>
               </CatDropdown>
             </Col>
             <Col
@@ -181,7 +187,7 @@ export default function HomePage(props) {
 
         <div className="asset-table">
           <AssetTable
-            filterByCheckedOut={checked}
+            filterByCheckedOut={byAvailable}
             filterByCart={byCart}
             cat={currentCategory?.category_id}
             categoryList={categories}

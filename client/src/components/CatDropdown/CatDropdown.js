@@ -12,7 +12,9 @@ export default function CatDropdown(props) {
 
   const handleChange = (eventKey) => {
     // eventKey is the index
-    update(categories[eventKey]);
+    if (eventKey) {
+      update(categories[eventKey]);
+    }
   };
 
   const renderChildren = () => {
@@ -54,7 +56,7 @@ export default function CatDropdown(props) {
         {state?.catName || "Filter Category"}
       </Dropdown.Toggle>
       <Dropdown.Menu variant={theme}>
-        <Dropdown.Item eventKey={null}>All</Dropdown.Item>
+        <Dropdown.Item eventKey={-1}>All</Dropdown.Item>
         {dom}
         {renderChildren()}
       </Dropdown.Menu>
