@@ -14,7 +14,7 @@ import { useOutletContext } from "react-router-dom";
 export default function AssetTable(props) {
   const { selectList, setSelectList } = props;
   const [assets, setAssets] = useState([]);
-  const [updated, setUpdated] = useState(false);
+  const { updated, setUpdated } = props;
   const setUp = () => {
     setUpdated(!updated);
   };
@@ -81,7 +81,7 @@ export default function AssetTable(props) {
                 <th width="200px">Date Added</th>
                 <th width="150px">Category</th>
                 <th width="150px">Available</th>
-                <AccessControl allowedRank={Ranks.OPERATOR}>
+                <AccessControl allowedRank={Ranks.OWNER}>
                   <th width="250px">Edit Asset</th>
                 </AccessControl>
               </tr>
