@@ -170,7 +170,7 @@ function EditUser(props) {
       <Row>
         <Col>
           <Button
-            className={!strikeOne ? "redButton" : "greenButton"}
+            className={strikeOne ? "redButton" : "greenButton"}
             onClick={() => {
               toggleStrikeOne();
             }}
@@ -178,7 +178,7 @@ function EditUser(props) {
         </Col>
         <Col>
           <Button
-            className={!strikeTwo ? "redButton" : "greenButton"}
+            className={strikeTwo ? "redButton" : "greenButton"}
             onClick={() => {
               toggleStrikeTwo();
             }}
@@ -186,7 +186,7 @@ function EditUser(props) {
         </Col>
         <Col>
           <Button
-            className={!strikeThree ? "redButton" : "greenButton"}
+            className={strikeThree ? "redButton" : "greenButton"}
             onClick={() => {
               toggleStrikeThree();
             }}

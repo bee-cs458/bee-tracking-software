@@ -5,12 +5,22 @@
     text-align: center;
 }
 
-.redButton {
+.greenButton {
     background-color: green;
     border-color: green;
 }
 
-.greenButton {
+.greenButton:hover {
+    background-color: lightgreen;
+    border-color: green;
+}
+
+.redButton {
     background-color: red;
+    border-color: red;
+}
+
+.redButton:hover {
+    background-color: pink;
     border-color: red;
 }
