@@ -48,6 +48,7 @@ li img {
     margin: 5px;
 }
 
+/* Bind the weather widget to the bottom of the page */
 #weather {
     position: absolute;
     bottom: 10px;

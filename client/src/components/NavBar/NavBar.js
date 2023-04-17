@@ -130,9 +130,10 @@ function NavBar(props) {
           </Modal.Body>
         </Modal>
 
+        {/* Weather Widget */}
         <li id="weather">
           <WeatherWidget
-            crossorigin
+            crossorigin="anonymous"  // Required for CORS
             apiKey={"b3cd383e1a41099de4513c032475c2ea"}
           />
         </li>
