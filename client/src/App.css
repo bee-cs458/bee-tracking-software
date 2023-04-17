@@ -45,12 +45,12 @@
   color: #333;
 }
 
-.shrunk {
+.shrunk { /*the width of the view pane with a shrunk Nav Bar*/
   width: calc(100vw - 100px);
   float: right;
 }
 
-.full {
+.full { /*the width of the view pane with a full Nav Bar*/
   width: calc(100vw - 250px);
   float: right;
 }

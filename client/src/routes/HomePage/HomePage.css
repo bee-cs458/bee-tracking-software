@@ -42,13 +42,6 @@
   height: 100vh;
 }
 
-.main-content-assets-shrunk {
-  margin-left: 50px;
-  text-align: left;
-  padding-top: 60px;
-  padding-left: 10px;
-  height: 100vh;
-}
 
 .asset-table {
   width: calc (100vw - 250px);

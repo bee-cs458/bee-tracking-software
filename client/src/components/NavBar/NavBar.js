@@ -33,6 +33,9 @@ function NavBar(props) {
   }
 
   function handleCollapse(){
+    //the collapse Boolean changes various display elements
+    //there are ternary functions in the return below that utilize it
+    //it also raises into App.js so the Outlet knows it can expand into the new space.
     setCollapse(!collapse);
   }
 
