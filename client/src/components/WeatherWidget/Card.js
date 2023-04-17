@@ -57,10 +57,8 @@ const WeatherIndicator = ({ apiKey }) => {
         </div>
       </div>
     );
-  } else if (lat !== null && lon !== null) {
-    return <div>Loading...</div>;
   } else {
-    return <div>Location not found</div>;
+    return <></>;
   }
 };
 
