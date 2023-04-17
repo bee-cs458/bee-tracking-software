@@ -7,7 +7,7 @@ const WeatherIndicator = ({ apiKey, city }) => {
   useEffect(() => {
     const fetchWeatherData = async () => {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=all`,
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`,
         { withCredentials: false }
       );
 
@@ -34,7 +34,7 @@ const WeatherIndicator = ({ apiKey, city }) => {
           src={`http://openweathermap.org/img/w/${icon}.png`}
           alt={weatherCondition}
         />
-        <p>Temperature: {temperature}&deg;C</p>
+        <p>Temperature: {temperature}&deg;F</p>
         <p>Condition: {weatherCondition}</p>
       </div>
     </div>
