@@ -9,6 +9,8 @@ export default function WeatherWidget({ apiKey }) {
   const [lon, setLon] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Initial render
+  // Get location from browser
   useEffect(() => {
     getLocation();
   }, []);
@@ -18,11 +20,16 @@ export default function WeatherWidget({ apiKey }) {
   }, [lat, lon]);
 
   function getLocation() {
+    // Set loading to true
     setLoading(true);
 
+    // Get current position
+    // Pass success and error callbacks
+    // If geolocation is not supported, set loading to null
     setLat(
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          // Set latitude and longitude
           setLat(position.coords.latitude);
           setLon(position.coords.longitude);
         },
@@ -34,17 +41,23 @@ export default function WeatherWidget({ apiKey }) {
     );
   }
 
+  // Fetch weather data from OpenWeatherMap
+  // API: https://openweathermap.org/current
   async function fetchWeatherData() {
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`,
+      // Disable credentials
       { withCredentials: false }
     );
 
+    // Set weather data
     setWeatherData(response.data);
 
+    // Set loading to false if weather data is available
     setLoading(false);
   }
 
+  // Convert string to title case
   function toTitleCase(str) {
     return str.replace(/\w\S*/g, function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -54,6 +67,7 @@ export default function WeatherWidget({ apiKey }) {
   if (loading) return <LoadingSpinner size={"2rem"} />;
   else if (loading === null) return <></>;
   else if (weatherData) {
+    // Destructure weather data
     const { main, weather } = weatherData;
     const temperature = main.temp;
     const weatherCondition = toTitleCase(weather[0].description);
@@ -63,11 +77,14 @@ export default function WeatherWidget({ apiKey }) {
       <>
         <div className="WeatherWidget">
           <div>
+            {/* Weather icon */}
             <img
               src={`http://openweathermap.org/img/w/${icon}.png`}
               alt={weatherCondition}
             />
+            {/* Temperature */}
             <div>{temperature}&deg;F</div>
+            {/* Weather condition */}
             <div>{weatherCondition}</div>
           </div>
         </div>
