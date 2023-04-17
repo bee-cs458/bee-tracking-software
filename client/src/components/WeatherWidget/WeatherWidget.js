@@ -15,6 +15,8 @@ export default function WeatherWidget({ apiKey }) {
     getLocation();
   }, []);
 
+  // If lat and lon are changed, fetch weather data
+  // Both must be valid at the same time
   useEffect(() => {
     if (lat && lon) fetchWeatherData();
   }, [lat, lon]);
