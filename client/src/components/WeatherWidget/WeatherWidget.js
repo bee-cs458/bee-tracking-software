@@ -36,7 +36,7 @@ export default function WeatherWidget({ apiKey }) {
           setLon(position.coords.longitude);
         },
         () => {
-          console.error("Geolocation is not supported by this browser.");
+          console.error("WeatherWidget: Geolocation is not supported.");
           setLoading(null);
         }
       )
