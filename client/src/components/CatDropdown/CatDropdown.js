@@ -5,7 +5,7 @@ import { useOutletContext } from "react-router-dom";
 
 export default function CatDropdown(props) {
   // we lifted the state up
-  const { state, update, categories, updateCategories } = props;
+  const { state, update, categories, updateCategories, children } = props;
 
   const [dom, updateDom] = useState("Loading...");
   const [theme] = useOutletContext();
@@ -13,6 +13,17 @@ export default function CatDropdown(props) {
   const handleChange = (eventKey) => {
     // eventKey is the index
     update(categories[eventKey]);
+  };
+
+  const renderChildren = () => {
+    if (children) {
+      return (
+        <>
+          <Dropdown.Divider />
+          {children}
+        </>
+      );
+    }
   };
 
   // Executes getCategory once when it first runs, because the array is empty
@@ -43,10 +54,9 @@ export default function CatDropdown(props) {
         {state?.catName || "Filter Category"}
       </Dropdown.Toggle>
       <Dropdown.Menu variant={theme}>
-        <Dropdown.Item eventKey={null}>
-          All
-        </Dropdown.Item>
+        <Dropdown.Item eventKey={null}>All</Dropdown.Item>
         {dom}
+        {renderChildren()}
       </Dropdown.Menu>
     </Dropdown>
   );

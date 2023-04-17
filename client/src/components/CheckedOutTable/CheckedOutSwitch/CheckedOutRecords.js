@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import "./CheckedOutSwitch.css";
-
 const CheckedOut = (props) => {
   const checked = props.state;
   const setChecked = props.update;

@@ -1,36 +1,25 @@
 .App {
-    text-align: center;
-}
-
-.header-container {
-    display: flex;
-    position: fixed; 
-    flex-direction: row;
-    height: 45px;
-    width:100vw;
-    align-items: center;
-    margin-left: 250px;
-    background-color: #004990;
+  text-align: center;
 }
 
 .main-content {
-    overflow: auto;
-    margin-left: 250px;
-    text-align: left;
-    padding-top:60px;
-    padding-left:10px;
-    height: 100vh;
+  overflow: auto;
+  margin-left: 250px;
+  text-align: left;
+  padding-top: 60px;
+  padding-left: 10px;
+  height: 100vh;
 }
 
 .clearAll {
-    float: left;
+  float: left;
 }
 
 .checkIn {
-    float: right;
-    margin-right: 15px;
+  float: right;
+  margin-right: 15px;
 }
 
 .search {
-    margin-bottom:8px;
+  margin-bottom: 8px;
 }

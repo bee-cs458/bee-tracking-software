@@ -12,6 +12,7 @@ import {
   Tooltip,
   Button,
   Modal,
+  Dropdown,
 } from "react-bootstrap";
 import { useEffect } from "react";
 import getCategories from "../../api/CategoryService";
@@ -19,7 +20,11 @@ import { AccessControl } from "../../components/AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
 import AssetAsyncCSV from "../../components/ExportCSV/ExportAssetCSV";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle, faStoreSlash, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlusCircle,
+  faStoreSlash,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
@@ -114,26 +119,32 @@ export default function HomePage(props) {
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
               </button>
             </Col>
-            <Col style={{ display: "flex", flexDirection: "row" }} className="mb-2 align-items-center">
+            <Col
+              style={{ display: "flex", flexDirection: "row" }}
+              className="mb-2 align-items-center"
+            >
               <CatDropdown
                 state={currentCategory}
                 update={updateCategory}
                 categories={categories}
                 updateCategories={updateCategories}
-              ></CatDropdown>
-              <CheckedOut state={checked} update={setChecked}></CheckedOut>
-              <AccessControl allowedRank={Ranks.OPERATOR}>
-                <div id="inputPreview">
-                  <input name="cssCheckbox" id="showcart" type="checkbox" className="css-checkbox" onClick={handleByCart} />
-                  <label for="showcart">Cart Only</label>
-                </div>
-              </AccessControl>
-
+              >
+                <Dropdown.Item onClick={handleByCart} active={byCart}>
+                  Filter by your Cart
+                </Dropdown.Item>
+                <CheckedOut state={checked} update={setChecked}></CheckedOut>
+              </CatDropdown>
             </Col>
-            <Col style={{ display: "flex", flexDirection: "row" }} className="mb-2 justify-content-end">
+            <Col
+              style={{ display: "flex", flexDirection: "row" }}
+              className="mb-2 justify-content-end"
+            >
               <AccessControl allowedRank={Ranks.OWNER}>
                 <OverlayTrigger placement="top" overlay={tooltip("Add Asset")}>
-                  <Button className="beets_buttons icon-button" onClick={handleShow}>
+                  <Button
+                    className="beets_buttons icon-button"
+                    onClick={handleShow}
+                  >
                     <FontAwesomeIcon
                       icon={faPlusCircle}
                       style={{ color: "#ffffff" }}
@@ -153,7 +164,10 @@ export default function HomePage(props) {
 
               <AccessControl allowedRank={Ranks.OPERATOR}>
                 <OverlayTrigger placement="top" overlay={tooltip("Clear Cart")}>
-                  <Button className="beets_buttons icon-button" onClick={clearSelection}>
+                  <Button
+                    className="beets_buttons icon-button"
+                    onClick={clearSelection}
+                  >
                     <FontAwesomeIcon
                       icon={faStoreSlash}
                       style={{ color: "#ffffff" }}

@@ -1,45 +1,33 @@
 .App {
-    text-align: center;
-}
-
-.header-container {
-    display: flex;
-    position: fixed; 
-    flex-direction: row;
-    height: 45px;
-    width: 100vw;
-    align-items: center;
-    margin-left: 250px;
-    background-color: #004990;
-    z-index: 5;
+  text-align: center;
 }
 
 .main-content-user {
-    overflow: auto;
-    margin-left: 250px;
-    text-align: left;
-    padding-top: 60px;
-    padding-left: 10px;
-    padding-right: 20px;
-    height: 100vh;
+  overflow: auto;
+  margin-left: 250px;
+  text-align: left;
+  padding-top: 60px;
+  padding-left: 10px;
+  padding-right: 20px;
+  height: 100vh;
 }
 
 .user-actions {
-    margin: 5px;
+  margin: 5px;
 }
 
 .actions {
-    font-weight: bolder;
+  font-weight: bolder;
 }
 
 .users {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .add-user {
-    margin-left:12px;
+  margin-left: 12px;
 }
 
 .search-user {
-    margin-left: 0px;
+  margin-left: 0px;
 }
