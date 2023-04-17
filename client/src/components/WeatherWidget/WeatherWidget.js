@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { Row, Col } from "react-bootstrap/Row";
 import "./WeatherWidget.css";
 
 export default function WeatherWidget({ apiKey }) {
@@ -78,20 +79,21 @@ export default function WeatherWidget({ apiKey }) {
     return (
       <>
         <div className="WeatherWidget">
-          <div>
-            {/* Weather icon */}
-            <img
-              src={`http://openweathermap.org/img/w/${icon}.png`}
-              alt={weatherCondition}
-            />
-            {/* Temperature */}
-            <div>
-              {temperature}&deg;F
-              <br />
+          <Row bordered>
+            <Col>
+              {/* Weather icon */}
+              <img
+                src={`http://openweathermap.org/img/w/${icon}.png`}
+                alt={weatherCondition}
+              />
+            </Col>
+            <Col>
+              {/* Temperature */}
+              <Row>{temperature}&deg;F</Row>
               {/* Weather Condition */}
-              {weatherCondition}
-            </div>
-          </div>
+              <Row>{weatherCondition}</Row>
+            </Col>
+          </Row>
         </div>
       </>
     );
