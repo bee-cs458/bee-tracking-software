@@ -134,7 +134,7 @@ export default function CheckInRow(props) {
             <span>
               <b>Notes: </b>
             </span>
-            {props.notes}
+            {record.notes}
             <br />
             {props.damageNotes}
             {}
