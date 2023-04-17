@@ -130,7 +130,7 @@ function NavBar(props) {
           </Modal.Body>
         </Modal>
 
-        <li className="weather">
+        <li id="weather">
           <WeatherWidget
             crossorigin
             apiKey={"b3cd383e1a41099de4513c032475c2ea"}

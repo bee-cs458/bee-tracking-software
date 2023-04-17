@@ -21,6 +21,7 @@
     font-weight: 500;
     overflow: auto;
     z-index: 1;
+
 }
 
 ul {
@@ -45,4 +46,9 @@ li img {
     float: left;
     padding: 0px;
     margin: 5px;
+}
+
+#weather {
+    position: absolute;
+    bottom: 10px;
 }
