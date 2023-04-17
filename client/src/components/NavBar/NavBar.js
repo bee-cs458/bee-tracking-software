@@ -37,8 +37,8 @@ function NavBar(props) {
         width="200"
       ></img>
       <ul>
-        <li>
-          <Card crossorigin apiKey={"b3cd383e1a41099de4513c032475c2ea"} city={"menomonie"}/>
+        <li style={{ color: "whitesmoke" }} >
+          <Card crossorigin apiKey={"b3cd383e1a41099de4513c032475c2ea"}/>
         </li>
         <li>
           <DarkModeSwitch onChange={handleClick} />

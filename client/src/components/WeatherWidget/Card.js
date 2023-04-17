@@ -1,44 +1,67 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const WeatherIndicator = ({ apiKey, city }) => {
+const WeatherIndicator = ({ apiKey }) => {
   const [weatherData, setWeatherData] = useState(null);
+  const [lat, setLat] = useState(null);
+  const [lon, setLon] = useState(null);
+
+  // Initial render
+  // Get location from browser
+  useEffect(() => {
+    getLocation();
+  }, []);
 
   useEffect(() => {
-    const fetchWeatherData = async () => {
-      const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`,
-        { withCredentials: false }
+    if (lat && lon) fetchWeatherData();
+  }, [lat, lon]);
+
+  // Get location from browser
+  // Set lat and lon
+  function getLocation() {
+    if (navigator.geolocation) {
+      setLat(
+        navigator.geolocation.getCurrentPosition((position) => {
+          setLat(position.coords.latitude);
+          setLon(position.coords.longitude);
+        })
       );
-
-      setWeatherData(response.data);
-    };
-
-    fetchWeatherData();
-  }, [apiKey, city]);
-
-  if (!weatherData) {
-    return <div style={{ color: "whitesmoke" }}>Loading weather data...</div>;
+    }
   }
 
-  const { main, weather } = weatherData;
-  const temperature = main.temp;
-  const weatherCondition = weather[0].description;
-  const icon = weather[0].icon;
+  const fetchWeatherData = async () => {
+    const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`,
+      { withCredentials: false }
+    );
 
-  return (
-    <div style={{ color: "whitesmoke" }}>
-      <h2>Weather</h2>
+    setWeatherData(response.data);
+  };
+
+  if (weatherData) {
+    const { main, weather } = weatherData;
+    const temperature = main.temp;
+    const weatherCondition = weather[0].description;
+    const icon = weather[0].icon;
+
+    return (
       <div>
-        <img
-          src={`http://openweathermap.org/img/w/${icon}.png`}
-          alt={weatherCondition}
-        />
-        <p>Temperature: {temperature}&deg;F</p>
-        <p>Condition: {weatherCondition}</p>
+        <h2>Weather</h2>
+        <div>
+          <img
+            src={`http://openweathermap.org/img/w/${icon}.png`}
+            alt={weatherCondition}
+          />
+          <p>Temperature: {temperature}&deg;F</p>
+          <p>Condition: {weatherCondition}</p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else if (lat !== null && lon !== null) {
+    return <div>Loading...</div>;
+  } else {
+    return <div>Location not found</div>;
+  }
 };
 
 export default WeatherIndicator;
