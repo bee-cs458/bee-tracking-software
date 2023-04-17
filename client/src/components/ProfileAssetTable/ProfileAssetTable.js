@@ -8,7 +8,7 @@ export default function ProfileAssetTable(props) {
   useEffect(() => {}, [assets]);
 
   return (
-    <Table variant={props.variant} className="w-25">
+    <Table variant={props.variant} className="w-100">
       <thead>
         <tr>
           <th>Tag</th>
