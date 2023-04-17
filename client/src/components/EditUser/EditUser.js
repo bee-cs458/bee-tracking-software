@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import { Form, Row, Col } from "react-bootstrap/esm/";
 import { editUser } from "../../api/UserService";
@@ -9,6 +9,53 @@ function EditUser(props) {
   const [user_id, setId] = useState(user.user_id);
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
+  const [strikeOne, setStrikeOne] = useState(false);
+  const [strikeTwo, setStrikeTwo] = useState(false);
+  const [strikeThree, setStrikeThree] = useState(false);
+
+  function toggleStrikeOne() {
+    if (strikeOne) {
+      if (strikeThree) {
+        setStrikeThree(false);
+        setStrikeTwo(false);
+        setStrikeOne(true);
+      } else if (strikeTwo) {
+        setStrikeTwo(false);
+        setStrikeOne(true);
+      } else {
+        setStrikeOne(false);
+      }
+    } else {
+      setStrikeOne(!strikeOne);
+    }
+  }
+
+  function toggleStrikeTwo() {
+    if (strikeTwo) {
+      if (strikeThree) {
+        setStrikeThree(false);
+        setStrikeTwo(true);
+      } else {
+        setStrikeTwo(false);
+        setStrikeOne(false);
+      }
+    } else {
+      setStrikeTwo(true);
+      setStrikeOne(true);
+    }
+  }
+
+  function toggleStrikeThree() {
+    if (strikeThree) {
+      setStrikeThree(false);
+      setStrikeTwo(false);
+      setStrikeOne(false);
+    } else {
+      setStrikeThree(true);
+      setStrikeTwo(true);
+      setStrikeOne(true);
+    }
+  }
 
   async function handleSubmitUser() {
     await editUser(user.user_id, user_id, firstName, lastName)
@@ -72,6 +119,8 @@ function EditUser(props) {
     setAlertType(null);
   }
 
+  useEffect(() => {}, [strikeOne, strikeTwo, strikeThree]);
+
   return (
     <Form>
       <Row>
@@ -111,6 +160,46 @@ function EditUser(props) {
             }}
           />
         </Form.Group>
+      </Row>
+      <div className="seperator"></div>
+      <Row>
+        <h5>
+          Strikes ({strikeThree ? "3" : strikeTwo ? "2" : strikeOne ? "1" : "0"})
+        </h5>
+      </Row>
+      <Row>
+        <Col>
+          <Button
+            className={!strikeOne ? "redButton" : "greenButton"}
+            onClick={() => {
+              toggleStrikeOne();
+            }}
+          ></Button>
+        </Col>
+        <Col>
+          <Button
+            className={!strikeTwo ? "redButton" : "greenButton"}
+            onClick={() => {
+              toggleStrikeTwo();
+            }}
+          ></Button>
+        </Col>
+        <Col>
+          <Button
+            className={!strikeThree ? "redButton" : "greenButton"}
+            onClick={() => {
+              toggleStrikeThree();
+            }}
+          ></Button>
+        </Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
       </Row>
       <Row>
         <Col></Col>

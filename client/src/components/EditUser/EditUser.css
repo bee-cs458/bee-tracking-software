@@ -4,3 +4,13 @@
     margin-top: 10px;
     text-align: center;
 }
+
+.redButton {
+    background-color: green;
+    border-color: green;
+}
+
+.greenButton {
+    background-color: red;
+    border-color: red;
+}
