@@ -196,8 +196,9 @@ export const deleteAsset = async (req, res, next) => {
   );
 };
 
+// Edit Asset
 export const editAsset = async (req, res, next) => {
-const {oldTag} = req.params;
+  const { oldTag } = req.params;
   const {
     asset_tag,
     name,
@@ -205,7 +206,7 @@ const {oldTag} = req.params;
     damage_notes,
     category,
     operational,
-    advanced
+    advanced,
   } = req.body;
   await query(
     `
@@ -213,8 +214,17 @@ const {oldTag} = req.params;
           SET asset_tag = ?, name = ?, description = ?, damage_notes = ?,category = ?, operational = ?, advanced = ?
           WHERE asset_tag = ?
           `,
-          [asset_tag, name, description, damage_notes, category, operational, advanced, oldTag]
-      ).then(
+    [
+      asset_tag,
+      name,
+      description,
+      damage_notes,
+      category,
+      operational,
+      advanced,
+      oldTag,
+    ]
+  ).then(
     (result) => {
       if (result.affectedRows == 0) {
         next({
@@ -232,12 +242,13 @@ const {oldTag} = req.params;
   );
 };
 
+// Gets all available asset tags
 export const getAllAvailableAssetTags = async (req, res, next) => {
   await query(`
         SELECT asset_tag
         FROM asset
         WHERE checked_out = 0
-        AND operational = 1`,).then(
+        AND operational = 1`).then(
     (result) => {
       res.send({ result });
     }, // on success
@@ -248,11 +259,12 @@ export const getAllAvailableAssetTags = async (req, res, next) => {
   );
 };
 
+// Gets all unavailable asset tags
 export const getAllUnavailableAssetTags = async (req, res, next) => {
   await query(`
         SELECT asset_tag
         FROM asset
-        WHERE checked_out = 1`,).then(
+        WHERE checked_out = 1 OR operational = 0`).then(
     (result) => {
       res.send({ result });
     }, // on success
