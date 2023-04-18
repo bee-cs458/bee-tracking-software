@@ -236,7 +236,8 @@ export const getAllAvailableAssetTags = async (req, res, next) => {
   await query(`
         SELECT asset_tag
         FROM asset
-        WHERE checked_out = 0`,).then(
+        WHERE checked_out = 0
+        AND operational = 1`,).then(
     (result) => {
       res.send({ result });
     }, // on success
