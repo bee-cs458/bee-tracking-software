@@ -53,3 +53,10 @@ li img {
     position: absolute;
     bottom: 10px;
 }
+
+/* Hide the weather widget on small screens */
+@media (max-height: 575px) {
+    .weather-widget-container {
+        display: none;
+    }
+}

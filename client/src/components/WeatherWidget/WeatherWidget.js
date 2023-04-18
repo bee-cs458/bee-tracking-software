@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
-import { Row, Col } from "react-bootstrap/Row";
+import { Row, Col } from "react-bootstrap";
 import "./WeatherWidget.css";
 
 export default function WeatherWidget({ apiKey }) {
   const [weatherData, setWeatherData] = useState(null);
+
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
+
+  // initialize the loading state to true on load
   const [loading, setLoading] = useState(true);
 
   // Initial render
@@ -67,8 +70,11 @@ export default function WeatherWidget({ apiKey }) {
     });
   }
 
+  // if loading, show loading spinner
   if (loading) return <LoadingSpinner size={"2rem"} />;
+  // if geolocation is not supported, show nothing
   else if (loading === null) return <></>;
+  // if weather data is available, show weather widget
   else if (weatherData) {
     // Destructure weather data
     const { main, weather } = weatherData;
@@ -79,19 +85,25 @@ export default function WeatherWidget({ apiKey }) {
     return (
       <>
         <div className="WeatherWidget">
-          <Row bordered>
-            <Col>
+          <Row>
+            <Col xs={3}>
               {/* Weather icon */}
               <img
                 src={`http://openweathermap.org/img/w/${icon}.png`}
                 alt={weatherCondition}
               />
             </Col>
-            <Col>
-              {/* Temperature */}
-              <Row>{temperature}&deg;F</Row>
-              {/* Weather Condition */}
-              <Row>{weatherCondition}</Row>
+            <Col xs={9}>
+              <Row>
+                {/* Temperature */}
+                <div className="text-muted" style={{ fontSize: "14px" }}>
+                  {temperature}&deg;F
+                </div>
+              </Row>
+              <Row>
+                {/* Weather condition */}
+                <div style={{ fontSize: "12px" }}>{weatherCondition}</div>
+              </Row>
             </Col>
           </Row>
         </div>
