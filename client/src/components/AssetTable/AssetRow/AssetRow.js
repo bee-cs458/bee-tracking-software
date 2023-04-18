@@ -29,6 +29,10 @@ function AssetRow(props) {
   const [alertMessage, setAlertMessage] = useState(null);
   const [alertType2, setAlertType2] = useState(null);
   const [alertMessage2, setAlertMessage2] = useState(null);
+  // Asset availability
+  const [available, setAvailable] = useState(
+    asset.checked_out || !asset.operational
+  );
   const handleEditAssetTrue = () => setEditAsset(true);
   const handleEditAssetFalse = () => setEditAsset(false);
   const handleDeleteAssetTrue = () => setDeleteAsset(true);
@@ -109,29 +113,30 @@ function AssetRow(props) {
     cat.category_id === asset.category ? cat.catName : ""
   );
 
+  // Refreshes the available state when the checked_out or operational states change
+  useEffect(() => {
+    setAvailable(asset.checked_out || !asset.operational);
+  }, [asset.checked_out, asset.operational]);
+
   return (
     <tr className={selected ? "table-primary" : null}>
       <AccessControl allowedRank={Ranks.OPERATOR}>
         <td>
           {/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}
           <Button
-            variant={
-              asset.checked_out || !asset.operational ? "danger" : selected ? "success" : "secondary"
-            }
+            variant={available ? "danger" : selected ? "success" : "secondary"}
             onClick={handleSelect}
-            disabled={asset.checked_out || !asset.operational ? true : false}
+            disabled={available ? true : false}
           >
             <img
               alt={
-                asset.checked_out || !asset.operational
+                available
                   ? "Unavailable"
                   : selected
                   ? "Added to Cart"
                   : "Add to Cart"
               }
-              src={
-                asset.checked_out || !asset.operational ? crossedOut : selected ? checkMark : cartIcon
-              }
+              src={available ? crossedOut : selected ? checkMark : cartIcon}
               width="25"
               height="25"
             />
@@ -147,7 +152,7 @@ function AssetRow(props) {
       <td>{asset.description}</td>
       <td>{formattedDate}</td>
       <td>{categoryLabel}</td>
-      <td>{asset.checked_out || !asset.operational ? "No" : "Yes"}</td>
+      <td>{available ? "No" : "Yes"}</td>
       <AccessControl allowedRank={Ranks.OWNER}>
         <td>
           <Button
