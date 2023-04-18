@@ -116,21 +116,21 @@ function AssetRow(props) {
           {/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}
           <Button
             variant={
-              asset.checked_out ? "danger" : selected ? "success" : "secondary"
+              asset.checked_out || !asset.operational ? "danger" : selected ? "success" : "secondary"
             }
             onClick={handleSelect}
-            disabled={asset.checked_out ? true : false}
+            disabled={asset.checked_out || !asset.operational ? true : false}
           >
             <img
               alt={
-                asset.checked_out
+                asset.checked_out || !asset.operational
                   ? "Unavailable"
                   : selected
                   ? "Added to Cart"
                   : "Add to Cart"
               }
               src={
-                asset.checked_out ? crossedOut : selected ? checkMark : cartIcon
+                asset.checked_out || !asset.operational ? crossedOut : selected ? checkMark : cartIcon
               }
               width="25"
               height="25"
@@ -147,7 +147,7 @@ function AssetRow(props) {
       <td>{asset.description}</td>
       <td>{formattedDate}</td>
       <td>{categoryLabel}</td>
-      <td>{!asset.operational || asset.checked_out ? "No" : "Yes"}</td>
+      <td>{asset.checked_out || !asset.operational ? "No" : "Yes"}</td>
       <AccessControl allowedRank={Ranks.OWNER}>
         <td>
           <Button
