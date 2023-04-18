@@ -105,7 +105,9 @@ function AssetRow(props) {
     setSelected(false);
   }, [selectList, selected, setSelectList, asset.asset_tag]); //calls on changes to select list to work with the Clear Selection Button
 
-  var categoryLabel = cats.map((cat) => cat.category_id === asset.category ? cat.catName : "");
+  var categoryLabel = cats.map((cat) =>
+    cat.category_id === asset.category ? cat.catName : ""
+  );
 
   return (
     <tr className={selected ? "table-primary" : null}>
@@ -124,8 +126,8 @@ function AssetRow(props) {
                 asset.checked_out
                   ? "Unavailable"
                   : selected
-                    ? "Added to Cart"
-                    : "Add to Cart"
+                  ? "Added to Cart"
+                  : "Add to Cart"
               }
               src={
                 asset.checked_out ? crossedOut : selected ? checkMark : cartIcon
@@ -136,16 +138,16 @@ function AssetRow(props) {
           </Button>
         </td>
       </AccessControl>
-      <td><Link to={`/asset/${asset.asset_tag}`} state={{ asset, categoryLabel }}>{asset.asset_tag}</Link></td>
+      <td>
+        <Link to={`/asset/${asset.asset_tag}`} state={{ asset, categoryLabel }}>
+          {asset.asset_tag}
+        </Link>
+      </td>
       <td>{asset.name}</td>
       <td>{asset.description}</td>
       <td>{formattedDate}</td>
-      <td>
-        {
-          categoryLabel
-        }
-      </td>
-      <td>{asset.checked_out ? "No" : "Yes"}</td>
+      <td>{categoryLabel}</td>
+      <td>{!asset.operational || asset.checked_out ? "No" : "Yes"}</td>
       <AccessControl allowedRank={Ranks.OWNER}>
         <td>
           <Button
