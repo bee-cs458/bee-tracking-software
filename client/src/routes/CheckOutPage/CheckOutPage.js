@@ -169,13 +169,6 @@ function CheckOutPage() {
         }); //displays error message in the modal*/
     });
     sessionStorage.clear(); //wipes the cart after the items are checked out
-    /*
-        }
-        await doCheckout(currentAssetList.map((asset) => asset.asset_tag), studentId, opId).then( //passes assets, student id and operator id to the query
-            (result) => {
-                handleShow(); //shows the confirmation modal                old things
-            }
-        ).catch((error) => setErrMsg(error.message)) //displays error message in the modal*/
   };
 
   const populateAssetTags = async () => {
