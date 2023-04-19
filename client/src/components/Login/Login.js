@@ -54,7 +54,7 @@ function Login(props) {
       ) : (
         <></>
       )}
-      Username:<br></br>
+      Email Address:<br></br>
       <input id="username" type="text" onKeyDown={handleKeypress} autoFocus></input>
       <br></br>
       Password:<br></br>
