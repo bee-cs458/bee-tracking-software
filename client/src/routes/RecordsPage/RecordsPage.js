@@ -1,10 +1,12 @@
 import RecordTable from "../../components/RecordsUtils/RecordTable.js";
-import { AccountLink } from "../../components/AccountLink/AccountLink.js";
 import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/CheckedOutRecords.js";
 import React, { useState } from "react";
-import { Container, Col, Row } from "react-bootstrap";
-import search from "../../assets/search.png";
+import { Container, Col, Row, Form } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import CheckoutRecordCSV from "../../components/ExportCSV/ExportRecordsCSV.js";
+import { AccessControl } from "../../components/AccessControl/AccessControl.js";
+import { Ranks } from "../../constants/PermissionRanks.js";
 
 export default function RecordsPage() {
   const [checked, setChecked] = useState(false);
@@ -46,69 +48,66 @@ export default function RecordsPage() {
     setendDate(date);
   }
 
+  function handleByCheckedOut() {
+    setChecked(!checked);
+  }
+
   return (
     <div className="App">
       <div className="main-content">
-        <Row>
-          <Col xs={10} className={"search-header"}>
-            <input
-              type="text"
-              onKeyDown={handleKeyPress}
-              className="form-control"
-              id="search"
-              placeholder="Search"
-              name="search"
-            />
-            <button
-              type="submit"
-              onClick={getInputValue}
-              className="btn btn-default"
-            >
-              <img src={search} alt="search" width="22" height="22" />
-            </button>
-          </Col>
-          <Col
-            style={{
-              marginTop: "auto",
-              marginBottom: "auto",
-              marginLeft: "19.4em",
-            }}
-          ></Col>
-        </Row>
-        <div className="row">
-          <div className="col">
-            <CheckedOut state={checked} update={setChecked} />
-          </div>
-          <div className="col">
-            {localStorage.getItem("userPerms") === "2" ? (
-              <CheckoutRecordCSV></CheckoutRecordCSV>
-            ) : (
-              <></>
-            )}
-          </div>
+        <Container fluid className={"mb-2"}>
+          <Row className="align-items-center">
+            <Col xs={8} className="search-header mb-2">
+              <input
+                type="text"
+                onKeyDown={handleKeyPress}
+                className="form-control"
+                id="search"
+                placeholder="Search Records"
+                name="search"
+              />
+              <button
+                type="submit"
+                onClick={getInputValue}
+                className="beets_buttons"
+              >
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              </button>
+            </Col>
+            <Col>
+              <Form.Check
+                onClick={handleByCheckedOut}
+                label="Checked Out"
+              ></Form.Check>
+            </Col>
+            <Col>
+              <AccessControl allowedRank={Ranks.OWNER}>
+                <CheckoutRecordCSV></CheckoutRecordCSV>
+              </AccessControl>
+            </Col>
+          </Row>
 
-          <div className="col">
-            <label htmlFor="start">Start Date:</label>
-            <input
-              type="date"
-              onChange={(e) => handleStartDate(e.target.value)}
-              value={startDate}
-              className="form-control"
-            />
-          </div>
-          <div className="col">
-            <label htmlFor="end">End Date:</label>
-            <input
-              type="date"
-              onChange={(e) => handleEndDate(e.target.value)}
-              value={endDate}
-              className="form-control"
-            />
-          </div>
-          <div className="col"></div>
-          <div className="col"></div>
-          <div className="pt-3"></div>
-        </div>
+          <Row>
+            <Col>
+              <label htmlFor="start">Start Date:</label>
+              <input
+                type="date"
+                onChange={(e) => handleStartDate(e.target.value)}
+                value={startDate}
+                className="form-control"
+              />
+            </Col>
+            <Col>
+              <label htmlFor="end">End Date:</label>
+              <input
+                type="date"
+                onChange={(e) => handleEndDate(e.target.value)}
+                value={endDate}
+                className="form-control"
+              />
+            </Col>
+          </Row>
+        </Container>
         <RecordTable
           filterByCheckedOut={checked}
           inputVal={inputVal}

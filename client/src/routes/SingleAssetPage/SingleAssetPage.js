@@ -15,7 +15,7 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import { Ranks } from "../../constants/PermissionRanks";
 import { SIDE_NAV_WIDTH, TOP_BAR_HEIGHT } from "../../constants/StyleConstants";
 import styles from "./SingleAssetPage.css";
-import CheckoutHistoryTable from "../CheckoutHistoryTable/CheckoutHistoryTable";
+import CheckoutHistoryTable from "../../components/CheckoutHistoryTable/CheckoutHistoryTable";
 
 const SingleAssetPage = () => {
   // Gets the Asset Tag from the URL
