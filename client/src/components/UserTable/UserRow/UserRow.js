@@ -19,6 +19,8 @@ import { Ranks } from "../../../constants/PermissionRanks";
 function UserRow(props) {
   const [user, setUser] = useState(props.item);
   const { popModal, lastUserPromoted, setLastUserPromoted } = props;
+  const [isOpen, setIsOpen] = useState(true);
+
 
   // Holds the state for the "advanced" field's checkbox/switch
   const [advancedChecked, setAdvancedCheck] = useState(user.advanced);
@@ -39,6 +41,24 @@ function UserRow(props) {
   const handleDeleteUserTrue = () => setDeleteUser(true);
   const handleDeleteUserFalse = () => setDeleteUser(false);
 
+
+  // moved delete user bottons to a seperate element for easier manipulation
+  function DeleteButtons(props) {
+
+    return (
+      <Modal.Footer>
+        <Button variant="danger" onClick={handleDeleteUser}>
+          Delete
+        </Button>
+        <> </>
+        <Button variant="secondary" onClick={handleDeleteUserFalse}>
+          Cancel
+        </Button>
+      </Modal.Footer>
+
+    );
+  }
+
   async function handleDeleteUser() {
     await deleteUser(user.user_id).catch((err) => {
       setAlertType2(0);
@@ -47,7 +67,8 @@ function UserRow(props) {
     });
     setAlertType2(3); //sets confirmation error message
     setAlertMessage2("User has been deleted");
-    props.toggleTableChanged(); //updates useState so that the table will render without deleted user
+    // hides buttons from owner once the user has been deleted
+    setIsOpen(!isOpen);
   }
 
   useEffect(() => {
@@ -157,7 +178,7 @@ function UserRow(props) {
       </td>
       <td>
         <AccessControl allowedRank={Ranks.OWNER}>
-          <Button 
+          <Button
             className="beets_buttons" variant="primary" onClick={handleEditUserTrue}>
             Edit User
           </Button>
@@ -192,7 +213,9 @@ function UserRow(props) {
         show={deleteUserVar}
         onHide={handleDeleteUserFalse}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton onClick={() => {
+          props.toggleTableChanged(); //updates useState so that the table will render without deleted user
+        }}>
           <Modal.Title>Delete {user.user_id}?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -200,15 +223,9 @@ function UserRow(props) {
             <ConditionalAlert type={alertType2} message={alertMessage2} />
           </Row>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="danger" onClick={handleDeleteUser}>
-            Delete
-          </Button>
-          <> </>
-          <Button variant="secondary" onClick={handleDeleteUserFalse}>
-            Cancel
-          </Button>
-        </Modal.Footer>
+        <>
+          {isOpen && <DeleteButtons />}
+        </>
       </Modal>
     </tr>
   );
