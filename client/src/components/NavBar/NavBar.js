@@ -214,6 +214,7 @@ function NavBar(props) {
               <WeatherWidget
                 crossorigin="anonymous"
                 apiKey={"b3cd383e1a41099de4513c032475c2ea"}
+                collapsed={collapse}
               />
             </div>
           </li>
