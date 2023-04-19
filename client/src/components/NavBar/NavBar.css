@@ -1,3 +1,4 @@
+/* Navigation Bar Styles */
 .topNav {
   position: fixed;
   height: 10%;
@@ -21,16 +22,9 @@
   font-weight: 500;
   overflow: auto;
   z-index: 1;
-
 }
 
-.navBarList {
-  list-style-type: none;
-  padding-top: 25%;
-  padding-left: 0px;
-}
-
-/*changes the width of the Nav Bar when collapsed is true*/
+/* Changes the width of the Nav Bar when collapsed is true */
 .App-nav-shrunk {
   position: fixed;
   height: 100%;
@@ -42,9 +36,10 @@
   z-index: 1;
 }
 
+.navBarList,
 ul {
   list-style-type: none;
-  padding-top: 20px;
+  padding-top: 25%;
   padding-left: 0px;
 }
 
@@ -66,7 +61,7 @@ li img {
   margin: 5px;
 }
 
-/*changes the display for the nav buttons when the bar is collapsed*/
+/* Changes the display for the nav buttons when the bar is collapsed */
 .collapsed {
   float: none;
   display: block;
@@ -83,13 +78,12 @@ li img {
   margin-left: 8px;
 }
 
-/*flips the arrow for the collapsible Nav Bar*/
+/* Flips the arrow for the collapsible Nav Bar */
 .left {
   transform: rotate(180deg);
 }
 
-
-/* Bind the weather widget to the bottom of the page */
+/* Weather Widget Styles */
 #weather {
   position: absolute;
   bottom: 10px;

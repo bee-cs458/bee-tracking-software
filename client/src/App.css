@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  width: 100vw - 250px;
+  width: calc(100vw - 250px);
 }
 
 .App-logo {
@@ -36,7 +36,6 @@
 .dark {
   background-color: #333;
   color: whitesmoke;
-  
 }
 
 .light {
@@ -44,12 +43,14 @@
   color: #333;
 }
 
-.shrunk { /*the width of the view pane with a shrunk Nav Bar*/
+.shrunk {
+  /* the width of the view pane with a shrunk Nav Bar */
   width: calc(100vw - 100px);
   float: right;
 }
 
-.full { /*the width of the view pane with a full Nav Bar*/
+.full {
+  /* the width of the view pane with a full Nav Bar */
   width: calc(100vw - 250px);
   float: right;
 }
