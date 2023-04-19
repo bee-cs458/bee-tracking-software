@@ -16,7 +16,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 function AssetRow(props) {
@@ -176,7 +175,11 @@ function AssetRow(props) {
           >
             <FontAwesomeIcon icon={faPencil} />
           </Button>
-          <Button variant="danger" onClick={handleDeleteAssetTrue} style={{ marginLeft: "1rem" }}>
+          <Button
+            variant="danger"
+            onClick={handleDeleteAssetTrue}
+            style={{ marginLeft: "1rem" }}
+          >
             <FontAwesomeIcon icon={faTrashCan} />
           </Button>
         </td>
