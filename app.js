@@ -1,42 +1,47 @@
-import express from 'express';
-import session from 'express-session';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import path from 'path';
-import log from 'loglevel';
+import express from "express";
+import session from "express-session";
+import cors from "cors";
+import bodyParser from "body-parser";
+import path from "path";
+import log from "loglevel";
 
-import apiRoutes from './routes/ApiRoutesRoot.js';
-import passport from './utilities/PassportUtilities.js';
+import apiRoutes from "./routes/ApiRoutesRoot.js";
+import passport from "./utilities/PassportUtilities.js";
 
 const app = express();
+const cors = require("cors");
 
 // setup middleware
-app.use(cors());
+app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 // auth session setup
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 86400000,
-    secure: process.env.NODE_ENV !== "development"
-  }
-}));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 86400000,
+      secure: process.env.NODE_ENV !== "development",
+    },
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 // api
-app.use('/api', apiRoutes);
+app.use("/api", apiRoutes);
 
 // client build
-app.use('/', express.static(path.resolve('client/build')));
+app.use("/", express.static(path.resolve("client/build")));
 
 // redirect to client
-app.get('*', (req, res) => res.sendFile(path.resolve('client/build/index.html')));
+app.get("*", (req, res) =>
+  res.sendFile(path.resolve("client/build/index.html"))
+);
 
 // error handler
 app.use((err, req, res, next) => {
@@ -45,6 +50,6 @@ app.use((err, req, res, next) => {
     result: err.result ?? [],
     message: err.message ?? "Unknown error!",
   });
-})
+});
 
 export default app;
