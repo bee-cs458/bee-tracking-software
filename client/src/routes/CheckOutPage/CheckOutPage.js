@@ -87,6 +87,12 @@ function CheckOutPage() {
       setAlertType(0);
       return;
     }
+    if (asset.operational === false) {
+      //checks if asset is operational
+      setAlertMessage("That asset is not operational!");
+      setAlertType(0);
+      return;
+    }
     setCurrentAssetList((prev) => prev.concat(asset)); //sets the current asset list with the new asset
     sessionStorage.setItem(asset.asset_tag, asset.asset_tag);
   };
