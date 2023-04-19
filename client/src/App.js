@@ -5,11 +5,11 @@ import Header from "./components/Header/Header";
 import "./App.css";
 
 const App = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme"));
   const [collapse, setCollapse] = useState(false);
 
   const toggleTheme = () => {
-    if (theme === "light") {
+    if (theme === "light" || theme === undefined) {
       setTheme("dark");
     } else {
       setTheme("light");
@@ -23,7 +23,7 @@ const App = () => {
 
   return (
     <div>
-      <Header switchTheme={toggleTheme} collapse={collapse} setCollapse={setCollapse} />
+      <Header switchTheme={toggleTheme} collapse={collapse} setCollapse={setCollapse} theme={theme} />
       <NavBar mode={theme} collapse={collapse} setCollapse={setCollapse} />
       <div className={collapse ? "shrunk" : "full"}>
         {" "}
