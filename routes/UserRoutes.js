@@ -7,7 +7,8 @@ import {
     updateUserPassword,
     createUser,
     deleteUser,
-    editUser
+    editUser,
+    editUserProfile
 } from "../controllers/UserController.js";
 import { requireBody, restrictTo, requireQuery, filterQuery } from '../controllers/SecurityController.js'
 import express from 'express';
@@ -40,4 +41,5 @@ router.post("/get_all", restrictTo('operator'), getAllUsers);
 
 router.delete("/:id", restrictTo('owner'), deleteUser);
 router.post("/editUser/:oldId", restrictTo("owner"), requireBody('user_id', 'first_name', 'last_name', 'strikes'), editUser);
+router.post("/editUserProfile/:userId", requireBody('first_name', 'last_name'), editUserProfile)
 export default router;

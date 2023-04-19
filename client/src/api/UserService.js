@@ -206,8 +206,7 @@ export async function editUserProfile(user_id, first_name, last_name) {
   try {
     //console.log("Editing the user " + oldId);
 
-    const response = await axios.post("/api/user/editUser/" + user_id, {
-      user_id,
+    const response = await axios.post("/api/user/editUserProfile/" + user_id, {
       first_name,
       last_name,
     });

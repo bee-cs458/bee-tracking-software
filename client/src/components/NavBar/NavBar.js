@@ -14,6 +14,7 @@ import checkIn from "../../assets/checkIn.png";
 import operators from "../../assets/operators.png";
 import logOut from "../../assets/logOut.png";
 import signIn from "../../assets/signIn.png";
+import WeatherWidget from "../WeatherWidget/WeatherWidget";
 import "./NavBar.css";
 
 function NavBar(props) {
@@ -121,6 +122,16 @@ function NavBar(props) {
             </AccessControl>
           </Modal.Body>
         </Modal>
+
+        {/* Weather Widget */}
+        <li id="weather">
+          <div className="weather-widget-container">
+            <WeatherWidget
+              crossorigin="anonymous"
+              apiKey={"b3cd383e1a41099de4513c032475c2ea"}
+            />
+          </div>
+        </li>
       </ul>
     </nav>
   );
