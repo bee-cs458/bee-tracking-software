@@ -4,7 +4,7 @@
  */
 import { useEffect, useState } from "react";
 import { getAllRecords } from "../../api/RecordService";
-import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { Alert, Table } from "react-bootstrap";
 import { useOutletContext } from "react-router-dom";
 import { formatDate } from "../../constants/FormatUtilities";
@@ -34,9 +34,7 @@ const CheckoutHistoryTable = ({ asset }) => {
     }
   }, [checkoutHistory]);
 
-  useEffect(() => {
-
-  }, [isLoading])
+  useEffect(() => {}, [isLoading]);
 
   return (
     <>
@@ -46,8 +44,10 @@ const CheckoutHistoryTable = ({ asset }) => {
       ) : (
         <>
           {/**Renders an alert if there is no checkout history */}
-          {checkoutHistory.length === 0 ? <Alert variant={"dark"}>This asset has no checkout history. </Alert> :
-            < Table striped variant={theme}>
+          {checkoutHistory.length === 0 ? (
+            <Alert variant={"dark"}>This asset has no checkout history. </Alert>
+          ) : (
+            <Table striped variant={theme}>
               <thead>
                 <tr>
                   <th>Record ID</th>
@@ -71,11 +71,9 @@ const CheckoutHistoryTable = ({ asset }) => {
                 ))}
               </tbody>
             </Table>
-
-          }
+          )}
         </>
-      )
-      }
+      )}
     </>
   );
 };
