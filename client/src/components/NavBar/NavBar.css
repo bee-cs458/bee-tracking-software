@@ -22,6 +22,7 @@
     overflow: auto;
     z-index: 1;
 }
+
 /*changes the width of the Nav Bar when collapsed is true*/
 .App-nav-shrunk {
     position: fixed;
@@ -34,7 +35,7 @@
     z-index: 1;
 }
 
-ul {
+.navBarList {
     list-style-type: none;
     padding-top: 20px;
     padding-left: 0px;
@@ -80,3 +81,16 @@ li img {
     transform: rotate(180deg);
 }
 
+
+/* Bind the weather widget to the bottom of the page */
+#weather {
+    position: absolute;
+    bottom: 10px;
+}
+
+/* Hide the weather widget on small screens */
+@media (max-height: 575px) {
+    .weather-widget-container {
+        display: none;
+    }
+}

@@ -17,6 +17,7 @@ import operators from "../../assets/operators.png";
 import logOut from "../../assets/logOut.png";
 import signIn from "../../assets/signIn.png";
 import doubleArrow from "../../assets/double-arrow.png";
+import WeatherWidget from "../WeatherWidget/WeatherWidget";
 import "./NavBar.css";
 
 function NavBar(props) {
@@ -49,7 +50,7 @@ function NavBar(props) {
         className="logo-image"
       ></img>
       <div className={collapse?"collapsed":null}>
-        <ul>
+        <ul className="navBarList">
           <li>
             <DarkModeSwitch onChange={handleClick} collapse={collapse}/>
           </li>
@@ -147,7 +148,17 @@ function NavBar(props) {
               </AccessControl>
             </Modal.Body>
           </Modal>
-        </ul>
+  
+        {/* Weather Widget */}
+        <li id="weather">
+          <div className="weather-widget-container">
+            <WeatherWidget
+              crossorigin="anonymous"
+              apiKey={"b3cd383e1a41099de4513c032475c2ea"}
+            />
+          </div>
+        </li>
+      </ul>
       </div>
     </nav>
   );

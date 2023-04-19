@@ -1,17 +1,61 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import { Form, Row, Col } from "react-bootstrap/esm/";
 import { editUser } from "../../api/UserService";
 import "./EditUser.css";
 
 function EditUser(props) {
+  // set props and the useState Functions
   const { user, setUser, setAlertType, setAlertMessage } = props;
   const [user_id, setId] = useState(user.user_id);
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
+  const [updatePassword, setUpdatePass] = useState(user.updatePass);
+  const [strikes, setStrikes] = useState(user.strikes);
 
+  /**
+   * When button one is pressed sets strikes state to 1 if not 1, and sets strikes state to 0 if 1
+   */
+  function toggleStrikeOne() {
+    if (strikes === 1) {
+      setStrikes(0);
+    } else {
+      setStrikes(1);
+    }
+  }
+
+  /**
+   * When button two is pressed sets strikes state to 2 if not 2, and sets strikes state to 0 if 2
+   */
+  function toggleStrikeTwo() {
+    if (strikes === 2) {
+      setStrikes(0);
+    } else {
+      setStrikes(2);
+    }
+  }
+
+  /**
+   * When button one is pressed sets strikesstate  to 3 if not 3, and sets strikes state to 0 if 3 or greater
+   */
+  function toggleStrikeThree() {
+    if (strikes >= 3) {
+      setStrikes(0);
+    } else {
+      setStrikes(3);
+    }
+  }
+
+  // HANDLE FUNCTIONS
   async function handleSubmitUser() {
-    await editUser(user.user_id, user_id, firstName, lastName)
+    await editUser(
+      user.user_id,
+      user_id,
+      firstName,
+      lastName,
+      strikes,
+      updatePassword
+    )
       .then(() => {
         if (user_id >= 0) {
           setUser(
@@ -19,6 +63,8 @@ function EditUser(props) {
               user_id,
               first_name: firstName,
               last_name: lastName,
+              strikes: strikes,
+              updatePass: updatePassword,
             })
           );
         }
@@ -53,6 +99,13 @@ function EditUser(props) {
         }
       });
   }
+  // changes the updatePass value when the switch is flipped
+  function handleUpdatePass(switchValue) {
+    // update the state of the password value
+    setUpdatePass(1 - switchValue);
+    setAlertMessage(null);
+    setAlertType(null);
+  }
 
   function handleIdChange(newVal) {
     setId(newVal);
@@ -71,6 +124,9 @@ function EditUser(props) {
     setAlertMessage(null);
     setAlertType(null);
   }
+
+  //renders page when strikes changes
+  useEffect(() => {}, [strikes]);
 
   return (
     <Form>
@@ -112,8 +168,63 @@ function EditUser(props) {
           />
         </Form.Group>
       </Row>
+      <div className="seperator"></div>
       <Row>
+        <Col>
+          <h5>Strikes ({strikes})</h5>
+        </Col>
+        <Col>
+          <h5>Password Reset</h5>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Button
+            className={strikes > 0 ? "redButton" : "greenButton"}
+            onClick={() => {
+              toggleStrikeOne();
+            }}
+          ></Button>
+        </Col>
+        <Col>
+          <Button
+            className={strikes > 1 ? "redButton" : "greenButton"}
+            onClick={() => {
+              toggleStrikeTwo();
+            }}
+          ></Button>
+        </Col>
+        <Col>
+          <Button
+            className={strikes > 2 ? "redButton" : "greenButton"}
+            onClick={() => {
+              toggleStrikeThree();
+            }}
+          ></Button>
+        </Col>
         <Col></Col>
+        <Col></Col>
+        <Col>
+          <Form.Check as={Col} controlId="UpdatePassword">
+            <Form.Check
+              // this switch will determine whether the user is flagged for a password reset
+              type="switch"
+              id="passwordResetSwitch"
+              // state is based on the user data
+              checked={updatePassword}
+              // when the switch is flipped the updatePassword value will update
+              onChange={() => {
+                handleUpdatePass(updatePassword);
+              }}
+            />
+          </Form.Check>
+        </Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+      </Row>
+      <Row>
         <Col></Col>
         <Col></Col>
         <Button

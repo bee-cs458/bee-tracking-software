@@ -11,6 +11,7 @@ import {
   checkInAssetWithNotes,
   getCheckoutRecordsByUserID,
   getCheckoutRecordsByTag,
+  checkInAssetWithDamageNotes,
 } from "../../api/CheckInServices";
 import CheckInTable from "../../components/CheckInUtilities/CheckInTable";
 import getCategories from "../../api/CategoryService";
@@ -127,26 +128,31 @@ export default function CheckInPage() {
   const checkIn = async (asset) => {
     setDisabledButton(true);
     const today = new Date();
-    await checkInAssetWithNotes(
-      asset.record_id,
-      notes,
-      asset.operational,
-      asset.damage_notes +
-        "\n" +
-        (today.getMonth() + 1) +
-        "-" +
-        today.getDate() +
-        "-" +
-        today.getFullYear() +
-        ": " +
-        asset.notes
-    ).then(() => setDisabledButton(false));
+    if (asset.notes != null) //if the asset has any new damage notes.
+      await checkInAssetWithDamageNotes(
+        asset.record_id,
+        notes,
+        asset.operational,
+        asset.damage_notes + //adds the date and new notes to the old notes string.
+          "\n" +
+          (today.getMonth() + 1) +
+          "-" +
+          today.getDate() +
+          "-" +
+          today.getFullYear() +
+          ": " +
+          asset.notes 
+      ).then(() => setDisabledButton(false)); //makes the buttons on the page no longer disabled
+    else //if the asset doesn't have any new damage notes
+      await checkInAssetWithNotes(asset.record_id, notes).then(() =>
+        setDisabledButton(false) //makes the buttons on the page no longer disabled
+      );
 
     const overDue = await getOverdue(asset.record_id);
 
     if (overDue.overdue) {
       incrementUserStrikes(overDue.student_id);
-      setStrikes(strikes + 1);
+      setStrikes(strikes + 1)
     }
     setDisabledButton(false);
   };
@@ -210,11 +216,6 @@ export default function CheckInPage() {
 
   return (
     <div>
-      <div className="header-container">
-        <div style={{ marginLeft: "70%" }}>
-          <AccountLink />
-        </div>
-      </div>
       <div className="main-content-checkin">
         <h1 className="mb-3">Check In Equipment</h1>
         <Form>
@@ -273,8 +274,11 @@ export default function CheckInPage() {
                   handleIDChange(event.target.value);
                 }}
               />
-              <Button 
-            className="beets_buttons" onClick={handleIDPress} disabled={disabledButton}>
+              <Button
+                className="beets_buttons"
+                onClick={handleIDPress}
+                disabled={disabledButton}
+              >
                 Submit
               </Button>
             </Form.Group>

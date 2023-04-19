@@ -1,5 +1,5 @@
 .App {
-    text-align: center;
+  text-align: center;
 }
 
 .header-container {
@@ -13,31 +13,32 @@
 }
 
 .main-content-checkin {
-    overflow: auto;
-    text-align: left;
-    padding-top: 60px;
-    padding-left: 10px;
-    padding-right: 15px;
-    height: 100vh;
+  overflow: auto;
+  margin-left: 250px;
+  text-align: left;
+  padding-top: 60px;
+  padding-left: 10px;
+  padding-right: 15px;
+  height: 100vh;
 }
 
 .clearAll {
-    float: left;
+  float: left;
 }
 
 .checkIn {
-    float: right;
-    margin-right: 15px;
+  float: right;
+  margin-right: 15px;
 }
 
 .search {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .notes {
-    margin-left: 3px;
+  margin-left: 3px;
 }
 
 td {
-    font-size: 20px;
+  font-size: 20px;
 }

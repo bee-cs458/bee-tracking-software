@@ -87,6 +87,12 @@ function CheckOutPage() {
       setAlertType(0);
       return;
     }
+    if (asset.operational === 0) {
+      //checks if asset is operational
+      setAlertMessage("That asset is not operational!");
+      setAlertType(0);
+      return;
+    }
     setCurrentAssetList((prev) => prev.concat(asset)); //sets the current asset list with the new asset
     sessionStorage.setItem(asset.asset_tag, asset.asset_tag);
   };
@@ -169,13 +175,6 @@ function CheckOutPage() {
         }); //displays error message in the modal*/
     });
     sessionStorage.clear(); //wipes the cart after the items are checked out
-    /*
-        }
-        await doCheckout(currentAssetList.map((asset) => asset.asset_tag), studentId, opId).then( //passes assets, student id and operator id to the query
-            (result) => {
-                handleShow(); //shows the confirmation modal                old things
-            }
-        ).catch((error) => setErrMsg(error.message)) //displays error message in the modal*/
   };
 
   const populateAssetTags = async () => {
@@ -218,11 +217,6 @@ function CheckOutPage() {
   useEffect(() => {}, [availableAssetTags, cats]);
   return (
     <div>
-      <div className="header-container">
-        <div style={{ marginLeft: "70%" }}>
-          <AccountLink />
-        </div>
-      </div>
       <div className="main-content-checkout">
         <h1 className="mb-3">Check Out Equipment</h1>
         <Form autoComplete="off">
