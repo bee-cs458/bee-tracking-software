@@ -1,6 +1,8 @@
 import { FormCheck } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
+import { useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 
 const DarkModeSwitch = (props) => {
   return (
@@ -24,6 +26,7 @@ const DarkModeSwitch = (props) => {
         type="switch"
         id="theme-switch"
         onChange={props.onChange}
+        checked={props.theme === "dark" ? true : false}
       />
       <FontAwesomeIcon
         icon={faMoon}
