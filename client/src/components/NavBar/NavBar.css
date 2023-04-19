@@ -21,6 +21,13 @@
     font-weight: 500;
     overflow: auto;
     z-index: 1;
+
+}
+
+.navBarList {
+    list-style-type: none;
+    padding-top: 25%;
+    padding-left: 0px;
 }
 
 /*changes the width of the Nav Bar when collapsed is true*/
@@ -35,7 +42,7 @@
     z-index: 1;
 }
 
-.navBarList {
+ul {
     list-style-type: none;
     padding-top: 20px;
     padding-left: 0px;
@@ -46,8 +53,6 @@ li a {
     color: white;
     text-decoration: none;
     padding: 15px;
-    padding-left: 20px;
-    height: 60px;
 }
 
 li a:hover {
@@ -60,6 +65,7 @@ li img {
     padding: 0px;
     margin: 5px;
 }
+
 /*changes the display for the nav buttons when the bar is collapsed*/
 .collapsed {
     float: none;
@@ -76,8 +82,9 @@ li img {
     display: block;
     margin-left: 8px;
 }
+
 /*flips the arrow for the collapsible Nav Bar*/
-.left { 
+.left {
     transform: rotate(180deg);
 }
 

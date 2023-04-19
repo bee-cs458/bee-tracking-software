@@ -3,14 +3,14 @@
 }
 
 .header-container {
-    display: flex;
-    position: fixed; 
-    flex-direction: row;
-    height: 45px;
-    width:60vw;
-    align-items: center;
-    background-color: #6486A9;
-    z-index: 4;
+  display: flex;
+  position: fixed;
+  flex-direction: row;
+  height: 45px;
+  width: 60vw;
+  align-items: center;
+  background-color: #6486A9;
+  z-index: 4;
 }
 
 .main-content {

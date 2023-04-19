@@ -3,13 +3,13 @@
 }
 
 .header-container {
-    display: flex;
-    position: fixed; 
-    flex-direction: row;
-    height: 45px;
-    width: 100vw;
-    align-items: center;
-    background-color: #004990;
+  display: flex;
+  position: fixed;
+  flex-direction: row;
+  height: 45px;
+  width: 100vw;
+  align-items: center;
+  background-color: #004990;
 }
 
 .main-content-checkout {

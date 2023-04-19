@@ -73,35 +73,35 @@ export default function AssetTable(props) {
             <thead>
               <tr>
                 <AccessControl allowedRank={Ranks.OPERATOR}>
-                  <td >Cart</td>
+                  <td>Cart</td>
                 </AccessControl>
-                <th >Tag</th>
-                <th >Name</th>
-                <th >Description</th>
+                <th>Tag</th>
+                <th>Name</th>
+                <th>Description</th>
                 <th>Date Added</th>
-                <th >Category</th>
-                <th >Available</th>
+                <th>Category</th>
+                <th>Available</th>
                 <AccessControl allowedRank={Ranks.OWNER}>
-                  <th >Options</th>
+                  <th>Options</th>
                 </AccessControl>
               </tr>
             </thead>
             <tbody>
               {props.filterByCart //if filter by cart (no need to filter by both, all cart assets are available)
                 ? assets
-                  .filter((asset) => selectList.includes(asset.asset_tag))
-                  .map((asset) => (
-                    <AssetRow
-                      key={asset.asset_tag}
-                      item={asset}
-                      setUp={setUp}
-                      selectList={selectList}
-                      setSelectList={setSelectList}
-                      categoryList={props.categoryList}
-                    ></AssetRow>
-                  ))
+                    .filter((asset) => selectList.includes(asset.asset_tag))
+                    .map((asset) => (
+                      <AssetRow
+                        key={asset.asset_tag}
+                        item={asset}
+                        setUp={setUp}
+                        selectList={selectList}
+                        setSelectList={setSelectList}
+                        categoryList={props.categoryList}
+                      ></AssetRow>
+                    ))
                 : props.filterByCheckedOut //if filter by checked out
-                  ? assets
+                ? assets
                     .filter((asset) => asset.checked_out === 0)
                     .map((asset) => (
                       <AssetRow
@@ -113,7 +113,7 @@ export default function AssetTable(props) {
                         categoryList={props.categoryList}
                       ></AssetRow>
                     ))
-                  : assets.map(
+                : assets.map(
                     (
                       asset //else, basic output
                     ) => (

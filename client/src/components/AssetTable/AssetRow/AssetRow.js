@@ -176,7 +176,11 @@ function AssetRow(props) {
           >
             <FontAwesomeIcon icon={faPencil} />
           </Button>
-          <Button variant="danger" onClick={handleDeleteAssetTrue} style={{ marginLeft: "1rem" }}>
+          <Button
+            variant="danger"
+            onClick={handleDeleteAssetTrue}
+            style={{ marginLeft: "1rem" }}
+          >
             <FontAwesomeIcon icon={faTrashCan} />
           </Button>
         </td>
