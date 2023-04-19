@@ -96,7 +96,7 @@ export default function WeatherWidget({ apiKey }) {
             <Col xs={9}>
               <Row>
                 {/* Temperature */}
-                <div className="text-muted" style={{ fontSize: "14px" }}>
+                <div style={{ fontSize: "14px" }}>
                   {temperature}&deg;F
                 </div>
               </Row>
