@@ -1,6 +1,27 @@
 .submitButton {
-    background-color: #015FB4;
-    border-color: #015FB4;
-    margin-top: 10px;
-    text-align: center;
+  background-color: #015fb4;
+  border-color: #015fb4;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* green strike buttons */
+.greenButton {
+  background-color: green;
+  border-color: green;
+}
+/* the hover on green strike buttons */
+.greenButton:hover {
+  background-color: lightgreen;
+  border-color: green;
+}
+/* red strike buttons */
+.redButton {
+  background-color: red;
+  border-color: red;
+}
+/* the hover on red strike buttons */
+.redButton:hover {
+  background-color: pink;
+  border-color: red;
 }
