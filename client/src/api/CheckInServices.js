@@ -6,7 +6,6 @@ Calls the API endpoint that gets every Checkout record that is in the database w
 */
 export async function getCheckoutRecords() {
   try {
-
     const response = await axios.get("/api/checkin");
     return response.data.result;
   } catch (error) {
@@ -75,6 +74,25 @@ export async function getAssetsByUserID(userId) {
   }
 }
 
+/**
+ * Function that call axios to query the database to set a checkout record for an asset with the entered notes and current date. Also sets asset to being avaliable.
+ * @param {*} recordId the ID of the asset that is being checked in
+ * @param {*} notes the notes for the checkout record
+ * @returns the result of the query.
+ */
+export async function checkInAssetWithNotes(recordId, notes) {
+  try {
+    //console.log("Getting the most recent checkout record  " + recordId);
+
+    const response = await axios.post("/api/checkin/checkin/" + recordId, {
+      notes,
+    });
+    return response.data.result;
+  } catch (error) {
+    return "Error getting the checkout record " + recordId;
+  }
+}
+
 /* 
 Calls the API endpoint that updates the checkout record by updating the in_date and the notes
 @param recordId the reocord id that will be updated
@@ -82,7 +100,7 @@ Calls the API endpoint that updates the checkout record by updating the in_date 
 @param damage 1 if the asset is still opertional 0 if not
 @param damageNotes any notes of the damages
 */
-export async function checkInAssetWithNotes(
+export async function checkInAssetWithDamageNotes(
   recordId,
   notes,
   damage,
@@ -91,11 +109,14 @@ export async function checkInAssetWithNotes(
   try {
     //console.log("Getting the most recent checkout record  " + recordId);
 
-    const response = await axios.post("/api/checkin/checkin/" + recordId, {
-      notes,
-      damage,
-      damageNotes,
-    });
+    const response = await axios.post(
+      "/api/checkin/checkin/notes/" + recordId,
+      {
+        notes,
+        damage,
+        damageNotes,
+      }
+    );
     return response.data.result;
   } catch (error) {
     return "Error getting the checkout record " + recordId;
