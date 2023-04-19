@@ -123,7 +123,7 @@ function CreateUserForm(props) {
         </Row>
         <Row className="mb-1">
           <Form.Group as={Col} xs={6}>
-            <Form.Label>Username</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control
               type="text"
               id="username"
