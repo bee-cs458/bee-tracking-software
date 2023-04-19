@@ -222,7 +222,7 @@ export const deleteUser = async (req, res, next) => {
 
 export const editUserProfile = async (req, res, next) => {
   const { userId } = req.params;
-  const {first_name, last_name} = req.body;
+  const { first_name, last_name } = req.body;
   await query(
     `
           UPDATE user
