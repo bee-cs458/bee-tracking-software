@@ -84,7 +84,7 @@ function EditUser(props) {
   }
 
   async function handleSubmitUser() {
-    await editUser(user.user_id, user_id, firstName, lastName)
+    await editUser(user.user_id, user_id, firstName, lastName, strikes)
       .then(() => {
         if (user_id >= 0) {
           setUser(
@@ -92,6 +92,7 @@ function EditUser(props) {
               user_id,
               first_name: firstName,
               last_name: lastName,
+              strikes: strikes
             })
           );
         }

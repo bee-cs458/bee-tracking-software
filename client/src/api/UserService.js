@@ -179,7 +179,7 @@ export async function deleteUser(userId) {
   }
 }
 
-export async function editUser(oldId, user_id, first_name, last_name) {
+export async function editUser(oldId, user_id, first_name, last_name, strikes) {
   try {
     try {
       //console.log("Editing the user " + oldId);
@@ -188,6 +188,7 @@ export async function editUser(oldId, user_id, first_name, last_name) {
         user_id,
         first_name,
         last_name,
+        strikes,
       });
       return response.data.result;
     } catch (error) {
