@@ -23,7 +23,7 @@ const App = () => {
 
   return (
     <div>
-      <Header switchTheme={toggleTheme} />
+      <Header switchTheme={toggleTheme} collapse={collapse} setCollapse={setCollapse} />
       <NavBar mode={theme} collapse={collapse} setCollapse={setCollapse} />
       <div className={collapse ? "shrunk" : "full"}>
         {" "}
