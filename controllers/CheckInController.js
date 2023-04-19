@@ -100,7 +100,41 @@ export const checkInAsset = async (req, res, next) => {
   );
 };
 
+/**
+ * for checking in assets that do not have any damage notes to be added to the database.
+ * 
+ */
 export const checkInAssetWithNotes = async (req, res, next) => {
+  const recordId = req.params.id;
+  const notes = req.body.notes;
+  const rightNow = new Date(); //the current date time
+  await query(//query updates the database so that the asset is set as avaliable and adds the checkin date and notes to the checkout record
+    `
+        UPDATE checkoutrecord, asset
+        SET checkoutrecord.in_date = ?, 
+        asset.checked_out = 0, 
+        checkoutrecord.notes = ?
+        WHERE checkoutrecord.record_id = ? and asset.asset_tag = checkoutrecord.asset_tag`,
+    [rightNow, notes, recordId]
+  ).then(
+    (result) => { //error handling
+      if (result.affectedRows == 0) {
+        next({ //eror that is sent when a 404 error is hit
+          status: 404,
+          message: "CheckoutRecord or Asset does not exist",
+        });
+      } else { //otherwise send a 200 message
+        res.status(200).send({ result: [] });
+      }
+    },
+    (reason) => { //generic error message
+      reason.message = `Error updating the database: ${reason.message}`;
+      next(reason);
+    }
+  );
+};
+
+export const checkInAssetWithDamageNotes = async (req, res, next) => {
   const recordId = req.params.id;
   const damage = req.body.damage;
   const notes = req.body.notes;
