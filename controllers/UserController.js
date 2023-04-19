@@ -250,14 +250,14 @@ export const editUserProfile = async (req, res, next) => {
 
 export const editUser = async (req, res, next) => {
   const { oldId } = req.params;
-  const { user_id, first_name, last_name, strikes } = req.body;
+  const { user_id, first_name, last_name, strikes, updatePass } = req.body;
   await query(
     `
           UPDATE user
-          SET user_id = ?, first_name = ?, last_name = ?, strikes = ?
+          SET user_id = ?, first_name = ?, last_name = ?, strikes = ?, updatePass = ?
           WHERE user_id = ?
           `,
-    [user_id, first_name, last_name, strikes, oldId]
+    [user_id, first_name, last_name, strikes, updatePass, oldId]
   ).then(
     (result) => {
       if (result.affectedRows == 0) {

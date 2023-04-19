@@ -5,10 +5,12 @@ import { editUser } from "../../api/UserService";
 import "./EditUser.css";
 
 function EditUser(props) {
+  // set props and the useState Functions
   const { user, setUser, setAlertType, setAlertMessage } = props;
   const [user_id, setId] = useState(user.user_id);
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
+  const [updatePassword, setUpdatePass] = useState(user.updatePass);
   const [strikes, setStrikes] = useState(user.strikes);
 
   /**
@@ -44,8 +46,9 @@ function EditUser(props) {
     }
   }
 
+  // HANDLE FUNCTIONS
   async function handleSubmitUser() {
-    await editUser(user.user_id, user_id, firstName, lastName, strikes)
+    await editUser(user.user_id, user_id, firstName, lastName, strikes, updatePassword)
       .then(() => {
         if (user_id >= 0) {
           setUser(
@@ -54,6 +57,7 @@ function EditUser(props) {
               first_name: firstName,
               last_name: lastName,
               strikes: strikes,
+              updatePass: updatePassword,
             })
           );
         }
@@ -87,6 +91,13 @@ function EditUser(props) {
           setAlertType(0);
         }
       });
+  }
+  // changes the updatePass value when the switch is flipped
+  function handleUpdatePass(switchValue) {
+    // update the state of the password value
+    setUpdatePass(1 - switchValue);
+    setAlertMessage(null);
+    setAlertType(null);
   }
 
   function handleIdChange(newVal) {
@@ -189,6 +200,24 @@ function EditUser(props) {
       </Row>
       <Row>
         <Col></Col>
+        <Col></Col>
+        <Col></Col>
+      </Row>
+      <Row>
+        <Form.Check as={Col} controlId="UpdatePassword">
+          <Form.Label>Password Reset</Form.Label>
+          <Form.Check
+            // this switch will determine whether the user is flagged for a password reset
+            type="switch"
+            id="passwordResetSwitch"
+            // state is based on the user data
+            checked={updatePassword}
+            // when the switch is flipped the updatePassword value will update
+            onChange={() => {
+              handleUpdatePass(updatePassword);
+            }}
+          />
+        </Form.Check>
         <Col></Col>
         <Col></Col>
         <Button
