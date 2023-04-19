@@ -220,16 +220,44 @@ export const deleteUser = async (req, res, next) => {
   );
 };
 
-export const editUser = async (req, res, next) => {
-  const { oldId } = req.params;
-  const { user_id, first_name, last_name } = req.body;
+export const editUserProfile = async (req, res, next) => {
+  const { userId } = req.params;
+  const {first_name, last_name} = req.body;
   await query(
     `
           UPDATE user
-          SET user_id = ?, first_name = ?, last_name = ?
+          SET first_name = ?, last_name = ?
           WHERE user_id = ?
           `,
-    [user_id, first_name, last_name, oldId]
+    [first_name, last_name, userId]
+  ).then(
+    (result) => {
+      if (result.affectedRows == 0) {
+        next({
+          status: 404,
+          message: "User does not exist",
+        });
+      } else {
+        res.status(200).send({ result });
+      }
+    },
+    (reason) => {
+      reason.message = `Error updating the database: ${reason.message}`;
+      next(reason);
+    }
+  );
+};
+
+export const editUser = async (req, res, next) => {
+  const { oldId } = req.params;
+  const { user_id, first_name, last_name, updatePass } = req.body;
+  await query(
+    `
+          UPDATE user
+          SET user_id = ?, first_name = ?, last_name = ?, updatePass = ?
+          WHERE user_id = ?
+          `,
+    [user_id, first_name, last_name, updatePass, oldId]
   ).then(
     (result) => {
       if (result.affectedRows == 0) {
