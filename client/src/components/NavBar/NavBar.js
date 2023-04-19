@@ -53,21 +53,23 @@ function NavBar(props) {
 
   return (
     <nav className={collapse ? "App-nav-shrunk" : "App-nav"}>
-      <img
-        src={
-          props.mode === "light" && !collapse
-            ? logo
-            : !collapse
-            ? logoDark
-            : props.mode === "light" && collapse
-            ? logoShrunk
-            : logoDarkShrunk
-        }
-        alt="logo"
-        height="55px"
-        width={"auto"}
-        className="logo-image"
-      ></img>
+      <Link to="/">
+        <img
+          src={
+            props.mode === "light" && !collapse
+              ? logo
+              : !collapse
+              ? logoDark
+              : props.mode === "light" && collapse
+              ? logoShrunk
+              : logoDarkShrunk
+          }
+          alt="logo"
+          height="55px"
+          width={"auto"}
+          className="logo-image"
+        />
+      </Link>
       <div className={collapse ? "collapsed" : null}>
         <ul className="navBarList">
           <li>
