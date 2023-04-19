@@ -37,11 +37,7 @@ function UserInformation(props) {
 
   //for when the submit button is pressed
   const handleSubmit = async () => {
-    let error = await editUserProfile(
-      user.user_id,
-      newFirstName,
-      newLastName
-    );
+    let error = await editUserProfile(user.user_id, newFirstName, newLastName);
     //If it doesn't see an error send green alert message
     setAlertMessage("User has been updated with these changes!");
     setAlertType(3);

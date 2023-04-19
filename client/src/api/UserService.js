@@ -1,11 +1,9 @@
 import axios from "axios";
 
-
 // GET API FUNCTIONS
 // Returns all Users
 export async function getAllUsers() {
   try {
-
     const response = await axios.get("/api/user/get_all");
 
     return response.data.result;
@@ -16,22 +14,20 @@ export async function getAllUsers() {
 
 // Returns user with matching ID or no users if no mathces
 export async function getUserById(userId) {
-    try {
-  
-      const response = await axios.post("/api/user/get_by_id", {
-        userId: userId,
-      });
-      return response.data.result;
-    } catch (error) {
-      return "Error getting user by ID";
-    }
+  try {
+    const response = await axios.post("/api/user/get_by_id", {
+      userId: userId,
+    });
+    return response.data.result;
+  } catch (error) {
+    return "Error getting user by ID";
   }
-  
+}
+
 // ALlows users to be searched by id, first or last name
 // returns a list of all matching users
 export async function searchingForUsers(input) {
   try {
-
     const response = await axios.get("/api/user/search", {
       params: {
         limit: 1000,
@@ -46,7 +42,6 @@ export async function searchingForUsers(input) {
     return "Error Getting Users by searching from API";
   }
 }
-
 
 // PERMISSION UPDATE FUNCTIONS
 
@@ -116,7 +111,6 @@ async function changeUserPermissions(userId, newPermissions) {
   }
 }
 
-
 // CREATE, DELETE AND UPDATE FUNCTIONS
 /**
  * Given a user object, creates a new user in the database
@@ -148,39 +142,38 @@ export async function deleteUser(userId) {
 }
 // updates multiple user fields
 export async function editUser(
-    oldId,
-    user_id,
-    first_name,
-    last_name,
-    updatePass
-  ) 
-  {
-
+  oldId,
+  user_id,
+  first_name,
+  last_name,
+  strikes,
+  updatePass
+) {
+  try {
     try {
-            try {
-                //console.log("Editing the user " + oldId);
-          
-                const response = await axios.post("/api/user/editUser/" + oldId, {
-                  user_id,
-                  first_name,
-                  last_name,
-                  updatePass
-                });
-                return response.data.result;
-              } catch (error) {
-                error.message = "Error while updating the user: " + error.message;
-                throw error;
-              }
-    } catch (error){
-        error.message = "Error while updating the user: " + error.message;
+      //console.log("Editing the user " + oldId);
+
+      const response = await axios.post("/api/user/editUser/" + oldId, {
+        user_id,
+        first_name,
+        last_name,
+        strikes,
+        updatePass,
+      });
+      return response.data.result;
+    } catch (error) {
+      error.message = "Error while updating the user: " + error.message;
       throw error;
     }
+  } catch (error) {
+    error.message = "Error while updating the user: " + error.message;
+    throw error;
+  }
 }
 
 //pretty much the same as the one above, was just trying a different way for the errors to be sent
 export async function editUserProfile(user_id, first_name, last_name) {
   try {
-
     const response = await axios.post("/api/user/editUserProfile/" + user_id, {
       first_name,
       last_name,
@@ -197,16 +190,16 @@ export async function editUserProfile(user_id, first_name, last_name) {
 // current API in use for update password
 // updates the users password in the database
 export async function updatePassword(password, newPassword) {
-    try {
-      const response = await axios.post("/api/user/update_password", {
-        password: password,
-        newPassword: newPassword,
-      });
-      return response.data.result;
-    } catch (error) {
-      if (error.response.status === 404) {
-        return error.response.status;
-      }
-      return "Error Updating User Password from API";
+  try {
+    const response = await axios.post("/api/user/update_password", {
+      password: password,
+      newPassword: newPassword,
+    });
+    return response.data.result;
+  } catch (error) {
+    if (error.response.status === 404) {
+      return error.response.status;
     }
+    return "Error Updating User Password from API";
   }
+}

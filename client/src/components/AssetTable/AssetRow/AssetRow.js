@@ -16,6 +16,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 function AssetRow(props) {
   const cats = props.categoryList;
@@ -170,11 +172,12 @@ function AssetRow(props) {
             variant="primary"
             className="beets_buttons"
             onClick={handleEditAssetTrue}
+            style={{ marginLeft: "1rem" }}
           >
-            Edit Asset
+            <FontAwesomeIcon icon={faPencil} />
           </Button>
-          <Button variant="danger" onClick={handleDeleteAssetTrue}>
-            Delete Asset
+          <Button variant="danger" onClick={handleDeleteAssetTrue} style={{ marginLeft: "1rem" }}>
+            <FontAwesomeIcon icon={faTrashCan} />
           </Button>
         </td>
       </AccessControl>

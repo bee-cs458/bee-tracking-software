@@ -2,17 +2,31 @@ import { useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import getAllCategories from "../../api/CategoryService";
 import { useOutletContext } from "react-router-dom";
+import { Tooltip, OverlayTrigger } from "react-bootstrap";
 
 export default function CatDropdown(props) {
   // we lifted the state up
-  const { state, update, categories, updateCategories } = props;
+  const { state, update, categories, updateCategories, children } = props;
 
   const [dom, updateDom] = useState("Loading...");
   const [theme] = useOutletContext();
 
   const handleChange = (eventKey) => {
     // eventKey is the index
-    update(categories[eventKey]);
+    if (eventKey) {
+      update(categories[eventKey]);
+    }
+  };
+
+  const renderChildren = () => {
+    if (children) {
+      return (
+        <>
+          <Dropdown.Divider />
+          {children}
+        </>
+      );
+    }
   };
 
   // Executes getCategory once when it first runs, because the array is empty
@@ -38,16 +52,24 @@ export default function CatDropdown(props) {
   }, [updateCategories]);
 
   return (
-    <Dropdown title="CategoryDropdown" onSelect={handleChange}>
-      <Dropdown.Toggle id="dropdown-basic" className="beets_buttons">
-        {state?.catName || "Filter Category"}
-      </Dropdown.Toggle>
-      <Dropdown.Menu variant={theme}>
-        <Dropdown.Item eventKey={null}>
-          All
-        </Dropdown.Item>
-        {dom}
-      </Dropdown.Menu>
-    </Dropdown>
+    <OverlayTrigger
+      placement="top"
+      overlay={
+        <Tooltip id="tooltip" style={{ position: "fixed" }}>
+          Filters
+        </Tooltip>
+      }
+    >
+      <Dropdown title="CategoryDropdown" onSelect={handleChange}>
+        <Dropdown.Toggle id="dropdown-basic" className="beets_buttons">
+          {state?.catName || "Filters"}
+        </Dropdown.Toggle>
+        <Dropdown.Menu variant={theme}>
+          <Dropdown.Item eventKey={-1}>All</Dropdown.Item>
+          {dom}
+          {renderChildren()}
+        </Dropdown.Menu>
+      </Dropdown>
+    </OverlayTrigger>
   );
 }
