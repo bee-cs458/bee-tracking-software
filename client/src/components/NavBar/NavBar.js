@@ -60,9 +60,6 @@ function NavBar(props) {
       <div className={collapse ? "collapsed" : null}>
         <ul className="navBarList">
           <li>
-            <DarkModeSwitch onChange={handleClick} collapse={collapse} />
-          </li>
-          <li>
             <Link to="/">
               {/* Linked back to home page/asset view */}
               <img
