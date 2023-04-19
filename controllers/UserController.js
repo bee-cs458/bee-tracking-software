@@ -275,15 +275,14 @@ export const createUser = async (req, res, next) => {
     valid = false;
     return;
   }
-  // Emsures the username feild is in the format of an email address
+  // Ensure the username is an email using regex
   else if (
     newUser.username.length > 0 &&
-    !newUser.username.includes("@") &&
-    !newUser.username.includes(".")
+    newUser.username.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) == null
   ) {
     next({
       status: 413,
-      message: "Username must be an email address",
+      message: "Username is not an email",
     });
     valid = false;
     return;
