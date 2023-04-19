@@ -303,6 +303,18 @@ export const createUser = async (req, res, next) => {
     valid = false;
     return;
   }
+  // Ensure the username is an email using regex
+  else if (
+    newUser.username.length > 0 &&
+    newUser.username.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) == null
+  ) {
+    next({
+      status: 413,
+      message: "Username is not an email",
+    });
+    valid = false;
+    return;
+  }
   // Check that the user ID is not in use already
   await query(
     `SELECT user_id FROM user WHERE user_id='${newUser.user_id}'`
