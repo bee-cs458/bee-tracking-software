@@ -116,7 +116,7 @@ const SingleAssetPage = () => {
                         </td>
                       </tr>
                       <tr>
-                        <th className="pr-10">Checked Out</th>
+                        <th className="pr-10">Available</th>
                         <td>
                           {!asset.checked_out ? (
                             <FontAwesomeIcon
