@@ -14,52 +14,70 @@ function EditUser(props) {
   const [strikeThree, setStrikeThree] = useState(false);
   const [strikes, setStrikes] = useState(user.strikes);
 
+  /**
+   * based of the user's incoming strike count sets the states for the strike buttons
+   */
   function defaultStrikes() {
     if (user.strikes > 2) {
+      //if the user has three or more strikes
       setStrikeThree(true);
       setStrikeTwo(true);
       setStrikeOne(true);
     } else if (user.strikes === 2) {
+      //if the user has two strikes
       setStrikeTwo(true);
       setStrikeOne(true);
     } else if (user.strikes === 1) {
+      //if the user has one strike
       setStrikeOne(true);
     }
+    //since the strike states are set to false and 0, the default values for a user with zero strikes have already been assigned
   }
 
+  /**
+   * logic for when the strike one button is pressed
+   */
   function toggleStrikeOne() {
     if (strikeOne) {
+      //if the first button is red
       if (strikeThree) {
+        //if the third button is red set the third and second button to green and strikes to one
         setStrikeThree(false);
         setStrikeTwo(false);
         setStrikeOne(true);
         setStrikes(1);
       } else if (strikeTwo) {
+        //if the second button is red set the second button to green and the strike to one
         setStrikeTwo(false);
         setStrikeOne(true);
         setStrikes(1);
       } else {
-        setStrikeOne(false);
+        setStrikeOne(false); //set the button to green and strikes to 0
         setStrikes(0);
       }
     } else {
-      setStrikeOne(true);
+      //if the button is green
+      setStrikeOne(true); //set strikes to 1 and button to red
       setStrikes(1);
     }
   }
 
   function toggleStrikeTwo() {
     if (strikeTwo) {
+      //if the second button is red
       if (strikeThree) {
+        //if the third button is red set the third button to green and strikes to 2
         setStrikeThree(false);
         setStrikeTwo(true);
         setStrikes(2);
       } else {
+        //else set strikes to 0 and button two and one to green
         setStrikeTwo(false);
         setStrikeOne(false);
         setStrikes(0);
       }
     } else {
+      //if button is green set button two and one to red and strikes to 2
       setStrikeTwo(true);
       setStrikeOne(true);
       setStrikes(2);
@@ -68,11 +86,13 @@ function EditUser(props) {
 
   function toggleStrikeThree() {
     if (strikeThree) {
+      //if the button is red set all buttons to green and strikes to 0
       setStrikeThree(false);
       setStrikeTwo(false);
       setStrikeOne(false);
       setStrikes(0);
     } else {
+      //if the button is green set all buttons to red and strikes to 3
       setStrikeThree(true);
       setStrikeTwo(true);
       setStrikeOne(true);
@@ -89,7 +109,7 @@ function EditUser(props) {
               user_id,
               first_name: firstName,
               last_name: lastName,
-              strikes: strikes
+              strikes: strikes,
             })
           );
         }
@@ -146,7 +166,7 @@ function EditUser(props) {
   useEffect(() => {}, [strikeOne, strikeTwo, strikeThree]);
   useEffect(() => {
     defaultStrikes();
-  },[]);
+  }, []);
 
   return (
     <Form>
