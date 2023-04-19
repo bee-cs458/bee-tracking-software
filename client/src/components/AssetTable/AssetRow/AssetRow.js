@@ -10,6 +10,11 @@ import { Ranks } from "../../../constants/PermissionRanks";
 import cartIcon from "../../../assets/shopping-cart.png";
 import checkMark from "../../../assets/check-mark.png";
 import crossedOut from "../../../assets/crossed-out.png";
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
 function AssetRow(props) {
@@ -152,7 +157,13 @@ function AssetRow(props) {
       <td>{asset.description}</td>
       <td>{formattedDate}</td>
       <td>{categoryLabel}</td>
-      <td>{available ? "No" : "Yes"}</td>
+      <td>
+        {available ? (
+          <FontAwesomeIcon icon={faCircleXmark} className={"icon red"} />
+        ) : (
+          <FontAwesomeIcon icon={faCircleCheck} className={"icon green"} />
+        )}
+      </td>
       <AccessControl allowedRank={Ranks.OWNER}>
         <td>
           <Button
