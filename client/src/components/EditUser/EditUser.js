@@ -12,21 +12,18 @@ function EditUser(props) {
   const [strikeOne, setStrikeOne] = useState(false);
   const [strikeTwo, setStrikeTwo] = useState(false);
   const [strikeThree, setStrikeThree] = useState(false);
-  const [strikes, setStrikes] = useState(0);
+  const [strikes, setStrikes] = useState(user.strikes);
 
   function defaultStrikes() {
-    if (user.strikes > 3) {
+    if (user.strikes > 2) {
       setStrikeThree(true);
       setStrikeTwo(true);
       setStrikeOne(true);
-      setStrikes(3);
     } else if (user.strikes === 2) {
       setStrikeTwo(true);
       setStrikeOne(true);
-      setStrikes(2);
     } else if (user.strikes === 1) {
       setStrikeOne(true);
-      setStrikes(1);
     }
   }
 
@@ -149,7 +146,7 @@ function EditUser(props) {
   useEffect(() => {}, [strikeOne, strikeTwo, strikeThree]);
   useEffect(() => {
     defaultStrikes();
-  });
+  },[]);
 
   return (
     <Form>
