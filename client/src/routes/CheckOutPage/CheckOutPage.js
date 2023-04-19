@@ -87,7 +87,7 @@ function CheckOutPage() {
       setAlertType(0);
       return;
     }
-    if (asset.operational === false) {
+    if (asset.operational === 0) {
       //checks if asset is operational
       setAlertMessage("That asset is not operational!");
       setAlertType(0);
