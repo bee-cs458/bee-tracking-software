@@ -5,7 +5,7 @@ const LoadingSpinner = ({ size }) => {
   if (!size) size = "4rem";
 
   return (
-    <div className="justify-content-center">
+    <div className="d-flex justify-content-center">
       <Spinner
         animation="border"
         role="status"

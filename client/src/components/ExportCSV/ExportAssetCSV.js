@@ -1,9 +1,11 @@
 import React, { components } from "react";
-import { Button } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { CSVLink } from "react-csv";
 import { getAllAssets } from "../../api/AssetService";
 import { Ranks } from "../../constants/PermissionRanks";
 import { AccessControl } from "../AccessControl/AccessControl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileExport } from "@fortawesome/free-solid-svg-icons";
 
 const AssetHeaders = [
   { label: "Asset Tag", key: "asset_tag" },
@@ -43,15 +45,25 @@ class AssetAsyncCSV extends React.Component {
     return (
       <AccessControl allowedRank={Ranks.OWNER}>
         <div>
-          <Button className="beets_buttons" onClick={this.downloadAssetsReport}>
-            Export to CSV
-          </Button>
-          <CSVLink
-            headers={AssetHeaders}
-            filename="Beets_Assets_Report_Async.csv"
-            data={data}
-            ref={this.csvLinkEl}
-          />
+          <OverlayTrigger placement="top" overlay={<Tooltip id="tooltip" style={{ position: "fixed" }}>
+            Export CSV
+          </Tooltip>}>
+            <div>
+              <Button className="beets_buttons icon-button" onClick={this.downloadAssetsReport}>
+                <FontAwesomeIcon
+                  icon={faFileExport}
+                  style={{ color: "#ffffff" }}
+                />
+              </Button>
+              <CSVLink
+                headers={AssetHeaders}
+                filename="Beets_Assets_Report_Async.csv"
+                data={data}
+                ref={this.csvLinkEl}
+              />
+            </div>
+          </OverlayTrigger>
+
         </div>
       </AccessControl>
     );
