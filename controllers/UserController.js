@@ -275,6 +275,19 @@ export const createUser = async (req, res, next) => {
     valid = false;
     return;
   }
+  // Emsures the username feild is in the format of an email address
+  else if (
+    newUser.username.length > 0 &&
+    !newUser.username.includes("@") &&
+    !newUser.username.includes(".")
+  ) {
+    next({
+      status: 413,
+      message: "Username must be an email address",
+    });
+    valid = false;
+    return;
+  }
   // Check that the user ID is not in use already
   await query(
     `SELECT user_id FROM user WHERE user_id='${newUser.user_id}'`

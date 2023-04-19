@@ -44,6 +44,11 @@ function CreateUserForm(props) {
         setAlertMessage(
           "User must have both a username and a password, or neither. Please enter a username"
         );
+      } else if (result.status === 413) {
+        setAlertType(1);
+        setAlertMessage(
+          "Username must be an email address. Please enter a valid email address"
+        );
       } else {
         setAlertType(0);
         setAlertMessage("There was an unidentified error creating this user");
