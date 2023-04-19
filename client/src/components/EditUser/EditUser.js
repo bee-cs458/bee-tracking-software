@@ -12,6 +12,23 @@ function EditUser(props) {
   const [strikeOne, setStrikeOne] = useState(false);
   const [strikeTwo, setStrikeTwo] = useState(false);
   const [strikeThree, setStrikeThree] = useState(false);
+  const [strikes, setStrikes] = useState(0);
+
+  function defaultStrikes() {
+    if (user.strikes > 3) {
+      setStrikeThree(true);
+      setStrikeTwo(true);
+      setStrikeOne(true);
+      setStrikes(3);
+    } else if (user.strikes === 2) {
+      setStrikeTwo(true);
+      setStrikeOne(true);
+      setStrikes(2);
+    } else if (user.strikes === 1) {
+      setStrikeOne(true);
+      setStrikes(1);
+    }
+  }
 
   function toggleStrikeOne() {
     if (strikeOne) {
@@ -19,14 +36,18 @@ function EditUser(props) {
         setStrikeThree(false);
         setStrikeTwo(false);
         setStrikeOne(true);
+        setStrikes(1);
       } else if (strikeTwo) {
         setStrikeTwo(false);
         setStrikeOne(true);
+        setStrikes(1);
       } else {
         setStrikeOne(false);
+        setStrikes(0);
       }
     } else {
-      setStrikeOne(!strikeOne);
+      setStrikeOne(true);
+      setStrikes(1);
     }
   }
 
@@ -35,13 +56,16 @@ function EditUser(props) {
       if (strikeThree) {
         setStrikeThree(false);
         setStrikeTwo(true);
+        setStrikes(2);
       } else {
         setStrikeTwo(false);
         setStrikeOne(false);
+        setStrikes(0);
       }
     } else {
       setStrikeTwo(true);
       setStrikeOne(true);
+      setStrikes(2);
     }
   }
 
@@ -50,10 +74,12 @@ function EditUser(props) {
       setStrikeThree(false);
       setStrikeTwo(false);
       setStrikeOne(false);
+      setStrikes(0);
     } else {
       setStrikeThree(true);
       setStrikeTwo(true);
       setStrikeOne(true);
+      setStrikes(3);
     }
   }
 
@@ -120,6 +146,9 @@ function EditUser(props) {
   }
 
   useEffect(() => {}, [strikeOne, strikeTwo, strikeThree]);
+  useEffect(() => {
+    defaultStrikes();
+  });
 
   return (
     <Form>
@@ -163,9 +192,7 @@ function EditUser(props) {
       </Row>
       <div className="seperator"></div>
       <Row>
-        <h5>
-          Strikes ({strikeThree ? "3" : strikeTwo ? "2" : strikeOne ? "1" : "0"})
-        </h5>
+        <h5>Strikes ({strikes})</h5>
       </Row>
       <Row>
         <Col>
