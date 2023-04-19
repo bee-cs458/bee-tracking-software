@@ -12,7 +12,7 @@ const Header = (props) => {
       <Row className="align-items-center header-row">
         <Col xs={8}>{props.children}</Col>
         <Col xs={2} className="">
-          <DarkModeSwitch onChange={handleClick} />
+          <DarkModeSwitch theme={props.theme} onChange={handleClick} />
         </Col>
         <Col xs={2} className="">
           <AccountLink />
