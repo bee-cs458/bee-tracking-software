@@ -6,7 +6,7 @@ import "./App.css";
 
 const App = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme"));
-  const [collapse, setCollapse] = useState(false);
+  const [collapse, setCollapse] = useState(localStorage.getItem("collapse"));
 
   const toggleTheme = () => {
     if (theme === "light" || theme === undefined) {
@@ -20,6 +20,10 @@ const App = () => {
     localStorage.setItem("theme", theme);
     document.body.className = theme;
   }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem("collapse", collapse);
+  }, [collapse]);
 
   return (
     <div>
