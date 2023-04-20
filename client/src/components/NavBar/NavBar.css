@@ -90,7 +90,7 @@ li img {
 }
 
 /* Hide the weather widget on small screens */
-@media (max-height: 575px) {
+@media (max-height: 630px) {
   .weather-widget-container {
     display: none;
   }
