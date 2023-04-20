@@ -141,7 +141,7 @@ export default function AddAsset({ categories }) {
               onChange={() => setOperationalChecked(!operationalChecked)}
             />
           </Form.Group>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button variant="primary" className="beets_buttons" onClick={handleSubmit}>
             Submit
           </Button>
         </Form>
