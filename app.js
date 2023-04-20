@@ -12,7 +12,7 @@ const app = express();
 const cors = require("cors");
 
 // setup middleware
-app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
+app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: false }));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 

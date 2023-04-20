@@ -1,5 +1,3 @@
-require("dotenv").config(); // Load environment variables from .env file
-
 import FtpDeploy from "ftp-deploy";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
