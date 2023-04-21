@@ -44,7 +44,13 @@
 
 
 .asset-table {
-  width: calc (100vw - 250px);
+  width: calc(100vw - 260px);
+  height: calc(100vh - 143px);
+  overflow-y: scroll;
+}
+
+.asset-table-shrunk {
+  width: calc(100vw - 110);
   height: calc(100vh - 143px);
   overflow-y: scroll;
 }
