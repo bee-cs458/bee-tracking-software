@@ -29,7 +29,6 @@ import {
 export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
   const [updated, setUpdated] = useState(false);
-  const [tableClassName, setTableClassName] = useState("asset-table");
 
   const [currentCategory, updateCategory] = useState({
     catName: undefined,
@@ -64,15 +63,6 @@ export default function HomePage(props) {
       })
       .catch((err) => console.log(err));
   }, [show]);
-
-  useEffect(() => {
-    if (props.collapse) {
-      setTableClassName("asset-table-shrunk");
-      console.log("shrunk");
-    } else {
-      setTableClassName("asset-table");
-    }
-  }, [props.collapse]);
 
   // Changes the search result on every key press, so as to live update the search results
   function handleKeyPress(e) {
@@ -195,7 +185,7 @@ export default function HomePage(props) {
           </Row>
         </Container>
 
-        <div className={tableClassName}>
+        <div className="asset-table">
           <AssetTable
             filterByCheckedOut={byAvailable}
             filterByCart={byCart}
