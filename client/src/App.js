@@ -30,8 +30,6 @@ const App = () => {
       <Header switchTheme={toggleTheme} collapse={collapse} setCollapse={setCollapse} theme={theme} />
       <NavBar mode={theme} collapse={collapse} setCollapse={setCollapse} />
       <div className={collapse ? "shrunk" : "full"}>
-        {" "}
-        {/* set this width to adapt the Outlet to the NavBar width*/}
         <Outlet context={[theme, setTheme]} />
       </div>
     </div>

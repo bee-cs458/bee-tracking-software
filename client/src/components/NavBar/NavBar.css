@@ -39,10 +39,12 @@
 .navBarList,
 ul {
   list-style-type: none;
-  padding-top: 25%;
+  padding-top: 25px;
   padding-left: 0px;
 }
-
+li {
+    height: 60px;
+}
 li a {
   display: block;
   color: white;

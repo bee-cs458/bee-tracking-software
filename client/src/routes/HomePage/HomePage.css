@@ -44,8 +44,9 @@
 
 
 .asset-table {
-  width: calc(100vw - 260px);
-  height: calc(100vh - 143px);
+  width: 100%;
+  height: calc(100vh - 109px);
+  padding-right: 10px;
   overflow-y: scroll;
 }
 
