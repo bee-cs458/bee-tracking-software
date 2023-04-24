@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./HomePage.css";
 import AssetTable from "../../components/AssetTable/AssetTable";
 import CatDropdown from "../../components/CatDropdown/CatDropdown";
-import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/CheckedOutSwitch";
 import AddAsset from "../../components/AddAsset/AddAsset";
 import {
   Container,
@@ -29,12 +28,10 @@ import {
 export default function HomePage(props) {
   const [categories, updateCategories] = useState([]);
   const [updated, setUpdated] = useState(false);
-
   const [currentCategory, updateCategory] = useState({
     catName: undefined,
     category_id: -1,
   });
-
   const [selectList, setSelectList] = useState([]);
 
   //Displaying Add Asset

@@ -6,16 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useLocation } from "react-router-dom";
-
 import { getAssetByAssetTag } from "../../api/AssetService";
 import { getCategoryById } from "../../api/CategoryService";
 import { AccessControl } from "../../components/AccessControl/AccessControl";
-import { AccountLink } from "../../components/AccountLink/AccountLink";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import { Ranks } from "../../constants/PermissionRanks";
 import { SIDE_NAV_WIDTH, TOP_BAR_HEIGHT } from "../../constants/StyleConstants";
-import styles from "./SingleAssetPage.css";
 import CheckoutHistoryTable from "../../components/CheckoutHistoryTable/CheckoutHistoryTable";
+import "./SingleAssetPage.css";
 
 const SingleAssetPage = () => {
   // Gets the Asset Tag from the URL
