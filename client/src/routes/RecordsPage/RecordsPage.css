@@ -64,7 +64,15 @@
   font: 1rem "Fira Sans", sans-serif;
 }
 
+input[type="checkbox"] {
+    width: 45px;                         /* Set width */
+    height: 45px;                        /* Set height */
+    clip-path: circle(80% at 50% 50%);   /* Set the clip path of circle*/
+  }
 input,
+
 .label {
   margin: 0.4rem 0;
 }
+
+

@@ -43,14 +43,14 @@ export default function RecordsPage(props) {
   /**
    *Sets selected Date 2 as endDate for search
    *
-   * @param {*} date Date selected from end date
+   * @param {*} date Date selected from end dates
    */
   function handleEndDate(date) {
     setendDate(date);
   }
 
-  function handleByCheckedOut() {
-    setChecked(!checked);
+  function handleByCheckedOut(e) {
+    setChecked(e.target.checked);
   }
 
   return (
@@ -79,6 +79,7 @@ export default function RecordsPage(props) {
               <Form.Check
                 onClick={handleByCheckedOut}
                 label="Checked Out"
+                checked={checked}
               ></Form.Check>
             </Col>
             <Col>
