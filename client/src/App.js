@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 
 const App = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme"));
 
   const toggleTheme = () => {
-    if (theme === "light") {
+    if (theme === "light" || theme === undefined) {
       setTheme("dark");
     } else {
       setTheme("light");
@@ -21,7 +21,7 @@ const App = () => {
 
   return (
     <div>
-      <Header switchTheme={toggleTheme} />
+      <Header switchTheme={toggleTheme} theme={theme} />
       <NavBar mode={theme} />
       <div className={"App " + theme}>
         <Outlet context={[theme, setTheme]} />

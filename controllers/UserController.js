@@ -220,16 +220,44 @@ export const deleteUser = async (req, res, next) => {
   );
 };
 
-export const editUser = async (req, res, next) => {
-  const { oldId } = req.params;
-  const { user_id, first_name, last_name } = req.body;
+export const editUserProfile = async (req, res, next) => {
+  const { userId } = req.params;
+  const { first_name, last_name } = req.body;
   await query(
     `
           UPDATE user
-          SET user_id = ?, first_name = ?, last_name = ?
+          SET first_name = ?, last_name = ?
           WHERE user_id = ?
           `,
-    [user_id, first_name, last_name, oldId]
+    [first_name, last_name, userId]
+  ).then(
+    (result) => {
+      if (result.affectedRows == 0) {
+        next({
+          status: 404,
+          message: "User does not exist",
+        });
+      } else {
+        res.status(200).send({ result });
+      }
+    },
+    (reason) => {
+      reason.message = `Error updating the database: ${reason.message}`;
+      next(reason);
+    }
+  );
+};
+
+export const editUser = async (req, res, next) => {
+  const { oldId } = req.params;
+  const { user_id, first_name, last_name, strikes, updatePass } = req.body;
+  await query(
+    `
+          UPDATE user
+          SET user_id = ?, first_name = ?, last_name = ?, strikes = ?, updatePass = ?
+          WHERE user_id = ?
+          `,
+    [user_id, first_name, last_name, strikes, updatePass, oldId]
   ).then(
     (result) => {
       if (result.affectedRows == 0) {
@@ -271,6 +299,18 @@ export const createUser = async (req, res, next) => {
     next({
       status: 412,
       message: "No username entered",
+    });
+    valid = false;
+    return;
+  }
+  // Ensure the username is an email using regex
+  else if (
+    newUser.username.length > 0 &&
+    newUser.username.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) == null
+  ) {
+    next({
+      status: 413,
+      message: "Username is not an email",
     });
     valid = false;
     return;
