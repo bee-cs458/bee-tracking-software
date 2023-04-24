@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  width: 100%;
 }
 
 .App-logo {
@@ -29,17 +30,27 @@
 }
 
 .main-content {
-  padding-left: 250px;
   margin-left: 0px;
 }
 
 .dark {
   background-color: #333;
   color: whitesmoke;
-  
 }
 
 .light {
   background-color: whitesmoke;
   color: #333;
+}
+
+.shrunk {
+  /* the width of the view pane with a shrunk Nav Bar */
+  width: calc(100vw - 100px);
+  float: right;
+}
+
+.full {
+  /* the width of the view pane with a full Nav Bar */
+  width: calc(100vw - 250px);
+  float: right;
 }
