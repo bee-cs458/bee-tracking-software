@@ -13,6 +13,8 @@ export default function RecordsPage(props) {
   const [checked, setChecked] = useState(useLocation().state.fromNavBar);
   const [selectList, setSelectList] = useState([]);
   const [inputVal, setInputVal] = useState("");
+  const [startDate, setstartDate] = useState("");
+  const [endDate, setendDate] = useState("");
 
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {

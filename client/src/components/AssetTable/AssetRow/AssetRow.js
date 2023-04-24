@@ -16,6 +16,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { AccessControl } from "../../AccessControl/AccessControl";
 
 function AssetRow(props) {
   const cats = props.categoryList;

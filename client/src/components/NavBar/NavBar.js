@@ -152,7 +152,7 @@ function NavBar(props) {
       <Row className="m-">
         <AccessControl allowedRank={Ranks.OPERATOR}>
           {overdueItems > 0 && (
-            <Link style={none}
+            <Link style={{textDecoration: 'none'}}
               to="/Records"
               state={{ fromNavBar: true }}>
               <ConditionalAlert type={0} message={`${overdueItems} Overdue Items \n`} />
