@@ -2,8 +2,18 @@
   text-align: center;
 }
 
+.header-container {
+  display: flex;
+  position: fixed;
+  flex-direction: row;
+  height: 45px;
+  width: 60vw;
+  align-items: center;
+  background-color: #6486A9;
+  z-index: 4;
+}
+
 .main-content {
-  margin-left: 250px;
   text-align: left;
   padding-top: 60px;
   padding-left: 10px;
@@ -12,7 +22,7 @@
 
 .record-table {
   width: calc (100vw - 250px);
-  height: calc(100vh - 118px);
+  height: calc(100vh - 192px);
   overflow-y: scroll;
 }
 
@@ -73,6 +83,10 @@ input,
 
 .label {
   margin: 0.4rem 0;
+<<<<<<< HEAD
 }
 
 
+=======
+}
+>>>>>>> main

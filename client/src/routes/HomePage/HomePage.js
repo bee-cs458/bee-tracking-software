@@ -103,7 +103,7 @@ export default function HomePage(props) {
 
   return (
     <div className="App">
-      <div className="main-content">
+      <div className="main-content-assets">
         <Container fluid>
           <Row>
             <Col xs={8} className="search-header mb-2">

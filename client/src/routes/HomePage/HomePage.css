@@ -2,6 +2,17 @@
   text-align: center;
 }
 
+.header-container {
+  display: flex;
+  position: fixed;
+  flex-direction: row;
+  height: 45px;
+  width: 60vw;
+  align-items: center;
+  background-color: #004990;
+  z-index: 4;
+}
+
 .search-header {
   height: 40px;
   width: 545px;
@@ -15,7 +26,6 @@
   background: none;
   border: none;
   color: #992f9a;
-  margin-left: 10px;
   min-width: 2.5em;
 }
 
@@ -25,17 +35,18 @@
 
 }
 
-.main-content {
-  margin-left: 250px;
+.main-content-assets {
   text-align: left;
   padding-top: 60px;
   padding-left: 10px;
   height: 100vh;
 }
 
+
 .asset-table {
-  width: calc (100vw - 250px);
-  height: calc(100vh - 143px);
+  width: 100%;
+  height: calc(100vh - 109px);
+  padding-right: 10px;
   overflow-y: scroll;
 }
 

@@ -12,7 +12,7 @@ const googleLogin = () => {
 function Login(props) {
   const [updated, changeUpdate] = useState(null);
   const [errorState, setErrorState] = useState(false);
-  useEffect(() => { }, [updated, errorState]);
+  useEffect(() => {}, [updated, errorState]);
   const toggleUpdate = () => {
     updated ? changeUpdate(false) : changeUpdate(true);
   };
@@ -55,7 +55,12 @@ function Login(props) {
         <></>
       )}
       Email Address:<br></br>
-      <input id="username" type="text" onKeyDown={handleKeypress} autoFocus></input>
+      <input
+        id="username"
+        type="text"
+        onKeyDown={handleKeypress}
+        autoFocus
+      ></input>
       <br></br>
       Password:<br></br>
       <input id="password" type="password" onKeyDown={handleKeypress}></input>
