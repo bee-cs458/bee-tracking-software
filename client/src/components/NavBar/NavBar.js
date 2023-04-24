@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Login from "../Login/Login";
 import Logout from "../Login/Logout";
@@ -18,7 +17,7 @@ import "./NavBar.css";
 import { getAllRecords } from "../../api/RecordService";
 import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
 import Row from "react-bootstrap/esm/Row";
-
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 function NavBar(props) {
   const [show, setShow] = useState(false);
@@ -28,7 +27,6 @@ function NavBar(props) {
     sessionStorage.clear();
   }; //clear session storage to wipe the current Cart on user change
   const [overdueItems, setOverdueItems] = useState(0); // State for storing the number of overdue items
-  
 
   const getInfo = async () => {
     let allRecords = await getAllRecords();
@@ -99,7 +97,7 @@ function NavBar(props) {
             </Link>
           </li>
           <li>
-            <Link to="/Records">
+            <Link to="/Records" state={{ fromNavBar: false }}>
               <img src={list} alt="records" width="20" height="18" />
               Records
             </Link>
@@ -140,15 +138,17 @@ function NavBar(props) {
 
         </Modal>
       </ul>
-      <Row className="m-2">
+      <Row className="m-">
         <AccessControl allowedRank={Ranks.OPERATOR}>
           {overdueItems > 0 && (
-            <Link style={{textDecoration: "none" }} to="/Records" >
-          <ConditionalAlert type={0} message={`${overdueItems} Overdue Items \n`} />
-          </Link>
+            <Link style={none}
+              to="/Records"
+              state={{ fromNavBar: true }}>
+              <ConditionalAlert type={0} message={`${overdueItems} Overdue Items \n`} />
+            </Link>
           )}
         </AccessControl>
-        </Row>
+      </Row>
     </nav>
   );
 }

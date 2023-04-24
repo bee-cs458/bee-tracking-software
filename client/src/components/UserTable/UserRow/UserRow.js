@@ -19,7 +19,6 @@ import { Ranks } from "../../../constants/PermissionRanks";
 function UserRow(props) {
   const [user, setUser] = useState(props.item);
   const { popModal, lastUserPromoted, setLastUserPromoted } = props;
-
   // Holds the state for the "advanced" field's checkbox/switch
   const [advancedChecked, setAdvancedCheck] = useState(user.advanced);
 
@@ -48,6 +47,7 @@ function UserRow(props) {
     setAlertType2(3); //sets confirmation error message
     setAlertMessage2("User has been deleted");
     props.toggleTableChanged(); //updates useState so that the table will render without deleted user
+    
   }
 
   useEffect(() => {
@@ -56,6 +56,7 @@ function UserRow(props) {
       setLastUserPromoted({});
       user.advanced = !user.advanced;
     }
+    
   }, [lastUserPromoted, setLastUserPromoted, user]);
 
   async function handlePermissionChange(value) {

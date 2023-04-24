@@ -4,14 +4,14 @@ import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/Checke
 import React, { useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import search from "../../assets/search.png";
+import { useParams } from 'react-router-dom';
 import CheckoutRecordCSV from "../../components/ExportCSV/ExportRecordsCSV.js";
+import { useLocation } from 'react-router-dom'
 
-export default function RecordsPage() {
-  const [checked, setChecked] = useState(false);
+export default function RecordsPage(props) {
+  const [checked, setChecked] = useState(useLocation().state.fromNavBar);
   const [selectList, setSelectList] = useState([]);
   const [inputVal, setInputVal] = useState("");
-  const [startDate, setstartDate] = useState("");
-  const [endDate, setendDate] = useState("");
 
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {
@@ -28,27 +28,9 @@ export default function RecordsPage() {
     setInputVal(newInputVal);
   }
 
-  /**
-   *Sets selected Date 1 as start Date for search
-   *
-   * @param {*} date Date selected from start date
-   */
-  function handleStartDate(date) {
-    setstartDate(date);
-  }
-
-  /**
-   *Sets selected Date 2 as endDate for search
-   *
-   * @param {*} date Date selected from end date
-   */
-  function handleEndDate(date) {
-    setendDate(date);
-  }
-
   return (
     <div className="App">
-      <div className="main-content">
+      <Container fluid className={"header-container"}>
         <Row>
           <Col xs={10} className={"search-header"}>
             <input
@@ -73,8 +55,13 @@ export default function RecordsPage() {
               marginBottom: "auto",
               marginLeft: "19.4em",
             }}
-          ></Col>
+          >
+            <AccountLink />
+          </Col>
         </Row>
+      </Container>
+
+      <div className="main-content">
         <div className="row">
           <div className="col">
             <CheckedOut state={checked} update={setChecked} />
@@ -86,38 +73,20 @@ export default function RecordsPage() {
               <></>
             )}
           </div>
-
-          <div className="col">
-            <label htmlFor="start">Start Date:</label>
-            <input
-              type="date"
-              onChange={(e) => handleStartDate(e.target.value)}
-              value={startDate}
-              className="form-control"
-            />
-          </div>
-          <div className="col">
-            <label htmlFor="end">End Date:</label>
-            <input
-              type="date"
-              onChange={(e) => handleEndDate(e.target.value)}
-              value={endDate}
-              className="form-control"
-            />
-          </div>
           <div className="col"></div>
           <div className="col"></div>
-          <div className="pt-3"></div>
+          <div className="col"></div>
+          <div className="col"></div>
+          <div className="col"></div>
         </div>
         <RecordTable
           filterByCheckedOut={checked}
           inputVal={inputVal}
           selectList={selectList}
           setSelectList={setSelectList}
-          startDate={startDate}
-          endDate={endDate}
         />
       </div>
+
     </div>
   );
 }
