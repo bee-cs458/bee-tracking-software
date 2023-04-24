@@ -1,4 +1,4 @@
-.header-container {
+.header-container5 {
   display: flex;
   position: fixed;
   flex-direction: row;
@@ -11,6 +11,23 @@
   padding: 0;
 }
 
+.header-container5-shrunk {
+  display: flex;
+  position: fixed;
+  flex-direction: row;
+  height: 45px;
+  width: 100vw;
+  align-items: center;
+  margin-left: 100px;
+  background-color: #992f9a;
+  z-index: 4;
+  padding: 0;
+}
+
 .header-row {
   width: calc(100% - 250px);
+}
+
+.header-row-shrunk {
+  width: calc(100% - 100px);
 }

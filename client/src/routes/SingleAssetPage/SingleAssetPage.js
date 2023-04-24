@@ -56,10 +56,6 @@ const SingleAssetPage = () => {
     <div className="d-flex flex-column" style={{ overflow: "hidden" }}>
       <Container
         fluid
-        style={{
-          paddingLeft: `${SIDE_NAV_WIDTH}`,
-          paddingTop: `${TOP_BAR_HEIGHT}`,
-        }}
       >
         <section>
           {isLoading ? (

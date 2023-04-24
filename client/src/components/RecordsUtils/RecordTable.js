@@ -95,7 +95,7 @@ export default function RecordTable(props) {
               {records.map((record) => (
                 <RecordRow
                   variant={
-                    props.variant
+                    theme
                   } /*passes through the dark mode variable*/
                   key={record.record_id}
                   record={record}
