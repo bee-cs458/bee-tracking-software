@@ -21,9 +21,10 @@
     font-weight: 500;
     overflow: auto;
     z-index: 1;
+
 }
 
-ul {
+.navBarList {
     list-style-type: none;
     padding-top: 25%;
     padding-left: 0px;
@@ -45,4 +46,17 @@ li img {
     float: left;
     padding: 0px;
     margin: 5px;
+}
+
+/* Bind the weather widget to the bottom of the page */
+#weather {
+    position: absolute;
+    bottom: 10px;
+}
+
+/* Hide the weather widget on small screens */
+@media (max-height: 575px) {
+    .weather-widget-container {
+        display: none;
+    }
 }

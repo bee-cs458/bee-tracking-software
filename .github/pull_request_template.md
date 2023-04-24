@@ -2,11 +2,11 @@
 
 * [ ] Have you checked your [Jira](https://bee-cs458.atlassian.net/jira/software/projects/BEETS/boards/2/backlog) task, to make sure the user acceptance criteria are met?
 * [ ] Does your code have comments describing its function and reason?
-
+<!-- 
 ### Tests
 
 * [ ] Do you have Jest tests?
-* [ ] Have you documented your testing criteria and edge cases in your Jira task?
+* [ ] Have you documented your testing criteria and edge cases in your Jira task? -->
 
 ### Source Control
 

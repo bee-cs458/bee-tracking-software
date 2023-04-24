@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { getAllRecords } from "../../api/RecordService";
 import { getAllAssets } from "../../api/AssetService";
 import { getAllUsers } from "../../api/UserService";
+import { useOutletContext } from "react-router-dom";
 
 export default function RecordTable(props) {
   const [records, setRecords] = useState();
@@ -13,27 +14,48 @@ export default function RecordTable(props) {
   const [assets, setAssets] = useState([{}]);
   const [show, setShow] = useState(false); // Modal Show State
   const [printInfo, setPrintInfo] = useState(""); // Info from the row for printing
+  const [theme, setTheme] = useOutletContext();
 
   // Gets the information from the server
   // Dependant on the prop of if the checkbox for viewing only checked-out is selected
   // If it is, the records are set to be filtered by checked out
   // Gets the users and assets normally
   const getInfo = async () => {
-    await getAllRecords().then((result) => {
-      setRecords(result);
-    });
+    let allRecords = await getAllRecords();
 
+    if (props.inputVal !== "") {
+      allRecords = allRecords.filter(
+        (record) =>
+          record.student_id.toString().toLowerCase().includes(props.inputVal) ||
+          record.operator_id
+            .toString()
+            .toLowerCase()
+            .includes(props.inputVal) ||
+          record.asset_tag.toString().toLowerCase().includes(props.inputVal.toLowerCase())
+          
+      );
+    }
+    //Filters Records table by only checked out items
     if (props.filterByCheckedOut) {
-      setRecords(records.filter((record) => record.in_date === null));
+      allRecords = allRecords.filter((record) => record.in_date === null);
+    }
+    //Filters Records Table by range of selected dates
+     if (props.startDate) {
+      allRecords = allRecords.filter((record) => record.due_date >= props.startDate);
+    } 
+     if (props.endDate) {
+      const selectedDate = new Date(props.endDate);
+      selectedDate.setDate(selectedDate.getDate() + 1);
+      allRecords = allRecords.filter((record) => record.due_date <= selectedDate.toISOString().slice(0, 10));
     }
 
-    await getAllUsers().then((result) => {
-      setUsers(result);
-    });
+    setRecords(allRecords);
 
-    await getAllAssets().then((result) => {
-      setAssets(result);
-    });
+    const allUsers = await getAllUsers();
+    setUsers(allUsers);
+
+    const allAssets = await getAllAssets();
+    setAssets(allAssets);
   };
 
   // Close modal
@@ -43,10 +65,10 @@ export default function RecordTable(props) {
 
   const today = new Date();
 
-  // Filter the informnation when the check box is selected
+  // Filter the information when the checkbox is selected
   useEffect(() => {
     getInfo();
-  }, [props.filterByCheckedOut]);
+  }, [props]);
 
   /**
    * Determines whether to render the table of records or the error message
@@ -55,10 +77,9 @@ export default function RecordTable(props) {
    */
   function getTable() {
     if (Array.isArray(records) && records.length > 0) {
-
       return (
         <div>
-          <Table bordered striped hover variant={props.variant}>
+          <Table bordered striped hover variant={theme}>
             <thead>
               <tr>
                 <th>Record ID</th>

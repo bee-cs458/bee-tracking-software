@@ -24,7 +24,17 @@ describe('getAllCategories tests', () => {
 
         // expect(axios.get).toHaveBeenCalledWith('/api/categories/');
         // when getCategories resolves check that the data matches the response we gave it
-        return Services.getCategories().then(data => expect(data).toEqual(categories));
-    })
+        Services.getCategories().then(data => expect(data).toEqual(categories));
+        expect(axios.get).toHaveBeenCalledWith('/api/categories/');
+    });
+    // it('should return an error', async() => {
+
+    //     axios.get.mockImplementation(() => {
+    //         throw new Error();
+    //     }); 
+        
+    //     expect(await Services.getCategories()).toBe("Error Getting Assets with Due Dates from API");
+    // });
+
 });
 

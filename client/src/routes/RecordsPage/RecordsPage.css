@@ -1,36 +1,70 @@
 .App {
-    text-align: center;
-}
-
-.header-container {
-    display: flex;
-    position: fixed; 
-    flex-direction: row;
-    height: 45px;
-    width:100vw;
-    align-items: center;
-    margin-left: 250px;
-    background-color: #6486A9;
+  text-align: center;
 }
 
 .main-content {
-    overflow: auto;
-    margin-left: 250px;
-    text-align: left;
-    padding-top:60px;
-    padding-left:10px;
-    height: 100vh;
+  margin-left: 250px;
+  text-align: left;
+  padding-top: 60px;
+  padding-left: 10px;
+  height: 100vh;
+}
+
+.record-table {
+  width: calc (100vw - 250px);
+  height: calc(100vh - 118px);
+  overflow-y: scroll;
+}
+
+.record-table td {
+  width: auto !important;
+}
+
+.record-table td {
+  width: auto !important;
 }
 
 .clearAll {
-    float: left;
+  float: left;
 }
 
 .checkOut {
-    float: right;
-    margin-right: 15px;
+  float: right;
+  margin-right: 15px;
 }
 
 .search {
-    margin-bottom:8px;
+  margin-bottom: 8px;
+}
+
+.search-header {
+  height: 40px;
+  width: 545px;
+  display: inline-flex;
+  color: white;
+  text-align: left;
+  padding-top: 1px;
+}
+
+.search-header button {
+  background: none;
+  border: none;
+  color: #992f9a;
+  margin-left: 10px;
+  min-width: 2.5em;
+}
+
+.search-header button:hover {
+  background-color: rgb(216, 138, 216);
+  border-radius: 12.5%;
+}
+
+.label {
+  display: block;
+  font: 1rem "Fira Sans", sans-serif;
+}
+
+input,
+.label {
+  margin: 0.4rem 0;
 }

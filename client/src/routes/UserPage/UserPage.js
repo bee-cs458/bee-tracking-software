@@ -16,10 +16,11 @@ import UserAsyncCSV from "../../components/ExportCSV/ExportUserCSV";
 export default function UserPage() {
   const [inputVal, setInputVal] = useState(null);
   const [theme, setTheme] = useOutletContext();
+
   const [userTableChanged, setUserTableChanged] = useState(true); //use state for any changes made to the table
-/*simply toggles the variable so that it changes. the actual value does not matter,
+  /*simply toggles the variable so that it changes. the actual value does not matter,
  just that it is changed when this function is called */
-  function toggleTableChanged() {  
+  function toggleTableChanged() {
     setUserTableChanged(!userTableChanged);
   }
 
@@ -46,11 +47,6 @@ export default function UserPage() {
 
   return (
     <>
-      <div className="header-container">
-        <div style={{ marginLeft: "70%" }}>
-          <AccountLink />
-        </div>
-      </div>
       <div className="main-content-user">
         <h1 className="mb-3 users">Users</h1>
 
@@ -96,7 +92,6 @@ export default function UserPage() {
         <div className="container-fluid user-content">
           <UserTable
             input={inputVal}
-            variant={theme}
             toggleTableChanged={toggleTableChanged} //passes toggle function so table will be able to render upon deleting user
             userTableChanged={userTableChanged} //pass the use state so the table will be able to render on any change made to it
           >

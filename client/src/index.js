@@ -23,8 +23,6 @@ import SingleAssetPage from "./routes/SingleAssetPage/SingleAssetPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-var theme = "light";
-
 axios.defaults.withCredentials = true;
 
 root.render(

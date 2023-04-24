@@ -10,7 +10,13 @@ import { Ranks } from "../../../constants/PermissionRanks";
 import cartIcon from "../../../assets/shopping-cart.png";
 import checkMark from "../../../assets/check-mark.png";
 import crossedOut from "../../../assets/crossed-out.png";
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import ExportOneAsset from "../../ExportCSV/ExportOneAsset";
 
@@ -31,6 +37,10 @@ function AssetRow(props) {
   const [alertMessage, setAlertMessage] = useState(null);
   const [alertType2, setAlertType2] = useState(null);
   const [alertMessage2, setAlertMessage2] = useState(null);
+  // Asset availability
+  const [available, setAvailable] = useState(
+    asset.checked_out || !asset.operational
+  );
   const handleEditAssetTrue = () => setEditAsset(true);
   const handleEditAssetFalse = () => setEditAsset(false);
   const handleDeleteAssetTrue = () => setDeleteAsset(true);
@@ -118,56 +128,72 @@ function AssetRow(props) {
     setSelected(false);
   }, [selectList, selected, setSelectList, asset.asset_tag]); //calls on changes to select list to work with the Clear Selection Button
 
+  var categoryLabel = cats.map((cat) =>
+    cat.category_id === asset.category ? cat.catName : ""
+  );
+
+  // Refreshes the available state when the checked_out or operational states change
+  useEffect(() => {
+    setAvailable(asset.checked_out || !asset.operational);
+  }, [asset.checked_out, asset.operational]);
+
   return (
     <tr className={selected ? "table-primary" : null}>
       <AccessControl allowedRank={Ranks.OPERATOR}>
         <td>
           {/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}
           <Button
-            variant={
-              asset.checked_out ? "danger" : selected ? "success" : "secondary"
-            }
+            variant={available ? "danger" : selected ? "success" : "secondary"}
             onClick={handleSelect}
-            disabled={asset.checked_out ? true : false}
+            disabled={available ? true : false}
           >
             <img
               alt={
-                asset.checked_out
+                available
                   ? "Unavailable"
                   : selected
-                    ? "Added to Cart"
-                    : "Add to Cart"
+                  ? "Added to Cart"
+                  : "Add to Cart"
               }
-              src={
-                asset.checked_out ? crossedOut : selected ? checkMark : cartIcon
-              }
+              src={available ? crossedOut : selected ? checkMark : cartIcon}
               width="25"
               height="25"
             />
           </Button>
         </td>
       </AccessControl>
-      <td><Link to={`/asset/${asset.asset_tag}`} state={{ asset }}>{asset.asset_tag}</Link></td>
+      <td>
+        <Link to={`/asset/${asset.asset_tag}`} state={{ asset, categoryLabel }}>
+          {asset.asset_tag}
+        </Link>
+      </td>
       <td>{asset.name}</td>
       <td>{asset.description}</td>
       <td>{formattedDate}</td>
+      <td>{categoryLabel}</td>
       <td>
-        {cats.map((cat) =>
-          cat.category_id === asset.category ? cat.catName : null
+        {available ? (
+          <FontAwesomeIcon icon={faCircleXmark} className={"icon red"} />
+        ) : (
+          <FontAwesomeIcon icon={faCircleCheck} className={"icon green"} />
         )}
       </td>
-      <td>{asset.checked_out ? "No" : "Yes"}</td>
       <AccessControl allowedRank={Ranks.OWNER}>
         <td>
           <Button
             variant="primary"
             className="beets_buttons"
             onClick={handleEditAssetTrue}
+            style={{ marginLeft: "1rem" }}
           >
-            Edit Asset
+            <FontAwesomeIcon icon={faPencil} />
           </Button>
-          <Button variant="danger" onClick={handleDeleteAssetTrue}>
-            Delete Asset
+          <Button
+            variant="danger"
+            onClick={handleDeleteAssetTrue}
+            style={{ marginLeft: "1rem" }}
+          >
+            <FontAwesomeIcon icon={faTrashCan} />
           </Button>
           <Button
           variant="primary"

@@ -3,12 +3,14 @@ import { getAllUsers, searchingForUsers } from "../../api/UserService";
 import { Table, Alert, Modal, Button } from "react-bootstrap/";
 import UserRow from "./UserRow/UserRow";
 import { promoteOrDemoteAdvancedUser } from "../../api/UserService";
+import { useOutletContext } from "react-router-dom";
 
 export default function UsersTable(props) {
   const [users, setUsers] = useState([]);
   const [lastUserPromoted, setLastUserPromoted] = useState({});
   const [userPendingChange, setUserPendingChange] = useState({});
   const [loading, setLoading] = useState(false);
+  const [theme, setTheme] = useOutletContext();
 
   function popModal(user) {
     setUserPendingChange(user);
@@ -47,15 +49,16 @@ export default function UsersTable(props) {
     <div>
       {users != null && users.length > 0 ? (
         <div>
-          <Table striped bordered variant={props.variant}>
+          <Table striped bordered variant={theme}>
             <thead>
               <tr>
-                <td>User Id</td>
-                <td>First Name</td>
-                <td>Last Name</td>
-                <td>Strikes</td>
-                <td>Permissions</td>
-                <td>Advanced</td>
+                <th width="100px">User Id</th>
+                <th width="200px">First Name</th>
+                <th width="200px">Last Name</th>
+                <th width="100px">Strikes</th>
+                <th width="200px">Permissions</th>
+                <th width="100px">Advanced</th>
+                <th width="200px">Edit User</th>
               </tr>
             </thead>
             <tbody>
