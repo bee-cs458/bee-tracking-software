@@ -50,6 +50,7 @@ li a {
   color: white;
   text-decoration: none;
   padding: 15px;
+  padding-left: 20px;
 }
 
 li a:hover {
