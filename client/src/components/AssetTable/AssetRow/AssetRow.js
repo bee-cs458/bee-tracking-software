@@ -48,13 +48,40 @@ function AssetRow(props) {
 
   const handleExportAssetTrue = () => setExportAsset(true);
   const handleExportAssetFalse = () => setExportAsset(false);
-  const[exportAsset, setExportAsset] = useState(false);
+  const [exportAsset, setExportAsset] = useState(false);
+  const [alertType3, setAlertType3] = useState(null);
+  const [alertMessage3, setAlertMessage3] = useState(null);
 
-  async function handleExport(){
-    {/* Will need to grab the information the row and export*/}
+  async function handleExport() {
+    {
+      /* Will need to grab the information the row and export*/
+    }
     console.log("Export Called");
-    const error = await ExportOneAsset(asset.asset_tag);
+    const error = ExportOneAsset(asset.asset_tag);
+    if (error === 400) {
+      setAlertMessage3(
+        "Warning this will download an csv file. Are you sure you want to go through with exporting?"
+      );
+      setAlertType3(0);
+    } else if (error === 404) {
+      setAlertMessage3(
+        "Warning this will download an csv file. Are you sure you want to go through with exporting?"
+      );
+      setAlertType3(0);
+    } else {
+      handleExportAssetFalse();
+      setAlertMessage3(
+        "Warning this will download an csv file. Are you sure you want to go through with exporting?"
+      );
+      setAlertType3(1);
+    }
   }
+  useEffect(() => {
+    setAlertMessage3(
+      "Warning this will download an csv file. Are you sure you want to go through with exporting?"
+    );
+    setAlertType3(1);
+  }, [asset, exportAsset]);
 
   useEffect(() => {
     setAlertMessage2(
@@ -196,15 +223,12 @@ function AssetRow(props) {
             <FontAwesomeIcon icon={faTrashCan} />
           </Button>
           <Button
-          variant="primary"
-          className="beets_buttons"
-          onClick={handleExportAssetTrue}
+            variant="primary"
+            className="beets_buttons"
+            onClick={handleExportAssetTrue}
           >
             Export Asset
           </Button>
-
-
-
         </td>
       </AccessControl>
       <Modal backdrop="static" show={editAsset} onHide={handleEditAssetFalse}>
@@ -251,13 +275,17 @@ function AssetRow(props) {
         </Modal.Footer>
       </Modal>
 
-      <Modal backdrop="static" show={exportAsset} onHide={handleExportAssetFalse}>
+      <Modal
+        backdrop="static"
+        show={exportAsset}
+        onHide={handleExportAssetFalse}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Export {asset.name} To CSV</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row className="m-3">
-            {/* Could put a condidtional alert here for exporting*/}
+            <ConditionalAlert type={alertType3} message={alertMessage3} />
           </Row>
         </Modal.Body>
         <Modal.Footer>
