@@ -49,8 +49,8 @@ function NavBar(props) {
           </li>
         </AccessControl>
 
+        <AccessControl passwordReset={false}>
         {/* Shows the Checkout and Checkin Nav buttons to operators & above*/}
-
         <AccessControl allowedRank={Ranks.OPERATOR}>
           <li>
             <Link to="/checkOut">
@@ -65,6 +65,23 @@ function NavBar(props) {
             </Link>
           </li>
         </AccessControl>
+        {/* Shows the Users and Records Nav buttons to Owners*/}
+        <AccessControl allowedRank={Ranks.OWNER}>
+        <li>
+            <Link to="/Records">
+              <img src={list} alt="records" width="20" height="18" />
+              Records
+            </Link>
+          </li>
+          <li>
+            <Link to="/Users">
+              <img src={operators} alt="operators" width="20" height="18" />
+              Users
+            </Link>
+          </li>
+        </AccessControl>
+            </AccessControl>
+
         <AccessControl allowedRank={Ranks.STUDENT}>
           <li>
             <Link to="/profile">
@@ -72,24 +89,7 @@ function NavBar(props) {
               Profile
             </Link>
           </li>
-        </AccessControl>
 
-        {/* Shows the Users and Records Nav buttons to Owners*/}
-        <AccessControl allowedRank={Ranks.OWNER}>
-          <li>
-            <Link to="/Users">
-              <img src={operators} alt="operators" width="20" height="18" />
-              Users
-            </Link>
-          </li>
-          <li>
-            <Link to="/Records">
-              <img src={list} alt="records" width="20" height="18" />
-              Records
-            </Link>
-          </li>
-        </AccessControl>
-        <AccessControl allowedRank={Ranks.STUDENT}>
           <li onClick={handleShow}>
             <Link to="/">
               <img src={logOut} alt="log out" width="20" height="18" />
