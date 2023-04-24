@@ -347,7 +347,7 @@ export const createUser = async (req, res, next) => {
 
   if (valid) {
     // create user in the db
-    console.log(JSON.stringify(newUser));
+    //console.log(JSON.stringify(newUser));
     await query(
       `INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${newUser.password}', ${newUser.permissions}, ${newUser.advanced}, NULL, 0);`
     ).then(
@@ -356,7 +356,7 @@ export const createUser = async (req, res, next) => {
         res.send({ result });
       },
       (reason) => {
-        console.log(JSON.stringify(reason));
+        //console.log(JSON.stringify(reason));
         reason.message = `Error creating user with user id ${newUser.user_id}`;
         next(reason);
 
@@ -365,3 +365,20 @@ export const createUser = async (req, res, next) => {
     );
   }
 };
+
+export const getPasswordforUsername = async (req, res, next) => {
+  const username = req.params.username;
+  await query(
+    `SELECT password
+    FROM user
+    WHERE username = ?
+    `, [username]
+  ).then(
+    (result) => res.send({ result }),
+    (reason) => {
+      reason.message = `Error Getting password hash: ${reason.message}`;
+      next(reason);
+    }
+  );
+
+}

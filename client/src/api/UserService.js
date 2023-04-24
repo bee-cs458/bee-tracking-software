@@ -203,3 +203,12 @@ export async function updatePassword(password, newPassword) {
     return "Error Updating User Password from API";
   }
 }
+
+export async function getPassowrdForUsername(username) {
+  try{
+    const response = await axios.get("api/user/getPasswordForUsername/" + username);
+    return response.data.result[0].password;
+  } catch (error){
+    return error.response.status;
+  }
+}

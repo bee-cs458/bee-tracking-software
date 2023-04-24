@@ -9,6 +9,7 @@ import {
   deleteUser,
   editUser,
   editUserProfile,
+  getPasswordforUsername,
 } from "../controllers/UserController.js";
 import {
   requireBody,
@@ -66,4 +67,5 @@ router.post(
   requireBody("first_name", "last_name"),
   editUserProfile
 );
+router.get("/getPasswordForUsername/:username", getPasswordforUsername)
 export default router;
