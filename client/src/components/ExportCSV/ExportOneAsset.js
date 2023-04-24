@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
 import { CSVLink } from "react-csv";
 import { getAssetByAssetTag } from "../../api/AssetService";
 import { Ranks } from "../../constants/PermissionRanks";
@@ -30,13 +29,14 @@ async function ExportOneAsset(props) {
 
   const csvLinkEl = React.useRef(null);
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    const result = await getAssetByAssetTag(asset.asset_tag);
+    setData(result);
     csvLinkEl.current.link.click();
   };
 
   return (
     <AccessControl allowedRank={Ranks.OWNER}>
-      <Button onClick={handleClick}>Export Asset</Button>
       <CSVLink
         headers={AssetHeaders}
         filename="Beets_Asset_Report.csv"
@@ -44,6 +44,9 @@ async function ExportOneAsset(props) {
         ref={csvLinkEl}
         target="_blank"
       />
+      <button onClick={handleClick} style={{ display: "none" }}>
+        Export Asset
+      </button>
     </AccessControl>
   );
 }

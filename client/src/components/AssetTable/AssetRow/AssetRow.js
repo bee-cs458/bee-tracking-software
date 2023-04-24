@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Modal from "react-bootstrap/Modal";
 import EditAsset from "../../EditAsset/EditAsset";
@@ -19,8 +19,14 @@ import { Link } from "react-router-dom";
 import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import ExportOneAsset from "../../ExportCSV/ExportOneAsset";
+import { getAssetByAssetTag } from "../../../api/AssetService";
+import { CSVLink } from "react-csv";
 
 function AssetRow(props) {
+  const csvLinkEl = useRef(null);
+  if (csvLinkEl.current) {
+    csvLinkEl.current.link.click();
+  }
   const cats = props.categoryList;
   const { selectList, setSelectList } = props;
   const [selected, setSelected] = useState(false);
@@ -52,30 +58,54 @@ function AssetRow(props) {
   const [alertType3, setAlertType3] = useState(null);
   const [alertMessage3, setAlertMessage3] = useState(null);
 
+  const [data, setData] = useState([]);
+  
   async function handleExport() {
-    {
-      /* Will need to grab the information the row and export*/
-    }
     console.log("Export Called");
-    const error = ExportOneAsset(asset.asset_tag);
-    if (error === 400) {
+  
+    const AssetHeaders = [    
+      { label: "Asset Tag", key: "asset_tag" },    
+      { label: "Name", key: "name" },    
+      { label: "Description", key: "description" },    
+      { label: "Date Added", key: "date_added" },    
+      { label: "Damage Notes", key: "damage_notes" },    
+      { label: "Category", key: "category" },    
+      { label: "Operational", key: "operational" },    
+      { label: "Checked Out", key: "checked_out" },  
+    ];
+  
+    // Call the API to get the asset details to export
+    const result = await getAssetByAssetTag(asset.asset_tag);
+  
+    if (result === 400 || result === 404) {
+      // Display an alert if the asset details could not be retrieved
       setAlertMessage3(
-        "Warning this will download an csv file. Are you sure you want to go through with exporting?"
-      );
-      setAlertType3(0);
-    } else if (error === 404) {
-      setAlertMessage3(
-        "Warning this will download an csv file. Are you sure you want to go through with exporting?"
+        "Warning this will download a CSV file. Are you sure you want to go through with exporting?"
       );
       setAlertType3(0);
     } else {
-      handleExportAssetFalse();
+      // Export the asset details as a CSV file
+      setExportAsset(true);
+      setData(result);
       setAlertMessage3(
-        "Warning this will download an csv file. Are you sure you want to go through with exporting?"
+        "CSV file download started. Please wait for the download to complete."
       );
       setAlertType3(1);
+
+      console.log(data);
+
+      return (
+        <CSVLink
+          headers={AssetHeaders}
+          filename="Beets_Asset_Report.csv"
+          data={data}
+          ref={csvLinkEl}
+          target="_blank"
+        />
+      );
     }
   }
+  
   useEffect(() => {
     setAlertMessage3(
       "Warning this will download an csv file. Are you sure you want to go through with exporting?"
