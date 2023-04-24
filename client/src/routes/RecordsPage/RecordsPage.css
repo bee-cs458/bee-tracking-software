@@ -22,7 +22,7 @@
 
 .record-table {
   width: calc (100vw - 250px);
-  height: calc(100vh - 118px);
+  height: calc(100vh - 192px);
   overflow-y: scroll;
 }
 

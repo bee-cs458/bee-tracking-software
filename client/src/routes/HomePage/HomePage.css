@@ -50,12 +50,6 @@
   overflow-y: scroll;
 }
 
-.asset-table-shrunk {
-  width: calc(100vw - 110);
-  height: calc(100vh - 143px);
-  overflow-y: scroll;
-}
-
 .beets_buttons {
   /*class that changes the color of the buttons in the webpage*/
   background-color: #015FB4;
