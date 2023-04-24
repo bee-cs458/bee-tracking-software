@@ -187,7 +187,7 @@ function NavBar(props) {
           <AccessControl allowedRank={Ranks.STUDENT}>
             <OverlayTrigger placement="right" overlay={tooltip("Log Out")}>
               <li onClick={handleShow}>
-                <Link to="/">
+                <Link>
                   <img
                     src={logOut}
                     className={collapse ? "collapsed" : null}
