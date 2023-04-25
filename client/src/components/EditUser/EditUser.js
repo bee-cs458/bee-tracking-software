@@ -229,7 +229,7 @@ function EditUser(props) {
         <Col></Col>
         <Button
           as={Col}
-          className="submitButton"
+          className="submitButton beets_buttons"
           variant="primary"
           onClick={handleSubmitUser}
         >

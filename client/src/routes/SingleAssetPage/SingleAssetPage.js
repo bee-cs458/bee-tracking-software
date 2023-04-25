@@ -58,10 +58,6 @@ const SingleAssetPage = () => {
     <div className="d-flex flex-column" style={{ overflow: "hidden" }}>
       <Container
         fluid
-        style={{
-          paddingLeft: `${SIDE_NAV_WIDTH}`,
-          paddingTop: `${TOP_BAR_HEIGHT}`,
-        }}
       >
         <section>
           {isLoading ? (
@@ -116,7 +112,7 @@ const SingleAssetPage = () => {
                         </td>
                       </tr>
                       <tr>
-                        <th>Available</th>
+                        <th className="pr-10">Available</th>
                         <td>
                           {!asset.checked_out ? (
                             <FontAwesomeIcon

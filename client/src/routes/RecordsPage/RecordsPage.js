@@ -1,13 +1,13 @@
 import RecordTable from "../../components/RecordsUtils/RecordTable.js";
 import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/CheckedOutRecords.js";
+import "./RecordsPage.css";
 import React, { useState } from "react";
 import { Container, Col, Row, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import CheckoutRecordCSV from "../../components/ExportCSV/ExportRecordsCSV.js";
 import { AccessControl } from "../../components/AccessControl/AccessControl.js";
-import { Ranks } from "../../constants/PermissionRanks.js";
-
+import { Ranks } from "../../constants/PermissionRanks.js"; 
 export default function RecordsPage() {
   const [checked, setChecked] = useState(false);
   const [selectList, setSelectList] = useState([]);
@@ -108,14 +108,16 @@ export default function RecordsPage() {
             </Col>
           </Row>
         </Container>
-        <RecordTable
-          filterByCheckedOut={checked}
-          inputVal={inputVal}
-          selectList={selectList}
-          setSelectList={setSelectList}
-          startDate={startDate}
-          endDate={endDate}
-        />
+        <div className="record-table">
+          <RecordTable
+            filterByCheckedOut={checked}
+            inputVal={inputVal}
+            selectList={selectList}
+            setSelectList={setSelectList}
+            startDate={startDate}
+            endDate={endDate}
+          />
+        </div>
       </div>
     </div>
   );

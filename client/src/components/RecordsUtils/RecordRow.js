@@ -88,9 +88,9 @@ export default function CheckInRow(props) {
         <td>{formatDate(record.due_date)}</td>
         {props.variant === "light" ? //if in light mode
           expanded ? <td><img alt="collapse" src={arrow} className="upsidedown"></img></td> //use the normal arrow upside down if expanded
-          : <td><img src={arrow} alt="expand" ></img></td> //use the normal arrow if not expanded
+          : <td><img src={arrow} alt="expand" className={null}></img></td> //use the normal arrow if not expanded
         : expanded ? <td><img alt="collapse" src={arrow} className="upsidedown darkModeFilter"></img></td> //if in dark mode use the filter and upsidedown class when expanded
-          : <td><img src={arrow} alt="expand" className="darkModeFliter"></img></td>/*if not expanded just use the dark mode filter */}
+          : <td><img src={arrow} alt="expand" className="darkModeFilter"></img></td>/*if not expanded just use the dark mode filter */}
         
       </tr>
       {expanded ? (
