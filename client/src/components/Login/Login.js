@@ -23,30 +23,36 @@ function Login(props) {
   const [globalState, setGlobalState] = useContext(GlobalStateContext);
 
   const submit = async () => {
-    bcrypt.hash(
-      document.getElementById("password").value, saltRounds).then((hash) => {
-      console.log(hash);
-  });
-    const hash = (await getPassowrdForUsername(document.getElementById("username").value));
-    bcrypt.compare(document.getElementById("password").value, hash).then( async (res) => {
-      if(res){
-        await verifyLogin(
-          document.getElementById("username").value, 
-        ).then((result) => {
-          console.log(globalState);
-          if (result.status === 401) {
-            setErrorState(true);
-          } else {
-            setErrorState(false);
-            setGlobalState(result);
-            window.location.reload();
-          }
-        });
-        toggleUpdate(true);
-      } else {
-        setErrorState(true);
-      }
-    });
+    bcrypt
+      .hash(document.getElementById("password").value, saltRounds)
+      .then((hash) => {
+        console.log(hash);
+      });
+    const hash = await getPassowrdForUsername(
+      document.getElementById("username").value
+    );
+    bcrypt
+      .compare(document.getElementById("password").value, hash)
+      .then(async (res) => {
+        if (res) {
+          await verifyLogin(
+            document.getElementById("username").value,
+            document.getElementById("password").value
+          ).then((result) => {
+            console.log(globalState);
+            if (result.status === 401) {
+              setErrorState(true);
+            } else {
+              setErrorState(false);
+              setGlobalState(result);
+              window.location.reload();
+            }
+          });
+          toggleUpdate(true);
+        } else {
+          setErrorState(true);
+        }
+      });
   };
 
   const handleKeypress = (e) => {
