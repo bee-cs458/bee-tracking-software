@@ -79,7 +79,7 @@ export default function RecordsPage(props) {
               <Form.Check
                 onClick={handleByCheckedOut}
                 label="Checked Out"
-                checked={checked}
+                defaultChecked={checked}
               ></Form.Check>
             </Col>
             <Col>

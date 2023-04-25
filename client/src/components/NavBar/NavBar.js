@@ -225,6 +225,7 @@ function NavBar(props) {
                   width="20"
                   height="18"
                 />
+                
               </Link>
             </li>
           </OverlayTrigger>
@@ -274,7 +275,7 @@ function NavBar(props) {
             <Link style={{textDecoration: 'none'}}
               to="/Records"
               state={{ fromNavBar: true }}>
-              <ConditionalAlert type={0} message={`${overdueItems} Overdue Items \n`} />
+              <ConditionalAlert type={0} message={`${overdueItems} ` + (!collapse ? "Overdue Items" : "")} />
             </Link>
           )}
         </AccessControl>
