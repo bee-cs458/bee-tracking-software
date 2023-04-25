@@ -111,7 +111,7 @@ function AssetRow(props) {
 
   return (
     <tr className={selected ? "table-primary" : null}>
-      <AccessControl allowedRank={Ranks.OPERATOR}>
+      <AccessControl allowedRank={Ranks.OPERATOR} passwordReset={true}>
         <td>
           {/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}
           <Button
@@ -148,7 +148,7 @@ function AssetRow(props) {
         }
       </td>
       <td>{asset.checked_out ? "No" : "Yes"}</td>
-      <AccessControl allowedRank={Ranks.OWNER}>
+      <AccessControl allowedRank={Ranks.OWNER} passwordReset={true}>
         <td>
           <Button
             variant="primary"

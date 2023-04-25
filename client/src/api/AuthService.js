@@ -38,6 +38,7 @@ export function getLoggedInUser() {
         user: {
           user_id: -1,
           permissions: -1,
+          updatePass: 0
         },
       };
     }

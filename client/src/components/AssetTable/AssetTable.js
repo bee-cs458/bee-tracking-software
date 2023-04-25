@@ -72,7 +72,7 @@ export default function AssetTable(props) {
           <Table striped bordered variant={theme} hover>
             <thead>
               <tr>
-                <AccessControl allowedRank={Ranks.OPERATOR}>
+                <AccessControl allowedRank={Ranks.OPERATOR} passwordReset={true}>
                   <td >Cart</td>
                 </AccessControl>
                 <th >Tag</th>
@@ -81,7 +81,7 @@ export default function AssetTable(props) {
                 <th>Date Added</th>
                 <th >Category</th>
                 <th >Available</th>
-                <AccessControl allowedRank={Ranks.OWNER}>
+                <AccessControl allowedRank={Ranks.OWNER} passwordReset={true}>
                   <th >Options</th>
                 </AccessControl>
               </tr>

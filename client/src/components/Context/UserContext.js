@@ -19,6 +19,7 @@ export const GlobalStateProvider = ({ children }) => {
     user: {
       user_id: -1,
       permissions: -1,
+      updatePass: 0
     },
   });
 
@@ -33,7 +34,7 @@ export const GlobalStateProvider = ({ children }) => {
 
         // Otherwise, the global state will be set to a default "logged out" value
         setGlobalState({
-          user: { user_id: Ranks.GUEST, permissions: Ranks.GUEST },
+          user: { user_id: Ranks.GUEST, permissions: Ranks.GUEST, updatePass: 0 },
         });
 
         throw new Error("Failed to get logged in user");
@@ -64,7 +65,8 @@ export const GlobalStateProvider = ({ children }) => {
  *  username,
  *  permissions,
  *  advanced,
- *  email
+ *  email,
+ *  updatePass
  * `
  */
 export const useAuthenticatedUser = () => {

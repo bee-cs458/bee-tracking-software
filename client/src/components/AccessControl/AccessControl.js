@@ -24,11 +24,12 @@ export const AccessControl = ({
     // if onlyLoggedOut is true, then only those who are guests are permitted
     permitted = user.permissions <= Ranks.GUEST;
   } else {
-    if(passwordReset){
-      permitted = true;
-    }else{
-    // otherwise, users must be the allowed rank or higher
-    permitted = user.permissions >= allowedRank;
+    if (passwordReset) {
+      //If the user is flagged for a password reset, they will not be able to access the content
+      permitted = (!user.updatePass && user.permissions >= allowedRank);
+    } else {
+      // otherwise, users must be the allowed rank or higher
+      permitted = user.permissions >= allowedRank;
     }
   }
 

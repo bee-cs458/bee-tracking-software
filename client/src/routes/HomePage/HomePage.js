@@ -145,41 +145,45 @@ export default function HomePage(props) {
               style={{ display: "flex", flexDirection: "row" }}
               className="mb-2 justify-content-end"
             >
-              <AccessControl allowedRank={Ranks.OWNER}>
-                <OverlayTrigger placement="top" overlay={tooltip("Add Asset")}>
-                  <Button
-                    className="beets_buttons icon-button"
-                    onClick={handleShow}
-                  >
-                    <FontAwesomeIcon
-                      icon={faPlusCircle}
-                      style={{ color: "#ffffff" }}
-                    />
-                  </Button>
-                </OverlayTrigger>
-              </AccessControl>
+              <AccessControl allowedRank={Ranks.OPERATOR} passwordReset={true}>
 
-              <AccessControl allowedRank={Ranks.OPERATOR}>
-                <OverlayTrigger
-                  placement="top"
-                  overlay={tooltip("Export Asset CSV")}
-                >
-                  <AssetAsyncCSV></AssetAsyncCSV>
-                </OverlayTrigger>
-              </AccessControl>
+                <AccessControl allowedRank={Ranks.OWNER}>
+                  <OverlayTrigger placement="top" overlay={tooltip("Add Asset")}>
+                    <Button
+                      className="beets_buttons icon-button"
+                      onClick={handleShow}
+                    >
+                      <FontAwesomeIcon
+                        icon={faPlusCircle}
+                        style={{ color: "#ffffff" }}
+                      />
+                    </Button>
+                  </OverlayTrigger>
+                </AccessControl>
 
-              <AccessControl allowedRank={Ranks.OPERATOR}>
-                <OverlayTrigger placement="top" overlay={tooltip("Clear Cart")}>
-                  <Button
-                    className="beets_buttons icon-button"
-                    onClick={clearSelection}
+                <AccessControl allowedRank={Ranks.OPERATOR}>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={tooltip("Export Asset CSV")}
                   >
-                    <FontAwesomeIcon
-                      icon={faStoreSlash}
-                      style={{ color: "#ffffff" }}
-                    />
-                  </Button>
-                </OverlayTrigger>
+                    <AssetAsyncCSV></AssetAsyncCSV>
+                  </OverlayTrigger>
+                </AccessControl>
+
+                <AccessControl allowedRank={Ranks.OPERATOR}>
+                  <OverlayTrigger placement="top" overlay={tooltip("Clear Cart")}>
+                    <Button
+                      className="beets_buttons icon-button"
+                      onClick={clearSelection}
+                    >
+                      <FontAwesomeIcon
+                        icon={faStoreSlash}
+                        style={{ color: "#ffffff" }}
+                      />
+                    </Button>
+                  </OverlayTrigger>
+                </AccessControl>
+
               </AccessControl>
             </Col>
           </Row>
