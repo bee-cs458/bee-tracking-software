@@ -60,10 +60,10 @@ function NavBar(props) {
             props.mode === "light" && !collapse
               ? logo
               : !collapse
-              ? logoDark
-              : props.mode === "light" && collapse
-              ? logoShrunk
-              : logoDarkShrunk
+                ? logoDark
+                : props.mode === "light" && collapse
+                  ? logoShrunk
+                  : logoDarkShrunk
           }
           alt="logo"
           height="55px"
@@ -73,21 +73,8 @@ function NavBar(props) {
       </Link>
       <div className={collapse ? "collapsed" : null}>
         <ul className="navBarList">
-          <li>
-            <OverlayTrigger placement="right" overlay={tooltip("Assets")}>
-              <Link to="/">
-                {/* Linked back to home page/asset view */}
-                <img
-                  src={list}
-                  className={collapse ? "collapsed" : null}
-                  alt="list"
-                  width="20"
-                  height="18"
-                />
-                {!collapse ? "Assets" : null}
-              </Link>
-            </OverlayTrigger>
-          </li>
+
+
           <AccessControl onlyLoggedOut={true}>
             <OverlayTrigger placement="right" overlay={tooltip("Log In")}>
               <li onClick={handleShow}>
@@ -104,87 +91,108 @@ function NavBar(props) {
               </li>
             </OverlayTrigger>
           </AccessControl>
-
           {/* Shows the Checkout and Checkin Nav buttons to operators & above*/}
-
-          <AccessControl allowedRank={Ranks.OPERATOR}>
-            <OverlayTrigger placement="right" overlay={tooltip("Check Out")}>
-              <li>
-                <Link to="/checkOut">
-                  <img
-                    src={checkOut}
-                    className={collapse ? "collapsed" : null}
-                    alt="check out"
-                    width="20"
-                    height="18"
-                  />
-                  {!collapse ? "Check Out" : null}
-                </Link>
-              </li>
-            </OverlayTrigger>
-            <OverlayTrigger placement="right" overlay={tooltip("Check In")}>
-              <li>
-                <Link to="/checkIn">
-                  <img
-                    src={checkIn}
-                    className={collapse ? "collapsed" : null}
-                    alt="check in"
-                    width="20"
-                    height="18"
-                  />
-                  {!collapse ? "Check In" : null}
-                </Link>
-              </li>
-            </OverlayTrigger>
+          <AccessControl allowedRank={Ranks.STUDENT} passwordReset={true}>
+            <AccessControl allowedRank={Ranks.OPERATOR}>
+              <OverlayTrigger placement="right" overlay={tooltip("Check Out")}>
+                <li>
+                  <Link to="/checkOut">
+                    <img
+                      src={checkOut}
+                      className={collapse ? "collapsed" : null}
+                      alt="check out"
+                      width="20"
+                      height="18"
+                    />
+                    {!collapse ? "Check Out" : null}
+                  </Link>
+                </li>
+              </OverlayTrigger>
+              <OverlayTrigger placement="right" overlay={tooltip("Check In")}>
+                <li>
+                  <Link to="/checkIn">
+                    <img
+                      src={checkIn}
+                      className={collapse ? "collapsed" : null}
+                      alt="check in"
+                      width="20"
+                      height="18"
+                    />
+                    {!collapse ? "Check In" : null}
+                  </Link>
+                </li>
+              </OverlayTrigger>
+            </AccessControl>
           </AccessControl>
-          <AccessControl allowedRank={Ranks.STUDENT}>
-            <OverlayTrigger placement="right" overlay={tooltip("Profile")}>
-              <li>
-                <Link to="/profile">
-                  <img
-                    src={signIn}
-                    className={collapse ? "collapsed" : null}
-                    alt="profile"
-                    width="20"
-                    height="18"
-                  />
-                  {!collapse ? "Profile" : null}
-                </Link>
-              </li>
-            </OverlayTrigger>
-          </AccessControl>
-
-          {/* Shows the Users and Records Nav buttons to Owners*/}
-          <AccessControl allowedRank={Ranks.OWNER}>
-            <OverlayTrigger placement="right" overlay={tooltip("Users")}>
-              <li>
-                <Link to="/Users">
-                  <img
-                    src={operators}
-                    className={collapse ? "collapsed" : null}
-                    alt="operators"
-                    width="20"
-                    height="18"
-                  />
-                  {!collapse ? "Users" : null}
-                </Link>
-              </li>
-            </OverlayTrigger>
-            <OverlayTrigger placement="right" overlay={tooltip("Records")}>
-              <li>
-                <Link to="/Records">
+            <li>
+              <OverlayTrigger placement="right" overlay={tooltip("Assets")}>
+                <Link to="/">
+                  {/* Linked back to home page/asset view */}
                   <img
                     src={list}
                     className={collapse ? "collapsed" : null}
-                    alt="records"
+                    alt="list"
                     width="20"
                     height="18"
                   />
-                  {!collapse ? "Records" : null}
+                  {!collapse ? "Assets" : null}
                 </Link>
-              </li>
-            </OverlayTrigger>
+              </OverlayTrigger>
+            </li>
+
+
+          <AccessControl allowedRank={Ranks.STUDENT} passwordReset={true}>
+            {/* Shows the Users and Records Nav buttons to Owners*/}
+            <AccessControl allowedRank={Ranks.OWNER}>
+              <OverlayTrigger placement="right" overlay={tooltip("Records")}>
+                <li>
+                  <Link to="/Records">
+                    <img
+                      src={list}
+                      className={collapse ? "collapsed" : null}
+                      alt="records"
+                      width="20"
+                      height="18"
+                    />
+                    {!collapse ? "Records" : null}
+                  </Link>
+                </li>
+              </OverlayTrigger>
+
+              <OverlayTrigger placement="right" overlay={tooltip("Users")}>
+                <li>
+                  <Link to="/Users">
+                    <img
+                      src={operators}
+                      className={collapse ? "collapsed" : null}
+                      alt="operators"
+                      width="20"
+                      height="18"
+                    />
+                    {!collapse ? "Users" : null}
+                  </Link>
+                </li>
+              </OverlayTrigger>
+
+            </AccessControl>
+            <AccessControl allowedRank={Ranks.STUDENT}>
+              <OverlayTrigger placement="right" overlay={tooltip("Profile")}>
+                <li>
+                  <Link to="/profile">
+                    <img
+                      src={signIn}
+                      className={collapse ? "collapsed" : null}
+                      alt="profile"
+                      width="20"
+                      height="18"
+                    />
+                    {!collapse ? "Profile" : null}
+                  </Link>
+                </li>
+              </OverlayTrigger>
+            </AccessControl>
           </AccessControl>
+
           <AccessControl allowedRank={Ranks.STUDENT}>
             <OverlayTrigger placement="right" overlay={tooltip("Log Out")}>
               <li onClick={handleShow}>
