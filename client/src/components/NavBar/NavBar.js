@@ -33,7 +33,7 @@ function NavBar(props) {
   const [overdueItems, setOverdueItems] = useState(0); // State for storing the number of overdue items
 
   const getInfo = async () => {
-    let allRecords = await getAllRecords();
+    let allRecords = await getAllCheckedOutRecords();
     allRecords = allRecords.filter((record) => record.in_date === null);
     setOverdueItems(allRecords.length); // Update the state with the number of overdue items
   }
