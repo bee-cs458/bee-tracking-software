@@ -10,6 +10,7 @@ import {
   editUser,
   editUserProfile,
   getPasswordforUsername,
+  getPasswordforUserID,
 } from "../controllers/UserController.js";
 import {
   requireBody,
@@ -22,7 +23,7 @@ const router = express.Router();
 
 router.post(
   "/update_password",
-  requireBody("password", "newPassword"),
+  requireBody("newPassword"),
   updateUserPassword
 );
 router.post(
@@ -68,4 +69,5 @@ router.post(
   editUserProfile
 );
 router.get("/getPasswordForUsername/:username", getPasswordforUsername)
+router.get("/getPasswordForUserID/:user_id", getPasswordforUserID)
 export default router;

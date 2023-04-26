@@ -189,10 +189,9 @@ export async function editUserProfile(user_id, first_name, last_name) {
 
 // current API in use for update password
 // updates the users password in the database
-export async function updatePassword(password, newPassword) {
+export async function updatePassword(newPassword) {
   try {
     const response = await axios.post("/api/user/update_password", {
-      password: password,
       newPassword: newPassword,
     });
     return response.data.result;
@@ -205,10 +204,23 @@ export async function updatePassword(password, newPassword) {
 }
 
 export async function getPassowrdForUsername(username) {
-  try{
-    const response = await axios.get("api/user/getPasswordForUsername/" + username);
+  try {
+    const response = await axios.get(
+      "api/user/getPasswordForUsername/" + username
+    );
     return response.data.result[0].password;
-  } catch (error){
+  } catch (error) {
+    return error.response.status;
+  }
+}
+
+export async function getPassowrdForUserID(user_id) {
+  try {
+    const response = await axios.get(
+      "api/user/getPasswordForUserID/" + user_id
+    );
+    return response.data.result[0].password;
+  } catch (error) {
     return error.response.status;
   }
 }
