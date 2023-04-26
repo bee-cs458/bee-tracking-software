@@ -5,11 +5,14 @@ import { useEffect, useState } from "react";
 import { getCheckoutRecordsByUserID } from "../../api/CheckInServices";
 import { useAuthenticatedUser } from "../../components/Context/UserContext";
 import ProfileAssetTable from "../../components/ProfileAssetTable/ProfileAssetTable";
+import StudentCheckoutHistoryTable from "../../components/CheckoutHistoryTable/StudentCheckoutHistoryTable";
 import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
 import { Button, Modal } from "react-bootstrap";
 import UserInformation from "../../components/UserInformation/UserInformation";
 import ConditionalAlert from "../../components/CheckInUtilities/ConditionalAlert";
+import { AccessControl } from "../../components/AccessControl/AccessControl";
+import { Ranks } from "../../constants/PermissionRanks";
 //import { useOutletContext } from "react-router-dom";
 
 export default function ProfilePage() {
@@ -111,6 +114,13 @@ export default function ProfilePage() {
               ) : (
                 <h3>No assets checked out</h3>
               )}
+
+              <div className="seperator" />
+              <AccessControl allowedRank={Ranks.OPERATOR}>
+                <h3>Checkout History</h3>
+                <div className="seperator" />
+                <StudentCheckoutHistoryTable student_id={user.user_id} />
+              </AccessControl>
             </div>
           </div>
         </div>
