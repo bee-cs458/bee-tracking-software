@@ -23,14 +23,18 @@ function Login(props) {
   const [globalState, setGlobalState] = useContext(GlobalStateContext);
 
   const submit = async () => {
+    //get rid of stuff below this
     bcrypt
       .hash(document.getElementById("password").value, saltRounds)
       .then((hash) => {
         console.log(hash);
       });
-    const hash = await getPassowrdForUsername(
+      //get rid of stuff above this
+
+    const hash = await getPassowrdForUsername( //gets the hash from the database associated with the entered username.
       document.getElementById("username").value
-    );
+    )
+    if(hash !== 404){ //check if the database returned a 404 error
     bcrypt
       .compare(document.getElementById("password").value, hash)
       .then(async (res) => {
@@ -53,6 +57,9 @@ function Login(props) {
           setErrorState(true);
         }
       });
+    } else { //if the hash returned a 404 error, then the user will be told to check their credentials
+      setErrorState(true);
+    }
   };
 
   const handleKeypress = (e) => {

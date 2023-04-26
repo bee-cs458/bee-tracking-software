@@ -7,7 +7,7 @@ import {
 } from "../utilities/DatabaseUtilities.js";
 
 export const updateUserPassword = async (req, res, next) => {
-  const { newPassword} = req.body;
+  const { newPassword } = req.body;
   // query to update user based on a matching id and password
   await query(
     `UPDATE user SET \`user\`.\`password\`=?
@@ -373,15 +373,23 @@ export const getPasswordforUsername = async (req, res, next) => {
     `SELECT password
     FROM user
     WHERE username = ?
-    `, [username]
+    `,
+    [username]
   ).then(
-    (result) => res.send({ result }),
+    (result) => {
+      if (result.length === 1) {
+        res.send({ result });
+      }
+      next({
+        status: 404,
+        message: "user does not exist",
+      });
+    },
     (reason) => {
       reason.message = `Error Getting password hash: ${reason.message}`;
       next(reason);
     }
   );
-
 };
 
 export const getPasswordforUserID = async (req, res, next) => {
@@ -390,7 +398,8 @@ export const getPasswordforUserID = async (req, res, next) => {
     `SELECT password
     FROM user
     WHERE user_id = ?
-    `, [user_id]
+    `,
+    [user_id]
   ).then(
     (result) => res.send({ result }),
     (reason) => {
@@ -398,5 +407,4 @@ export const getPasswordforUserID = async (req, res, next) => {
       next(reason);
     }
   );
-
 };

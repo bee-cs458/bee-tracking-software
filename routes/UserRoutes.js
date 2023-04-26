@@ -68,6 +68,6 @@ router.post(
   requireBody("first_name", "last_name"),
   editUserProfile
 );
-router.get("/getPasswordForUsername/:username", getPasswordforUsername)
+router.get("/getPasswordForUsername/:username", getPasswordforUsername) 
 router.get("/getPasswordForUserID/:user_id", getPasswordforUserID)
 export default router;

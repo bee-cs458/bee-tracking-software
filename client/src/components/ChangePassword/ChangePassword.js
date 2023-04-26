@@ -101,24 +101,29 @@ export default function ChangePassword(props) {
 
   const submit = async () => {
     if (oldPassword === "") {
+      //if no old password was entered
       setAlert(1, "Please enter your old password.");
       setRequirements(""); // makes password alert disapear
     } else if (newPassword !== passwordAgain) {
+      //if the two new passwords don't match
       setAlert(0, "Passwords do not match!");
       setRequirements(""); // makes password alert disapear
     } else if (strength.id < 2) {
+      //if the password doesn't meet the strength requirements
       checkRequirements(); // sets the password alert if any are missed.
     } else {
-      const hash = await getPassowrdForUserID(user.user_id);
+      //when all of the requirements for changing a password are met
+      const hash = await getPassowrdForUserID(user.user_id); //gets the current user's hash
+      //checks if the entered oldPassword matches with the hash
       bcrypt.compare(oldPassword, hash).then(async (res) => {
         if (res) {
+          //if the correct old password was entered
           bcrypt.hash(newPassword, saltRounds).then(async (hash) => {
+            //set the old password to be hased
             updatePassword(hash).then((res) => {
               if (res === 404) {
-                setAlert(
-                  0,
-                  "Failed to update password, user did not exist"
-                );
+                //if the password update fails
+                setAlert(0, "Failed to update password, user did not exist");
                 setRequirements(""); // makes password alert disapear
               } else {
                 clearFields();

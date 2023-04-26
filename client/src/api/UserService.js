@@ -121,7 +121,12 @@ async function changeUserPermissions(userId, newPermissions) {
 // adds a new user to the database
 export async function createNewUser(user, hash) {
   try {
-    const response = await axios.post("/api/user/create", { user: user, hash: hash });
+    //send user data and hash to database
+    //even though the password is sent to the api, it is never sent to the database
+    const response = await axios.post("/api/user/create", {
+      user: user,
+      hash: hash,
+    });
     return response.data.result;
   } catch (error) {
     return {
@@ -205,22 +210,29 @@ export async function updatePassword(newPassword) {
 
 export async function getPassowrdForUsername(username) {
   try {
+    //calls the endpoint to get the hash for the associated username
     const response = await axios.get(
       "api/user/getPasswordForUsername/" + username
     );
-    return response.data.result[0].password;
+    if (response.status != 404)
+      //returns the hash
+      return response.data.result[0].password;
   } catch (error) {
+    //returns any potential errors
     return error.response.status;
   }
 }
 
 export async function getPassowrdForUserID(user_id) {
   try {
+    //cals the endpoint to get the hash for the associated user_id
     const response = await axios.get(
       "api/user/getPasswordForUserID/" + user_id
     );
+    //returns the hash
     return response.data.result[0].password;
   } catch (error) {
+    //returns any potential errors.
     return error.response.status;
   }
 }

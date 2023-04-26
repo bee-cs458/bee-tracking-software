@@ -24,7 +24,9 @@ function CreateUserForm(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    //hashes the entered password
     bcrypt.hash(userData.password, saltRounds).then(async (hash) => {
+      //sends the new user and the hash to the API
       await createNewUser(userData, hash).then((result) => {
         if (result.status === 202) {
           setAlertType(3);
