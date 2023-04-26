@@ -33,7 +33,7 @@ function NavBar(props) {
 
   const getInfo = async () => {
     let allRecords = await getAllCheckedOutRecords();
-   // allRecords = allRecords.filter((record) => record.in_date === null);
+    allRecords = allRecords.filter((record) => record.in_date === null);
     setOverdueItems(allRecords.length); // Update the state with the number of overdue items
   }
 
