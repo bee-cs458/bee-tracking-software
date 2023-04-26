@@ -114,12 +114,12 @@ li img {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #00098885;
+  background: #992f9a;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #00026d7c;
+  background: #a833aa;
   border-radius: 10px;
 }
