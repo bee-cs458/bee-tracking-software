@@ -92,8 +92,17 @@ function NavBar(props) {
             </OverlayTrigger>
           </AccessControl>
           {/* Shows the Checkout and Checkin Nav buttons to operators & above*/}
-          <AccessControl allowedRank={Ranks.STUDENT} passwordReset={true}>
-            <AccessControl allowedRank={Ranks.OPERATOR}>
+          <AccessControl allowedRank={Ranks.GUEST} passwordReset={true} renderNoAccess={() => {
+            // Will output an alert to the navbar if the user needs a password update, works with collapse
+            return (
+              <OverlayTrigger placement="right" overlay={tooltip("Check In")}>
+                <Alert variant="primary" className={collapse ? "collapsed" : null}>
+                  {!collapse ? "Password change is required to regain access to system" : <div width="20" height="18">!</div>}
+                </Alert>
+              </OverlayTrigger>
+            )
+          }}>
+            <AccessControl allowedRank={Ranks.OPERATOR} >
               <OverlayTrigger placement="right" overlay={tooltip("Check Out")}>
                 <li>
                   <Link to="/checkOut">
@@ -124,21 +133,21 @@ function NavBar(props) {
               </OverlayTrigger>
             </AccessControl>
           </AccessControl>
-            <li>
-              <OverlayTrigger placement="right" overlay={tooltip("Assets")}>
-                <Link to="/">
-                  {/* Linked back to home page/asset view */}
-                  <img
-                    src={list}
-                    className={collapse ? "collapsed" : null}
-                    alt="list"
-                    width="20"
-                    height="18"
-                  />
-                  {!collapse ? "Assets" : null}
-                </Link>
-              </OverlayTrigger>
-            </li>
+          <li>
+            <OverlayTrigger placement="right" overlay={tooltip("Assets")}>
+              <Link to="/">
+                {/* Linked back to home page/asset view */}
+                <img
+                  src={list}
+                  className={collapse ? "collapsed" : null}
+                  alt="list"
+                  width="20"
+                  height="18"
+                />
+                {!collapse ? "Assets" : null}
+              </Link>
+            </OverlayTrigger>
+          </li>
 
 
           <AccessControl allowedRank={Ranks.STUDENT} passwordReset={true}>
