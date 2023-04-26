@@ -36,10 +36,11 @@
   z-index: 1;
 }
 
-.alert-collapse{
+.passwordResetMessage{
   text-align: center;
-  font-size: 30px;
+  font-size: 20px;
   border: 5px black;
+  
 }
 
 .navBarList,

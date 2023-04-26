@@ -96,9 +96,11 @@ function NavBar(props) {
             // Will output an alert to the navbar if the user needs a password update, works with collapse
             return (
               <OverlayTrigger placement="right" overlay={tooltip("Check In")}>
+                <Link to="/profile">
                 <Alert variant="primary" className={collapse ? "collapsed" : null}>
-                  {!collapse ? "Password change is required to regain access to system" : <div width="20" height="18">!</div>}
+                  {!collapse ? "Password change is required to regain access to system" : <div className="passwordResetMessage" width="20" height="18">!</div>}
                 </Alert>
+                </Link>
               </OverlayTrigger>
             )
           }}>
@@ -184,7 +186,9 @@ function NavBar(props) {
               </OverlayTrigger>
 
             </AccessControl>
-            <AccessControl allowedRank={Ranks.STUDENT}>
+            
+          </AccessControl>
+          <AccessControl allowedRank={Ranks.STUDENT}>
               <OverlayTrigger placement="right" overlay={tooltip("Profile")}>
                 <li>
                   <Link to="/profile">
@@ -200,8 +204,6 @@ function NavBar(props) {
                 </li>
               </OverlayTrigger>
             </AccessControl>
-          </AccessControl>
-
           <AccessControl allowedRank={Ranks.STUDENT}>
             <OverlayTrigger placement="right" overlay={tooltip("Log Out")}>
               <li onClick={handleShow}>
