@@ -119,9 +119,9 @@ async function changeUserPermissions(userId, newPermissions) {
  * @returns response of the API call
  */
 // adds a new user to the database
-export async function createNewUser(user) {
+export async function createNewUser(user, hash) {
   try {
-    const response = await axios.post("/api/user/create", { user: user });
+    const response = await axios.post("/api/user/create", { user: user, hash: hash });
     return response.data.result;
   } catch (error) {
     return {

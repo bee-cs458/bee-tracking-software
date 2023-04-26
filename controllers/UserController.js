@@ -283,6 +283,7 @@ export const editUser = async (req, res, next) => {
  */
 export const createUser = async (req, res, next) => {
   const newUser = req.body.user;
+  const hash = req.body.hash;
   var valid = true;
 
   //Does not allow accounts with a username and no password
@@ -349,7 +350,7 @@ export const createUser = async (req, res, next) => {
     // create user in the db
     //console.log(JSON.stringify(newUser));
     await query(
-      `INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${newUser.password}', ${newUser.permissions}, ${newUser.advanced}, NULL, 0);`
+      `INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${hash}', ${newUser.permissions}, ${newUser.advanced}, NULL, 0);`
     ).then(
       (result) => {
         result.status = 202;

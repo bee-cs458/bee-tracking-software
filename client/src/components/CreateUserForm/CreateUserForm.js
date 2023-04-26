@@ -8,6 +8,8 @@ import { createNewUser } from "../../api/UserService";
 import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
 
 function CreateUserForm(props) {
+  const bcrypt = require("bcryptjs"); //hashing object
+  const saltRounds = 10; //number of rounds to be used when creating a salt
   const [userData, setUserData] = useState({
     user_id: "",
     first_name: "",
@@ -22,37 +24,38 @@ function CreateUserForm(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    await createNewUser(userData).then((result) => {
-      if (result.status === 202) {
-        setAlertType(3);
-        setAlertMessage("User created successfully");
-        clearForm();
-      } else if (result.status === 409) {
-        setAlertType(1);
-        setAlertMessage("User ID already in use.");
-      } else if (result.status === 410) {
-        setAlertType(1);
-        setAlertMessage("Username already in use");
-      } else if (result.status === 411) {
-        setAlertType(1);
-        setAlertMessage(
-          "User must have both a username and a password, or neither. Please enter a password"
-        );
-      } else if (result.status === 412) {
-        setAlertType(1);
-        setAlertMessage(
-          "User must have both a username and a password, or neither. Please enter a username"
-        );
-      } else if (result.status === 413) {
-        setAlertType(1);
-        setAlertMessage(
-          "Username must be an email address. Please enter a valid email address"
-        );
-      } else {
-        setAlertType(0);
-        setAlertMessage("There was an unidentified error creating this user");
-      }
+    bcrypt.hash(userData.password, saltRounds).then(async (hash) => {
+      await createNewUser(userData, hash).then((result) => {
+        if (result.status === 202) {
+          setAlertType(3);
+          setAlertMessage("User created successfully");
+          clearForm();
+        } else if (result.status === 409) {
+          setAlertType(1);
+          setAlertMessage("User ID already in use.");
+        } else if (result.status === 410) {
+          setAlertType(1);
+          setAlertMessage("Username already in use");
+        } else if (result.status === 411) {
+          setAlertType(1);
+          setAlertMessage(
+            "User must have both a username and a password, or neither. Please enter a password"
+          );
+        } else if (result.status === 412) {
+          setAlertType(1);
+          setAlertMessage(
+            "User must have both a username and a password, or neither. Please enter a username"
+          );
+        } else if (result.status === 413) {
+          setAlertType(1);
+          setAlertMessage(
+            "Username must be an email address. Please enter a valid email address"
+          );
+        } else {
+          setAlertType(0);
+          setAlertMessage("There was an unidentified error creating this user");
+        }
+      });
     });
   };
 

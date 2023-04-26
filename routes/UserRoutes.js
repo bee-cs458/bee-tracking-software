@@ -53,7 +53,7 @@ router.patch(
   requireBody("user_id", "new_permissions"),
   changePermissions
 );
-router.post("/create", restrictTo("owner"), requireBody("user"), createUser);
+router.post("/create", restrictTo("owner"), requireBody("user", "hash"), createUser);
 router.post("/get_all", restrictTo("operator"), getAllUsers);
 
 router.delete("/:id", restrictTo("owner"), deleteUser);
