@@ -4,8 +4,9 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { Row, Col } from "react-bootstrap";
 import "./WeatherWidget.css";
 
-export default function WeatherWidget({ apiKey }) {
+export default function WeatherWidget(props) {
   const [weatherData, setWeatherData] = useState(null);
+  const [shrunk, setShrunk] = useState(false);
 
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
@@ -18,6 +19,11 @@ export default function WeatherWidget({ apiKey }) {
   useEffect(() => {
     getLocation();
   }, []);
+
+  // If the navbar is shrunk, just show the weather icon
+  useEffect(() => {
+    setShrunk(props.collapsed);
+  }, [props.collapsed]);
 
   // If lat and lon are changed, fetch weather data
   // Both must be valid at the same time
@@ -51,7 +57,7 @@ export default function WeatherWidget({ apiKey }) {
   // API: https://openweathermap.org/current
   async function fetchWeatherData() {
     const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`,
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${props.apiKey}&units=imperial`,
       // Disable credentials
       { withCredentials: false }
     );
@@ -68,6 +74,21 @@ export default function WeatherWidget({ apiKey }) {
     return str.replace(/\w\S*/g, function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
+  }
+
+  function weatherText(temp, condition) {
+    return (
+      <Col xs={9}>
+        <Row>
+          {/* Temperature */}
+          <div style={{ fontSize: "14px" }}>{temp}&deg;F</div>
+        </Row>
+        <Row>
+          {/* Weather condition */}
+          <div style={{ fontSize: "12px" }}>{condition}</div>
+        </Row>
+      </Col>
+    );
   }
 
   // if loading, show loading spinner
@@ -93,18 +114,8 @@ export default function WeatherWidget({ apiKey }) {
                 alt={weatherCondition}
               />
             </Col>
-            <Col xs={9}>
-              <Row>
-                {/* Temperature */}
-                <div style={{ fontSize: "14px" }}>
-                  {temperature}&deg;F
-                </div>
-              </Row>
-              <Row>
-                {/* Weather condition */}
-                <div style={{ fontSize: "12px" }}>{weatherCondition}</div>
-              </Row>
-            </Col>
+            {/* If navbar is not shrunk, show the weather text information too */}
+            {!shrunk && weatherText(temperature, weatherCondition)}
           </Row>
         </div>
       </>
