@@ -217,7 +217,7 @@ function NavBar(props) {
           </AccessControl>
           <OverlayTrigger placement="right" overlay={tooltip("Expand")}>
             <li onClick={handleCollapse}>
-              <Link>
+              <Link state={{ fromNavBar: true }}>
                 <img
                   src={doubleArrow}
                   className={collapse ? "collapsed" : "collapsed left"}
