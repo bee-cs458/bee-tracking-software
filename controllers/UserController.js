@@ -368,8 +368,9 @@ export const createUser = async (req, res, next) => {
 };
 
 export const getPasswordforUsername = async (req, res, next) => {
-  const username = req.params.username;
+  const username = req.params.username; //get the username that was passed through
   await query(
+    //query that gets the password
     `SELECT password
     FROM user
     WHERE username = ?
@@ -378,14 +379,18 @@ export const getPasswordforUsername = async (req, res, next) => {
   ).then(
     (result) => {
       if (result.length === 1) {
+        //if the result has one value as expected, return it
         res.send({ result });
       }
-      next({
-        status: 404,
-        message: "user does not exist",
-      });
+      //sends a 404 error if there was no result found
+      if (result.length === 0)
+        next({
+          status: 404,
+          message: "user does not exist",
+        });
     },
     (reason) => {
+      //generic error handling
       reason.message = `Error Getting password hash: ${reason.message}`;
       next(reason);
     }
@@ -393,16 +398,23 @@ export const getPasswordforUsername = async (req, res, next) => {
 };
 
 export const getPasswordforUserID = async (req, res, next) => {
-  const user_id = req.params.user_id;
+  const user_id = req.params.user_id; //get the user Id that was passed through
   await query(
+    //query that gets the password
     `SELECT password
     FROM user
     WHERE user_id = ?
     `,
     [user_id]
   ).then(
-    (result) => res.send({ result }),
+    (result) => {
+      if (result.length === 1) {
+        //if the result is length one, as expected return the result
+        res.send({ result });
+      }
+    },
     (reason) => {
+      //generic error handling
       reason.message = `Error Getting password hash: ${reason.message}`;
       next(reason);
     }

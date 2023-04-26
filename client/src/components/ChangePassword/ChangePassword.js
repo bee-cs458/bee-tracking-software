@@ -11,8 +11,8 @@ import PasswordAlert from "../../components/PasswordAlert/PasswordAlert.js";
 
 export default function ChangePassword(props) {
   const { user } = props;
-  const bcrypt = require("bcryptjs");
-  const saltRounds = 10;
+  const bcrypt = require("bcryptjs"); //object for hashing
+  const saltRounds = 10; //number used in creating a salt for hashing
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
