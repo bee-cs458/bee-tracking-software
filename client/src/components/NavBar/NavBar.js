@@ -17,11 +17,10 @@ import logOut from "../../assets/logOut.png";
 import signIn from "../../assets/signIn.png";
 import doubleArrow from "../../assets/double-arrow.png";
 import "./NavBar.css";
-import { getAllRecords } from "../../api/RecordService";
 import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
 import Row from "react-bootstrap/esm/Row";
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
+import { getAllCheckedOutRecords } from "../../api/RecordService";
 function NavBar(props) {
   const [show, setShow] = useState(false);
   const { collapse, setCollapse } = props;
@@ -33,8 +32,8 @@ function NavBar(props) {
   const [overdueItems, setOverdueItems] = useState(0); // State for storing the number of overdue items
 
   const getInfo = async () => {
-    let allRecords = await getAllRecords();
-    allRecords = allRecords.filter((record) => record.in_date === null);
+    let allRecords = await getAllCheckedOutRecords();
+   // allRecords = allRecords.filter((record) => record.in_date === null);
     setOverdueItems(allRecords.length); // Update the state with the number of overdue items
   }
 
