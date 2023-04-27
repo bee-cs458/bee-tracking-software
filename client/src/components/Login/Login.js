@@ -4,7 +4,6 @@ import { verifyLogin } from "../../api/AuthService.js";
 import { useEffect, useState, useContext } from "react";
 import { GlobalStateContext } from "../Context/UserContext.js";
 import "./Login.css";
-import { getPassowrdForUsername } from "../../api/UserService.js";
 
 const googleLogin = () => {
   window.open("http://localhost:5000/api/login/google", "_self");

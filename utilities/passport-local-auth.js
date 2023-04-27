@@ -22,7 +22,7 @@ const getPassowrdForUsernameQuery = (username) =>
 const StrategyImplementation = new LocalStrategy(
   async (username, password, callback) => {
     const hash = await getPassowrdForUsernameQuery(username); //gets the hashed password for the user
-    if (!hash.length) {
+    if (hash.length > 0) {
       // checks if there was a password associated with the given username
 
       //compare the hash with the entered password
