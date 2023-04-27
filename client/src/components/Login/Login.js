@@ -11,8 +11,10 @@ const googleLogin = () => {
 };
 
 function Login(props) {
+  //remove
   const bcrypt = require("bcryptjs"); //includes functions for hashing
   const saltRounds = 10; //for salt generation
+  //remove
   const [updated, changeUpdate] = useState(null);
   const [errorState, setErrorState] = useState(false);
   useEffect(() => {}, [updated, errorState]);
@@ -29,37 +31,21 @@ function Login(props) {
       .then((hash) => {
         console.log(hash);
       });
-      //get rid of stuff above this
-
-    const hash = await getPassowrdForUsername( //gets the hash from the database associated with the entered username.
-      document.getElementById("username").value
-    )
-    if(hash !== 404){ //check if the database returned a 404 error
-    bcrypt
-      .compare(document.getElementById("password").value, hash)
-      .then(async (res) => {
-        if (res) {
-          await verifyLogin(
-            document.getElementById("username").value,
-            document.getElementById("password").value
-          ).then((result) => {
-            console.log(globalState);
-            if (result.status === 401) {
-              setErrorState(true);
-            } else {
-              setErrorState(false);
-              setGlobalState(result);
-              window.location.reload();
-            }
-          });
-          toggleUpdate(true);
-        } else {
-          setErrorState(true);
-        }
-      });
-    } else { //if the hash returned a 404 error, then the user will be told to check their credentials
-      setErrorState(true);
-    }
+    //get rid of stuff above this
+    await verifyLogin(
+      document.getElementById("username").value,
+      document.getElementById("password").value
+    ).then((result) => {
+      console.log(globalState);
+      if (result.status === 401) {
+        setErrorState(true);
+      } else {
+        setErrorState(false);
+        setGlobalState(result);
+        window.location.reload();
+      }
+    });
+    toggleUpdate(true);
   };
 
   const handleKeypress = (e) => {
