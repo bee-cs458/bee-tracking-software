@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { AccessControl } from "../AccessControl/AccessControl";
 import { Ranks } from "../../constants/PermissionRanks";
@@ -18,6 +17,11 @@ import logOut from "../../assets/logOut.png";
 import signIn from "../../assets/signIn.png";
 import doubleArrow from "../../assets/double-arrow.png";
 import "./NavBar.css";
+import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
+import Row from "react-bootstrap/esm/Row";
+import { Link } from "react-router-dom";
+import { getAllCheckedOutRecords } from "../../api/RecordService";
+import { useAuthenticatedUser } from "../Context/UserContext";
 
 function NavBar(props) {
   const [show, setShow] = useState(false);
@@ -27,10 +31,22 @@ function NavBar(props) {
     setShow(true);
     sessionStorage.clear();
   }; //clear session storage to wipe the current Cart on user change
+  const [overdueItems, setOverdueItems] = useState(0); // State for storing the number of overdue items
+  const user = useAuthenticatedUser();
 
-  function handleClick() {
-    props.switchTheme();
-  }
+  const getInfo = async () => {
+    //Checks if user has the correct permissions to access the records pull
+    if (user.permissions >= 1) {
+      let allRecords = await getAllCheckedOutRecords();
+      allRecords = allRecords.filter((record) => record.in_date === null);
+      setOverdueItems(allRecords.length); // Update the state with the number of overdue items
+    }
+  };
+
+  useEffect(() => {
+    // Call getInfo() function when component mounts
+    getInfo();
+  }, [user]);
 
   function handleCollapse() {
     //the collapse Boolean changes various display elements
@@ -171,7 +187,7 @@ function NavBar(props) {
             </OverlayTrigger>
             <OverlayTrigger placement="right" overlay={tooltip("Records")}>
               <li>
-                <Link to="/Records">
+                <Link to="/Records" state={{ fromNavBar: false }}>
                   <img
                     src={list}
                     className={collapse ? "collapsed" : null}
@@ -202,7 +218,7 @@ function NavBar(props) {
           </AccessControl>
           <OverlayTrigger placement="right" overlay={tooltip("Expand")}>
             <li onClick={handleCollapse}>
-              <Link>
+              <Link state={{ fromNavBar: true }}>
                 <img
                   src={doubleArrow}
                   className={collapse ? "collapsed" : "collapsed left"}
@@ -252,6 +268,25 @@ function NavBar(props) {
           </OverlayTrigger>
         </ul>
       </div>
+      {/* Overdue Items Alert */}
+      <Row className="m-">
+        <AccessControl allowedRank={Ranks.OPERATOR}>
+          {overdueItems > 0 && (
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/Records"
+              state={{ fromNavBar: true }}
+            >
+              <ConditionalAlert
+                type={0}
+                message={
+                  `${overdueItems} ` + (!collapse ? "Overdue Items" : "")
+                }
+              />
+            </Link>
+          )}
+        </AccessControl>
+      </Row>
     </nav>
   );
 }
