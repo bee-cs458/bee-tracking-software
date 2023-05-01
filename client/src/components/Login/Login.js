@@ -10,6 +10,10 @@ const googleLogin = () => {
 };
 
 function Login(props) {
+  //remove
+  const bcrypt = require("bcryptjs"); //includes functions for hashing
+  const saltRounds = 10; //for salt generation
+  //remove
   const [updated, changeUpdate] = useState(null);
   const [errorState, setErrorState] = useState(false);
   useEffect(() => {}, [updated, errorState]);
@@ -20,17 +24,19 @@ function Login(props) {
   const [globalState, setGlobalState] = useContext(GlobalStateContext);
 
   const submit = async () => {
-    await verifyLogin(
+    await verifyLogin( //sends the entered username and password to verify the login attempt
       document.getElementById("username").value,
       document.getElementById("password").value
     ).then((result) => {
-      console.log(globalState);
+      //console.log(globalState);
       if (result.status === 401) {
+        //if the username and password do not match that of a user send an incorrect credentials alert
         setErrorState(true);
       } else {
-        setErrorState(false);
-        setGlobalState(result);
-        window.location.reload();
+        //if the credentials are verified
+        setErrorState(false);//clear any alerts
+        setGlobalState(result);//, log the user in 
+        window.location.reload();//reload the page so the page updates with the user logged in.
       }
     });
     toggleUpdate(true);
@@ -63,7 +69,7 @@ function Login(props) {
       ></input>
       <br></br>
       Password:<br></br>
-      <input id="password" type="password" onKeyDown={handleKeypress}></input>
+      <input id="password" type="text" onKeyDown={handleKeypress}></input>
       <div>
         <Button
           variant="primary"

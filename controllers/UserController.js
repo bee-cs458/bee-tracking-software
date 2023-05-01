@@ -7,18 +7,18 @@ import {
 } from "../utilities/DatabaseUtilities.js";
 
 export const updateUserPassword = async (req, res, next) => {
-  const { newPassword, password } = req.body;
+  const { newPassword } = req.body;
   // query to update user based on a matching id and password
   await query(
     `UPDATE user SET \`user\`.\`password\`=?
-         WHERE \`user\`.\`user_id\`=? AND \`user\`.\`password\`=?`,
-    [newPassword, req.user.user_id, password]
+         WHERE \`user\`.\`user_id\`=?`,
+    [newPassword, req.user.user_id]
   ).then(
     (result) => {
       if (result?.affectedRows <= 0)
         next({
           status: 404,
-          message: `User with Username of ${req.user.username} does not exist or password was wrong`,
+          message: `User with Username of ${req.user.username} does not exist`,
         });
       else {
         res.send({ result });
@@ -283,6 +283,7 @@ export const editUser = async (req, res, next) => {
  */
 export const createUser = async (req, res, next) => {
   const newUser = req.body.user;
+  const hash = req.body.hash;
   var valid = true;
 
   //Does not allow accounts with a username and no password
@@ -347,16 +348,16 @@ export const createUser = async (req, res, next) => {
 
   if (valid) {
     // create user in the db
-    console.log(JSON.stringify(newUser));
+    //console.log(JSON.stringify(newUser));
     await query(
-      `INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${newUser.password}', ${newUser.permissions}, ${newUser.advanced}, NULL, 0);`
+      `INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${hash}', ${newUser.permissions}, ${newUser.advanced}, NULL, 0);`
     ).then(
       (result) => {
         result.status = 202;
         res.send({ result });
       },
       (reason) => {
-        console.log(JSON.stringify(reason));
+        //console.log(JSON.stringify(reason));
         reason.message = `Error creating user with user id ${newUser.user_id}`;
         next(reason);
 
@@ -364,4 +365,58 @@ export const createUser = async (req, res, next) => {
       }
     );
   }
+};
+
+export const getPasswordforUsername = async (req, res, next) => {
+  const username = req.params.username; //get the username that was passed through
+  await query(
+    //query that gets the password
+    `SELECT password
+    FROM user
+    WHERE username = ?
+    `,
+    [username]
+  ).then(
+    (result) => {
+      if (result.length === 1) {
+        //if the result has one value as expected, return it
+        res.send({ result });
+      }
+      //sends a 404 error if there was no result found
+      if (result.length === 0)
+        next({
+          status: 404,
+          message: "user does not exist",
+        });
+    },
+    (reason) => {
+      //generic error handling
+      reason.message = `Error Getting password hash: ${reason.message}`;
+      next(reason);
+    }
+  );
+};
+
+export const getPasswordforUserID = async (req, res, next) => {
+  const user_id = req.params.user_id; //get the user Id that was passed through
+  await query(
+    //query that gets the password
+    `SELECT password
+    FROM user
+    WHERE user_id = ?
+    `,
+    [user_id]
+  ).then(
+    (result) => {
+      if (result.length === 1) {
+        //if the result is length one, as expected return the result
+        res.send({ result });
+      }
+    },
+    (reason) => {
+      //generic error handling
+      reason.message = `Error Getting password hash: ${reason.message}`;
+      next(reason);
+    }
+  );
 };
