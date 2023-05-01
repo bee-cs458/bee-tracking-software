@@ -17,10 +17,11 @@ import logOut from "../../assets/logOut.png";
 import signIn from "../../assets/signIn.png";
 import doubleArrow from "../../assets/double-arrow.png";
 import "./NavBar.css";
-import { getAllRecords } from "../../api/RecordService";
 import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
 import Row from "react-bootstrap/esm/Row";
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { getAllCheckedOutRecords } from "../../api/RecordService";
+import { useAuthenticatedUser } from "../Context/UserContext";
 
 function NavBar(props) {
   const [show, setShow] = useState(false);
@@ -31,21 +32,21 @@ function NavBar(props) {
     sessionStorage.clear();
   }; //clear session storage to wipe the current Cart on user change
   const [overdueItems, setOverdueItems] = useState(0); // State for storing the number of overdue items
+  const user = useAuthenticatedUser();
 
   const getInfo = async () => {
-    let allRecords = await getAllRecords();
-    allRecords = allRecords.filter((record) => record.in_date === null);
-    setOverdueItems(allRecords.length); // Update the state with the number of overdue items
-  }
+    //Checks if user has the correct permissions to access the records pull
+    if (user.permissions >= 1) {
+      let allRecords = await getAllCheckedOutRecords();
+      allRecords = allRecords.filter((record) => record.in_date === null);
+      setOverdueItems(allRecords.length); // Update the state with the number of overdue items
+    }
+  };
 
   useEffect(() => {
     // Call getInfo() function when component mounts
     getInfo();
-  }, []);
-
-  function handleClick() {
-    props.switchTheme();
-  }
+  }, [user]);
 
   function handleCollapse() {
     //the collapse Boolean changes various display elements
@@ -225,7 +226,6 @@ function NavBar(props) {
                   width="20"
                   height="18"
                 />
-                
               </Link>
             </li>
           </OverlayTrigger>
@@ -252,7 +252,6 @@ function NavBar(props) {
                 <Logout callback={handleClose} />
               </AccessControl>
             </Modal.Body>
-
           </Modal>
 
           {/* Weather Widget */}
@@ -269,13 +268,21 @@ function NavBar(props) {
           </OverlayTrigger>
         </ul>
       </div>
+      {/* Overdue Items Alert */}
       <Row className="m-">
         <AccessControl allowedRank={Ranks.OPERATOR}>
           {overdueItems > 0 && (
-            <Link style={{textDecoration: 'none'}}
+            <Link
+              style={{ textDecoration: "none" }}
               to="/Records"
-              state={{ fromNavBar: true }}>
-              <ConditionalAlert type={0} message={`${overdueItems} ` + (!collapse ? "Overdue Items" : "")} />
+              state={{ fromNavBar: true }}
+            >
+              <ConditionalAlert
+                type={0}
+                message={
+                  `${overdueItems} ` + (!collapse ? "Overdue Items" : "")
+                }
+              />
             </Link>
           )}
         </AccessControl>
