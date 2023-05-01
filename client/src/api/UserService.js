@@ -196,6 +196,7 @@ export async function editUserProfile(user_id, first_name, last_name) {
 // updates the users password in the database
 export async function updatePassword(newPassword) {
   try {
+    
     const response = await axios.post("/api/user/update_password", {
       newPassword: newPassword,
     });

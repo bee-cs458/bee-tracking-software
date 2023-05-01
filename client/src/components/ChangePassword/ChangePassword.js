@@ -84,6 +84,7 @@ export default function ChangePassword(props) {
   }
 
   function handleNewPassChange(password) {
+    
     setNewPassword(password);
     setStrength(passwordStrength(password));
     checkRequirements(); //updates password alert for any changes made to newPassword

@@ -10,7 +10,7 @@ export const updateUserPassword = async (req, res, next) => {
   const { newPassword } = req.body;
   // query to update user based on a matching id and password
   await query(
-    `UPDATE user SET \`user\`.\`password\`=?
+    `UPDATE user SET \`user\`.\`password\`=?, \`user\`.\`updatePass\`=0
          WHERE \`user\`.\`user_id\`=?`,
     [newPassword, req.user.user_id]
   ).then(
