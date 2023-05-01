@@ -4,6 +4,6 @@ import express from 'express';
 
 const router = express.Router();
 
-router.get("/get_all", restrictTo("operator"), getAllRecords);
+router.get("/get_all", restrictTo("student"), getAllRecords);
 
 export default router;

@@ -103,24 +103,29 @@ export default function ProfilePage() {
               ></ConditionalAlert>
             </div>
             <div className="col">
-              <h2>Checked Out Assets</h2>
-              <div className="seperator"></div>
-              {checkedOutAssets.length > 0 ? (
-                <ProfileAssetTable
-                  assets={checkedOutAssets}
-                  cats={cats}
-                  variant={theme}
-                ></ProfileAssetTable>
-              ) : (
-                <h3>No assets checked out</h3>
-              )}
-
-              <div className="seperator" />
-              <AccessControl allowedRank={Ranks.OPERATOR}>
+              <div style={{height: "40vh"}}>
+                <h2>Checked Out Assets</h2>
+                <div className="seperator"></div>
+                <div className="profile-table">
+                  {checkedOutAssets.length > 0 ? (
+                    <ProfileAssetTable
+                      assets={checkedOutAssets}
+                      cats={cats}
+                      variant={theme}
+                    ></ProfileAssetTable>
+                  ) : (
+                    <h3>No assets checked out</h3>
+                  )}
+                </div>
+              </div>
+              <div className="seperator" />     
+              <div style={{height: "40vh"}}>
                 <h3>Checkout History</h3>
                 <div className="seperator" />
-                <StudentCheckoutHistoryTable student_id={user.user_id} />
-              </AccessControl>
+                <div className="profile-table">
+                  <StudentCheckoutHistoryTable student_id={user.user_id} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
