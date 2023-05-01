@@ -34,6 +34,7 @@ export async function getAllCheckedOutRecords() {
         return response.data.result;
       
     } catch (error) {
+        console.error("query bad")
       return "Error Getting Checkedout Records from API";
     }
   }
