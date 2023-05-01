@@ -1,10 +1,10 @@
 import ChangePassword from "../../components/ChangePassword/ChangePassword";
-import { AccountLink } from "../../components/AccountLink/AccountLink";
 import "./ProfilePage.css";
 import { useEffect, useState } from "react";
 import { getCheckoutRecordsByUserID } from "../../api/CheckInServices";
 import { useAuthenticatedUser } from "../../components/Context/UserContext";
 import ProfileAssetTable from "../../components/ProfileAssetTable/ProfileAssetTable";
+import CheckoutHistoryTable from "../../components/CheckoutHistoryTable/CheckoutHistoryTable";
 import { useOutletContext } from "react-router-dom";
 import getCategories from "../../api/CategoryService";
 import { Button, Modal } from "react-bootstrap";
@@ -100,17 +100,30 @@ export default function ProfilePage() {
               ></ConditionalAlert>
             </div>
             <div className="col">
-              <h2>Checked Out Assets</h2>
-              <div className="seperator"></div>
-              {checkedOutAssets.length > 0 ? (
-                <ProfileAssetTable
-                  assets={checkedOutAssets}
-                  cats={cats}
-                  variant={theme}
-                ></ProfileAssetTable>
-              ) : (
-                <h3>No assets checked out</h3>
-              )}
+              <div style={{height: "40vh"}}>
+                <h2>Checked Out Assets</h2>
+                <div className="seperator"></div>
+                <div className="profile-table">
+                  {checkedOutAssets.length > 0 ? (
+                    <ProfileAssetTable
+                      assets={checkedOutAssets}
+                      cats={cats}
+                      variant={theme}
+                    ></ProfileAssetTable>
+                  ) : (
+                    <h3>No assets checked out</h3>
+                  )}
+                </div>
+              </div>
+              <div className="seperator" />     
+              <div style={{height: "40vh"}}>
+                {/* Shows a table of the logged in student's checkout records. */}
+                <h3>Checkout History</h3>
+                <div className="seperator" />
+                <div className="profile-table">
+                  <CheckoutHistoryTable student_id={user.user_id} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -120,7 +133,7 @@ export default function ProfilePage() {
           <Modal.Title>Change Password</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ChangePassword></ChangePassword>
+          <ChangePassword user={user}></ChangePassword>
         </Modal.Body>
       </Modal>
     </div>

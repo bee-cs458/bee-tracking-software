@@ -3,13 +3,16 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { updatePassword } from "../../api/UserService.js";
+import { getPassowrdForUserID, updatePassword } from "../../api/UserService.js";
 import "./ChangePassword.css";
 import { passwordStrength } from "check-password-strength";
 import ConditionalAlert from "../../components/CheckInUtilities/ConditionalAlert.js";
 import PasswordAlert from "../../components/PasswordAlert/PasswordAlert.js";
 
-export default function ChangePassword() {
+export default function ChangePassword(props) {
+  const { user } = props;
+  const bcrypt = require("bcryptjs"); //object for hashing
+  const saltRounds = 10; //number used in creating a salt for hashing
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
@@ -44,7 +47,8 @@ export default function ChangePassword() {
     setOldPassword(password);
   }
 
-  function checkRequirements(){//updates the message in the passwordAlert
+  function checkRequirements() {
+    //updates the message in the passwordAlert
     if (strength.id < 2) {
       setAlert(null, ""); //makes conditional alert blank
       var missingReqs =
@@ -75,7 +79,7 @@ export default function ChangePassword() {
       }
       setRequirements(missingReqs); //prompts user with error alert and any requirement they are missing
     } else {
-      setRequirements("Passed")//lest the user know that everything is going to be alright
+      setRequirements("Passed"); //lest the user know that everything is going to be alright
     }
   }
 
@@ -95,35 +99,56 @@ export default function ChangePassword() {
     setStrength({ id: 0, value: "Too weak", minDiversity: 0, minLength: 0 });
   }
 
-  function submit() {
+  const submit = async () => {
     if (oldPassword === "") {
+      //if no old password was entered
       setAlert(1, "Please enter your old password.");
       setRequirements(""); // makes password alert disapear
     } else if (newPassword !== passwordAgain) {
+      //if the two new passwords don't match
       setAlert(0, "Passwords do not match!");
       setRequirements(""); // makes password alert disapear
     } else if (strength.id < 2) {
-      checkRequirements()// sets the password alert if any are missed.
+      //if the password doesn't meet the strength requirements
+      checkRequirements(); // sets the password alert if any are missed.
     } else {
-      updatePassword(oldPassword, newPassword).then((res) => {
-        if (res === 404) {
+      //when all of the requirements for changing a password are met
+      const hash = await getPassowrdForUserID(user.user_id); //gets the current user's hash
+      //checks if the entered oldPassword matches with the hash
+      bcrypt.compare(oldPassword, hash).then(async (res) => {
+        if (res) {
+          //if the correct old password was entered
+          bcrypt.hash(newPassword, saltRounds).then(async (hash) => {
+            //set the old password to be hased
+            updatePassword(hash).then((res) => {
+              if (res === 404) {
+                //if the password update fails
+                setAlert(0, "Failed to update password, user did not exist");
+                setRequirements(""); // makes password alert disapear
+              } else {
+                clearFields();
+                setAlert(3, "Password has been updated!");
+                setRequirements(""); // makes password alert disapear
+              }
+            });
+          });
+        } else {
           setAlert(
             0,
             "Your old password is not correct! Please check that you entered the right password!"
           );
           setRequirements(""); // makes password alert disapear
-        } else {
-          setAlert(3, "Password has been updated!");
-          setRequirements(""); // makes password alert disapear
-          clearFields();
         }
-      }); //if oldPassword is incorrect display an error
+      });
+      //if oldPassword is incorrect display an error
     }
-  }
+  };
 
   //componet renders upon these states changing
-  useEffect(() => {checkRequirements();
-  setAlert(null,"")}, [newPassword, oldPassword, passwordAgain]);
+  useEffect(() => {
+    checkRequirements();
+    setAlert(null, "");
+  }, [newPassword, oldPassword, passwordAgain]);
 
   return (
     <div>

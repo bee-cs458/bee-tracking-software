@@ -119,9 +119,14 @@ async function changeUserPermissions(userId, newPermissions) {
  * @returns response of the API call
  */
 // adds a new user to the database
-export async function createNewUser(user) {
+export async function createNewUser(user, hash) {
   try {
-    const response = await axios.post("/api/user/create", { user: user });
+    //send user data and hash to database
+    //even though the password is sent to the api, it is never sent to the database
+    const response = await axios.post("/api/user/create", {
+      user: user,
+      hash: hash,
+    });
     return response.data.result;
   } catch (error) {
     return {
@@ -189,10 +194,9 @@ export async function editUserProfile(user_id, first_name, last_name) {
 
 // current API in use for update password
 // updates the users password in the database
-export async function updatePassword(password, newPassword) {
+export async function updatePassword(newPassword) {
   try {
     const response = await axios.post("/api/user/update_password", {
-      password: password,
       newPassword: newPassword,
     });
     return response.data.result;
@@ -201,5 +205,34 @@ export async function updatePassword(password, newPassword) {
       return error.response.status;
     }
     return "Error Updating User Password from API";
+  }
+}
+
+export async function getPassowrdForUsername(username) {
+  try {
+    //calls the endpoint to get the hash for the associated username
+    const response = await axios.get(
+      "api/user/getPasswordForUsername/" + username
+    );
+    if (response.status != 404)
+      //returns the hash
+      return response.data.result[0].password;
+  } catch (error) {
+    //returns any potential errors
+    return error.response.status;
+  }
+}
+
+export async function getPassowrdForUserID(user_id) {
+  try {
+    //cals the endpoint to get the hash for the associated user_id
+    const response = await axios.get(
+      "api/user/getPasswordForUserID/" + user_id
+    );
+    //returns the hash
+    return response.data.result[0].password;
+  } catch (error) {
+    //returns any potential errors.
+    return error.response.status;
   }
 }
