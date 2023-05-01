@@ -18,15 +18,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-import ExportOneAsset from "../../ExportCSV/ExportOneAsset";
-import { getAssetByAssetTag } from "../../../api/AssetService";
-import { CSVLink } from "react-csv";
-
 function AssetRow(props) {
   const csvLinkEl = useRef(null);
-  if (csvLinkEl.current) {
-    csvLinkEl.current.link.click();
-  }
   const cats = props.categoryList;
   const { selectList, setSelectList } = props;
   const [selected, setSelected] = useState(false);
@@ -51,67 +44,6 @@ function AssetRow(props) {
   const handleEditAssetFalse = () => setEditAsset(false);
   const handleDeleteAssetTrue = () => setDeleteAsset(true);
   const handleDeleteAssetFalse = () => setDeleteAsset(false);
-
-  const handleExportAssetTrue = () => setExportAsset(true);
-  const handleExportAssetFalse = () => setExportAsset(false);
-  const [exportAsset, setExportAsset] = useState(false);
-  const [alertType3, setAlertType3] = useState(null);
-  const [alertMessage3, setAlertMessage3] = useState(null);
-
-  const [data, setData] = useState([]);
-  
-  async function handleExport() {
-    console.log("Export Called");
-  
-    const AssetHeaders = [    
-      { label: "Asset Tag", key: "asset_tag" },    
-      { label: "Name", key: "name" },    
-      { label: "Description", key: "description" },    
-      { label: "Date Added", key: "date_added" },    
-      { label: "Damage Notes", key: "damage_notes" },    
-      { label: "Category", key: "category" },    
-      { label: "Operational", key: "operational" },    
-      { label: "Checked Out", key: "checked_out" },  
-    ];
-  
-    // Call the API to get the asset details to export
-    const result = await getAssetByAssetTag(asset.asset_tag);
-  
-    if (result === 400 || result === 404) {
-      // Display an alert if the asset details could not be retrieved
-      setAlertMessage3(
-        "Warning this will download a CSV file. Are you sure you want to go through with exporting?"
-      );
-      setAlertType3(0);
-    } else {
-      // Export the asset details as a CSV file
-      setExportAsset(true);
-      setData(result);
-      setAlertMessage3(
-        "CSV file download started. Please wait for the download to complete."
-      );
-      setAlertType3(1);
-
-      console.log(data);
-
-      return (
-        <CSVLink
-          headers={AssetHeaders}
-          filename="Beets_Asset_Report.csv"
-          data={data}
-          ref={csvLinkEl}
-          target="_blank"
-        />
-      );
-    }
-  }
-  
-  useEffect(() => {
-    setAlertMessage3(
-      "Warning this will download an csv file. Are you sure you want to go through with exporting?"
-    );
-    setAlertType3(1);
-  }, [asset, exportAsset]);
 
   useEffect(() => {
     setAlertMessage2(
@@ -252,13 +184,6 @@ function AssetRow(props) {
           >
             <FontAwesomeIcon icon={faTrashCan} />
           </Button>
-          <Button
-            variant="primary"
-            className="beets_buttons"
-            onClick={handleExportAssetTrue}
-          >
-            Export Asset
-          </Button>
         </td>
       </AccessControl>
       <Modal backdrop="static" show={editAsset} onHide={handleEditAssetFalse}>
@@ -300,29 +225,6 @@ function AssetRow(props) {
           </Button>
           <> </>
           <Button variant="secondary" onClick={handleDeleteAssetFalse}>
-            Cancel
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      <Modal
-        backdrop="static"
-        show={exportAsset}
-        onHide={handleExportAssetFalse}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Export {asset.name} To CSV</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Row className="m-3">
-            <ConditionalAlert type={alertType3} message={alertMessage3} />
-          </Row>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="danger" onClick={handleExport}>
-            Export
-          </Button>
-          <Button variant="secondary" onClick={handleExportAssetFalse}>
             Cancel
           </Button>
         </Modal.Footer>
