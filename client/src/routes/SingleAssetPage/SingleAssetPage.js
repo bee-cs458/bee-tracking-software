@@ -18,7 +18,6 @@ import Modal from "react-bootstrap/Modal";
 import ConditionalAlert from "../../components/CheckInUtilities/ConditionalAlert";
 import { faFileExport } from "@fortawesome/free-solid-svg-icons";
 
-
 import "./SingleAssetPage.css";
 
 const SingleAssetPage = () => {
