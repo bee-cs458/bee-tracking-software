@@ -52,12 +52,16 @@ const SingleAssetPage = () => {
     });
   
     handleExportAssetFalse();
+
+    const input = csvName;
+
+    const filename = input.trim().endsWith('.csv') ? input.trim() : input.trim() + '.csv';
   
     // Download the CSV file
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', csvName); // Use the user inputted CSV file name
+    link.setAttribute('download', filename); // Use the user inputted CSV file name
     document.body.appendChild(link);
     link.click();
   }
