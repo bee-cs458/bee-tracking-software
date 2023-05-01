@@ -9,6 +9,8 @@ import {
   deleteUser,
   editUser,
   editUserProfile,
+  getPasswordforUsername,
+  getPasswordforUserID,
 } from "../controllers/UserController.js";
 import {
   requireBody,
@@ -21,7 +23,7 @@ const router = express.Router();
 
 router.post(
   "/update_password",
-  requireBody("password", "newPassword"),
+  requireBody("newPassword"),
   updateUserPassword
 );
 router.post(
@@ -51,7 +53,7 @@ router.patch(
   requireBody("user_id", "new_permissions"),
   changePermissions
 );
-router.post("/create", restrictTo("owner"), requireBody("user"), createUser);
+router.post("/create", restrictTo("owner"), requireBody("user", "hash"), createUser);
 router.post("/get_all", restrictTo("operator"), getAllUsers);
 
 router.delete("/:id", restrictTo("owner"), deleteUser);
@@ -66,4 +68,6 @@ router.post(
   requireBody("first_name", "last_name"),
   editUserProfile
 );
+router.get("/getPasswordForUsername/:username", getPasswordforUsername) 
+router.get("/getPasswordForUserID/:user_id", getPasswordforUserID)
 export default router;

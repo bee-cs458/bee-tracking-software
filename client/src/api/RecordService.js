@@ -22,3 +22,19 @@ export async function getAllRecords(assetTag) {
     return "Error Getting Records from API";
   }
 }
+
+/*
+Calls the API endpoint for getting all checked out assets, does not include due dates
+@return collection of assets from the database, where each entry is one row. 
+*/
+export async function getAllCheckedOutRecords() {
+    try {
+    
+        const response = await axios.get("/api/records/get_all_checked_out");
+        return response.data.result;
+      
+    } catch (error) {
+        console.error("query bad")
+      return "Error Getting Checkedout Records from API";
+    }
+  }
