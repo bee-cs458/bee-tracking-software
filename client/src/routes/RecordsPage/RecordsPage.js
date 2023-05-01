@@ -15,6 +15,7 @@ export default function RecordsPage(props) {
   const [inputVal, setInputVal] = useState("");
   const [startDate, setstartDate] = useState("");
   const [endDate, setendDate] = useState("");
+  
 
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {
