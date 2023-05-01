@@ -120,7 +120,7 @@ export default function ProfilePage() {
           <Modal.Title>Change Password</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ChangePassword></ChangePassword>
+          <ChangePassword user={user}></ChangePassword>
         </Modal.Body>
       </Modal>
     </div>

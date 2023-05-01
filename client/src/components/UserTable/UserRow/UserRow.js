@@ -69,6 +69,7 @@ function UserRow(props) {
     setAlertMessage2("User has been deleted");
     // hides buttons from owner once the user has been deleted
     setIsOpen(!isOpen);
+    
   }
 
   useEffect(() => {
@@ -77,6 +78,7 @@ function UserRow(props) {
       setLastUserPromoted({});
       user.advanced = !user.advanced;
     }
+    
   }, [lastUserPromoted, setLastUserPromoted, user]);
 
   async function handlePermissionChange(value) {
