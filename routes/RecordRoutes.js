@@ -4,8 +4,8 @@ import express from 'express';
 
 const router = express.Router();
 
-router.get("/get_all", restrictTo("operator"), getAllRecords);
-router.get("/get_all_checked_out", restrictTo("operator"), getAllCheckedOutRecords);
+router.get("/get_all", restrictTo("student"), getAllRecords);
+router.get("/get_all_checked_out", restrictTo("student"), getAllCheckedOutRecords);
 
 
 export default router;
