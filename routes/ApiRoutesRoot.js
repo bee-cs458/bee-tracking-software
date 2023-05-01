@@ -22,7 +22,7 @@ router.use("/categories", categoryRoutes);
 router.use("/user", userRoutes);
 router.use("/checkin", checkInRoutes);
 router.use("/checkout", restrictTo("operator"), checkoutRoutes);
-router.use("/records", restrictTo("operator"), recordRoutes);
+router.use("/records", restrictTo("student"), recordRoutes);
 router.use("/login", loginRoutes);
 
 // catch-all for /api/something-not-valid

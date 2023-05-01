@@ -9,6 +9,9 @@ export const getAllRecords = async (req, res, next) => {
     statement = `SELECT * FROM checkoutrecord WHERE checkoutrecord.asset_tag='${req.query.assetTag}' ORDER BY record_id DESC;`;
   }
 
+  if (req.query.student_id){
+    statement = `SELECT * FROM checkoutrecord WHERE checkoutrecord.student_id='${req.query.student_id}'ORDER BY record_id DESC;`;
+  }
   await query(statement).then(
     (result) => res.send({ result }),
     (reason) => {
