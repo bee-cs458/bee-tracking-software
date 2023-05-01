@@ -35,7 +35,7 @@ function NavBar(props) {
   const user = useAuthenticatedUser();
 
   const getInfo = async () => {
-    console.log(user.permissions);
+    //Checks if user has the correct permissions to access the records pull
     if (user.permissions >= 1) {
       let allRecords = await getAllCheckedOutRecords();
       allRecords = allRecords.filter((record) => record.in_date === null);
@@ -268,6 +268,7 @@ function NavBar(props) {
           </OverlayTrigger>
         </ul>
       </div>
+      {/* Overdue Items Alert */}
       <Row className="m-">
         <AccessControl allowedRank={Ranks.OPERATOR}>
           {overdueItems > 0 && (
