@@ -19,10 +19,9 @@ import doubleArrow from "../../assets/double-arrow.png";
 import "./NavBar.css";
 import ConditionalAlert from "../CheckInUtilities/ConditionalAlert";
 import Row from "react-bootstrap/esm/Row";
-import { Link, Navigate } from 'react-router-dom';
-import { getAllCheckedOutRecords, getAllRecords} from "../../api/RecordService";
+import { Link } from "react-router-dom";
+import { getAllCheckedOutRecords } from "../../api/RecordService";
 import { useAuthenticatedUser } from "../Context/UserContext";
-import { useNavigate } from 'react-router-dom';
 
 function NavBar(props) {
   const [show, setShow] = useState(false);
@@ -30,38 +29,24 @@ function NavBar(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setShow(true);
-   sessionStorage.clear();
+    sessionStorage.clear();
   }; //clear session storage to wipe the current Cart on user change
   const [overdueItems, setOverdueItems] = useState(0); // State for storing the number of overdue items
   const user = useAuthenticatedUser();
-  
 
   const getInfo = async () => {
-    
     console.log(user.permissions);
     if (user.permissions >= 1) {
-    let allRecords = await getAllCheckedOutRecords();
-    allRecords = allRecords.filter((record) => record.in_date === null);
-    setOverdueItems(allRecords.length); // Update the state with the number of overdue items
-  }
-  }
+      let allRecords = await getAllCheckedOutRecords();
+      allRecords = allRecords.filter((record) => record.in_date === null);
+      setOverdueItems(allRecords.length); // Update the state with the number of overdue items
+    }
+  };
 
   useEffect(() => {
     // Call getInfo() function when component mounts
     getInfo();
-
-  }, []);
-
-const navigate = useNavigate();
-
-  function handleClick() {
-    props.onLinkClick();
-    navigate("/Records", {state: {fromNavBar: true}});
-  }
-
-  function handleClick1() {
-    props.switchTheme();
-  }
+  }, [user]);
 
   function handleCollapse() {
     //the collapse Boolean changes various display elements
@@ -241,7 +226,6 @@ const navigate = useNavigate();
                   width="20"
                   height="18"
                 />
-                
               </Link>
             </li>
           </OverlayTrigger>
@@ -268,7 +252,6 @@ const navigate = useNavigate();
                 <Logout callback={handleClose} />
               </AccessControl>
             </Modal.Body>
-
           </Modal>
 
           {/* Weather Widget */}
@@ -288,12 +271,17 @@ const navigate = useNavigate();
       <Row className="m-">
         <AccessControl allowedRank={Ranks.OPERATOR}>
           {overdueItems > 0 && (
-            <Link style={{textDecoration: 'none'}}
-              // to="/Records"
-              onClick={handleClick}
-              // state={{ fromNavBar: true }}
-              >
-              <ConditionalAlert type={0} message={`${overdueItems} ` + (!collapse ? "Overdue Items" : "")} />
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/Records"
+              state={{ fromNavBar: true }}
+            >
+              <ConditionalAlert
+                type={0}
+                message={
+                  `${overdueItems} ` + (!collapse ? "Overdue Items" : "")
+                }
+              />
             </Link>
           )}
         </AccessControl>

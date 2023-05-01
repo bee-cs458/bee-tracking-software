@@ -1,21 +1,19 @@
 import RecordTable from "../../components/RecordsUtils/RecordTable.js";
-import CheckedOut from "../../components/CheckedOutTable/CheckedOutSwitch/CheckedOutRecords.js";
 import "./RecordsPage.css";
 import React, { useState } from "react";
 import { Container, Col, Row, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import CheckoutRecordCSV from "../../components/ExportCSV/ExportRecordsCSV.js";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 import { AccessControl } from "../../components/AccessControl/AccessControl.js";
-import { Ranks } from "../../constants/PermissionRanks.js"; 
+import { Ranks } from "../../constants/PermissionRanks.js";
 export default function RecordsPage(props) {
   const [checked, setChecked] = useState(useLocation().state.fromNavBar);
   const [selectList, setSelectList] = useState([]);
   const [inputVal, setInputVal] = useState("");
   const [startDate, setstartDate] = useState("");
   const [endDate, setendDate] = useState("");
-  
 
   //Handling user input when user hits 'Enter'
   function handleKeyPress(e) {
