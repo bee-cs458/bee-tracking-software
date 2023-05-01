@@ -120,6 +120,7 @@ export default function ProfilePage() {
               </div>
               <div className="seperator" />     
               <div style={{height: "40vh"}}>
+                {/* Shows a table of the logged in student's checkout records. */}
                 <h3>Checkout History</h3>
                 <div className="seperator" />
                 <div className="profile-table">
