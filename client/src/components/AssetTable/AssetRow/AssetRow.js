@@ -12,10 +12,11 @@ import crossedOut from "../../../assets/crossed-out.png";
 import {
   faCircleCheck,
   faCircleXmark,
+  faPencil,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AccessControl } from "../../AccessControl/AccessControl";
 
 function AssetRow(props) {
@@ -35,9 +36,9 @@ function AssetRow(props) {
   const [alertMessage, setAlertMessage] = useState(null);
   const [alertType2, setAlertType2] = useState(null);
   const [alertMessage2, setAlertMessage2] = useState(null);
-  // Asset availability
-  const [available, setAvailable] = useState(
-    asset.checked_out || !asset.operational
+  // Asset available
+  const [available, setAvailability] = useState(
+    !asset.checked_out && asset.operational
   );
   const handleEditAssetTrue = () => setEditAsset(true);
   const handleEditAssetFalse = () => setEditAsset(false);
@@ -123,7 +124,7 @@ function AssetRow(props) {
 
   // Refreshes the available state when the checked_out or operational states change
   useEffect(() => {
-    setAvailable(asset.checked_out || !asset.operational);
+    setAvailability(!asset.checked_out && asset.operational);
   }, [asset.checked_out, asset.operational]);
 
   return (
@@ -132,19 +133,21 @@ function AssetRow(props) {
         <td>
           {/*The button below creates a shopping cart icon next to the asset that changes on a successful add.*/}
           <Button
-            variant={available ? "danger" : selected ? "success" : "secondary"}
+            variant={
+              !available ? "danger" : selected ? "success" : "secondary"
+            }
             onClick={handleSelect}
-            disabled={available ? true : false}
+            disabled={available ? false : true}
           >
             <img
               alt={
-                available
+                !available
                   ? "Unavailable"
                   : selected
                   ? "Added to Cart"
                   : "Add to Cart"
               }
-              src={available ? crossedOut : selected ? checkMark : cartIcon}
+              src={!available ? crossedOut : selected ? checkMark : cartIcon}
               width="25"
               height="25"
             />
@@ -161,7 +164,7 @@ function AssetRow(props) {
       <td>{formattedDate}</td>
       <td>{categoryLabel}</td>
       <td>
-        {available ? (
+        {!available ? (
           <FontAwesomeIcon icon={faCircleXmark} className={"icon red"} />
         ) : (
           <FontAwesomeIcon icon={faCircleCheck} className={"icon green"} />
