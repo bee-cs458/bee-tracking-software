@@ -102,7 +102,10 @@ export default function AssetTable(props) {
                     ))
                 : props.filterByCheckedOut //if filter by checked out
                 ? assets
-                    .filter((asset) => asset.checked_out === 0)
+                    .filter(
+                      (asset) =>
+                        asset.checked_out === 0 && asset.operational === 1
+                    )
                     .map((asset) => (
                       <AssetRow
                         key={asset.asset_tag}
