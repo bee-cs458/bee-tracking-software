@@ -41,7 +41,7 @@ describe('get tests', () => {
 
     describe('getCheckedOutRecords tests', () => {
         it('Should return all checked out records', async () => {
-            axiots.get.mockResolvedValueOnce(response);
+            axios.get.mockResolvedValueOnce(response);
 
             Services.getAllCheckedOutRecords.then(data => expect(data).toEqual(records));
             expect(axios.get).toHaveBeenCalledWith("/api/records/get_all_checked_out");
