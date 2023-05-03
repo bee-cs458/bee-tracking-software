@@ -18,6 +18,7 @@ function CreateUserForm(props) {
     password: "",
     permissions: -1,
     advanced: 0,
+    updatePass: 0
   });
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState("");
@@ -25,6 +26,9 @@ function CreateUserForm(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     //hashes the entered password
+    if(userData.permissions >= 1){
+      setUserData({ ...userData, updatePass: 1 })
+    }
     bcrypt.hash(userData.password, saltRounds).then(async (hash) => {
       //sends the new user and the hash to the API
       await createNewUser(userData, hash).then((result) => {
@@ -70,6 +74,7 @@ function CreateUserForm(props) {
       password: "",
       permissions: -1,
       advanced: 0,
+      updatePass: 0
     });
   }
 

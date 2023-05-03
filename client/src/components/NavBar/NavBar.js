@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert';
@@ -19,8 +19,10 @@ import logOut from "../../assets/logOut.png";
 import signIn from "../../assets/signIn.png";
 import doubleArrow from "../../assets/double-arrow.png";
 import "./NavBar.css";
+import { useAuthenticatedUser } from "../Context/UserContext";
 
 function NavBar(props) {
+  const user = useAuthenticatedUser();
   const [show, setShow] = useState(false);
   const { collapse, setCollapse } = props;
   const handleClose = () => setShow(false);
@@ -28,6 +30,10 @@ function NavBar(props) {
     setShow(true);
     sessionStorage.clear();
   }; //clear session storage to wipe the current Cart on user change
+
+useEffect(() => {
+
+}, [user])
 
   function handleClick() {
     props.switchTheme();

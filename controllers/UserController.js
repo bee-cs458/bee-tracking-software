@@ -8,6 +8,7 @@ import {
 
 export const updateUserPassword = async (req, res, next) => {
   const { newPassword } = req.body;
+  req.session.passport.user.updatePass= '0';
   // query to update user based on a matching id and password
   await query(
     `UPDATE user SET \`user\`.\`password\`=?, \`user\`.\`updatePass\`=0
@@ -350,7 +351,7 @@ export const createUser = async (req, res, next) => {
     // create user in the db
     //console.log(JSON.stringify(newUser));
     await query(
-      `INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${hash}', ${newUser.permissions}, ${newUser.advanced}, NULL, 0);`
+      `INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${hash}', ${newUser.permissions}, ${newUser.advanced}, NULL, ${newUser.updatePass});`
     ).then(
       (result) => {
         result.status = 202;
