@@ -69,7 +69,7 @@ function Login(props) {
       ></input>
       <br></br>
       Password:<br></br>
-      <input id="password" type="text" onKeyDown={handleKeypress}></input>
+      <input id="password" type="password" onKeyDown={handleKeypress}></input>
       <div>
         <Button
           variant="primary"

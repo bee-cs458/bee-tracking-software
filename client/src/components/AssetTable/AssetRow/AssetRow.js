@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Modal from "react-bootstrap/Modal";
 import EditAsset from "../../EditAsset/EditAsset";
 import Row from "react-bootstrap/esm/Row";
 import ConditionalAlert from "../../CheckInUtilities/ConditionalAlert";
-import { AccessControl } from "../../AccessControl/AccessControl";
 import { deleteAsset } from "../../../api/AssetService";
 import { Ranks } from "../../../constants/PermissionRanks";
 import cartIcon from "../../../assets/shopping-cart.png";
@@ -18,8 +17,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AccessControl } from "../../AccessControl/AccessControl";
 
 function AssetRow(props) {
+  const csvLinkEl = useRef(null);
   const cats = props.categoryList;
   const { selectList, setSelectList } = props;
   const [selected, setSelected] = useState(false);
@@ -44,6 +45,7 @@ function AssetRow(props) {
   const handleEditAssetFalse = () => setEditAsset(false);
   const handleDeleteAssetTrue = () => setDeleteAsset(true);
   const handleDeleteAssetFalse = () => setDeleteAsset(false);
+
   useEffect(() => {
     setAlertMessage2(
       "Deleting this asset cannot be undone. Are you sure you want to go through with deleting it?"
@@ -77,6 +79,7 @@ function AssetRow(props) {
   async function handleSelect() {
     //on click, table rows should highlight and add themselves to the selected asset list
     if (asset.checked_out) {
+      
       return;
     }
     if (!selected) {
@@ -86,11 +89,11 @@ function AssetRow(props) {
     } else {
       //rows that are already selected should remove themselves from the selected list
       let tempList = selectList.slice(); //creates a temp list that isn't a state
-      selectList.forEach((tag) => {
-        if (asset.asset_tag === tag) {
+      selectList.forEach((asset_tag) => {
+        if (asset.asset_tag === asset_tag) {
           //check if the current asset is the passes in asset
           tempList.shift(); //removes the first element in the list which is the asset with the tag that was passed in
-          sessionStorage.removeItem(tag);
+          sessionStorage.removeItem(asset_tag);
         } else tempList.push(tempList.shift()); //shifts the list so that the first element is now at the back
       });
       setSelectList(tempList);
@@ -206,6 +209,7 @@ function AssetRow(props) {
           ></EditAsset>
         </Modal.Body>
       </Modal>
+
       <Modal
         backdrop="static"
         show={deleteAssetVar}

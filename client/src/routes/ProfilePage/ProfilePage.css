@@ -36,3 +36,8 @@
 .profileInfo {
   font-size: x-large;
 }
+
+.profile-table {
+  height: 30vh;
+  overflow-y: scroll;
+}

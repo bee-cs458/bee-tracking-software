@@ -10,11 +10,11 @@ beforeEach(() => {
   axios.get.mockReset();
 });
 
-// setup for mocking return values later
 
 describe("get tests", () => {
   describe("getAllUsers tests", () => {
     it("should return all users", async () => {
+      //setup for mocking
       const users = [
         [
           { user_id: 1, name: "Colby", username: "cheese"},
@@ -42,6 +42,7 @@ describe("get tests", () => {
 
   describe("getPasswordForUsername tests", () => {
     it("should return the hashes for the user with username cheese", async () => {
+      //set up for maocking
       const password = [{password: "cheese"}];
       const result = { result: password };
       const response = { data: result, status: 0 };
@@ -60,6 +61,7 @@ describe("get tests", () => {
 
   describe("getPasswordForUserID tests", () => {
     it("should return the hashes for the user with user_id 1", async () => {
+      //set up for mocking
       const password = [{password: "cheese"}];
       const result = { result: password };
       const response = { data: result, status: 0 };

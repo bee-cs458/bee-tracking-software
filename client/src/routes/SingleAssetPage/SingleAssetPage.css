@@ -35,3 +35,7 @@ section {
 th {
     font-size: 1.25rem;
 }
+
+h2 {
+    padding-left: 10px;
+}

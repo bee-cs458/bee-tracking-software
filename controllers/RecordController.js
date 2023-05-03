@@ -9,6 +9,9 @@ export const getAllRecords = async (req, res, next) => {
     statement = `SELECT * FROM checkoutrecord WHERE checkoutrecord.asset_tag='${req.query.assetTag}' ORDER BY record_id DESC;`;
   }
 
+  if (req.query.student_id){
+    statement = `SELECT * FROM checkoutrecord WHERE checkoutrecord.student_id='${req.query.student_id}'ORDER BY record_id DESC;`;
+  }
   await query(statement).then(
     (result) => res.send({ result }),
     (reason) => {
@@ -20,7 +23,7 @@ export const getAllRecords = async (req, res, next) => {
 
 export const getAllCheckedOutRecords = async (req, res, next) => {
   await query(
-    `SELECT * FROM checkoutrecord ORDER BY record_id DESC WHERE in_date = null;`
+    `SELECT * FROM checkoutrecord  WHERE in_date IS null ORDER BY record_id DESC;`
   ).then(
     (result) => res.send({ result }),
     (reason) => {

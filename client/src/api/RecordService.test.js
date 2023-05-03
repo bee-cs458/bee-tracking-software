@@ -37,6 +37,31 @@ describe('get tests', () => {
                 throw new Error();});
             expect(await Services.getAllRecords()).toBe("Error Getting Records from API");
         })
+    });
+
+    describe('getAllRecordsID tests', () => {
+        it('should return all records', async () => {
+            // replace normal get response with test values
+            axios.get.mockResolvedValueOnce(response);
+            // tests
+            Services.getAllRecordsID().then(data => expect(data).toEqual(records));
+            expect(axios.get).toHaveBeenCalledWith("/api/records/get_all");
+        })
+
+        it('should return an error', async () => {
+            axios.get.mockImplementation(() => {
+                throw new Error();});
+            expect(await Services.getAllRecordsID()).toBe("Error Getting Records from API");
+        })
 
     });
+    describe('getCheckedOutRecords tests', () => {
+        it('Should return all checked out records', async () => {
+            axios.get.mockResolvedValueOnce(response);
+
+            Services.getAllCheckedOutRecords().then(data => expect(data).toEqual(records));
+            expect(axios.get).toHaveBeenCalledWith("/api/records/get_all_checked_out");
+            
+        })
+    })
 });
