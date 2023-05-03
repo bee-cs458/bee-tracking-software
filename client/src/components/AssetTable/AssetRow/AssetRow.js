@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Modal from "react-bootstrap/Modal";
 import EditAsset from "../../EditAsset/EditAsset";
@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AccessControl } from "../../AccessControl/AccessControl";
 
 function AssetRow(props) {
+  const csvLinkEl = useRef(null);
   const cats = props.categoryList;
   const { selectList, setSelectList } = props;
   const [selected, setSelected] = useState(false);
@@ -44,6 +45,7 @@ function AssetRow(props) {
   const handleEditAssetFalse = () => setEditAsset(false);
   const handleDeleteAssetTrue = () => setDeleteAsset(true);
   const handleDeleteAssetFalse = () => setDeleteAsset(false);
+
   useEffect(() => {
     setAlertMessage2(
       "Deleting this asset cannot be undone. Are you sure you want to go through with deleting it?"
@@ -207,6 +209,7 @@ function AssetRow(props) {
           ></EditAsset>
         </Modal.Body>
       </Modal>
+
       <Modal
         backdrop="static"
         show={deleteAssetVar}
