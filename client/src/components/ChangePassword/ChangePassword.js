@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+
 import { getPassowrdForUserID, updatePassword } from "../../api/UserService.js";
 import "./ChangePassword.css";
 import { passwordStrength } from "check-password-strength";
@@ -127,6 +128,13 @@ export default function ChangePassword(props) {
                 setAlert(0, "Failed to update password, user did not exist");
                 setRequirements(""); // makes password alert disapear
               } else {
+              // UPDATE COOKIES HERE TO REGAIN CONTROLS
+              //   req.logIn(user, function(error) {
+              //     if (!error) {
+              //        console.log('succcessfully updated user');
+              //     }
+              // });
+              // res.end(); // important to update session
                 clearFields();
                 setAlert(3, "Password has been updated!");
                 setRequirements(""); // makes password alert disapear

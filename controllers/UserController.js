@@ -351,7 +351,7 @@ export const createUser = async (req, res, next) => {
     // create user in the db
     //console.log(JSON.stringify(newUser));
     await query(
-      `INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${hash}', ${newUser.permissions}, ${newUser.advanced}, NULL, ${newUser.updatePass});`
+      `INSERT INTO user VALUES(${newUser.user_id}, '${newUser.first_name}', '${newUser.last_name}', 0, '${newUser.username}', '${hash}', ${newUser.permissions}, ${newUser.advanced}, NULL, ${(newUser.permissions>0)? 1: 0});`
     ).then(
       (result) => {
         result.status = 202;

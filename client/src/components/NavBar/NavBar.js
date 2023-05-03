@@ -290,7 +290,7 @@ function NavBar(props) {
       </div>
       {/* Overdue Items Alert */}
       <Row className="m-">
-        <AccessControl allowedRank={Ranks.OPERATOR}>
+        <AccessControl allowedRank={Ranks.OPERATOR} passwordReset={true}>
           {overdueItems > 0 && (
             <OverlayTrigger placement="right" overlay={tooltip("Overdue Items")}> 
 
